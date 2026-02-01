@@ -1423,7 +1423,8 @@
                 // Send to Google Sheets
                 const GOOGLE_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbydWco4Eva3i4fceRUIMPUaW918DHETJaz5N-aAeXywgW_D1sLA98qEW6CEhgtZVAd0/exec';
                 
-                const response = await fetch(GOOGLE_SCRIPT_URL, {
+                // Send with no-cors (can't read response, but that's okay)
+                fetch(GOOGLE_SCRIPT_URL, {
                     method: 'POST',
                     mode: 'no-cors',
                     headers: {
@@ -1432,8 +1433,8 @@
                     body: JSON.stringify(formData)
                 });
                 
-                // Show thank you message
-                alert('Thank you! Check your email for your detailed results.');
+                // Show thank you message immediately (no-cors means we can't wait for response)
+                alert('Thank you! Your results have been submitted. Check your email for detailed results.');
                 
                 // Clear saved answers
                 localStorage.removeItem('retirement-assessment');
