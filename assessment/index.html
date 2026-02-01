@@ -973,6 +973,9 @@
             
             updateProgress();
             updateNavigation();
+            
+            // Scroll to top of page
+            window.scrollTo({ top: 0, behavior: 'smooth' });
         }
 
         function selectAnswer(value) {
@@ -983,23 +986,22 @@
             localStorage.setItem('retirement-assessment', JSON.stringify(answers));
         }
 
-       function nextQuestion() {
-    if (currentQuestion < questions.length - 1) {
-        currentQuestion++;
-        renderQuestion();
-        window.scrollTo(0, 0); // ← ADD THIS LINE
-    } else {
-        showResults();
-    }
-}
+        function nextQuestion() {
+            if (currentQuestion < questions.length - 1) {
+                currentQuestion++;
+                renderQuestion();
+            } else {
+                showResults();
+            }
+        }
 
-function previousQuestion() {
-    if (currentQuestion > 0) {
-        currentQuestion--;
-        renderQuestion();
-        window.scrollTo(0, 0); // ← ADD THIS LINE
-    }
-}
+        function previousQuestion() {
+            if (currentQuestion > 0) {
+                currentQuestion--;
+                renderQuestion();
+            }
+        }
+
         function updateProgress() {
             const progress = ((currentQuestion + 1) / questions.length * 100).toFixed(0);
             document.getElementById('progress-text').textContent = `Question ${currentQuestion + 1} of ${questions.length}`;
@@ -1018,10 +1020,226 @@ function previousQuestion() {
             }
         }
 
+        // Scoring logic inserted from scoring-logic.js
+        
+        const SCORING_RULES = [
+    // Q0: Winter weather affects you
+    {
+        'A': { 'Stay at Home Explorer': 3, 'RV Life': 1, 'Sailing': 1 },
+        'B': { 'Stay at Home Explorer': 2 },
+        'C': { 'Snowbird': 5, 'Slow Travel': 2, 'Expat': 2 },
+        'D': { 'Snowbird': 7, 'Expat': 4, 'Slow Travel': 3, 'Cruise Ship': 2 }
+    },
+    // Q1: Where living in 5 years
+    {
+        'A': { 'Stay at Home Explorer': 6, 'Learning-Centered': 2 },
+        'B': { 'Snowbird': 7, 'Expat': 2 },
+        'C': { 'Expat': 6, 'Downsizing': 3 },
+        'D': { 'Slow Travel': 7, 'Adventure Travel': 3 },
+        'E': { 'RV Life': 6, 'Sailing': 6, 'Cruise Ship': 5 }
+    },
+    // Q2: Social life preferences
+    {
+        'A': { 'Stay at Home Explorer': 6, 'Learning-Centered': 2, 'Volunteering': 2 },
+        'B': { 'Snowbird': 7, 'Expat': 2 },
+        'C': { 'Slow Travel': 6, 'RV Life': 3, 'Sailing': 3, 'Adventure Travel': 3 },
+        'D': { 'Cruise Ship': 5, 'Learning-Centered': 3, 'Volunteering': 2 },
+        'E': { } // All lifestyles +1 - handle separately
+    },
+    // Q3: Daughter having baby
+    {
+        'A': { 'Stay at Home Explorer': 7, 'Downsizing': 2, 'Caregiver': 10 },
+        'B': { 'Snowbird': 5, 'Stay at Home Explorer': 3, 'Caregiver': 8 },
+        'C': { 'Snowbird': 2, 'Slow Travel': 2 },
+        'D': { 'Slow Travel': 4, 'Expat': 4, 'RV Life': 3, 'Sailing': 3 },
+        'E': { 'Caregiver': 15 } // Dominant factor
+    },
+    // Q4: Coffee shop in new town
+    {
+        'A': { 'Stay at Home Explorer': 5, 'Snowbird': 2 },
+        'B': { 'Stay at Home Explorer': 4, 'Learning-Centered': 2 },
+        'C': { 'Slow Travel': 5, 'RV Life': 3, 'Sailing': 3, 'Expat': 2 },
+        'D': { 'Slow Travel': 6, 'Adventure Travel': 4, 'Cultural Immersion': 3 }
+    },
+    // Q5: Who handles planning
+    {
+        'A': { 'Slow Travel': 5, 'RV Life': 3, 'Sailing': 4, 'Expat': 3, 'Semi-Retirement': 2 },
+        'B': { 'Snowbird': 3 },
+        'C': { }, // Partner handles - neutral for all
+        'D': { 'Stay at Home Explorer': 6, 'Cruise Ship': 4, 'Downsizing': 2 }
+    },
+    // Q6: Weird shower, confusing grocery
+    {
+        'A': { 'Slow Travel': 6, 'RV Life': 4, 'Sailing': 5, 'Adventure Travel': 5 },
+        'B': { 'Snowbird': 2, 'Expat': 2 },
+        'C': { 'Stay at Home Explorer': 3, 'Snowbird': 2, 'Cruise Ship': 2 },
+        'D': { 'Stay at Home Explorer': 5, 'Cruise Ship': 4 }
+    },
+    // Q7: HVAC bill, cost of living
+    {
+        'A': { 'Geoarbitrage': 10, 'Slow Travel': 5, 'Expat': 4, 'Downsizing': 5 },
+        'B': { 'Geoarbitrage': 5, 'Downsizing': 3, 'Slow Travel': 3 },
+        'C': { },
+        'D': { }
+    },
+    // Q8: Friend downsized to $800/month
+    {
+        'A': { 'Downsizing': 6, 'Geoarbitrage': 5, 'Tiny Home': 4 },
+        'B': { 'Downsizing': 4, 'Snowbird': 2, 'Expat': 2 },
+        'C': { 'Stay at Home Explorer': 4 },
+        'D': { 'Stay at Home Explorer': 3, 'Snowbird': 2 }
+    },
+    // Q9: $4500/month to $2500-3000/month
+    {
+        'A': { 'Geoarbitrage': 8, 'Expat': 6, 'Slow Travel': 4 },
+        'B': { 'Geoarbitrage': 4, 'Expat': 3, 'Downsizing': 3 },
+        'C': { 'Stay at Home Explorer': 3, 'Snowbird': 2 },
+        'D': { 'Stay at Home Explorer': 4 }
+    },
+    // Q10: Tuesday 10am, what's fulfilling
+    {
+        'A': { 'Stay at Home Explorer': 6, 'Volunteering': 5 },
+        'B': { 'Learning-Centered': 7, 'Cultural Immersion': 3 },
+        'C': { 'Slow Travel': 6, 'Adventure Travel': 3, 'Cultural Immersion': 3 },
+        'D': { 'Volunteering': 8, 'Expat': 4 },
+        'E': { 'Semi-Retirement': 8 },
+        'F': { 'Adventure Travel': 7, 'RV Life': 3, 'Stay at Home Explorer': 2 }
+    },
+    // Q11: Retired 2 years, structure
+    {
+        'A': { 'Stay at Home Explorer': 5, 'Learning-Centered': 3 },
+        'B': { 'Snowbird': 6, 'Semi-Retirement': 2 },
+        'C': { 'Slow Travel': 6, 'RV Life': 5, 'Sailing': 5, 'Adventure Travel': 3 },
+        'D': { 'Cruise Ship': 7, 'Learning-Centered': 3 }
+    },
+    // Q12: Healthcare needs
+    {
+        'A': { 'Stay at Home Explorer': 6, 'Caregiver': 3 },
+        'B': { 'Stay at Home Explorer': 3, 'Snowbird': 3, 'Learning-Centered': 2 },
+        'C': { 'Snowbird': 2, 'Slow Travel': 2, 'Expat': 2 },
+        'D': { 'Slow Travel': 2, 'Expat': 2, 'RV Life': 2, 'Sailing': 2 }
+    },
+    // Q13: Mexico hospital scenario
+    {
+        'A': { 'Stay at Home Explorer': 6 },
+        'B': { 'Snowbird': 4, 'Slow Travel': 2, 'Expat': 2 },
+        'C': { 'Slow Travel': 5, 'Expat': 4, 'RV Life': 3 },
+        'D': { 'Slow Travel': 5, 'Expat': 5, 'Adventure Travel': 2 }
+    },
+    // Q14: Garage full of stuff
+    {
+        'A': { 'Stay at Home Explorer': 5, 'Snowbird': 2 },
+        'B': { },
+        'C': { 'Downsizing': 6, 'Slow Travel': 3, 'Tiny Home': 5 },
+        'D': { 'Slow Travel': 5, 'Tiny Home': 5, 'RV Life': 4, 'Sailing': 4 }
+    },
+    // Q15: Carry-on and backpack for a year
+    {
+        'A': { 'Stay at Home Explorer': 6, 'Snowbird': 1 },
+        'B': { 'Snowbird': 3, 'Stay at Home Explorer': 2 },
+        'C': { 'Slow Travel': 4, 'RV Life': 2, 'Expat': 2 },
+        'D': { 'Slow Travel': 7, 'Tiny Home': 6, 'RV Life': 4, 'Sailing': 5 }
+    },
+    // Q16: Four bedroom house, two unused
+    {
+        'A': { 'Stay at Home Explorer': 5, 'Snowbird': 2 },
+        'B': { 'Downsizing': 4, 'Snowbird': 2 },
+        'C': { 'Downsizing': 6, 'Expat': 2 },
+        'D': { 'Downsizing': 7, 'Tiny Home': 6 }
+    },
+    // Q17: Month-long trip planning
+    {
+        'A': { 'Stay at Home Explorer': 6, 'Cruise Ship': 2 },
+        'B': { 'Snowbird': 5, 'Stay at Home Explorer': 2 },
+        'C': { 'Slow Travel': 7, 'Expat': 4, 'RV Life': 4 },
+        'D': { 'Adventure Travel': 7, 'Cruise Ship': 4, 'RV Life': 3 }
+    },
+    // Q18: Former colleagues in meeting
+    {
+        'A': { 'Stay at Home Explorer': 2, 'Cruise Ship': 2, 'RV Life': 2 },
+        'B': { 'Semi-Retirement': 6, 'Learning-Centered': 3 },
+        'C': { 'Volunteering': 4, 'Stay at Home Explorer': 3 },
+        'D': { 'Semi-Retirement': 8, 'Slow Travel': 2 }
+    },
+    // Q19: "What do you do?"
+    {
+        'A': { 'Semi-Retirement': 7, 'Learning-Centered': 2 },
+        'B': { 'Stay at Home Explorer': 6, 'Volunteering': 5 },
+        'C': { 'Slow Travel': 6, 'Adventure Travel': 5, 'RV Life': 3 },
+        'D': { 'Caregiver': 10, 'Stay at Home Explorer': 3 },
+        'E': { }
+    },
+    // Q20: Waking up where
+    {
+        'A': { 'Stay at Home Explorer': 7 },
+        'B': { 'Downsizing': 7, 'Stay at Home Explorer': 3 },
+        'C': { 'Snowbird': 8, 'Expat': 2 },
+        'D': { 'Slow Travel': 8, 'Adventure Travel': 4 },
+        'E': { 'RV Life': 8, 'Sailing': 8 },
+        'F': { 'Cruise Ship': 7 }
+    },
+    // Q21: House-hunting description
+    {
+        'A': { 'Stay at Home Explorer': 6 },
+        'B': { 'Downsizing': 7 },
+        'C': { 'Snowbird': 7 },
+        'D': { 'Slow Travel': 7, 'Expat': 5 },
+        'E': { 'RV Life': 8 },
+        'F': { 'Sailing': 8 }
+    },
+    // Q22: Friend bought Arizona place
+    {
+        'A': { 'Stay at Home Explorer': 6 },
+        'B': { 'Snowbird': 8 },
+        'C': { 'Slow Travel': 6, 'RV Life': 3 },
+        'D': { 'Expat': 7 },
+        'E': { 'RV Life': 7, 'Sailing': 4 }
+    },
+    // Q23: Sailboat video on YouTube
+    {
+        'A': { 'Stay at Home Explorer': 4, 'Downsizing': 2 },
+        'B': { },
+        'C': { 'Slow Travel': 3, 'RV Life': 3, 'Sailing': 2, 'Adventure Travel': 3 },
+        'D': { 'Sailing': 8, 'RV Life': 4 }
+    },
+    // Q24: If money/family equal
+    {
+        'A': { 'Stay at Home Explorer': 8, 'Volunteering': 4, 'Learning-Centered': 3 },
+        'B': { 'Snowbird': 8, 'Expat': 3 },
+        'C': { 'Expat': 7, 'Cultural Immersion': 7, 'Slow Travel': 5 },
+        'D': { 'Adventure Travel': 8, 'Slow Travel': 6, 'RV Life': 4 },
+        'E': { 'Slow Travel': 7, 'RV Life': 6, 'Sailing': 6 },
+        'F': { 'Cruise Ship': 8, 'Adventure Travel': 3 }
+    }
+];
+        
+        const MAX_SCORES = {
+    'Stay at Home Explorer': 140,
+    'Snowbird': 135,
+    'Slow Travel': 155,
+    'RV Life': 130,
+    'Sailing': 115,
+    'Cruise Ship': 110,
+    'Downsizing': 100,
+    'Tiny Home': 90,
+    'Expat': 90,
+    'Semi-Retirement': 75,
+    'Learning-Centered': 65,
+    'Volunteering': 60,
+    'Cultural Immersion': 70,
+    'Adventure Travel': 90,
+    'Geoarbitrage': 60,
+    'Caregiver': 70
+};
+        
+        const LIFESTYLE_CATEGORIES = {
+    primary: ['Stay at Home Explorer', 'Snowbird', 'Slow Travel', 'RV Life', 'Sailing', 'Cruise Ship'],
+    housing: ['Downsizing', 'Tiny Home'],
+    lenses: ['Expat', 'Geoarbitrage', 'Cultural Immersion', 'Semi-Retirement', 'Learning-Centered', 'Volunteering', 'Adventure Travel'],
+    special: ['Caregiver']
+};
+        
         function calculateScores() {
-            // This will implement the full scoring logic from the framework
-            // For now, returning placeholder data
-            
             const scores = {
                 'Stay at Home Explorer': 0,
                 'Snowbird': 0,
@@ -1041,8 +1259,24 @@ function previousQuestion() {
                 'Caregiver': 0
             };
             
-            // TODO: Implement actual scoring based on answers
-            // This is where we'll apply the scoring matrix from the framework
+            // Apply scoring rules for each answer
+            Object.keys(answers).forEach(qIndex => {
+                const answerValue = answers[qIndex];
+                const rules = SCORING_RULES[qIndex];
+                
+                if (rules && rules[answerValue]) {
+                    Object.entries(rules[answerValue]).forEach(([lifestyle, points]) => {
+                        scores[lifestyle] += points;
+                    });
+                }
+                
+                // Special case: Q2 answer E gives all lifestyles +1
+                if (qIndex == 2 && answerValue === 'E') {
+                    Object.keys(scores).forEach(lifestyle => {
+                        scores[lifestyle] += 1;
+                    });
+                }
+            });
             
             return scores;
         }
