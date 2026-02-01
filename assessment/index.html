@@ -1262,7 +1262,8 @@
             // Apply scoring rules for each answer
             Object.keys(answers).forEach(qIndex => {
                 const answerValue = answers[qIndex];
-                const rules = SCORING_RULES[qIndex];
+                const numIndex = parseInt(qIndex); // Convert string to number
+                const rules = SCORING_RULES[numIndex];
                 
                 if (rules && rules[answerValue]) {
                     Object.entries(rules[answerValue]).forEach(([lifestyle, points]) => {
@@ -1271,7 +1272,7 @@
                 }
                 
                 // Special case: Q2 answer E gives all lifestyles +1
-                if (qIndex == 2 && answerValue === 'E') {
+                if (numIndex === 2 && answerValue === 'E') {
                     Object.keys(scores).forEach(lifestyle => {
                         scores[lifestyle] += 1;
                     });
@@ -1364,30 +1365,85 @@
             }
         }
 
-        function submitResults(event) {
+        function generateProfileSummary(answers) {
+            // TODO: Generate personalized profile based on answer patterns
+            return "Based on your responses, you value variety, cultural experiences, and staying mobile. This suggests you'd thrive in lifestyles that offer flexibility and regular change.";
+        }
+
+        async function submitResults(event) {
             event.preventDefault();
             
-            const formData = {
-                name: document.getElementById('user-name').value,
-                email: document.getElementById('user-email').value,
-                newsletter: document.getElementById('newsletter-opt-in').checked,
-                accuracy: document.querySelector('input[name="accuracy"]:checked')?.value,
-                feedback: {
-                    topDoesntFit: document.getElementById('feedback-top')?.checked,
-                    missingLifestyle: document.getElementById('feedback-missing')?.checked,
-                    combinationsWrong: document.getElementById('feedback-combinations')?.checked,
-                    other: document.getElementById('feedback-other')?.value
-                },
-                answers: answers,
-                scores: calculateScores(),
-                timestamp: new Date().toISOString()
-            };
+            const submitBtn = event.target.querySelector('button[type="submit"]');
+            const originalText = submitBtn.textContent;
+            submitBtn.textContent = 'Sending...';
+            submitBtn.disabled = true;
             
-            // TODO: Send to Google Sheets and Kit
-            console.log('Submitting:', formData);
-            
-            // Show thank you message
-            alert('Thank you! Check your email for your detailed results.');
+            try {
+                const scores = calculateScores();
+                
+                // Get primary match and alternatives
+                const sorted = Object.entries(scores)
+                    .sort((a, b) => b[1] - a[1])
+                    .filter(([_, score]) => score > 0);
+                
+                const primaryMatch = sorted[0] ? {
+                    lifestyle: sorted[0][0],
+                    score: sorted[0][1],
+                    percentage: Math.round((sorted[0][1] / MAX_SCORES[sorted[0][0]]) * 100)
+                } : null;
+                
+                const alternatives = sorted.slice(1, 4).map(([lifestyle, score]) => ({
+                    lifestyle,
+                    score,
+                    percentage: Math.round((score / MAX_SCORES[lifestyle]) * 100)
+                }));
+                
+                const formData = {
+                    name: document.getElementById('user-name').value,
+                    email: document.getElementById('user-email').value,
+                    newsletter: document.getElementById('newsletter-opt-in').checked,
+                    accuracy: document.querySelector('input[name="accuracy"]:checked')?.value,
+                    feedback: {
+                        topDoesntFit: document.getElementById('feedback-top')?.checked,
+                        missingLifestyle: document.getElementById('feedback-missing')?.checked,
+                        combinationsWrong: document.getElementById('feedback-combinations')?.checked,
+                        other: document.getElementById('feedback-other')?.value
+                    },
+                    answers: answers,
+                    scores: scores,
+                    primaryMatch: primaryMatch,
+                    alternatives: alternatives,
+                    modifiers: [],
+                    profileSummary: generateProfileSummary(answers),
+                    timestamp: new Date().toISOString()
+                };
+                
+                console.log('Submitting:', formData);
+                
+                // Send to Google Sheets
+                const GOOGLE_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbydWco4Eva3i4fceRUIMPUaW918DHETJaz5N-aAeXywgW_D1sLA98qEW6CEhgtZVAd0/exec';
+                
+                const response = await fetch(GOOGLE_SCRIPT_URL, {
+                    method: 'POST',
+                    mode: 'no-cors',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify(formData)
+                });
+                
+                // Show thank you message
+                alert('Thank you! Check your email for your detailed results.');
+                
+                // Clear saved answers
+                localStorage.removeItem('retirement-assessment');
+                
+            } catch (error) {
+                console.error('Submission error:', error);
+                alert('There was an error submitting your results. Please try again.');
+                submitBtn.textContent = originalText;
+                submitBtn.disabled = false;
+            }
         }
 
         // Load saved progress on page load
