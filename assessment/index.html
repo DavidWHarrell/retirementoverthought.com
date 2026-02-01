@@ -983,22 +983,23 @@
             localStorage.setItem('retirement-assessment', JSON.stringify(answers));
         }
 
-        function nextQuestion() {
-            if (currentQuestion < questions.length - 1) {
-                currentQuestion++;
-                renderQuestion();
-            } else {
-                showResults();
-            }
-        }
+       function nextQuestion() {
+    if (currentQuestion < questions.length - 1) {
+        currentQuestion++;
+        renderQuestion();
+        window.scrollTo(0, 0); // ← ADD THIS LINE
+    } else {
+        showResults();
+    }
+}
 
-        function previousQuestion() {
-            if (currentQuestion > 0) {
-                currentQuestion--;
-                renderQuestion();
-            }
-        }
-
+function previousQuestion() {
+    if (currentQuestion > 0) {
+        currentQuestion--;
+        renderQuestion();
+        window.scrollTo(0, 0); // ← ADD THIS LINE
+    }
+}
         function updateProgress() {
             const progress = ((currentQuestion + 1) / questions.length * 100).toFixed(0);
             document.getElementById('progress-text').textContent = `Question ${currentQuestion + 1} of ${questions.length}`;
