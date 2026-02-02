@@ -1,0 +1,646 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Retirement Lifestyle YouTube Channels | Retirement Overthought</title>
+    <meta name="description" content="Directory of the best YouTube channels for every retirement lifestyle - RV living, expat life, slow travel, cruising, and more.">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Crimson+Text:wght@400;600;700&family=Work+Sans:wght@400;500;600&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --color-primary: #0A5F7F;
+            --color-primary-dark: #084A61;
+            --color-primary-light: #E6F3F7;
+            --color-accent: #FFD700;
+            --color-accent-dark: #E6C200;
+            --color-text: #1a1a1a;
+            --color-text-light: #4a4a4a;
+            --color-white: #FFFFFF;
+            --color-bg: #f8fafb;
+            --color-border: #d4e3e8;
+            --font-serif: 'Crimson Text', Georgia, serif;
+            --font-sans: 'Work Sans', -apple-system, sans-serif;
+        }
+
+        body {
+            font-family: var(--font-sans);
+            background: var(--color-bg);
+            color: var(--color-text);
+            line-height: 1.6;
+        }
+
+        /* Header */
+        header {
+            background: linear-gradient(135deg, var(--color-primary) 0%, var(--color-primary-dark) 100%);
+            color: var(--color-white);
+            padding: 2rem;
+            text-align: center;
+        }
+
+        h1 {
+            font-family: var(--font-serif);
+            font-size: 2.5rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .subtitle {
+            font-size: 1.2rem;
+            color: var(--color-accent);
+        }
+
+        /* Container */
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 2rem;
+        }
+
+        /* Controls */
+        .controls {
+            background: var(--color-white);
+            padding: 1.5rem;
+            border-radius: 8px;
+            margin-bottom: 2rem;
+            display: flex;
+            gap: 1rem;
+            flex-wrap: wrap;
+            align-items: center;
+        }
+
+        .search-box {
+            flex: 1;
+            min-width: 250px;
+        }
+
+        .search-box input {
+            width: 100%;
+            padding: 0.75rem 1rem;
+            border: 2px solid var(--color-border);
+            border-radius: 6px;
+            font-size: 1rem;
+        }
+
+        .search-box input:focus {
+            outline: none;
+            border-color: var(--color-primary);
+        }
+
+        .filter-buttons {
+            display: flex;
+            gap: 0.5rem;
+            flex-wrap: wrap;
+        }
+
+        .filter-btn {
+            padding: 0.5rem 1rem;
+            background: var(--color-bg);
+            border: 2px solid var(--color-border);
+            border-radius: 6px;
+            cursor: pointer;
+            font-size: 0.9rem;
+            transition: all 0.2s;
+        }
+
+        .filter-btn:hover {
+            border-color: var(--color-primary);
+        }
+
+        .filter-btn.active {
+            background: var(--color-primary);
+            color: var(--color-white);
+            border-color: var(--color-primary);
+        }
+
+        /* Category Section */
+        .category {
+            margin-bottom: 3rem;
+        }
+
+        .category-header {
+            background: var(--color-primary-light);
+            padding: 1rem 1.5rem;
+            border-left: 4px solid var(--color-primary);
+            margin-bottom: 1.5rem;
+        }
+
+        .category-header h2 {
+            font-family: var(--font-serif);
+            color: var(--color-primary);
+            font-size: 1.75rem;
+            margin-bottom: 0.25rem;
+        }
+
+        .category-count {
+            color: var(--color-text-light);
+            font-size: 0.9rem;
+        }
+
+        /* Channel Grid */
+        .channel-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+            gap: 1.5rem;
+        }
+
+        .channel-card {
+            background: var(--color-white);
+            border: 2px solid var(--color-border);
+            border-radius: 8px;
+            padding: 1.5rem;
+            transition: all 0.2s;
+            text-decoration: none;
+            color: inherit;
+            display: block;
+        }
+
+        .channel-card:hover {
+            border-color: var(--color-primary);
+            box-shadow: 0 4px 12px rgba(10, 95, 127, 0.15);
+            transform: translateY(-2px);
+        }
+
+        .channel-icon {
+            font-size: 2rem;
+            margin-bottom: 0.75rem;
+        }
+
+        .channel-name {
+            font-family: var(--font-serif);
+            font-size: 1.25rem;
+            color: var(--color-primary);
+            margin-bottom: 0.5rem;
+        }
+
+        .channel-subs {
+            color: var(--color-text-light);
+            font-size: 0.85rem;
+            margin-bottom: 0.75rem;
+        }
+
+        .channel-description {
+            color: var(--color-text);
+            font-size: 0.95rem;
+            line-height: 1.5;
+            margin-bottom: 0.75rem;
+        }
+
+        .channel-why {
+            background: var(--color-primary-light);
+            padding: 0.75rem;
+            border-radius: 4px;
+            font-size: 0.9rem;
+            color: var(--color-text);
+            font-style: italic;
+        }
+
+        /* Suggest Channel */
+        .suggest-section {
+            background: var(--color-accent);
+            padding: 2rem;
+            border-radius: 8px;
+            text-align: center;
+            margin: 3rem 0;
+        }
+
+        .suggest-section h3 {
+            font-family: var(--font-serif);
+            color: var(--color-primary-dark);
+            font-size: 1.75rem;
+            margin-bottom: 1rem;
+        }
+
+        .suggest-section p {
+            color: var(--color-primary-dark);
+            margin-bottom: 1.5rem;
+        }
+
+        .suggest-btn {
+            display: inline-block;
+            padding: 1rem 2rem;
+            background: var(--color-primary);
+            color: var(--color-white);
+            text-decoration: none;
+            border-radius: 6px;
+            font-weight: 600;
+            transition: all 0.2s;
+        }
+
+        .suggest-btn:hover {
+            background: var(--color-primary-dark);
+        }
+
+        /* Footer Note */
+        .footer-note {
+            background: var(--color-bg);
+            padding: 1.5rem;
+            border-radius: 8px;
+            border-left: 4px solid var(--color-primary);
+            font-size: 0.9rem;
+            color: var(--color-text-light);
+            margin-top: 3rem;
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            h1 {
+                font-size: 2rem;
+            }
+
+            .channel-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>Retirement Lifestyle YouTube Channels</h1>
+        <p class="subtitle">Curated directory of the best channels for every lifestyle</p>
+    </header>
+
+    <div class="container">
+        <div class="controls">
+            <div class="search-box">
+                <input type="text" id="search" placeholder="Search channels..." onkeyup="filterChannels()">
+            </div>
+            <div class="filter-buttons">
+                <button class="filter-btn active" onclick="filterByCategory('all')">All</button>
+                <button class="filter-btn" onclick="filterByCategory('rv')">RV/Van Life</button>
+                <button class="filter-btn" onclick="filterByCategory('slow-travel')">Slow Travel</button>
+                <button class="filter-btn" onclick="filterByCategory('expat')">Expat Living</button>
+                <button class="filter-btn" onclick="filterByCategory('sailing')">Sailing</button>
+                <button class="filter-btn" onclick="filterByCategory('cruise')">Cruising</button>
+                <button class="filter-btn" onclick="filterByCategory('budget')">Budget/Geo</button>
+                <button class="filter-btn" onclick="filterByCategory('aspirational')">Aspirational</button>
+            </div>
+        </div>
+
+        <!-- RV/Van Life -->
+        <div class="category" data-category="rv">
+            <div class="category-header">
+                <h2>🚐 Full-Time RV & Van Life</h2>
+                <p class="category-count">Living and traveling in an RV or converted van</p>
+            </div>
+            <div class="channel-grid">
+                <!-- Channels will be populated by JavaScript -->
+            </div>
+        </div>
+
+        <!-- Slow Travel -->
+        <div class="category" data-category="slow-travel">
+            <div class="category-header">
+                <h2>🌍 Slow Travel</h2>
+                <p class="category-count">Extended stays (1+ months) in different locations</p>
+            </div>
+            <div class="channel-grid">
+                <!-- Channels will be populated by JavaScript -->
+            </div>
+        </div>
+
+        <!-- Expat Living -->
+        <div class="category" data-category="expat">
+            <div class="category-header">
+                <h2>🏝️ Expat Living</h2>
+                <p class="category-count">Settling abroad permanently or long-term</p>
+            </div>
+            <div class="channel-grid">
+                <!-- Channels will be populated by JavaScript -->
+            </div>
+        </div>
+
+        <!-- Sailing -->
+        <div class="category" data-category="sailing">
+            <div class="category-header">
+                <h2>⛵ Sailing & Liveaboard</h2>
+                <p class="category-count">Living on sailboats and cruising</p>
+            </div>
+            <div class="channel-grid">
+                <!-- Channels will be populated by JavaScript -->
+            </div>
+        </div>
+
+        <!-- Cruising -->
+        <div class="category" data-category="cruise">
+            <div class="category-header">
+                <h2>🚢 Cruise Ship Living</h2>
+                <p class="category-count">Extended cruising and ship life</p>
+            </div>
+            <div class="channel-grid">
+                <!-- Channels will be populated by JavaScript -->
+            </div>
+        </div>
+
+        <!-- Budget/Geoarbitrage -->
+        <div class="category" data-category="budget">
+            <div class="category-header">
+                <h2>💰 Budget & Geoarbitrage</h2>
+                <p class="category-count">Cost-focused retirement and location optimization</p>
+            </div>
+            <div class="channel-grid">
+                <!-- Channels will be populated by JavaScript -->
+            </div>
+        </div>
+
+        <!-- Aspirational/Luxury Travel -->
+        <div class="category" data-category="aspirational">
+            <div class="category-header">
+                <h2>✨ Aspirational & Luxury Travel</h2>
+                <p class="category-count">High-production travel content and luxury experiences</p>
+            </div>
+            <div class="channel-grid">
+                <!-- Channels will be populated by JavaScript -->
+            </div>
+        </div>
+
+        <!-- Suggest Channel Section -->
+        <div class="suggest-section">
+            <h3>Know a Great Channel?</h3>
+            <p>Help us build the most comprehensive directory of retirement lifestyle channels.</p>
+            <a href="/cdn-cgi/l/email-protection#523633243b36122037263b20373f373c263d243720263a3d27353a267c313d3f6d212730383731266f113a333c3c373e72012735353721263b3d3c" class="suggest-btn">Suggest a Channel</a>
+        </div>
+
+        <div class="footer-note">
+            <p><strong>Note:</strong> Channel subscriber counts are approximate and updated periodically. We are not affiliated with any of these channels - this is simply a curated directory to help you find quality content for your preferred retirement lifestyle. Channels are listed in no particular order within each category.</p>
+            <p style="margin-top: 0.75rem;"><strong>Last Updated:</strong> February 2026</p>
+        </div>
+    </div>
+
+    <script>
+        // Channel data - organized by category
+        const channels = {
+            'rv': [
+                {
+                    name: 'Gone with the Wynns',
+                    subs: '280K',
+                    url: 'https://www.youtube.com/@GoneWithTheWynns',
+                    description: 'RV living full-time since 2011, documenting life on the road across North America',
+                    why: 'Long-term veterans with honest content about the realities of RV life'
+                },
+                {
+                    name: 'Two Roaming Souls',
+                    subs: '100K',
+                    url: 'https://www.youtube.com/@tworoamingsouls',
+                    description: 'Full-time RV couple traveling North America',
+                    why: 'Realistic RV life content with detailed destination guides'
+                },
+                {
+                    name: 'Less Junk, More Journey',
+                    subs: '190K',
+                    url: 'https://www.youtube.com/@lessjunkmorejourney',
+                    description: 'Solo female full-time RV living, budget-conscious approach',
+                    why: 'Realistic budget breakdowns and solo perspective'
+                },
+                {
+                    name: 'Cheap RV Living',
+                    subs: '510K',
+                    url: 'https://www.youtube.com/@CheapRVliving',
+                    description: 'Budget van/RV living, minimalist approach, boondocking focus',
+                    why: 'Best resource for low-budget mobile living'
+                },
+                {
+                    name: 'Endless RVing',
+                    subs: '95K',
+                    url: 'https://www.youtube.com/@EndlessRVing',
+                    description: 'Full-time RV couple, detailed destination guides and workamping',
+                    why: 'Practical advice on making RV life financially sustainable'
+                }
+            ],
+            'slow-travel': [
+                {
+                    name: 'Grounded Life Travel',
+                    subs: '140K',
+                    url: 'https://www.youtube.com/@groundedlifetravel',
+                    description: 'Empty nesters traveling full-time since 2018, visiting 40+ countries',
+                    why: 'Practical slow travel advice, Amtrak trips, realistic budgets'
+                },
+                {
+                    name: 'Grounded Life Retirement Travel',
+                    subs: '50K',
+                    url: 'https://www.youtube.com/@groundedliferetirementtravel',
+                    description: 'Second channel focused on retirement travel strategies',
+                    why: 'Deep dives on retirement planning and location-independent living'
+                },
+                {
+                    name: 'Philly and the Brain',
+                    subs: '25K',
+                    url: 'https://www.youtube.com/@phillyandthebrain-slowtravel',
+                    description: 'Slow travel couple exploring the world at a relaxed pace',
+                    why: 'Authentic slow travel, long-term stays in each destination'
+                },
+                {
+                    name: 'Endless Adventure',
+                    subs: '230K',
+                    url: 'https://www.youtube.com/@Theendlessadventure',
+                    description: 'Slow travel through Europe and Asia, budget-focused',
+                    why: 'Honest about costs, realistic timelines for each location'
+                },
+                {
+                    name: 'Brian and Carrie',
+                    subs: '50K',
+                    url: 'https://www.youtube.com/c/brianandcarrie',
+                    description: '50-something couple slow traveling full-time',
+                    why: 'Real cost breakdowns, budget tips, authentic slow travel'
+                },
+                {
+                    name: 'Amelia and JP',
+                    subs: '290K',
+                    url: 'https://www.youtube.com/@AmeliaAndJP',
+                    description: 'Former Ecuador expats now slow traveling the world',
+                    why: 'Detailed cost breakdowns and practical slow travel advice'
+                },
+                {
+                    name: 'Gabriel Traveler',
+                    subs: '680K',
+                    url: 'https://www.youtube.com/@GabrielTravelerVideos',
+                    description: 'Solo slow travel worldwide, cultural immersion focus',
+                    why: 'Authentic experiences, stays weeks/months in each place'
+                }
+            ],
+            'expat': [
+                {
+                    name: 'The Sicilian Life',
+                    subs: '30K',
+                    url: 'https://www.youtube.com/@sicilianlife',
+                    description: 'Croce & Carol - American couple who moved to Sicily',
+                    why: 'Real expat life in Italy, navigating bureaucracy, Sicilian culture'
+                },
+                {
+                    name: 'Tangerine Travels',
+                    subs: '425K',
+                    url: 'https://www.youtube.com/@TangerineTravels',
+                    description: 'Retired couple living in Mexico, comprehensive expat guides',
+                    why: 'Detailed practical information about Mexican expat life'
+                },
+                {
+                    name: 'Thailand Bound',
+                    subs: '180K',
+                    url: 'https://www.youtube.com/@ThailandBound',
+                    description: 'Expat life in Thailand, visa guides, cost of living',
+                    why: 'Comprehensive Thailand expat resource'
+                }
+            ],
+            'sailing': [
+                {
+                    name: 'Sailing La Vagabonde',
+                    subs: '1.8M',
+                    url: 'https://www.youtube.com/@sailinglavagabonde',
+                    description: 'Family sailing around the world, decade of content',
+                    why: 'Most popular sailing channel, shows realistic family life'
+                },
+                {
+                    name: 'Delos Sailing',
+                    subs: '510K',
+                    url: 'https://www.youtube.com/@SVDelos',
+                    description: 'Long-term cruising since 2009, world circumnavigation',
+                    why: 'Veterans of liveaboard sailing, honest about challenges'
+                },
+                {
+                    name: 'Sailing Uma',
+                    subs: '385K',
+                    url: 'https://www.youtube.com/@sailinguma',
+                    description: 'DIY boat rebuild and world cruising',
+                    why: 'Shows the realistic work of maintaining a cruising sailboat'
+                },
+                {
+                    name: 'Sailing Millennial Falcon',
+                    subs: '155K',
+                    url: 'https://www.youtube.com/@sailingmillennialfalcon',
+                    description: 'Young couple learning to sail while cruising',
+                    why: 'Beginner-friendly perspective on starting sailing life'
+                }
+            ],
+            'cruise': [
+                {
+                    name: 'Poverty to Paradise',
+                    subs: '100K',
+                    url: 'https://www.youtube.com/@PovertyToParadise',
+                    description: 'Living full-time on cruise ships, 250+ days at sea per year',
+                    why: 'Real costs of ship living, monthly expense breakdowns, free cruise strategies'
+                },
+                {
+                    name: 'La Lido Loca',
+                    subs: '180K',
+                    url: 'https://www.youtube.com/@LaLidoLoca',
+                    description: 'Cruise reviews, ship tours, cruise tips',
+                    why: 'Comprehensive cruise line comparisons'
+                },
+                {
+                    name: 'Tips for Travellers',
+                    subs: '420K',
+                    url: 'https://www.youtube.com/@TipsForTravellers',
+                    description: 'Cruise guides, ship tours, port information',
+                    why: 'Detailed cost analysis and booking strategies'
+                }
+            ],
+            'budget': [
+                {
+                    name: 'Travel Adventures with Ian Melton',
+                    subs: '50K',
+                    url: 'https://www.youtube.com/@TravelAdventuresWithIanMelton',
+                    description: 'Budget travel adventures and cost-saving strategies',
+                    why: 'Practical budget travel tips and destination guides'
+                },
+                {
+                    name: 'Naick Kim',
+                    subs: '30K',
+                    url: 'https://www.youtube.com/@NaickKim',
+                    description: 'Budget travel and geoarbitrage lifestyle',
+                    why: 'Real-world budget travel experiences and advice'
+                }
+            ],
+            'aspirational': [
+                {
+                    name: 'Kara and Nate',
+                    subs: '3.5M',
+                    url: 'https://www.youtube.com/@karaandnate',
+                    description: 'High-production travel content, visited 100 countries, now van life',
+                    why: 'Aspirational travel lifestyle, high production value, entertainment focused'
+                },
+                {
+                    name: 'Fearless and Far',
+                    subs: '800K',
+                    url: 'https://www.youtube.com/@fearlessandfar',
+                    description: 'High-end travel content, luxury experiences worldwide',
+                    why: 'Aspirational travel content, beautiful cinematography'
+                }
+            ]
+        };
+
+        // Populate channels on page load
+        function populateChannels() {
+            Object.keys(channels).forEach(category => {
+                const categoryEl = document.querySelector(`[data-category="${category}"] .channel-grid`);
+                
+                if (!categoryEl) {
+                    console.error(`Category element not found for: ${category}`);
+                    return;
+                }
+                
+                channels[category].forEach(channel => {
+                    const card = createChannelCard(channel);
+                    categoryEl.appendChild(card);
+                });
+            });
+        }
+
+        function createChannelCard(channel) {
+            const card = document.createElement('a');
+            card.href = channel.url;
+            card.target = '_blank';
+            card.rel = 'noopener noreferrer';
+            card.className = 'channel-card';
+            
+            // Extract channel ID or handle from URL for image
+            const channelHandle = channel.url.split('@')[1] || channel.url.split('/').pop();
+            const imageUrl = `https://unavatar.io/youtube/${channelHandle}`;
+            
+            card.innerHTML = `
+                <div class="channel-icon">
+                    <img src="${imageUrl}" 
+                         alt="${channel.name}" 
+                         onerror="this.style.display='none'; this.parentElement.innerHTML='📺';"
+                         style="width: 100%; height: 100%; border-radius: 8px; object-fit: cover;">
+                </div>
+                <div class="channel-name">${channel.name}</div>
+                <div class="channel-subs">~${channel.subs} subscribers</div>
+                <div class="channel-description">${channel.description}</div>
+                <div class="channel-why"><strong>Why we recommend:</strong> ${channel.why}</div>
+            `;
+            
+            return card;
+        }
+
+        function filterByCategory(category) {
+            // Update active button
+            document.querySelectorAll('.filter-btn').forEach(btn => {
+                btn.classList.remove('active');
+            });
+            event.target.classList.add('active');
+            
+            // Show/hide categories
+            document.querySelectorAll('.category').forEach(cat => {
+                if (category === 'all' || cat.dataset.category === category) {
+                    cat.style.display = 'block';
+                } else {
+                    cat.style.display = 'none';
+                }
+            });
+            
+            // Clear search
+            document.getElementById('search').value = '';
+        }
+
+        function filterChannels() {
+            const searchTerm = document.getElementById('search').value.toLowerCase();
+            
+            document.querySelectorAll('.channel-card').forEach(card => {
+                const text = card.textContent.toLowerCase();
+                card.style.display = text.includes(search
