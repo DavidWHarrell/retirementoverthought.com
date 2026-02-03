@@ -14,7 +14,7 @@
             padding: 0;
             box-sizing: border-box;
         }
-    
+
         :root {
             --color-primary: #0A5F7F;
             --color-primary-dark: #084A61;
@@ -643,4 +643,12 @@
             
             document.querySelectorAll('.channel-card').forEach(card => {
                 const text = card.textContent.toLowerCase();
-                card.style.display = text.includes(search
+                card.style.display = text.includes(searchTerm) ? 'block' : 'none';
+            });
+        }
+
+        // Initialize on page load
+        window.addEventListener('DOMContentLoaded', populateChannels);
+    </script>
+</body>
+</html>
