@@ -337,6 +337,9 @@
 </head>
 <body>
     <header>
+        <div style="margin-bottom: 1rem;">
+            <a href="/financial/" style="color: var(--color-accent); text-decoration: none; font-size: 0.9rem;">← Back to Financial Hub</a>
+        </div>
         <h1>Lifestyle Cost Calculator</h1>
         <p class="subtitle">See exactly what your retirement lifestyle will cost</p>
         <div class="privacy-notice">
@@ -443,15 +446,15 @@
                         <div class="radio-group">
                             <div class="radio-option">
                                 <input type="radio" id="house-own-paid" name="housing" value="own-paid" checked>
-                                <label for="house-own-paid">Own (Paid Off)</label>
+                                <label for="house-own-paid">Own (Paid Off)<br><small>Only utilities/taxes</small></label>
                             </div>
                             <div class="radio-option">
                                 <input type="radio" id="house-own-mortgage" name="housing" value="own-mortgage">
-                                <label for="house-own-mortgage">Own (Mortgage)</label>
+                                <label for="house-own-mortgage">Own (Mortgage)<br><small>Monthly payment</small></label>
                             </div>
                             <div class="radio-option">
                                 <input type="radio" id="house-rent" name="housing" value="rent">
-                                <label for="house-rent">Rent</label>
+                                <label for="house-rent">Rent<br><small>Monthly rent</small></label>
                             </div>
                         </div>
                     </div>
@@ -459,8 +462,13 @@
 
                 <!-- Slow Travel Conditional -->
                 <div id="slow-travel-fields" class="conditional-field">
+                    <div class="info-box" style="margin-bottom: 1rem;">
+                        <h4>Slow Travel Costs Explained:</h4>
+                        <p>Estimates include short-term rentals (Airbnb/furnished apartments), travel insurance, local transportation, activities, and flights between countries if traveling to multiple destinations.</p>
+                    </div>
+
                     <div class="form-group">
-                        <label for="target-country">Target Country</label>
+                        <label for="target-country">Primary Target Country</label>
                         <select id="target-country" name="targetCountry">
                             <optgroup label="Southeast Asia">
                                 <option value="thailand">Thailand</option>
@@ -534,26 +542,31 @@
 
                 <!-- Snowbird Conditional -->
                 <div id="snowbird-fields" class="conditional-field">
+                    <div class="info-box" style="margin-bottom: 1rem;">
+                        <h4>Snowbird Costs Explained:</h4>
+                        <p><strong>Home situation</strong> refers to your primary/summer home (where you spend ~7 months). <strong>Winter destination</strong> costs are for your warm-weather rental (~5 months). The calculator shows your <strong>total year-round costs</strong> averaged monthly.</p>
+                    </div>
+
                     <div class="form-group">
-                        <label>Home Situation</label>
+                        <label>Primary/Summer Home Situation</label>
                         <div class="radio-group">
                             <div class="radio-option">
                                 <input type="radio" id="snow-own-paid" name="snowHousing" value="own-paid" checked>
-                                <label for="snow-own-paid">Own (Paid Off)</label>
+                                <label for="snow-own-paid">Own (Paid Off)<br><small>Only utilities/taxes</small></label>
                             </div>
                             <div class="radio-option">
                                 <input type="radio" id="snow-own-mortgage" name="snowHousing" value="own-mortgage">
-                                <label for="snow-own-mortgage">Own (Mortgage)</label>
+                                <label for="snow-own-mortgage">Own (Mortgage)<br><small>Full year payment</small></label>
                             </div>
                             <div class="radio-option">
                                 <input type="radio" id="snow-rent" name="snowHousing" value="rent">
-                                <label for="snow-rent">Rent Year-Round</label>
+                                <label for="snow-rent">Rent Year-Round<br><small>Full year rent</small></label>
                             </div>
                         </div>
                     </div>
                     
                     <div class="form-group">
-                        <label for="winter-destination">Winter Destination</label>
+                        <label for="winter-destination">Winter Rental Destination</label>
                         <select id="winter-destination" name="winterDest">
                             <option value="florida">Florida</option>
                             <option value="arizona">Arizona</option>
@@ -564,6 +577,7 @@
                             <option value="portugal">Portugal</option>
                             <option value="spain">Spain</option>
                         </select>
+                        <small style="display: block; margin-top: 0.5rem; color: var(--color-text-light);">Estimated rental cost for your winter months</small>
                     </div>
 
                     <div class="form-group">
@@ -579,6 +593,11 @@
 
                 <!-- RV Conditional -->
                 <div id="rv-fields" class="conditional-field">
+                    <div class="info-box" style="margin-bottom: 1rem;">
+                        <h4>RV Costs Explained:</h4>
+                        <p>Estimates include RV payment/rental (if applicable), fuel, campground fees, insurance, maintenance, food, healthcare, and entertainment. Does NOT include initial RV purchase price.</p>
+                    </div>
+
                     <div class="form-group">
                         <label>RV Ownership</label>
                         <div class="radio-group">
