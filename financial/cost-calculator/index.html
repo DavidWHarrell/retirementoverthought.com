@@ -1,0 +1,888 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Retirement Lifestyle Cost Calculator | Retirement Overthought</title>
+    <meta name="description" content="Calculate the real cost of different retirement lifestyles. Compare RV living, slow travel, snowbird, and staying home.">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Crimson+Text:wght@400;600;700&family=Work+Sans:wght@400;500;600&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --color-primary: #0A5F7F;
+            --color-primary-dark: #084A61;
+            --color-primary-light: #E6F3F7;
+            --color-accent: #FFD700;
+            --color-accent-dark: #E6C200;
+            --color-success: #10B981;
+            --color-text: #1a1a1a;
+            --color-text-light: #4a4a4a;
+            --color-white: #FFFFFF;
+            --color-bg: #f8fafb;
+            --color-border: #d4e3e8;
+            --font-serif: 'Crimson Text', Georgia, serif;
+            --font-sans: 'Work Sans', -apple-system, sans-serif;
+        }
+
+        body {
+            font-family: var(--font-sans);
+            background: var(--color-bg);
+            color: var(--color-text);
+            line-height: 1.6;
+        }
+
+        /* Header */
+        header {
+            background: linear-gradient(135deg, var(--color-primary) 0%, var(--color-primary-dark) 100%);
+            color: var(--color-white);
+            padding: 3rem 2rem;
+            text-align: center;
+        }
+
+        h1 {
+            font-family: var(--font-serif);
+            font-size: 2.5rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .subtitle {
+            font-size: 1.2rem;
+            color: var(--color-accent);
+            margin-bottom: 1rem;
+        }
+
+        /* Privacy Notice */
+        .privacy-notice {
+            background: rgba(255, 255, 255, 0.1);
+            border: 2px solid rgba(255, 255, 255, 0.3);
+            border-radius: 8px;
+            padding: 1rem;
+            margin: 1.5rem auto 0;
+            max-width: 600px;
+            font-size: 0.95rem;
+        }
+
+        .privacy-notice strong {
+            color: var(--color-accent);
+        }
+
+        /* Container */
+        .container {
+            max-width: 1000px;
+            margin: 0 auto;
+            padding: 2rem;
+        }
+
+        /* Calculator Card */
+        .calculator-card {
+            background: var(--color-white);
+            border-radius: 8px;
+            padding: 2rem;
+            margin-bottom: 2rem;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+        }
+
+        .section-title {
+            font-family: var(--font-serif);
+            font-size: 1.75rem;
+            color: var(--color-primary);
+            margin-bottom: 1.5rem;
+            padding-bottom: 0.75rem;
+            border-bottom: 3px solid var(--color-accent);
+        }
+
+        /* Form Groups */
+        .form-group {
+            margin-bottom: 1.5rem;
+        }
+
+        .form-group label {
+            display: block;
+            font-weight: 600;
+            color: var(--color-primary-dark);
+            margin-bottom: 0.5rem;
+        }
+
+        .form-group select,
+        .form-group input[type="number"] {
+            width: 100%;
+            padding: 0.75rem;
+            border: 2px solid var(--color-border);
+            border-radius: 6px;
+            font-size: 1rem;
+            font-family: var(--font-sans);
+        }
+
+        .form-group select:focus,
+        .form-group input:focus {
+            outline: none;
+            border-color: var(--color-primary);
+        }
+
+        /* Radio Group */
+        .radio-group {
+            display: flex;
+            gap: 1rem;
+            flex-wrap: wrap;
+        }
+
+        .radio-option {
+            flex: 1;
+            min-width: 150px;
+        }
+
+        .radio-option input[type="radio"] {
+            display: none;
+        }
+
+        .radio-option label {
+            display: block;
+            padding: 0.75rem 1rem;
+            background: var(--color-bg);
+            border: 2px solid var(--color-border);
+            border-radius: 6px;
+            text-align: center;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+
+        .radio-option input[type="radio"]:checked + label {
+            background: var(--color-primary);
+            color: var(--color-white);
+            border-color: var(--color-primary);
+        }
+
+        .radio-option label:hover {
+            border-color: var(--color-primary);
+        }
+
+        /* Conditional Fields */
+        .conditional-field {
+            display: none;
+            margin-top: 1rem;
+            padding: 1rem;
+            background: var(--color-primary-light);
+            border-radius: 6px;
+        }
+
+        .conditional-field.active {
+            display: block;
+        }
+
+        /* Info Box */
+        .info-box {
+            background: var(--color-primary-light);
+            border-left: 4px solid var(--color-primary);
+            padding: 1rem;
+            margin-bottom: 1.5rem;
+            border-radius: 0 6px 6px 0;
+        }
+
+        .info-box h4 {
+            color: var(--color-primary);
+            margin-bottom: 0.5rem;
+        }
+
+        .info-box ul {
+            margin-left: 1.25rem;
+        }
+
+        .info-box li {
+            margin-bottom: 0.25rem;
+        }
+
+        /* Calculate Button */
+        .calculate-btn {
+            width: 100%;
+            padding: 1.25rem;
+            background: var(--color-accent);
+            color: var(--color-primary-dark);
+            font-size: 1.25rem;
+            font-weight: 600;
+            border: none;
+            border-radius: 6px;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+
+        .calculate-btn:hover {
+            background: var(--color-accent-dark);
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(230, 194, 0, 0.3);
+        }
+
+        /* Results */
+        .results {
+            display: none;
+            margin-top: 2rem;
+        }
+
+        .results.active {
+            display: block;
+        }
+
+        .result-summary {
+            background: var(--color-primary);
+            color: var(--color-white);
+            padding: 2rem;
+            border-radius: 8px;
+            margin-bottom: 2rem;
+            text-align: center;
+        }
+
+        .result-summary h3 {
+            font-family: var(--font-serif);
+            font-size: 2rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .result-amount {
+            font-size: 3rem;
+            font-weight: 700;
+            color: var(--color-accent);
+            margin: 1rem 0;
+        }
+
+        .result-annual {
+            font-size: 1.25rem;
+            opacity: 0.9;
+        }
+
+        /* Breakdown */
+        .breakdown {
+            background: var(--color-white);
+            border: 2px solid var(--color-border);
+            border-radius: 8px;
+            padding: 1.5rem;
+            margin-bottom: 2rem;
+        }
+
+        .breakdown h4 {
+            font-family: var(--font-serif);
+            font-size: 1.5rem;
+            color: var(--color-primary);
+            margin-bottom: 1rem;
+        }
+
+        .breakdown-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 0.75rem;
+            border-bottom: 1px solid var(--color-border);
+        }
+
+        .breakdown-item:last-child {
+            border-bottom: none;
+            font-weight: 600;
+            font-size: 1.1rem;
+            color: var(--color-primary);
+            padding-top: 1rem;
+            margin-top: 0.5rem;
+            border-top: 2px solid var(--color-primary);
+        }
+
+        .breakdown-label {
+            font-weight: 500;
+        }
+
+        .breakdown-amount {
+            font-weight: 600;
+            color: var(--color-primary-dark);
+        }
+
+        /* Comparison */
+        .comparison {
+            background: var(--color-success);
+            background: linear-gradient(135deg, #10B981 0%, #059669 100%);
+            color: var(--color-white);
+            padding: 1.5rem;
+            border-radius: 8px;
+            text-align: center;
+        }
+
+        .comparison h4 {
+            font-size: 1.25rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .comparison-amount {
+            font-size: 2rem;
+            font-weight: 700;
+            margin: 0.5rem 0;
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            h1 {
+                font-size: 2rem;
+            }
+
+            .radio-group {
+                flex-direction: column;
+            }
+
+            .result-amount {
+                font-size: 2rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>Lifestyle Cost Calculator</h1>
+        <p class="subtitle">See exactly what your retirement lifestyle will cost</p>
+        <div class="privacy-notice">
+            🔒 <strong>Your Privacy:</strong> This calculator runs entirely in your browser. Nothing you enter is stored, tracked, or sent anywhere.
+        </div>
+    </header>
+
+    <div class="container">
+        <!-- Calculator Card -->
+        <div class="calculator-card">
+            <h2 class="section-title">What Will My Lifestyle Cost?</h2>
+
+            <div class="info-box">
+                <h4>Understanding Budget Levels:</h4>
+                <p style="margin-bottom: 0.75rem;">These estimates are <strong>relative to your current cost of living</strong>, not absolute dollar amounts.</p>
+                <ul>
+                    <li><strong>Frugal:</strong> Living below the local average. Cooking at home, free activities, modest accommodations.</li>
+                    <li><strong>Moderate:</strong> Living at the local average. Mix of eating out and cooking, standard activities, comfortable accommodations.</li>
+                    <li><strong>Comfortable:</strong> Living above the local average. Regular dining out, premium activities, nicer accommodations.</li>
+                </ul>
+            </div>
+
+            <form id="calculator-form">
+                <!-- Currency -->
+                <div class="form-group">
+                    <label for="currency">Currency</label>
+                    <select id="currency" name="currency">
+                        <option value="USD">🇺🇸 USD (United States)</option>
+                        <option value="CAD">🇨🇦 CAD (Canada)</option>
+                        <option value="GBP">🇬🇧 GBP (United Kingdom)</option>
+                        <option value="AUD">🇦🇺 AUD (Australia)</option>
+                        <option value="EUR">🇪🇺 EUR (Europe)</option>
+                    </select>
+                </div>
+
+                <!-- Current Cost of Living -->
+                <div class="form-group">
+                    <label>Your Current Cost of Living Area</label>
+                    <div class="radio-group">
+                        <div class="radio-option">
+                            <input type="radio" id="cost-high" name="costArea" value="high" checked>
+                            <label for="cost-high">High Cost<br><small>(Major cities)</small></label>
+                        </div>
+                        <div class="radio-option">
+                            <input type="radio" id="cost-medium" name="costArea" value="medium">
+                            <label for="cost-medium">Medium Cost<br><small>(Mid-size cities)</small></label>
+                        </div>
+                        <div class="radio-option">
+                            <input type="radio" id="cost-low" name="costArea" value="low">
+                            <label for="cost-low">Low Cost<br><small>(Smaller cities/rural)</small></label>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Number of People -->
+                <div class="form-group">
+                    <label>Number of People</label>
+                    <div class="radio-group">
+                        <div class="radio-option">
+                            <input type="radio" id="people-1" name="people" value="1" checked>
+                            <label for="people-1">1 Person</label>
+                        </div>
+                        <div class="radio-option">
+                            <input type="radio" id="people-2" name="people" value="2">
+                            <label for="people-2">2 People</label>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Budget Level -->
+                <div class="form-group">
+                    <label>Budget Level</label>
+                    <div class="radio-group">
+                        <div class="radio-option">
+                            <input type="radio" id="budget-frugal" name="budget" value="frugal">
+                            <label for="budget-frugal">Frugal</label>
+                        </div>
+                        <div class="radio-option">
+                            <input type="radio" id="budget-moderate" name="budget" value="moderate" checked>
+                            <label for="budget-moderate">Moderate</label>
+                        </div>
+                        <div class="radio-option">
+                            <input type="radio" id="budget-comfortable" name="budget" value="comfortable">
+                            <label for="budget-comfortable">Comfortable</label>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Lifestyle Type -->
+                <div class="form-group">
+                    <label for="lifestyle">Retirement Lifestyle</label>
+                    <select id="lifestyle" name="lifestyle">
+                        <option value="stay-home">Stay at Home</option>
+                        <option value="slow-travel">Slow Travel</option>
+                        <option value="snowbird">Snowbird</option>
+                        <option value="rv">RV/Van Life</option>
+                    </select>
+                </div>
+
+                <!-- Stay Home Conditional -->
+                <div id="stay-home-fields" class="conditional-field">
+                    <div class="form-group">
+                        <label>Housing Situation</label>
+                        <div class="radio-group">
+                            <div class="radio-option">
+                                <input type="radio" id="house-own-paid" name="housing" value="own-paid" checked>
+                                <label for="house-own-paid">Own (Paid Off)</label>
+                            </div>
+                            <div class="radio-option">
+                                <input type="radio" id="house-own-mortgage" name="housing" value="own-mortgage">
+                                <label for="house-own-mortgage">Own (Mortgage)</label>
+                            </div>
+                            <div class="radio-option">
+                                <input type="radio" id="house-rent" name="housing" value="rent">
+                                <label for="house-rent">Rent</label>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Slow Travel Conditional -->
+                <div id="slow-travel-fields" class="conditional-field">
+                    <div class="form-group">
+                        <label for="target-country">Target Country</label>
+                        <select id="target-country" name="targetCountry">
+                            <optgroup label="Southeast Asia">
+                                <option value="thailand">Thailand</option>
+                                <option value="vietnam">Vietnam</option>
+                                <option value="cambodia">Cambodia</option>
+                                <option value="malaysia">Malaysia</option>
+                                <option value="philippines">Philippines</option>
+                                <option value="indonesia">Indonesia</option>
+                            </optgroup>
+                            <optgroup label="Mexico & Central America">
+                                <option value="mexico">Mexico</option>
+                                <option value="costa-rica">Costa Rica</option>
+                                <option value="panama">Panama</option>
+                                <option value="guatemala">Guatemala</option>
+                                <option value="nicaragua">Nicaragua</option>
+                                <option value="belize">Belize</option>
+                            </optgroup>
+                            <optgroup label="South America">
+                                <option value="colombia">Colombia</option>
+                                <option value="ecuador">Ecuador</option>
+                                <option value="peru">Peru</option>
+                                <option value="argentina">Argentina</option>
+                                <option value="brazil">Brazil</option>
+                                <option value="chile">Chile</option>
+                            </optgroup>
+                            <optgroup label="Southern Europe">
+                                <option value="portugal">Portugal</option>
+                                <option value="spain">Spain</option>
+                                <option value="greece">Greece</option>
+                                <option value="italy">Italy</option>
+                            </optgroup>
+                            <optgroup label="Eastern Europe">
+                                <option value="poland">Poland</option>
+                                <option value="czech-republic">Czech Republic</option>
+                                <option value="hungary">Hungary</option>
+                                <option value="romania">Romania</option>
+                                <option value="bulgaria">Bulgaria</option>
+                                <option value="turkey">Turkey</option>
+                            </optgroup>
+                        </select>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label>Travel Frequency</label>
+                        <div class="radio-group">
+                            <div class="radio-option">
+                                <input type="radio" id="travel-single" name="travelFreq" value="single" checked>
+                                <label for="travel-single">Single Country Base</label>
+                            </div>
+                            <div class="radio-option">
+                                <input type="radio" id="travel-multi" name="travelFreq" value="multi">
+                                <label for="travel-multi">Multiple Countries (2-3/year)</label>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Snowbird Conditional -->
+                <div id="snowbird-fields" class="conditional-field">
+                    <div class="form-group">
+                        <label>Home Situation</label>
+                        <div class="radio-group">
+                            <div class="radio-option">
+                                <input type="radio" id="snow-own-paid" name="snowHousing" value="own-paid" checked>
+                                <label for="snow-own-paid">Own (Paid Off)</label>
+                            </div>
+                            <div class="radio-option">
+                                <input type="radio" id="snow-own-mortgage" name="snowHousing" value="own-mortgage">
+                                <label for="snow-own-mortgage">Own (Mortgage)</label>
+                            </div>
+                            <div class="radio-option">
+                                <input type="radio" id="snow-rent" name="snowHousing" value="rent">
+                                <label for="snow-rent">Rent Year-Round</label>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="winter-destination">Winter Destination</label>
+                        <select id="winter-destination" name="winterDest">
+                            <option value="florida">Florida</option>
+                            <option value="arizona">Arizona</option>
+                            <option value="california">Southern California</option>
+                            <option value="texas">Texas</option>
+                            <option value="mexico">Mexico</option>
+                            <option value="costa-rica">Costa Rica</option>
+                            <option value="portugal">Portugal</option>
+                            <option value="spain">Spain</option>
+                        </select>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="winter-months">Winter Months Away</label>
+                        <select id="winter-months" name="winterMonths">
+                            <option value="3">3 months</option>
+                            <option value="4">4 months</option>
+                            <option value="5" selected>5 months</option>
+                            <option value="6">6 months</option>
+                        </select>
+                    </div>
+                </div>
+
+                <!-- RV Conditional -->
+                <div id="rv-fields" class="conditional-field">
+                    <div class="form-group">
+                        <label>RV Ownership</label>
+                        <div class="radio-group">
+                            <div class="radio-option">
+                                <input type="radio" id="rv-own" name="rvOwn" value="own" checked>
+                                <label for="rv-own">Own (Paid Off)</label>
+                            </div>
+                            <div class="radio-option">
+                                <input type="radio" id="rv-financing" name="rvOwn" value="financing">
+                                <label for="rv-financing">Financing</label>
+                            </div>
+                            <div class="radio-option">
+                                <input type="radio" id="rv-rent" name="rvOwn" value="rent">
+                                <label for="rv-rent">Rent Long-term</label>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label>Travel Intensity</label>
+                        <div class="radio-group">
+                            <div class="radio-option">
+                                <input type="radio" id="travel-stationary" name="rvTravel" value="stationary" checked>
+                                <label for="travel-stationary">Stationary<br><small>(1-2 moves/year)</small></label>
+                            </div>
+                            <div class="radio-option">
+                                <input type="radio" id="travel-moderate" name="rvTravel" value="moderate">
+                                <label for="travel-moderate">Moderate<br><small>(Monthly moves)</small></label>
+                            </div>
+                            <div class="radio-option">
+                                <input type="radio" id="travel-frequent" name="rvTravel" value="frequent">
+                                <label for="travel-frequent">Frequent<br><small>(Weekly moves)</small></label>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <button type="submit" class="calculate-btn">Calculate My Costs</button>
+            </form>
+        </div>
+
+        <!-- Results -->
+        <div id="results" class="results">
+            <div class="result-summary">
+                <h3>Your Estimated Monthly Cost</h3>
+                <div class="result-amount" id="monthly-total">$0</div>
+                <div class="result-annual">(<span id="annual-total">$0</span>/year)</div>
+            </div>
+
+            <div class="breakdown">
+                <h4>Monthly Breakdown</h4>
+                <div id="breakdown-items"></div>
+            </div>
+
+            <div id="comparison-section"></div>
+        </div>
+    </div>
+
+    <script>
+        // Exchange rates (as of Feb 2026 - approximate)
+        const exchangeRates = {
+            USD: 1.00,
+            CAD: 1.36,
+            GBP: 0.79,
+            AUD: 1.52,
+            EUR: 0.92
+        };
+
+        // Show/hide conditional fields based on lifestyle
+        document.getElementById('lifestyle').addEventListener('change', function() {
+            const lifestyle = this.value;
+            
+            // Hide all conditional fields
+            document.querySelectorAll('.conditional-field').forEach(field => {
+                field.classList.remove('active');
+            });
+
+            // Show relevant fields
+            if (lifestyle === 'stay-home') {
+                document.getElementById('stay-home-fields').classList.add('active');
+            } else if (lifestyle === 'slow-travel') {
+                document.getElementById('slow-travel-fields').classList.add('active');
+            } else if (lifestyle === 'snowbird') {
+                document.getElementById('snowbird-fields').classList.add('active');
+            } else if (lifestyle === 'rv') {
+                document.getElementById('rv-fields').classList.add('active');
+            }
+        });
+
+        // Initialize - show stay-home fields by default
+        document.getElementById('stay-home-fields').classList.add('active');
+
+        // Form submission
+        document.getElementById('calculator-form').addEventListener('submit', function(e) {
+            e.preventDefault();
+            calculateCosts();
+        });
+
+        function calculateCosts() {
+            // Get form values
+            const currency = document.getElementById('currency').value;
+            const costArea = document.querySelector('input[name="costArea"]:checked').value;
+            const people = parseInt(document.querySelector('input[name="people"]:checked').value);
+            const budget = document.querySelector('input[name="budget"]:checked').value;
+            const lifestyle = document.getElementById('lifestyle').value;
+
+            // Base costs in USD for reference (will be adjusted)
+            let costs = {};
+            
+            if (lifestyle === 'stay-home') {
+                costs = calculateStayHome(costArea, budget, people);
+            } else if (lifestyle === 'slow-travel') {
+                costs = calculateSlowTravel(costArea, budget, people);
+            } else if (lifestyle === 'snowbird') {
+                costs = calculateSnowbird(costArea, budget, people);
+            } else if (lifestyle === 'rv') {
+                costs = calculateRV(costArea, budget, people);
+            }
+
+            // Convert to selected currency
+            const rate = exchangeRates[currency];
+            for (let key in costs) {
+                costs[key] = costs[key] * rate;
+            }
+
+            // Display results
+            displayResults(costs, currency);
+        }
+
+        function calculateStayHome(costArea, budget, people) {
+            const housing = document.querySelector('input[name="housing"]:checked').value;
+            
+            // Base multipliers
+            const areaMultipliers = { high: 1.4, medium: 1.0, low: 0.7 };
+            const budgetMultipliers = { frugal: 0.75, moderate: 1.0, comfortable: 1.35 };
+            const peopleMultiplier = people === 2 ? 1.6 : 1.0;
+
+            const areaMult = areaMultipliers[costArea];
+            const budgetMult = budgetMultipliers[budget];
+            const peopleMult = peopleMultiplier;
+
+            // Base costs (USD, moderate, 1 person, medium cost area)
+            const base = {
+                housing: housing === 'own-paid' ? 300 : (housing === 'own-mortgage' ? 1200 : 1500),
+                food: 400,
+                healthcare: 500,
+                transportation: 300,
+                utilities: 200,
+                entertainment: 250,
+                misc: 150
+            };
+
+            // Apply multipliers
+            const costs = {};
+            for (let key in base) {
+                if (key === 'housing') {
+                    // Housing applies area multiplier differently
+                    costs[key] = base[key] * areaMult * budgetMult * (people === 2 ? 1.2 : 1.0);
+                } else {
+                    costs[key] = base[key] * areaMult * budgetMult * peopleMult;
+                }
+            }
+
+            return costs;
+        }
+
+        function calculateSlowTravel(costArea, budget, people) {
+            const targetCountry = document.getElementById('target-country').value;
+            const travelFreq = document.querySelector('input[name="travelFreq"]:checked').value;
+
+            // Country cost multipliers (relative to US medium)
+            const countryCosts = {
+                thailand: 0.5, vietnam: 0.45, cambodia: 0.4, malaysia: 0.55, philippines: 0.5, indonesia: 0.5,
+                mexico: 0.6, 'costa-rica': 0.75, panama: 0.7, guatemala: 0.45, nicaragua: 0.4, belize: 0.7,
+                colombia: 0.55, ecuador: 0.5, peru: 0.5, argentina: 0.6, brazil: 0.65, chile: 0.75,
+                portugal: 0.8, spain: 0.85, greece: 0.75, italy: 0.9,
+                poland: 0.6, 'czech-republic': 0.7, hungary: 0.6, romania: 0.5, bulgaria: 0.45, turkey: 0.55
+            };
+
+            const budgetMultipliers = { frugal: 0.7, moderate: 1.0, comfortable: 1.4 };
+            const peopleMultiplier = people === 2 ? 1.5 : 1.0;
+
+            const countryMult = countryCosts[targetCountry] || 0.7;
+            const budgetMult = budgetMultipliers[budget];
+            const peopleMult = peopleMultiplier;
+            const travelMult = travelFreq === 'multi' ? 1.3 : 1.0; // Flights between countries
+
+            const base = {
+                housing: 1000, // Short-term rentals
+                food: 400,
+                healthcare: 200, // Travel insurance
+                transportation: 200,
+                activities: 300,
+                flights: travelFreq === 'multi' ? 300 : 0,
+                misc: 150
+            };
+
+            const costs = {};
+            for (let key in base) {
+                costs[key] = base[key] * countryMult * budgetMult * peopleMult;
+            }
+
+            return costs;
+        }
+
+        function calculateSnowbird(costArea, budget, people) {
+            const snowHousing = document.querySelector('input[name="snowHousing"]:checked').value;
+            const winterDest = document.getElementById('winter-destination').value;
+            const winterMonths = parseInt(document.getElementById('winter-months').value);
+
+            const areaMultipliers = { high: 1.4, medium: 1.0, low: 0.7 };
+            const budgetMultipliers = { frugal: 0.75, moderate: 1.0, comfortable: 1.35 };
+
+            const areaMult = areaMultipliers[costArea];
+            const budgetMult = budgetMultipliers[budget];
+            const peopleMult = people === 2 ? 1.5 : 1.0;
+
+            // Home costs (averaged over 12 months)
+            const homeMonths = 12 - winterMonths;
+            const homeHousing = snowHousing === 'own-paid' ? 300 : (snowHousing === 'own-mortgage' ? 1200 : 1500);
+            
+            // Winter destination costs
+            const winterCosts = {
+                florida: 1800, arizona: 1600, california: 2200, texas: 1500,
+                mexico: 1000, 'costa-rica': 1200, portugal: 1300, spain: 1400
+            };
+
+            const costs = {
+                housing: ((homeHousing * homeMonths) + (winterCosts[winterDest] * winterMonths)) / 12,
+                food: 450 * areaMult * budgetMult * peopleMult,
+                healthcare: 550 * budgetMult,
+                transportation: 350 * budgetMult * peopleMult,
+                utilities: 200 * areaMult,
+                travel: (800 / 12) * 2, // Two round trips per year, averaged
+                entertainment: 300 * budgetMult * peopleMult,
+                misc: 150
+            };
+
+            return costs;
+        }
+
+        function calculateRV(costArea, budget, people) {
+            const rvOwn = document.querySelector('input[name="rvOwn"]:checked').value;
+            const rvTravel = document.querySelector('input[name="rvTravel"]:checked').value;
+
+            const budgetMultipliers = { frugal: 0.75, moderate: 1.0, comfortable: 1.35 };
+            const budgetMult = budgetMultipliers[budget];
+            const peopleMult = people === 2 ? 1.3 : 1.0;
+
+            // RV payment/rental
+            const rvPayment = rvOwn === 'own' ? 0 : (rvOwn === 'financing' ? 500 : 1200);
+
+            // Fuel and camping based on travel intensity
+            const travelCosts = {
+                stationary: { fuel: 100, camping: 400 },
+                moderate: { fuel: 300, camping: 600 },
+                frequent: { fuel: 600, camping: 800 }
+            };
+
+            const travel = travelCosts[rvTravel];
+
+            const costs = {
+                rvPayment: rvPayment,
+                fuel: travel.fuel * budgetMult,
+                camping: travel.camping * budgetMult,
+                food: 350 * budgetMult * peopleMult,
+                healthcare: 550 * budgetMult,
+                insurance: 200,
+                maintenance: 150,
+                utilities: 150, // Phone, internet
+                entertainment: 200 * budgetMult * peopleMult,
+                misc: 100
+            };
+
+            return costs;
+        }
+
+        function displayResults(costs, currency) {
+            // Calculate total
+            let total = 0;
+            for (let key in costs) {
+                total += costs[key];
+            }
+
+            const annual = total * 12;
+
+            // Currency symbols
+            const symbols = { USD: '$', CAD: 'CA$', GBP: '£', AUD: 'A$', EUR: '€' };
+            const symbol = symbols[currency];
+
+            // Display totals
+            document.getElementById('monthly-total').textContent = symbol + Math.round(total).toLocaleString();
+            document.getElementById('annual-total').textContent = symbol + Math.round(annual).toLocaleString();
+
+            // Display breakdown
+            const breakdownHTML = Object.keys(costs).map(key => {
+                const label = key.replace(/([A-Z])/g, ' $1').replace(/^./, str => str.toUpperCase());
+                return `
+                    <div class="breakdown-item">
+                        <span class="breakdown-label">${label}</span>
+                        <span class="breakdown-amount">${symbol}${Math.round(costs[key]).toLocaleString()}</span>
+                    </div>
+                `;
+            }).join('');
+
+            document.getElementById('breakdown-items').innerHTML = breakdownHTML + `
+                <div class="breakdown-item">
+                    <span class="breakdown-label">Total Monthly</span>
+                    <span class="breakdown-amount">${symbol}${Math.round(total).toLocaleString()}</span>
+                </div>
+            `;
+
+            // Show results
+            document.getElementById('results').classList.add('active');
+            
+            // Scroll to results
+            document.getElementById('results').scrollIntoView({ behavior: 'smooth', block: 'start' });
+        }
+    </script>
+</body>
+</html>
