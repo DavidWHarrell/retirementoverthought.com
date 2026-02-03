@@ -1,0 +1,1059 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Financial Advisor Guide | Retirement Overthought</title>
+    <meta name="description" content="Your complete guide to finding, working with, and evaluating your financial advisor for retirement planning.">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Crimson+Text:wght@400;600;700&family=Work+Sans:wght@400;500;600&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --color-primary: #0A5F7F;
+            --color-primary-dark: #084A61;
+            --color-primary-light: #E6F3F7;
+            --color-accent: #FFD700;
+            --color-accent-dark: #E6C200;
+            --color-success: #10B981;
+            --color-warning: #F59E0B;
+            --color-danger: #EF4444;
+            --color-text: #1a1a1a;
+            --color-text-light: #4a4a4a;
+            --color-white: #FFFFFF;
+            --color-bg: #f8fafb;
+            --color-border: #d4e3e8;
+            --font-serif: 'Crimson Text', Georgia, serif;
+            --font-sans: 'Work Sans', -apple-system, sans-serif;
+        }
+
+        body {
+            font-family: var(--font-sans);
+            background: var(--color-bg);
+            color: var(--color-text);
+            line-height: 1.6;
+        }
+
+        /* Header */
+        header {
+            background: linear-gradient(135deg, var(--color-primary) 0%, var(--color-primary-dark) 100%);
+            color: var(--color-white);
+            padding: 3rem 2rem;
+            text-align: center;
+        }
+
+        h1 {
+            font-family: var(--font-serif);
+            font-size: 2.5rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .subtitle {
+            font-size: 1.2rem;
+            color: var(--color-accent);
+            margin-bottom: 1rem;
+        }
+
+        .intro {
+            max-width: 700px;
+            margin: 0 auto;
+            font-size: 1.05rem;
+            line-height: 1.7;
+            color: var(--color-primary-light);
+        }
+
+        /* Container */
+        .container {
+            max-width: 1000px;
+            margin: 0 auto;
+            padding: 2rem;
+        }
+
+        /* Navigation */
+        .section-nav {
+            background: var(--color-white);
+            border-radius: 8px;
+            padding: 1.5rem;
+            margin-bottom: 2rem;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+        }
+
+        .section-nav h2 {
+            font-family: var(--font-serif);
+            color: var(--color-primary);
+            margin-bottom: 1rem;
+            font-size: 1.5rem;
+        }
+
+        .nav-buttons {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 1rem;
+        }
+
+        .nav-btn {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            padding: 1rem;
+            background: var(--color-bg);
+            border: 2px solid var(--color-border);
+            border-radius: 6px;
+            text-decoration: none;
+            color: var(--color-text);
+            transition: all 0.2s;
+            cursor: pointer;
+        }
+
+        .nav-btn:hover {
+            border-color: var(--color-primary);
+            background: var(--color-primary-light);
+        }
+
+        .nav-icon {
+            font-size: 2rem;
+        }
+
+        .nav-text h3 {
+            font-size: 1.1rem;
+            color: var(--color-primary);
+            margin-bottom: 0.25rem;
+        }
+
+        .nav-text p {
+            font-size: 0.9rem;
+            color: var(--color-text-light);
+        }
+
+        /* Sections */
+        .guide-section {
+            background: var(--color-white);
+            border-radius: 8px;
+            padding: 2rem;
+            margin-bottom: 2rem;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+            display: none;
+        }
+
+        .guide-section.active {
+            display: block;
+        }
+
+        .section-header {
+            border-bottom: 3px solid var(--color-accent);
+            padding-bottom: 1rem;
+            margin-bottom: 2rem;
+        }
+
+        .section-header h2 {
+            font-family: var(--font-serif);
+            font-size: 2rem;
+            color: var(--color-primary);
+            margin-bottom: 0.5rem;
+        }
+
+        .section-header p {
+            font-size: 1.1rem;
+            color: var(--color-text-light);
+        }
+
+        /* Question Groups */
+        .question-group {
+            margin-bottom: 2.5rem;
+        }
+
+        .question-group h3 {
+            font-family: var(--font-serif);
+            color: var(--color-primary);
+            font-size: 1.5rem;
+            margin-bottom: 1rem;
+        }
+
+        .question-item {
+            background: var(--color-bg);
+            border-left: 4px solid var(--color-primary);
+            padding: 1.25rem;
+            margin-bottom: 1rem;
+            border-radius: 0 6px 6px 0;
+        }
+
+        .question {
+            font-weight: 600;
+            color: var(--color-primary-dark);
+            margin-bottom: 0.5rem;
+            font-size: 1.05rem;
+        }
+
+        .why-matters {
+            color: var(--color-text-light);
+            font-size: 0.95rem;
+            margin-bottom: 0.75rem;
+        }
+
+        .good-answer {
+            background: #ecfdf5;
+            border-left: 3px solid var(--color-success);
+            padding: 0.75rem;
+            border-radius: 4px;
+            font-size: 0.95rem;
+            margin-top: 0.5rem;
+        }
+
+        .good-answer strong {
+            color: var(--color-success);
+        }
+
+        .red-flag {
+            background: #fef2f2;
+            border-left: 3px solid var(--color-danger);
+            padding: 0.75rem;
+            border-radius: 4px;
+            font-size: 0.95rem;
+            margin-top: 0.5rem;
+        }
+
+        .red-flag strong {
+            color: var(--color-danger);
+        }
+
+        /* Checklist Items */
+        .checklist {
+            list-style: none;
+        }
+
+        .checklist-item {
+            background: var(--color-bg);
+            padding: 1rem;
+            margin-bottom: 0.75rem;
+            border-radius: 6px;
+            border-left: 4px solid var(--color-border);
+            transition: all 0.2s;
+        }
+
+        .checklist-item.green {
+            border-left-color: var(--color-success);
+        }
+
+        .checklist-item.red {
+            border-left-color: var(--color-danger);
+        }
+
+        .checklist-item.yellow {
+            border-left-color: var(--color-warning);
+        }
+
+        .checklist-title {
+            font-weight: 600;
+            color: var(--color-primary-dark);
+            margin-bottom: 0.5rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .checklist-icon {
+            font-size: 1.25rem;
+        }
+
+        .checklist-detail {
+            color: var(--color-text-light);
+            font-size: 0.95rem;
+        }
+
+        /* Info Boxes */
+        .info-box {
+            background: var(--color-primary-light);
+            border-radius: 6px;
+            padding: 1.25rem;
+            margin: 1.5rem 0;
+        }
+
+        .info-box h4 {
+            color: var(--color-primary);
+            margin-bottom: 0.75rem;
+        }
+
+        .info-box ul {
+            margin-left: 1.25rem;
+        }
+
+        .info-box li {
+            margin-bottom: 0.5rem;
+        }
+
+        /* Back Button */
+        .back-btn {
+            display: inline-block;
+            padding: 0.75rem 1.5rem;
+            background: var(--color-primary);
+            color: var(--color-white);
+            text-decoration: none;
+            border-radius: 6px;
+            margin-bottom: 1.5rem;
+            transition: all 0.2s;
+        }
+
+        .back-btn:hover {
+            background: var(--color-primary-dark);
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            h1 {
+                font-size: 2rem;
+            }
+
+            .nav-buttons {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>Financial Advisor Guide</h1>
+        <p class="subtitle">Your complete guide to finding, working with, and evaluating your financial advisor</p>
+        <p class="intro">Whether you're interviewing advisors for the first time, working with one now, or questioning if your current relationship is serving you well, this guide will help you navigate every stage with confidence.</p>
+    </header>
+
+    <div class="container">
+        <!-- Navigation -->
+        <div class="section-nav">
+            <h2>Choose Your Section</h2>
+            <div class="nav-buttons">
+                <a href="#" class="nav-btn" onclick="showSection('interview'); return false;">
+                    <span class="nav-icon">🤝</span>
+                    <div class="nav-text">
+                        <h3>Interview Questions</h3>
+                        <p>Essential questions when meeting potential advisors</p>
+                    </div>
+                </a>
+                <a href="#" class="nav-btn" onclick="showSection('checkin'); return false;">
+                    <span class="nav-icon">📊</span>
+                    <div class="nav-text">
+                        <h3>Check-In Checklist</h3>
+                        <p>What to expect in regular review meetings</p>
+                    </div>
+                </a>
+                <a href="#" class="nav-btn" onclick="showSection('relationship'); return false;">
+                    <span class="nav-icon">🚩</span>
+                    <div class="nav-text">
+                        <h3>Relationship Health</h3>
+                        <p>Signs you need a different advisor</p>
+                    </div>
+                </a>
+            </div>
+        </div>
+
+        <!-- Interview Questions Section -->
+        <div id="interview" class="guide-section">
+            <a href="#" class="back-btn" onclick="showSection('nav'); return false;">← Back to Menu</a>
+            
+            <div class="section-header">
+                <h2>Questions to Ask When Interviewing Financial Advisors</h2>
+                <p>These 14 questions help you evaluate whether an advisor is the right fit for your retirement planning needs.</p>
+            </div>
+
+            <div class="question-group">
+                <h3>Qualifications & Experience</h3>
+                
+                <div class="question-item">
+                    <div class="question">1. Are you a fiduciary at all times when working with me?</div>
+                    <div class="why-matters"><strong>Why this matters:</strong> Fiduciaries are legally required to put your interests first. Non-fiduciaries only need to recommend "suitable" products, even if better options exist.</div>
+                    <div class="good-answer"><strong>Good answer:</strong> "Yes, I'm a registered investment advisor (RIA) with the SEC and am held to the fiduciary standard at all times."</div>
+                    <div class="red-flag"><strong>Red flag:</strong> Vague answers, "most of the time," or "it depends" responses.</div>
+                </div>
+
+                <div class="question-item">
+                    <div class="question">2. What credentials and certifications do you hold?</div>
+                    <div class="why-matters"><strong>Why this matters:</strong> Credentials like CFP® (Certified Financial Planner) indicate comprehensive training and ethical standards.</div>
+                    <div class="good-answer"><strong>Look for:</strong> CFP®, CFA® (Chartered Financial Analyst), EA (Enrolled Agent), ChFC® (Chartered Financial Consultant), or RICP® (Retirement Income Certified Professional).</div>
+                    <div class="red-flag"><strong>Red flag:</strong> No recognized credentials or reluctance to discuss qualifications.</div>
+                </div>
+
+                <div class="question-item">
+                    <div class="question">3. How many years have you been helping clients plan for retirement? Do you specialize in my situation?</div>
+                    <div class="why-matters"><strong>Why this matters:</strong> Experience with clients similar to you (age, assets, lifestyle goals) means better understanding of your needs.</div>
+                    <div class="good-answer"><strong>Good answer:</strong> Specific number of years, examples of similar clients, specialized knowledge relevant to your situation (like international retirement, location-independent income, etc.).</div>
+                </div>
+            </div>
+
+            <div class="question-group">
+                <h3>Services & Approach</h3>
+                
+                <div class="question-item">
+                    <div class="question">4. What services do you provide?</div>
+                    <div class="why-matters"><strong>Why this matters:</strong> Some advisors only manage investments. Others offer comprehensive planning including tax strategy, estate planning, insurance, and budgeting.</div>
+                    <div class="info-box">
+                        <h4>Comprehensive services typically include:</h4>
+                        <ul>
+                            <li>Investment management</li>
+                            <li>Retirement income planning</li>
+                            <li>Tax planning strategies</li>
+                            <li>Social Security optimization</li>
+                            <li>Healthcare/Medicare planning</li>
+                            <li>Estate planning coordination</li>
+                            <li>Insurance review</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="question-item">
+                    <div class="question">5. Will you create a written financial plan for me? Will you help implement it?</div>
+                    <div class="why-matters"><strong>Why this matters:</strong> A written plan shows their process and gives you a roadmap. Implementation support means they'll help you execute, not just theorize.</div>
+                    <div class="red-flag"><strong>Red flag:</strong> "We don't really do written plans" or charging extra fees for implementation.</div>
+                </div>
+
+                <div class="question-item">
+                    <div class="question">6. Do you work with other professionals like CPAs and estate attorneys?</div>
+                    <div class="why-matters"><strong>Why this matters:</strong> A good advisor coordinates with your tax preparer and attorney, even if they don't provide those services directly. They should be willing to review documents from these professionals and make integrated recommendations.</div>
+                    <div class="good-answer"><strong>Good answer:</strong> "I work closely with my clients' CPAs and attorneys. I'll review your tax returns to identify planning opportunities and coordinate strategies with your other advisors."</div>
+                    <div class="red-flag"><strong>Red flag:</strong> "I only handle investments - everything else is someone else's job" or unwillingness to coordinate with other professionals.</div>
+                </div>
+
+                <div class="question-item">
+                    <div class="question">7. Do you have experience with alternative retirement lifestyles?</div>
+                    <div class="why-matters"><strong>Why this matters:</strong> If you're planning RV travel, expat living, or slow travel, you need an advisor who understands location-independent finances, international tax implications, and non-traditional healthcare solutions.</div>
+                    <div class="good-answer"><strong>Good answer:</strong> Specific examples of clients they've helped with similar lifestyles, understanding of residency issues, foreign earned income, etc.</div>
+                </div>
+            </div>
+
+            <div class="question-group">
+                <h3>Fees & Compensation</h3>
+                
+                <div class="question-item">
+                    <div class="question">8. How do you get paid? What will I pay in total?</div>
+                    <div class="why-matters"><strong>Why this matters:</strong> How they're paid affects the advice you receive. Fee-only advisors have fewer conflicts of interest than commission-based advisors.</div>
+                    <div class="info-box">
+                        <h4>Compensation structures:</h4>
+                        <ul>
+                            <li><strong>Fee-only:</strong> Paid only by you (hourly, flat fee, or % of assets). Least conflict of interest.</li>
+                            <li><strong>Fee-based:</strong> Charges fees but also earns commissions from products sold. Potential conflicts.</li>
+                            <li><strong>Commission-based:</strong> Earns commissions from products. Higher potential for conflicts.</li>
+                        </ul>
+                    </div>
+                    <div class="red-flag"><strong>Red flag:</strong> Unclear answers, "it's complicated," or reluctance to provide written fee disclosure.</div>
+                </div>
+
+                <div class="question-item">
+                    <div class="question">8. Do you receive any compensation from third parties for recommending products?</div>
+                    <div class="why-matters"><strong>Why this matters:</strong> Kickbacks or commissions from mutual fund companies, insurance companies, etc. create conflicts of interest.</div>
+                    <div class="good-answer"><strong>Good answer:</strong> Clear "no" or full transparent disclosure of any arrangements.</div>
+                </div>
+
+                <div class="question-item">
+                    <div class="question">9. What's the typical total cost for someone with my asset level?</div>
+                    <div class="why-matters"><strong>Why this matters:</strong> Typical advisory fees are 0.50%-1.50% of assets under management annually. 1% on $500K = $5,000/year.</div>
+                    <div class="good-answer"><strong>Reasonable fees:</strong> Around 1% or less for assets under management. Lower percentages for larger portfolios.</div>
+                    <div class="red-flag"><strong>Red flag:</strong> Above 1.5% without clear justification, or fees that aren't clearly broken down.</div>
+                </div>
+            </div>
+
+            <div class="question-group">
+                <h3>Investment Philosophy & Risk</h3>
+                
+                <div class="question-item">
+                    <div class="question">10. What's your investment philosophy?</div>
+                    <div class="why-matters"><strong>Why this matters:</strong> Their approach should match your goals. Conservative income preservation vs. aggressive growth strategies are very different.</div>
+                    <div class="good-answer"><strong>Good answer:</strong> Clear explanation of their approach, mention of diversification, risk management, and how they align investments with your specific goals and timeline.</div>
+                </div>
+
+                <div class="question-item">
+                    <div class="question">11. Who will custody my assets?</div>
+                    <div class="why-matters"><strong>Why this matters:</strong> Assets should be held by independent third-party custodians (Schwab, Fidelity, Vanguard, etc.) — NOT by the advisor themselves.</div>
+                    <div class="red-flag"><strong>Major red flag:</strong> Advisor wants to hold your assets directly or asks you to write checks to them personally.</div>
+                </div>
+            </div>
+
+            <div class="question-group">
+                <h3>Communication & Process</h3>
+                
+                <div class="question-item">
+                    <div class="question">12. How often will we meet? How do you communicate between meetings?</div>
+                    <div class="why-matters"><strong>Why this matters:</strong> Regular contact (at least quarterly or annually) ensures your plan stays on track. You should know how accessible they are.</div>
+                    <div class="good-answer"><strong>Good answer:</strong> Scheduled annual/quarterly reviews plus on-demand availability for major life changes or market concerns.</div>
+                </div>
+
+                <div class="question-item">
+                    <div class="question">13. Can I see your Form ADV and CRS?</div>
+                    <div class="why-matters"><strong>Why this matters:</strong> Form ADV discloses services, fees, conflicts of interest, and disciplinary history. CRS (Client Relationship Summary) is a shorter overview. Both are legally required.</div>
+                    <div class="red-flag"><strong>Red flag:</strong> Reluctance to provide these or not being registered with SEC/state regulators.</div>
+                </div>
+            </div>
+
+            <div class="info-box">
+                <h4>After the Interview:</h4>
+                <ul>
+                    <li><strong>Check their record:</strong> Use FINRA BrokerCheck and SEC Investment Adviser Public Disclosure to verify credentials and check for complaints/disciplinary actions.</li>
+                    <li><strong>Ask for references:</strong> Talk to 2-3 current clients with similar situations to yours.</li>
+                    <li><strong>Trust your gut:</strong> If something feels off or you feel pressured, keep looking.</li>
+                    <li><strong>Get everything in writing:</strong> Fee agreements, fiduciary commitment, service descriptions.</li>
+                </ul>
+            </div>
+        </div>
+
+        <!-- Check-In Checklist Section -->
+        <div id="checkin" class="guide-section">
+            <a href="#" class="back-btn" onclick="showSection('nav'); return false;">← Back to Menu</a>
+            
+            <div class="section-header">
+                <h2>What to Expect in Regular Check-In Meetings</h2>
+                <p>Your advisor should review these topics at least annually (quarterly is better). Use this as a checklist to ensure you're getting comprehensive service.</p>
+            </div>
+
+            <div class="question-group">
+                <h3>Every Meeting Should Start With:</h3>
+                
+                <ul class="checklist">
+                    <li class="checklist-item">
+                        <div class="checklist-title">
+                            <span class="checklist-icon">💬</span>
+                            Life Changes Review
+                        </div>
+                        <div class="checklist-detail">Have you experienced major life events? Job changes, health issues, family changes, moves, inheritances, etc.</div>
+                    </li>
+                    
+                    <li class="checklist-item">
+                        <div class="checklist-title">
+                            <span class="checklist-icon">🎯</span>
+                            Goals Check-In
+                        </div>
+                        <div class="checklist-detail">Are your goals still the same? Has your retirement vision changed? New priorities or concerns?</div>
+                    </li>
+
+                    <li class="checklist-item">
+                        <div class="checklist-title">
+                            <span class="checklist-icon">📅</span>
+                            Timeline Update
+                        </div>
+                        <div class="checklist-detail">Is your retirement date still the same? Any changes to when you'll need major funds?</div>
+                    </li>
+                </ul>
+            </div>
+
+            <div class="question-group">
+                <h3>Investment & Performance Review</h3>
+                
+                <ul class="checklist">
+                    <li class="checklist-item">
+                        <div class="checklist-title">
+                            <span class="checklist-icon">📈</span>
+                            Portfolio Performance
+                        </div>
+                        <div class="checklist-detail">How did your investments perform vs. appropriate benchmarks? Context for market conditions. Year-to-date and long-term performance.</div>
+                    </li>
+                    
+                    <li class="checklist-item">
+                        <div class="checklist-title">
+                            <span class="checklist-icon">⚖️</span>
+                            Asset Allocation Review
+                        </div>
+                        <div class="checklist-detail">Is your portfolio still balanced according to your risk tolerance? Does rebalancing need to happen?</div>
+                    </li>
+
+                    <li class="checklist-item">
+                        <div class="checklist-title">
+                            <span class="checklist-icon">💰</span>
+                            Fee Review
+                        </div>
+                        <div class="checklist-detail">What did you pay in total fees this year? (Advisory fees + investment expense ratios + any transaction costs)</div>
+                    </li>
+
+                    <li class="checklist-item">
+                        <div class="checklist-title">
+                            <span class="checklist-icon">📊</span>
+                            Progress Toward Goals
+                        </div>
+                        <div class="checklist-detail">Are you on track to meet your retirement income needs? Do projections show you'll meet your goals? What return do you need going forward?</div>
+                    </li>
+                </ul>
+            </div>
+
+            <div class="question-group">
+                <h3>Income & Cash Flow</h3>
+                
+                <ul class="checklist">
+                    <li class="checklist-item">
+                        <div class="checklist-title">
+                            <span class="checklist-icon">💵</span>
+                            Retirement Income Plan
+                        </div>
+                        <div class="checklist-detail">How will you generate income in retirement? Social Security timing, portfolio withdrawals, pension income, part-time work, etc.</div>
+                    </li>
+                    
+                    <li class="checklist-item">
+                        <div class="checklist-title">
+                            <span class="checklist-icon">🏦</span>
+                            Cash Reserves
+                        </div>
+                        <div class="checklist-detail">Do you have adequate emergency funds? 3-6 months of expenses in accessible accounts?</div>
+                    </li>
+
+                    <li class="checklist-item">
+                        <div class="checklist-title">
+                            <span class="checklist-icon">💳</span>
+                            Debt Review
+                        </div>
+                        <div class="checklist-detail">Outstanding debts? Mortgage payoff strategy? Should you pay down debt vs. invest?</div>
+                    </li>
+                </ul>
+            </div>
+
+            <div class="question-group">
+                <h3>Tax Strategy</h3>
+                
+                <ul class="checklist">
+                    <li class="checklist-item">
+                        <div class="checklist-title">
+                            <span class="checklist-icon">📋</span>
+                            Tax Return Review & Coordination
+                        </div>
+                        <div class="checklist-detail">Your advisor should review your tax return (even though they don't prepare it) to identify opportunities. They should coordinate with your CPA on tax-efficient strategies.</div>
+                    </li>
+                    
+                    <li class="checklist-item">
+                        <div class="checklist-title">
+                            <span class="checklist-icon">🔄</span>
+                            Roth Conversion Analysis
+                        </div>
+                        <div class="checklist-detail">Should you convert traditional IRA funds to Roth? What's the optimal amount this year?</div>
+                    </li>
+
+                    <li class="checklist-item">
+                        <div class="checklist-title">
+                            <span class="checklist-icon">📉</span>
+                            Tax-Loss Harvesting
+                        </div>
+                        <div class="checklist-detail">Opportunities to offset gains with losses? Strategies to minimize taxable income?</div>
+                    </li>
+
+                    <li class="checklist-item">
+                        <div class="checklist-title">
+                            <span class="checklist-icon">🎁</span>
+                            Charitable Giving Strategy
+                        </div>
+                        <div class="checklist-detail">If applicable: QCDs (Qualified Charitable Distributions), donor-advised funds, bunching donations?</div>
+                    </li>
+
+                    <li class="checklist-item">
+                        <div class="checklist-title">
+                            <span class="checklist-icon">📌</span>
+                            Account Location Strategy
+                        </div>
+                        <div class="checklist-detail">Are tax-efficient assets in taxable accounts and tax-inefficient assets in tax-deferred accounts?</div>
+                    </li>
+                </ul>
+            </div>
+
+            <div class="question-group">
+                <h3>Insurance & Risk Management</h3>
+                
+                <ul class="checklist">
+                    <li class="checklist-item">
+                        <div class="checklist-title">
+                            <span class="checklist-icon">🏥</span>
+                            Healthcare Coverage
+                        </div>
+                        <div class="checklist-detail">Medicare enrollment status and plan adequacy? Long-term care insurance evaluation? Health insurance for early retirees?</div>
+                    </li>
+                    
+                    <li class="checklist-item">
+                        <div class="checklist-title">
+                            <span class="checklist-icon">🛡️</span>
+                            Life & Disability Insurance
+                        </div>
+                        <div class="checklist-detail">Do coverage amounts still match your needs? Term life sufficient or expired?</div>
+                    </li>
+
+                    <li class="checklist-item">
+                        <div class="checklist-title">
+                            <span class="checklist-icon">🏠</span>
+                            Property & Liability
+                        </div>
+                        <div class="checklist-detail">Adequate homeowners/renters/auto coverage? Umbrella policy if needed?</div>
+                    </li>
+                </ul>
+            </div>
+
+            <div class="question-group">
+                <h3>Estate Planning & Beneficiaries</h3>
+                
+                <ul class="checklist">
+                    <li class="checklist-item">
+                        <div class="checklist-title">
+                            <span class="checklist-icon">👥</span>
+                            Beneficiary Review
+                        </div>
+                        <div class="checklist-detail">All accounts have current, correct beneficiaries listed? (Retirement accounts, life insurance, TOD/POD accounts)</div>
+                    </li>
+                    
+                    <li class="checklist-item">
+                        <div class="checklist-title">
+                            <span class="checklist-icon">📜</span>
+                            Estate Documents Review
+                        </div>
+                        <div class="checklist-detail">Advisor reviews your will, trust, power of attorney, healthcare directive (prepared by your attorney). Ensures beneficiaries and documents align with financial plan. Last reviewed in 3-5 years?</div>
+                    </li>
+
+                    <li class="checklist-item">
+                        <div class="checklist-title">
+                            <span class="checklist-icon">💎</span>
+                            Estate Tax Planning
+                        </div>
+                        <div class="checklist-detail">If applicable: Strategies to minimize estate taxes? Gifting strategies?</div>
+                    </li>
+                </ul>
+            </div>
+
+            <div class="question-group">
+                <h3>External Changes & Planning Adjustments</h3>
+                
+                <ul class="checklist">
+                    <li class="checklist-item">
+                        <div class="checklist-title">
+                            <span class="checklist-icon">🏛️</span>
+                            Legislative Changes
+                        </div>
+                        <div class="checklist-detail">New tax laws or retirement rule changes that affect your plan? (RMD age changes, contribution limits, etc.)</div>
+                    </li>
+                    
+                    <li class="checklist-item">
+                        <div class="checklist-title">
+                            <span class="checklist-icon">🌍</span>
+                            Market Conditions
+                        </div>
+                        <div class="checklist-detail">Economic outlook discussion? How current market conditions affect your strategy?</div>
+                    </li>
+
+                    <li class="checklist-item">
+                        <div class="checklist-title">
+                            <span class="checklist-icon">🔮</span>
+                            Scenario Planning
+                        </div>
+                        <div class="checklist-detail">What-if scenarios: early retirement, market downturn, major expense, extended longevity?</div>
+                    </li>
+                </ul>
+            </div>
+
+            <div class="info-box">
+                <h4>Meeting Frequency Guidelines:</h4>
+                <ul>
+                    <li><strong>Minimum:</strong> Annual comprehensive review</li>
+                    <li><strong>Better:</strong> Quarterly check-ins + annual deep dive</li>
+                    <li><strong>Plus:</strong> On-demand availability for major life changes or concerns</li>
+                    <li><strong>Between meetings:</strong> Regular performance reports (at least quarterly)</li>
+                </ul>
+            </div>
+
+            <div class="info-box">
+                <h4>Red Flags in Check-In Meetings:</h4>
+                <ul>
+                    <li>❌ Meetings focus only on investment performance</li>
+                    <li>❌ No discussion of fees or total cost</li>
+                    <li>❌ No tax return review</li>
+                    <li>❌ Generic advice not tailored to your situation</li>
+                    <li>❌ Advisor talks more than listens</li>
+                    <li>❌ No written summary or action items after meeting</li>
+                    <li>❌ You don't understand what's being discussed (advisor doesn't explain clearly)</li>
+                </ul>
+            </div>
+        </div>
+
+        <!-- Relationship Health Section -->
+        <div id="relationship" class="guide-section">
+            <a href="#" class="back-btn" onclick="showSection('nav'); return false;">← Back to Menu</a>
+            
+            <div class="section-header">
+                <h2>Is Your Advisor Relationship Healthy?</h2>
+                <p>Honest assessment: these are signs it might be time to find a new financial advisor.</p>
+            </div>
+
+            <div class="question-group">
+                <h3>🟢 Green Flags: Signs of a Good Advisor</h3>
+                
+                <ul class="checklist">
+                    <li class="checklist-item green">
+                        <div class="checklist-title">
+                            <span class="checklist-icon">✅</span>
+                            Fiduciary at All Times
+                        </div>
+                        <div class="checklist-detail">Legally obligated to put your interests first. Fee-only compensation structure.</div>
+                    </li>
+
+                    <li class="checklist-item green">
+                        <div class="checklist-title">
+                            <span class="checklist-icon">✅</span>
+                            Proactive Communication
+                        </div>
+                        <div class="checklist-detail">Reaches out before scheduled meetings about important changes. Returns calls/emails promptly.</div>
+                    </li>
+
+                    <li class="checklist-item green">
+                        <div class="checklist-title">
+                            <span class="checklist-icon">✅</span>
+                            Total Transparency
+                        </div>
+                        <div class="checklist-detail">Clear about all fees. Explains strategies in understandable terms. Admits what they don't know.</div>
+                    </li>
+
+                    <li class="checklist-item green">
+                        <div class="checklist-title">
+                            <span class="checklist-icon">✅</span>
+                            Comprehensive Service
+                        </div>
+                        <div class="checklist-detail">Goes beyond just investment management. Coordinates with tax professionals. Reviews your full financial picture regularly.</div>
+                    </li>
+
+                    <li class="checklist-item green">
+                        <div class="checklist-title">
+                            <span class="checklist-icon">✅</span>
+                            Education-Focused
+                        </div>
+                        <div class="checklist-detail">Teaches you about strategies. Helps you understand your options. Never makes you feel dumb for asking questions.</div>
+                    </li>
+
+                    <li class="checklist-item green">
+                        <div class="checklist-title">
+                            <span class="checklist-icon">✅</span>
+                            Goal-Aligned Advice
+                        </div>
+                        <div class="checklist-detail">Recommendations match YOUR goals and risk tolerance. Not pushing products. Willing to say "no" when something doesn't fit.</div>
+                    </li>
+                </ul>
+            </div>
+
+            <div class="question-group">
+                <h3>🟡 Yellow Flags: Concerns Worth Discussing</h3>
+                
+                <ul class="checklist">
+                    <li class="checklist-item yellow">
+                        <div class="checklist-title">
+                            <span class="checklist-icon">⚠️</span>
+                            Poor Communication
+                        </div>
+                        <div class="checklist-detail">Slow to respond to emails/calls. Doesn't reach out between scheduled meetings. Hard to get a hold of.</div>
+                    </li>
+
+                    <li class="checklist-item yellow">
+                        <div class="checklist-title">
+                            <span class="checklist-icon">⚠️</span>
+                            Cookie-Cutter Advice
+                        </div>
+                        <div class="checklist-detail">Same recommendations for everyone. Doesn't consider your unique situation. One-size-fits-all approach.</div>
+                    </li>
+
+                    <li class="checklist-item yellow">
+                        <div class="checklist-title">
+                            <span class="checklist-icon">⚠️</span>
+                            Unclear Fees
+                        </div>
+                        <div class="checklist-detail">Can't clearly explain total costs. Vague about how they're compensated. Fees seem high without clear justification.</div>
+                    </li>
+
+                    <li class="checklist-item yellow">
+                        <div class="checklist-title">
+                            <span class="checklist-icon">⚠️</span>
+                            Lack of Proactive Planning
+                        </div>
+                        <div class="checklist-detail">Only discusses investments, not comprehensive planning. Doesn't bring up tax strategies. Reactive rather than proactive.</div>
+                    </li>
+
+                    <li class="checklist-item yellow">
+                        <div class="checklist-title">
+                            <span class="checklist-icon">⚠️</span>
+                            Dismissive of Questions
+                        </div>
+                        <div class="checklist-detail">Makes you feel like questions are a bother. Uses jargon without explanation. "Don't worry about it" responses.</div>
+                    </li>
+                </ul>
+
+                <div class="info-box">
+                    <h4>If You See Yellow Flags:</h4>
+                    <p>Have a direct conversation with your advisor about your concerns. A good advisor will welcome feedback and make improvements. If nothing changes after addressing concerns, it may be time to look elsewhere.</p>
+                </div>
+            </div>
+
+            <div class="question-group">
+                <h3>🔴 Red Flags: Time to Find a New Advisor</h3>
+                
+                <ul class="checklist">
+                    <li class="checklist-item red">
+                        <div class="checklist-title">
+                            <span class="checklist-icon">🚩</span>
+                            Not a Fiduciary
+                        </div>
+                        <div class="checklist-detail">Held to "suitability standard" not fiduciary standard. Only a fiduciary part-time. Can't or won't put fiduciary commitment in writing.</div>
+                    </li>
+
+                    <li class="checklist-item red">
+                        <div class="checklist-title">
+                            <span class="checklist-icon">🚩</span>
+                            Disciplinary History
+                        </div>
+                        <div class="checklist-detail">Check FINRA BrokerCheck or SEC website. Past complaints, violations, or disciplinary actions.</div>
+                    </li>
+
+                    <li class="checklist-item red">
+                        <div class="checklist-title">
+                            <span class="checklist-icon">🚩</span>
+                            Pressure Tactics
+                        </div>
+                        <div class="checklist-detail">"Act now or miss out" urgency. Pushing you to make decisions before you're ready. High-pressure sales environment.</div>
+                    </li>
+
+                    <li class="checklist-item red">
+                        <div class="checklist-title">
+                            <span class="checklist-icon">🚩</span>
+                            Excessive Trading
+                        </div>
+                        <div class="checklist-detail">Frequent buying/selling (churning) that generates commissions. High turnover in your portfolio without clear reason.</div>
+                    </li>
+
+                    <li class="checklist-item red">
+                        <div class="checklist-title">
+                            <span class="checklist-icon">🚩</span>
+                            High-Cost Investments
+                        </div>
+                        <div class="checklist-detail">Consistently recommending high-fee mutual funds or annuities. Not considering lower-cost alternatives.</div>
+                    </li>
+
+                    <li class="checklist-item red">
+                        <div class="checklist-title">
+                            <span class="checklist-icon">🚩</span>
+                            Misaligned Investments
+                        </div>
+                        <div class="checklist-detail">Portfolio doesn't match your stated risk tolerance. Too aggressive if you're risk-averse, or vice versa.</div>
+                    </li>
+
+                    <li class="checklist-item red">
+                        <div class="checklist-title">
+                            <span class="checklist-icon">🚩</span>
+                            No Independent Custodian
+                        </div>
+                        <div class="checklist-detail">Advisor holds your assets directly. Asks you to write checks to them personally. Doesn't use Schwab/Fidelity/Vanguard/etc.</div>
+                    </li>
+
+                    <li class="checklist-item red">
+                        <div class="checklist-title">
+                            <span class="checklist-icon">🚩</span>
+                            Unrealistic Promises
+                        </div>
+                        <div class="checklist-detail">Guarantees returns. Claims they can "beat the market" consistently. "No risk" promises.</div>
+                    </li>
+
+                    <li class="checklist-item red">
+                        <div class="checklist-title">
+                            <span class="checklist-icon">🚩</span>
+                            No Regular Contact
+                        </div>
+                        <div class="checklist-detail">Haven't heard from them in over a year. Doesn't answer phone/email. You always have to initiate contact.</div>
+                    </li>
+
+                    <li class="checklist-item red">
+                        <div class="checklist-title">
+                            <span class="checklist-icon">🚩</span>
+                            Poor Performance with No Explanation
+                        </div>
+                        <div class="checklist-detail">Significantly underperforming benchmarks over 3-5 years. No clear explanation or plan to improve.</div>
+                    </li>
+
+                    <li class="checklist-item red">
+                        <div class="checklist-title">
+                            <span class="checklist-icon">🚩</span>
+                            Unregistered
+                        </div>
+                        <div class="checklist-detail">Not registered with SEC, state regulators, or FINRA. No verifiable credentials. Can't find them on BrokerCheck.</div>
+                    </li>
+
+                    <li class="checklist-item red">
+                        <div class="checklist-title">
+                            <span class="checklist-icon">🚩</span>
+                            Conflicts of Interest Not Disclosed
+                        </div>
+                        <div class="checklist-detail">Hidden compensation arrangements. Referral fees not disclosed. Relationships with product providers not mentioned.</div>
+                    </li>
+
+                    <li class="checklist-item red">
+                        <div class="checklist-title">
+                            <span class="checklist-icon">🚩</span>
+                            Won't Review Documents from Other Professionals
+                        </div>
+                        <div class="checklist-detail">Refuses to look at your tax return or estate documents prepared by your CPA/attorney. Says "that's not my job" instead of coordinating integrated strategies.</div>
+                    </li>
+                </ul>
+            </div>
+
+            <div class="info-box">
+                <h4>When to Fire Your Advisor:</h4>
+                <p><strong>If you see 3 or more red flags, it's time to start looking for a new advisor.</strong></p>
+                <p>According to research, the top reasons clients leave their advisors are:</p>
+                <ul>
+                    <li>1. Poor quality of advice/service (53%)</li>
+                    <li>2. Poor quality of relationship/communication (53%)</li>
+                    <li>3. High fees relative to value received</li>
+                </ul>
+                <p style="margin-top: 1rem;"><strong>You deserve an advisor who:</strong> Puts your interests first, communicates clearly and regularly, provides comprehensive planning (not just investment management), charges reasonable fees, and helps you feel confident about your financial future.</p>
+            </div>
+
+            <div class="question-group">
+                <h3>How to Fire Your Financial Advisor</h3>
+                
+                <div class="info-box">
+                    <h4>Step-by-Step Process:</h4>
+                    <ol style="margin-left: 1.25rem;">
+                        <li style="margin-bottom: 0.75rem;"><strong>Find your replacement first:</strong> Interview 3-5 new advisors before making the switch.</li>
+                        <li style="margin-bottom: 0.75rem;"><strong>Review your contract:</strong> Check for any exit fees or notice requirements.</li>
+                        <li style="margin-bottom: 0.75rem;"><strong>Gather documentation:</strong> Get copies of all statements, tax documents, and financial plans.</li>
+                        <li style="margin-bottom: 0.75rem;"><strong>Notify in writing:</strong> Send a brief, professional letter or email stating you're terminating the relationship.</li>
+                        <li style="margin-bottom: 0.75rem;"><strong>Transfer assets:</strong> Work with your new advisor to transfer accounts directly (avoid cashing out).</li>
+                        <li style="margin-bottom: 0.75rem;"><strong>Follow up:</strong> Confirm all accounts are closed and no fees are still being charged.</li>
+                    </ol>
+                    <p style="margin-top: 1rem;"><strong>You don't owe them a detailed explanation.</strong> A simple "I've decided to make a change in my financial advisory relationship" is sufficient. You're not required to justify your decision.</p>
+                </div>
+            </div>
+
+            <div class="info-box">
+                <h4>Resources for Verification:</h4>
+                <ul>
+                    <li><strong>FINRA BrokerCheck:</strong> Check broker backgrounds, credentials, and disciplinary history</li>
+                    <li><strong>SEC Investment Adviser Search:</strong> Verify registration and view Form ADV</li>
+                    <li><strong>CFP Board:</strong> Verify CFP® certification and check for disciplinary actions</li>
+                    <li><strong>State Securities Regulators:</strong> Additional state-level oversight information</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        function showSection(section) {
+            // Hide all sections
+            document.querySelectorAll('.guide-section').forEach(sec => {
+                sec.classList.remove('active');
+            });
+
+            // Show selected section
+            if (section === 'nav') {
+                // Scroll to top
+                window.scrollTo({ top: 0, behavior: 'smooth' });
+            } else {
+                document.getElementById(section).classList.add('active');
+                // Scroll to section
+                setTimeout(() => {
+                    document.getElementById(section).scrollIntoView({ behavior: 'smooth', block: 'start' });
+                }, 100);
+            }
+        }
+
+        // Show first section by default
+        window.addEventListener('DOMContentLoaded', () => {
+            // Start with navigation visible, all content hidden
+        });
+    </script>
+</body>
+</html>
