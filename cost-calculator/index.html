@@ -171,6 +171,20 @@
                     <p style="margin-top: 0.75rem;"><em>Note: These are relative to each location's cost of living. "Moderate" in Thailand buys more than "Comfortable" in California.</em></p>
                 </div>
 
+                <div class="info-box" style="background: #FEF3C7; border-left-color: #F59E0B; margin-bottom: 1.5rem;">
+                    <h4 style="color: #92400E;">⚠️ Important: Baseline Estimates Only</h4>
+                    <p style="margin-bottom: 0.75rem;">These calculations show <strong>baseline costs for essential expenses.</strong> Real-world costs typically run <strong>20-30% higher</strong> due to:</p>
+                    <ul style="color: #92400E;">
+                        <li>One-time setup costs (furniture, deposits, kitchen supplies)</li>
+                        <li>Visa fees, renewals, and related legal expenses</li>
+                        <li>Flights home to visit family/friends</li>
+                        <li>Medical emergencies or unexpected procedures</li>
+                        <li>Entertainment splurges and spontaneous travel</li>
+                        <li>Personal lifestyle variations and preferences</li>
+                    </ul>
+                    <p style="margin-top: 0.75rem;"><strong>Use these as a starting point, not a definitive budget.</strong> Build in a 25-30% cushion for financial security.</p>
+                </div>
+
                 <form id="calculator-form">
                     <!-- Currency -->
                     <div class="form-group">
@@ -535,6 +549,11 @@
                     <p style="margin-top: 0.75rem;"><strong>Budget Levels:</strong> Frugal (minimalist essentials), Moderate (balanced comfort), Comfortable (enhanced living). See details in Calculate tab.</p>
                 </div>
 
+                <div class="info-box" style="background: #FEF3C7; border-left-color: #F59E0B;">
+                    <h4 style="color: #92400E;">⚠️ Budget Cushion Recommended</h4>
+                    <p style="color: #92400E;">These estimates show baseline essential costs. We strongly recommend having <strong>20-30% more</strong> than listed amounts to account for unexpected expenses, one-time setup costs, emergencies, and lifestyle flexibility. Real-world retirement costs are rarely "just the essentials."</p>
+                </div>
+
                 <form id="afford-form">
                     <!-- Currency -->
                     <div class="form-group">
@@ -829,7 +848,7 @@
 
         function calculateStayHome(costArea, budget, people, housing) {
             const areaMultipliers = { high: 1.4, medium: 1.0, low: 0.7 };
-            const budgetMultipliers = { frugal: 0.75, moderate: 1.0, comfortable: 1.35 };
+            const budgetMultipliers = { frugal: 0.75, moderate: 1.225, comfortable: 1.7 };
             const areaMult = areaMultipliers[costArea];
             const budgetMult = budgetMultipliers[budget];
             const peopleMult = people === 2 ? 1.6 : 1.0;
@@ -856,7 +875,7 @@
         }
 
         function calculateExpat(costArea, budget, people, housing, country) {
-            const budgetMultipliers = { frugal: 0.7, moderate: 1.0, comfortable: 1.4 };
+            const budgetMultipliers = { frugal: 0.7, moderate: 1.225, comfortable: 1.7 };
             const budgetMult = budgetMultipliers[budget];
             const peopleMult = people === 2 ? 1.5 : 1.0;
             const countryMult = countryCosts[country] || 0.7;
@@ -876,7 +895,7 @@
 
         function calculateSlowTravel(costArea, budget, people) {
             const travelCountry = document.getElementById('travel-country').value;
-            const budgetMultipliers = { frugal: 0.7, moderate: 1.0, comfortable: 1.4 };
+            const budgetMultipliers = { frugal: 0.7, moderate: 1.225, comfortable: 1.7 };
             const peopleMult = people === 2 ? 1.5 : 1.0;
             const countryMult = countryCosts[travelCountry] || 0.7;
             const budgetMult = budgetMultipliers[budget];
@@ -897,7 +916,7 @@
             const winterDest = document.getElementById('winter-destination').value;
             const winterMonths = parseInt(document.getElementById('winter-months').value);
             const areaMultipliers = { high: 1.4, medium: 1.0, low: 0.7 };
-            const budgetMultipliers = { frugal: 0.75, moderate: 1.0, comfortable: 1.35 };
+            const budgetMultipliers = { frugal: 0.75, moderate: 1.225, comfortable: 1.7 };
             const areaMult = areaMultipliers[costArea];
             const budgetMult = budgetMultipliers[budget];
             const peopleMult = people === 2 ? 1.5 : 1.0;
@@ -924,7 +943,7 @@
         function calculateRV(costArea, budget, people) {
             const rvOwn = document.querySelector('input[name="rvOwn"]:checked').value;
             const rvTravel = document.querySelector('input[name="rvTravel"]:checked').value;
-            const budgetMultipliers = { frugal: 0.75, moderate: 1.0, comfortable: 1.35 };
+            const budgetMultipliers = { frugal: 0.75, moderate: 1.225, comfortable: 1.7 };
             const budgetMult = budgetMultipliers[budget];
             const peopleMult = people === 2 ? 1.3 : 1.0;
             const rvPayment = rvOwn === 'own' ? 0 : (rvOwn === 'financing' ? 500 : 1200);
@@ -976,6 +995,16 @@
                     <span class="breakdown-amount">${symbol}${Math.round(total).toLocaleString()}</span>
                 </div>
             `;
+
+            // Add reminder note after breakdown
+            const reminderNote = `
+                <div style="background: #FEF3C7; border: 2px solid #F59E0B; border-radius: 8px; padding: 1rem; margin-top: 1.5rem; text-align: center;">
+                    <strong style="color: #92400E;">💡 Remember:</strong> 
+                    <span style="color: #92400E;">Add 25% cushion for real-world costs (setup, visas, emergencies, splurges). 
+                    Suggested budget: ${symbol}${Math.round(total * 1.25).toLocaleString()}/month</span>
+                </div>
+            `;
+            document.getElementById('breakdown-items').insertAdjacentHTML('afterend', reminderNote);
 
             document.getElementById('results-calculate').classList.add('active');
             document.getElementById('results-calculate').scrollIntoView({ behavior: 'smooth', block: 'start' });
@@ -1051,7 +1080,7 @@
 
         function calculateStayHomeVariation(costArea, budget, people, housing) {
             const areaMultipliers = { high: 1.4, medium: 1.0, low: 0.7 };
-            const budgetMultipliers = { frugal: 0.75, moderate: 1.0, comfortable: 1.35 };
+            const budgetMultipliers = { frugal: 0.75, moderate: 1.225, comfortable: 1.7 };
             const areaMult = areaMultipliers[costArea];
             const budgetMult = budgetMultipliers[budget];
             const peopleMult = people === 2 ? 1.6 : 1.0;
