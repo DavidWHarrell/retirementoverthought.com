@@ -3,8 +3,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Retirement Overthought | Retirement Lifestyle Planning</title>
-    <meta name="description" content="Figure out what you actually want retirement to look like. Free assessment, detailed guides, and frameworks to help you plan your ideal retirement lifestyle.">
+    <title>Retirement Overthought | Plan Your Ideal Retirement</title>
+    <meta name="description" content="Free tools and resources to help you plan an alternative retirement lifestyle you'll actually enjoy.">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Crimson+Text:wght@400;600;700&family=Work+Sans:wght@400;500;600&display=swap" rel="stylesheet">
@@ -21,6 +21,7 @@
             --color-primary-light: #E6F3F7;
             --color-accent: #FFD700;
             --color-accent-dark: #E6C200;
+            --color-success: #10B981;
             --color-text: #1a1a1a;
             --color-text-light: #4a4a4a;
             --color-white: #FFFFFF;
@@ -41,140 +42,72 @@
         .hero {
             background: linear-gradient(135deg, var(--color-primary) 0%, var(--color-primary-dark) 100%);
             color: var(--color-white);
-            padding: 4rem 2rem;
+            padding: 6rem 2rem 4rem;
             text-align: center;
-            position: relative;
-            overflow: hidden;
         }
 
-        .hero::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            right: 0;
-            bottom: 0;
-            background: url('data:image/svg+xml,<svg width="60" height="60" xmlns="http://www.w3.org/2000/svg"><path d="M0 0h60v60H0z" fill="none"/><path d="M30 0v60M0 30h60" stroke="%23ffffff" stroke-width="0.5" opacity="0.1"/></svg>');
-            opacity: 0.1;
-        }
-
-        .hero-content {
-            max-width: 900px;
-            margin: 0 auto;
-            position: relative;
-            z-index: 1;
-        }
-
-        .logo {
+        h1 {
             font-family: var(--font-serif);
-            font-size: 3.5rem;
-            font-weight: 700;
+            font-size: 3rem;
             margin-bottom: 1rem;
-            letter-spacing: -0.5px;
+            line-height: 1.2;
         }
 
-        .tagline {
+        .hero-subtitle {
             font-size: 1.5rem;
+            margin-bottom: 2rem;
             color: var(--color-accent);
-            margin-bottom: 1.5rem;
-            font-weight: 500;
         }
 
         .hero-description {
             font-size: 1.2rem;
-            line-height: 1.8;
             max-width: 700px;
-            margin: 0 auto 2.5rem;
-            color: var(--color-primary-light);
-        }
-
-        .cta-primary {
-            display: inline-block;
-            padding: 1.25rem 3rem;
-            background: var(--color-accent);
-            color: var(--color-primary-dark);
-            font-size: 1.25rem;
-            font-weight: 600;
-            text-decoration: none;
-            border-radius: 8px;
-            transition: all 0.2s ease;
-            box-shadow: 0 4px 12px rgba(255, 215, 0, 0.3);
-        }
-
-        .cta-primary:hover {
-            background: var(--color-accent-dark);
-            transform: translateY(-2px);
-            box-shadow: 0 6px 20px rgba(255, 215, 0, 0.4);
+            margin: 0 auto 2rem;
+            line-height: 1.8;
         }
 
         /* Container */
         .container {
             max-width: 1200px;
             margin: 0 auto;
-            padding: 0 2rem;
+            padding: 4rem 2rem;
         }
 
-        /* Problem Section */
-        .problem-section {
-            padding: 4rem 0;
-            background: var(--color-white);
+        .section-header {
+            text-align: center;
+            margin-bottom: 3rem;
         }
 
-        .section-title {
+        .section-header h2 {
             font-family: var(--font-serif);
             font-size: 2.5rem;
-            color: var(--color-primary);
-            text-align: center;
-            margin-bottom: 2rem;
-        }
-
-        .problem-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-            gap: 2rem;
-            margin-top: 3rem;
-        }
-
-        .problem-card {
-            padding: 2rem;
-            background: var(--color-bg);
-            border-left: 4px solid var(--color-accent);
-            border-radius: 8px;
-        }
-
-        .problem-card h3 {
-            font-family: var(--font-serif);
-            font-size: 1.5rem;
             color: var(--color-primary);
             margin-bottom: 1rem;
         }
 
-        .problem-card p {
+        .section-header p {
+            font-size: 1.2rem;
             color: var(--color-text-light);
-            line-height: 1.7;
         }
 
-        /* Tools Section */
-        .tools-section {
-            padding: 4rem 0;
-        }
-
-        .tools-grid {
+        /* Tool Grid */
+        .tool-grid {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 2.5rem;
-            margin-top: 3rem;
+            gap: 2rem;
+            margin-bottom: 3rem;
         }
 
         .tool-card {
             background: var(--color-white);
             border: 2px solid var(--color-border);
-            border-radius: 12px;
-            padding: 2.5rem;
+            border-radius: 8px;
+            padding: 2rem;
+            text-align: center;
             transition: all 0.3s ease;
             text-decoration: none;
+            color: var(--color-text);
             display: block;
-            color: inherit;
         }
 
         .tool-card:hover {
@@ -250,40 +183,27 @@
         /* Footer */
         footer {
             background: var(--color-primary-dark);
-            color: var(--color-primary-light);
-            padding: 2rem 0;
+            color: var(--color-white);
             text-align: center;
-        }
-
-        footer a {
-            color: var(--color-accent);
-            text-decoration: none;
-        }
-
-        footer a:hover {
-            text-decoration: underline;
+            padding: 2rem;
+            margin-top: 4rem;
         }
 
         /* Responsive */
         @media (max-width: 768px) {
-            .logo {
-                font-size: 2.5rem;
-            }
-
-            .tagline {
-                font-size: 1.2rem;
-            }
-
-            .hero-description {
-                font-size: 1.1rem;
-            }
-
-            .section-title {
+            h1 {
                 font-size: 2rem;
             }
 
-            .tools-grid,
-            .problem-grid {
+            .hero-subtitle {
+                font-size: 1.2rem;
+            }
+
+            .section-header h2 {
+                font-size: 2rem;
+            }
+
+            .tool-grid {
                 grid-template-columns: 1fr;
             }
         }
@@ -292,86 +212,73 @@
 <body>
     <!-- Hero Section -->
     <section class="hero">
-        <div class="hero-content">
-            <h1 class="logo">Retirement Overthought</h1>
-            <p class="tagline">Plan the life, not just the money</p>
-            <p class="hero-description">
-                Most retirement planning focuses entirely on finances. But retirement isn't a destination—it's potentially 20, 30, even 40 years of life. <strong>What does that life actually look like?</strong>
-            </p>
-            <a href="/assessment/" class="cta-primary">Take the Free Assessment</a>
-        </div>
-    </section>
-
-    <!-- Problem Section -->
-    <section class="problem-section">
-        <div class="container">
-            <h2 class="section-title">The Problem Nobody Talks About</h2>
-            <div class="problem-grid">
-                <div class="problem-card">
-                    <h3>You've saved for decades...</h3>
-                    <p>You've maxed out your 401(k), calculated your withdrawal rate, and talked to financial advisors. The money part? Covered.</p>
-                </div>
-                <div class="problem-card">
-                    <h3>But what's the actual plan?</h3>
-                    <p>Stay home? Travel constantly? Split time between two places? Live abroad? You've got the funds, but no clear vision of what you're funding.</p>
-                </div>
-                <div class="problem-card">
-                    <h3>This matters more than you think</h3>
-                    <p>If you know what you want your life to look like, you can plan for it. Lifestyle clarity drives better financial decisions, not the other way around.</p>
-                </div>
-            </div>
-        </div>
+        <h1>Retirement Overthought</h1>
+        <p class="hero-subtitle">Planning an Alternative Retirement</p>
+        <p class="hero-description">
+            Free tools and resources to help you explore alternative retirement lifestyles beyond the traditional American dream.
+        </p>
     </section>
 
     <!-- Tools Section -->
-    <section class="tools-section">
-        <div class="container">
-            <h2 class="section-title">Free Tools & Resources</h2>
-            <div class="tools-grid">
-                <a href="/assessment/" class="tool-card">
-                    <div class="tool-icon">📊</div>
-                    <h3 class="tool-title">Lifestyle Assessment</h3>
-                    <p class="tool-description">
-                        25 questions to discover which retirement lifestyles fit your preferences, personality, and situation. Get personalized recommendations in 5-7 minutes.
-                    </p>
-                    <span class="tool-status">Available Now</span>
-                </a>
+    <section class="container">
+        <div class="section-header">
+            <h2>Your Toolkit</h2>
+            <p>Four free tools to help you plan your ideal retirement</p>
+        </div>
 
-                <a href="/countries/" class="tool-card">
-                    <div class="tool-icon">🌍</div>
-                    <h3 class="tool-title">Country Comparison</h3>
-                    <p class="tool-description">
-                        Compare 50+ countries for expat/retirement living. Sort by healthcare, cost of living, safety, and more. Find your ideal international destination.
-                    </p>
-                    <span class="tool-status">Available Now</span>
-                </a>
+        <div class="tool-grid">
+            <a href="/assessment/" class="tool-card">
+                <div class="tool-icon">✅</div>
+                <h3 class="tool-title">Retirement Readiness Assessment</h3>
+                <p class="tool-description">
+                    Discover if you're truly ready to retire or if there are critical gaps in your planning. Get personalized insights in minutes.
+                </p>
+                <span class="tool-status">Available Now</span>
+            </a>
 
-                <a href="/channels/" class="tool-card">
-                    <div class="tool-icon">📺</div>
-                    <h3 class="tool-title">YouTube Directory</h3>
-                    <p class="tool-description">
-                        Curated list of 50+ YouTube channels covering every retirement lifestyle - RV living, slow travel, expat life, cruising, and more.
-                    </p>
-                    <span class="tool-status">Available Now</span>
-                </a>
+            <a href="/countries/" class="tool-card">
+                <div class="tool-icon">🌍</div>
+                <h3 class="tool-title">Country Comparison Tool</h3>
+                <p class="tool-description">
+                    Compare 50+ countries side-by-side on cost of living, healthcare, safety, climate, and quality of life. Find your ideal retirement destination.
+                </p>
+                <span class="tool-status">Available Now</span>
+            </a>
 
-                <a href="/financial/" class="tool-card">
-                    <div class="tool-icon">💰</div>
-                    <h3 class="tool-title">Retirement Financial Hub</h3>
-                    <p class="tool-description">
-                        Complete guide to working with financial advisors. Interview questions, meeting checklists, and relationship health assessment.
-                    </p>
-                    <span class="tool-status">Available Now</span>
-                </a>
+            <a href="/channels/" class="tool-card">
+                <div class="tool-icon">📺</div>
+                <h3 class="tool-title">YouTube Channel Directory</h3>
+                <p class="tool-description">
+                    Curated list of 26 YouTube channels covering RV life, slow travel, expat living, sailing, and cruising. Learn from real retirees.
+                </p>
+                <span class="tool-status">Available Now</span>
+            </a>
 
-                <div class="tool-card" style="opacity: 0.7; cursor: not-allowed;">
-                    <div class="tool-icon">📅</div>
-                    <h3 class="tool-title">Timeline Planner</h3>
-                    <p class="tool-description">
-                        Build a step-by-step plan to test and transition into your ideal retirement lifestyle. Know exactly what to do and when.
-                    </p>
-                    <span class="tool-status coming-soon">Coming Soon</span>
-                </div>
+            <a href="/cost-calculator/" class="tool-card">
+                <div class="tool-icon">💰</div>
+                <h3 class="tool-title">Lifestyle Cost Calculator</h3>
+                <p class="tool-description">
+                    Calculate what your retirement lifestyle will actually cost, or discover which lifestyles fit your budget. Compare RV, slow travel, snowbird, expat, and staying home.
+                </p>
+                <span class="tool-status">Available Now</span>
+            </a>
+
+            <a href="/financial/" class="tool-card">
+                <div class="tool-icon">📊</div>
+                <h3 class="tool-title">Financial Advisor Guide</h3>
+                <p class="tool-description">
+                    Interview questions, meeting checklists, and relationship health assessment. Know when to fire your advisor and what to expect from regular reviews.
+                </p>
+                <span class="tool-status">Available Now</span>
+            </a>
+
+            <div class="tool-card" style="opacity: 0.7; cursor: not-allowed;">
+                <div class="tool-icon">📅</div>
+                <h3 class="tool-title">Timeline Planner</h3>
+                <p class="tool-description">
+                    Build a step-by-step plan to test and transition into your ideal retirement lifestyle. Know exactly what to do and when.
+                </p>
+                <span class="tool-status coming-soon">Coming Soon</span>
             </div>
         </div>
     </section>
@@ -380,28 +287,20 @@
     <section class="youtube-section">
         <div class="container">
             <div class="youtube-content">
-                <h2 class="section-title">Deep Dive Videos</h2>
+                <h2 style="font-family: var(--font-serif); font-size: 2.5rem; color: var(--color-primary); margin-bottom: 1rem;">Watch Our Videos</h2>
                 <p style="font-size: 1.2rem; color: var(--color-text-light); margin-bottom: 1rem;">
-                    I go way too deep researching retirement lifestyles—all the options, trade-offs, and logistics—so you don't have to start from zero.
+                    Deep dives into alternative retirement lifestyles, interviews with retirees living the dream, and practical advice for planning your escape.
                 </p>
-                <p style="color: var(--color-text-light);">
-                    Detailed breakdowns of snowbirding, slow travel, RV life, expat living, downsizing, and more. Real costs, honest trade-offs, and frameworks to help you decide.
-                </p>
-                <a href="https://youtube.com/@retirementoverthought" class="youtube-button">Watch on YouTube</a>
+                <a href="https://www.youtube.com/@RetirementOverthought" target="_blank" rel="noopener noreferrer" class="youtube-button">
+                    ▶ Visit Our YouTube Channel
+                </a>
             </div>
         </div>
     </section>
 
     <!-- Footer -->
     <footer>
-        <div class="container">
-            <p>&copy; 2026 Retirement Overthought. All rights reserved.</p>
-            <p style="margin-top: 0.5rem;">
-                <a href="/assessment/">Assessment</a> • 
-                <a href="https://youtube.com/@retirementoverthought">YouTube</a> • 
-                <a href="mailto:david@retirementoverthought.com">Contact</a>
-            </p>
-        </div>
+        <p>&copy; 2026 Retirement Overthought. All rights reserved.</p>
     </footer>
 </body>
 </html>
