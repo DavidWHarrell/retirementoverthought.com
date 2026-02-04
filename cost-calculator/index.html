@@ -996,9 +996,15 @@
                 </div>
             `;
 
+            // Remove any existing reminder note first
+            const existingReminder = document.querySelector('#breakdown-reminder');
+            if (existingReminder) {
+                existingReminder.remove();
+            }
+
             // Add reminder note after breakdown
             const reminderNote = `
-                <div style="background: #FEF3C7; border: 2px solid #F59E0B; border-radius: 8px; padding: 1rem; margin-top: 1.5rem; text-align: center;">
+                <div id="breakdown-reminder" style="background: #FEF3C7; border: 2px solid #F59E0B; border-radius: 8px; padding: 1rem; margin-top: 1.5rem; text-align: center;">
                     <strong style="color: #92400E;">💡 Remember:</strong> 
                     <span style="color: #92400E;">Add 25% cushion for real-world costs (setup, visas, emergencies, splurges). 
                     Suggested budget: ${symbol}${Math.round(total * 1.25).toLocaleString()}/month</span>
