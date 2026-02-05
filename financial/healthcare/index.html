@@ -1366,7 +1366,7 @@
         // Checkbox functionality
         document.addEventListener('click', function(e) {
             const item = e.target.closest('.checklist-item');
-            if (item && !e.target.tagName === 'A' && !e.target.tagName === 'SUMMARY') {
+            if (item && e.target.tagName !== 'A' && e.target.tagName !== 'SUMMARY') {
                 item.classList.toggle('checked');
                 updateProgress();
                 saveState();
