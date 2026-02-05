@@ -1,0 +1,766 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>When Should You Claim Social Security?</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+            line-height: 1.6;
+            color: #333;
+            background: #f5f7fa;
+            padding: 20px;
+        }
+        
+        .container {
+            max-width: 1000px;
+            margin: 0 auto;
+            background: white;
+            padding: 40px;
+            border-radius: 12px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+        }
+        
+        h1 {
+            color: #1a365d;
+            margin-bottom: 20px;
+            font-size: 2em;
+        }
+        
+        .intro {
+            background: #eef2f7;
+            padding: 25px;
+            border-radius: 8px;
+            margin-bottom: 40px;
+            border-left: 4px solid #3182ce;
+        }
+        
+        .intro p {
+            margin-bottom: 15px;
+        }
+        
+        .intro strong {
+            color: #2c5282;
+        }
+        
+        .age-section {
+            margin-bottom: 50px;
+        }
+        
+        .age-section h2 {
+            color: #2d3748;
+            margin-bottom: 20px;
+            padding-bottom: 10px;
+            border-bottom: 2px solid #e2e8f0;
+        }
+        
+        .age-62 h2 { border-bottom-color: #f56565; }
+        .age-67 h2 { border-bottom-color: #ed8936; }
+        .age-70 h2 { border-bottom-color: #48bb78; }
+        
+        .cards {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 20px;
+        }
+        
+        .card {
+            border: 2px solid #e2e8f0;
+            border-radius: 8px;
+            padding: 20px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            background: white;
+        }
+        
+        .card:hover {
+            border-color: #3182ce;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+            transform: translateY(-2px);
+        }
+        
+        .card.expanded {
+            border-color: #3182ce;
+            background: #f7fafc;
+        }
+        
+        .card-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: start;
+            margin-bottom: 10px;
+        }
+        
+        .card-title {
+            font-weight: 600;
+            color: #2d3748;
+            font-size: 1.1em;
+            flex: 1;
+        }
+        
+        .expand-icon {
+            color: #718096;
+            font-size: 1.2em;
+            transition: transform 0.3s ease;
+            margin-left: 10px;
+        }
+        
+        .card.expanded .expand-icon {
+            transform: rotate(180deg);
+        }
+        
+        .card-preview {
+            color: #718096;
+            font-size: 0.95em;
+        }
+        
+        .card-details {
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.3s ease;
+        }
+        
+        .card.expanded .card-details {
+            max-height: 1000px;
+            margin-top: 15px;
+            padding-top: 15px;
+            border-top: 1px solid #e2e8f0;
+        }
+        
+        .card-details ul {
+            list-style: none;
+            padding-left: 0;
+        }
+        
+        .card-details li {
+            padding: 8px 0;
+            padding-left: 20px;
+            position: relative;
+        }
+        
+        .card-details li:before {
+            content: "•";
+            position: absolute;
+            left: 0;
+            color: #3182ce;
+            font-weight: bold;
+        }
+        
+        .highlight {
+            background: #bee3f8;
+            padding: 15px;
+            border-radius: 6px;
+            margin-top: 10px;
+            font-weight: 500;
+            color: #2c5282;
+        }
+        
+        .projection-table {
+            margin-top: 20px;
+            background: white;
+            border-radius: 6px;
+            overflow: hidden;
+            border: 1px solid #e2e8f0;
+        }
+        
+        .projection-table table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+        
+        .projection-table th {
+            background: #f7fafc;
+            padding: 12px;
+            text-align: left;
+            font-weight: 600;
+            color: #2d3748;
+            border-bottom: 2px solid #e2e8f0;
+        }
+        
+        .projection-table td {
+            padding: 10px 12px;
+            border-bottom: 1px solid #f7fafc;
+        }
+        
+        .projection-table tr:last-child td {
+            border-bottom: none;
+        }
+        
+        .projection-table .age-col {
+            font-weight: 600;
+            color: #4a5568;
+        }
+        
+        .projection-table .total-col {
+            font-weight: 600;
+            color: #2c5282;
+        }
+        
+        .winner {
+            background: #c6f6d5;
+            font-weight: 600;
+        }
+        
+        .comparison-note {
+            margin-top: 15px;
+            padding: 12px;
+            background: #fef5e7;
+            border-left: 3px solid #f59e0b;
+            font-size: 0.9em;
+            color: #78350f;
+            border-radius: 4px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>When Should You Claim Social Security?</h1>
+        
+        <div class="intro">
+            <p><strong>On the surface, the math seems straightforward:</strong> If you're healthy, wait as long as possible. The multipliers clearly favor waiting - it doesn't take long for the higher monthly benefit at 70 to outpace the cumulative total from claiming at 62.</p>
+            
+            <p><strong>But this is where overthinking actually matters.</strong> The real calculation isn't just about Social Security in isolation - it's about your entire retirement tax strategy.</p>
+            
+            <p><strong>When you claim earlier, you can:</strong></p>
+            <ul style="margin-left: 20px; margin-top: 10px;">
+                <li><strong>Preserve your retirement savings growth</strong> - Let your 401(k)/IRA continue compounding instead of drawing it down</li>
+                <li><strong>Optimize your tax situation</strong> - Only up to 85% of Social Security counts as taxable income, which is often more tax-efficient than traditional IRA withdrawals</li>
+                <li><strong>Create Roth conversion opportunities</strong> - By living on Social Security instead of IRA withdrawals, you may have room in lower tax brackets to convert traditional IRA money to Roth</li>
+            </ul>
+            
+            <p style="margin-top: 15px;"><strong>The decision isn't binary.</strong> Yes, health matters. But it's far from the only consideration. Click through these examples to see different scenarios where each age makes sense.</p>
+        </div>
+        
+        <div class="age-section age-62">
+            <h2>When Age 62 Makes the Most Sense</h2>
+            <div class="cards">
+                <div class="card" onclick="toggleCard(this)">
+                    <div class="card-header">
+                        <div class="card-title">The Roth Conversion Opportunity</div>
+                        <div class="expand-icon">▼</div>
+                    </div>
+                    <div class="card-preview">Strategic tax optimization through early claiming</div>
+                    <div class="card-details">
+                        <ul>
+                            <li>Age 62, retired</li>
+                            <li>$800K in traditional IRA, $150K in taxable accounts</li>
+                            <li>By claiming SS at 62 ($2,000/month = $24K/year)</li>
+                            <li>Lives on SS + taxable account withdrawals (~$60K/year total)</li>
+                            <li>Converts $50K/year from traditional IRA to Roth (ages 62-70)</li>
+                            <li>Pays ~12% tax on conversions instead of 22%+ later</li>
+                        </ul>
+                        <div class="highlight">Result: Converts $400K to Roth, saves ~$40K in taxes. IRA continues growing untouched.</div>
+                        
+                        <div class="projection-table">
+                            <table>
+                                <thead>
+                                    <tr>
+                                        <th>Age</th>
+                                        <th>SS Received</th>
+                                        <th>Accounts</th>
+                                        <th>Total Wealth</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td class="age-col">75</td>
+                                        <td>$312K</td>
+                                        <td>$1,080K</td>
+                                        <td class="total-col">$1,392K</td>
+                                    </tr>
+                                    <tr>
+                                        <td class="age-col">85</td>
+                                        <td>$552K</td>
+                                        <td>$1,510K</td>
+                                        <td class="total-col">$2,062K</td>
+                                    </tr>
+                                    <tr class="winner">
+                                        <td class="age-col">95</td>
+                                        <td>$792K</td>
+                                        <td>$2,110K</td>
+                                        <td class="total-col">$2,902K</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                        
+                        <div class="comparison-note">
+                            <strong>If claimed at 70 instead:</strong> Would have depleted $400K from IRA for living expenses (ages 62-70). At age 95, total wealth would be ~$2,550K. Claiming at 62 leaves you $352K wealthier due to tax savings and compound growth.
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="card" onclick="toggleCard(this)">
+                    <div class="card-header">
+                        <div class="card-title">The Bridge to Medicare</div>
+                        <div class="expand-icon">▼</div>
+                    </div>
+                    <div class="card-preview">Critical cash flow when savings are depleted</div>
+                    <div class="card-details">
+                        <ul>
+                            <li>Age 62, laid off at 60, emergency fund depleted</li>
+                            <li>$300K in retirement savings, no pension</li>
+                            <li>Healthcare costs before Medicare: $1,200/month ($14.4K/year)</li>
+                            <li>Total expenses: $60K/year</li>
+                            <li>Claims SS at 62 ($24K/year), withdraws $36K/year from savings</li>
+                        </ul>
+                        <div class="highlight">Result: SS provides critical bridge. Savings last through retirement instead of being depleted.</div>
+                        
+                        <div class="projection-table">
+                            <table>
+                                <thead>
+                                    <tr>
+                                        <th>Age</th>
+                                        <th>SS Received</th>
+                                        <th>Accounts</th>
+                                        <th>Total Wealth</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td class="age-col">75</td>
+                                        <td>$312K</td>
+                                        <td>$285K</td>
+                                        <td class="total-col">$597K</td>
+                                    </tr>
+                                    <tr>
+                                        <td class="age-col">85</td>
+                                        <td>$552K</td>
+                                        <td>$410K</td>
+                                        <td class="total-col">$962K</td>
+                                    </tr>
+                                    <tr class="winner">
+                                        <td class="age-col">95</td>
+                                        <td>$792K</td>
+                                        <td>$580K</td>
+                                        <td class="total-col">$1,372K</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                        
+                        <div class="comparison-note">
+                            <strong>If waited until 67:</strong> Would burn through entire $300K in just 5 years covering expenses. Would reach 67 with $0 saved and only SS to live on. At age 95, would have only received SS (~$940K) with no other assets. Claiming at 62 preserves $580K in savings.
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="card" onclick="toggleCard(this)">
+                    <div class="card-header">
+                        <div class="card-title">The Survivor Benefit Strategy</div>
+                        <div class="expand-icon">▼</div>
+                    </div>
+                    <div class="card-preview">Protecting a younger spouse's future</div>
+                    <div class="card-details">
+                        <ul>
+                            <li>Age 62, spouse is 55 (lower earner)</li>
+                            <li>$600K saved, good health, family longevity</li>
+                            <li>Claims SS at 62 ($24K/year), lives on SS + small withdrawals</li>
+                            <li>Withdraws only $30K/year from savings for extras</li>
+                            <li>Savings continue growing while SS covers basics</li>
+                            <li>Spouse would receive survivor benefit if primary dies</li>
+                        </ul>
+                        <div class="highlight">Result: Balances cash flow with investment growth. Protects spouse with earlier survivor benefit lock-in.</div>
+                        
+                        <div class="projection-table">
+                            <table>
+                                <thead>
+                                    <tr>
+                                        <th>Age</th>
+                                        <th>SS Received</th>
+                                        <th>Accounts</th>
+                                        <th>Total Wealth</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td class="age-col">75</td>
+                                        <td>$312K</td>
+                                        <td>$720K</td>
+                                        <td class="total-col">$1,032K</td>
+                                    </tr>
+                                    <tr>
+                                        <td class="age-col">85</td>
+                                        <td>$552K</td>
+                                        <td>$980K</td>
+                                        <td class="total-col">$1,532K</td>
+                                    </tr>
+                                    <tr class="winner">
+                                        <td class="age-col">95</td>
+                                        <td>$792K</td>
+                                        <td>$1,320K</td>
+                                        <td class="total-col">$2,112K</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                        
+                        <div class="comparison-note">
+                            <strong>If waited until 70:</strong> Would need to withdraw ~$55K/year from savings (ages 62-70). Accounts would drop to ~$200K by age 70. At age 95, total wealth ~$1,940K. Claiming at 62 leaves portfolio $172K larger plus spouse has survivor benefit protection 8 years earlier.
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <div class="age-section age-67">
+            <h2>When Age 67 (Full Retirement Age) Makes Sense</h2>
+            <div class="cards">
+                <div class="card" onclick="toggleCard(this)">
+                    <div class="card-header">
+                        <div class="card-title">The Pension Balance</div>
+                        <div class="expand-icon">▼</div>
+                    </div>
+                    <div class="card-preview">When other income fills the optimization gap</div>
+                    <div class="card-details">
+                        <ul>
+                            <li>Age 67, has $40K/year pension (COLA-adjusted)</li>
+                            <li>$400K in retirement savings</li>
+                            <li>Claims SS at 67 ($2,800/month = $33.6K/year)</li>
+                            <li>Total income: $73.6K covers all expenses</li>
+                            <li>Pension already fills lower tax brackets - no Roth conversion opportunity</li>
+                            <li>Minimal withdrawals needed from retirement accounts</li>
+                        </ul>
+                        <div class="highlight">Result: No tax optimization benefit to claiming early. Clean transition at FRA without penalty.</div>
+                        
+                        <div class="projection-table">
+                            <table>
+                                <thead>
+                                    <tr>
+                                        <th>Age</th>
+                                        <th>SS Received</th>
+                                        <th>Accounts</th>
+                                        <th>Total Wealth</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td class="age-col">75</td>
+                                        <td>$269K</td>
+                                        <td>$570K</td>
+                                        <td class="total-col">$839K</td>
+                                    </tr>
+                                    <tr>
+                                        <td class="age-col">85</td>
+                                        <td>$605K</td>
+                                        <td>$850K</td>
+                                        <td class="total-col">$1,455K</td>
+                                    </tr>
+                                    <tr class="winner">
+                                        <td class="age-col">95</td>
+                                        <td>$941K</td>
+                                        <td>$1,260K</td>
+                                        <td class="total-col">$2,201K</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                        
+                        <div class="comparison-note">
+                            <strong>Comparison:</strong> Claiming at 62 would net ~$2,080K by 95 (slightly less due to reduced benefit). Claiming at 70 would net ~$2,260K (slightly more from higher benefit). With pension covering expenses, the 67 claiming is the balanced middle choice - difference of only ~$60K-$120K over 33 years.
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="card" onclick="toggleCard(this)">
+                    <div class="card-header">
+                        <div class="card-title">The Post-Conversion Retiree</div>
+                        <div class="expand-icon">▼</div>
+                    </div>
+                    <div class="card-preview">Tax optimization already complete</div>
+                    <div class="card-details">
+                        <ul>
+                            <li>Age 67, already completed Roth conversions (ages 62-67)</li>
+                            <li>Portfolio: $300K Roth IRA, $300K traditional IRA, $200K taxable</li>
+                            <li>Lived on taxable account withdrawals during conversion years</li>
+                            <li>Claims SS at 67 ($33.6K/year)</li>
+                            <li>Tax optimization window has closed - conversions complete</li>
+                            <li>Ready for clean retirement transition</li>
+                        </ul>
+                        <div class="highlight">Result: Mission accomplished on tax planning. No benefit to further delay - claim at FRA.</div>
+                        
+                        <div class="projection-table">
+                            <table>
+                                <thead>
+                                    <tr>
+                                        <th>Age</th>
+                                        <th>SS Received</th>
+                                        <th>Accounts</th>
+                                        <th>Total Wealth</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td class="age-col">75</td>
+                                        <td>$269K</td>
+                                        <td>$960K</td>
+                                        <td class="total-col">$1,229K</td>
+                                    </tr>
+                                    <tr>
+                                        <td class="age-col">85</td>
+                                        <td>$605K</td>
+                                        <td>$1,390K</td>
+                                        <td class="total-col">$1,995K</td>
+                                    </tr>
+                                    <tr class="winner">
+                                        <td class="age-col">95</td>
+                                        <td>$941K</td>
+                                        <td>$2,010K</td>
+                                        <td class="total-col">$2,951K</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                        
+                        <div class="comparison-note">
+                            <strong>If waited until 70:</strong> Would need to draw $50K/year from accounts (ages 67-70). At 95, would have ~$2,970K. Minimal $19K difference over 28 years doesn't justify the wait since tax optimization already done.
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="card" onclick="toggleCard(this)">
+                    <div class="card-header">
+                        <div class="card-title">The Moderate Saver</div>
+                        <div class="expand-icon">▼</div>
+                    </div>
+                    <div class="card-preview">The middle ground when longevity is uncertain</div>
+                    <div class="card-details">
+                        <ul>
+                            <li>Age 67, $500K saved in traditional IRA</li>
+                            <li>Average health, mixed family history (some to 85, some to 95)</li>
+                            <li>Claims SS at 67 ($33.6K/year)</li>
+                            <li>Lives on SS + $25K/year from IRA</li>
+                            <li>Not comfortable with complex tax strategies</li>
+                            <li>Wants to retire and stop working</li>
+                        </ul>
+                        <div class="highlight">Result: FRA is the "goldilocks" option - no reduction penalty, reasonable middle ground.</div>
+                        
+                        <div class="projection-table">
+                            <table>
+                                <thead>
+                                    <tr>
+                                        <th>Age</th>
+                                        <th>SS Received</th>
+                                        <th>Accounts</th>
+                                        <th>Total Wealth</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td class="age-col">75</td>
+                                        <td>$269K</td>
+                                        <td>$530K</td>
+                                        <td class="total-col">$799K</td>
+                                    </tr>
+                                    <tr>
+                                        <td class="age-col">85</td>
+                                        <td>$605K</td>
+                                        <td>$660K</td>
+                                        <td class="total-col">$1,265K</td>
+                                    </tr>
+                                    <tr class="winner">
+                                        <td class="age-col">95</td>
+                                        <td>$941K</td>
+                                        <td>$870K</td>
+                                        <td class="total-col">$1,811K</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                        
+                        <div class="comparison-note">
+                            <strong>Comparison:</strong> At 62: ~$1,720K by 95. At 70: ~$1,880K by 95. The breakeven is around age 82-84. Since family history is mixed and health is average, claiming at 67 hedges the uncertainty - gets benefits flowing without gambling on living to 90+.
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <div class="age-section age-70">
+            <h2>When Age 70 Maximizes Your Outcome</h2>
+            <div class="cards">
+                <div class="card" onclick="toggleCard(this)">
+                    <div class="card-header">
+                        <div class="card-title">Still Working and High Income</div>
+                        <div class="expand-icon">▼</div>
+                    </div>
+                    <div class="card-preview">When current income makes claiming inefficient</div>
+                    <div class="card-details">
+                        <ul>
+                            <li>Age 70, still working earning $120K/year</li>
+                            <li>$1.2M in retirement accounts</li>
+                            <li>In 24% tax bracket - early SS would be heavily taxed</li>
+                            <li>Delays SS until 70 ($3,500/month = $42K/year)</li>
+                            <li>24% higher benefit than FRA, 75% higher than age 62</li>
+                            <li>Can do Roth conversions after stopping work</li>
+                        </ul>
+                        <div class="highlight">Result: Maximizes benefit while avoiding taxation during high-income years. Optimal strategy.</div>
+                        
+                        <div class="projection-table">
+                            <table>
+                                <thead>
+                                    <tr>
+                                        <th>Age</th>
+                                        <th>SS Received</th>
+                                        <th>Accounts</th>
+                                        <th>Total Wealth</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td class="age-col">75</td>
+                                        <td>$210K</td>
+                                        <td>$1,620K</td>
+                                        <td class="total-col">$1,830K</td>
+                                    </tr>
+                                    <tr>
+                                        <td class="age-col">85</td>
+                                        <td>$630K</td>
+                                        <td>$2,480K</td>
+                                        <td class="total-col">$3,110K</td>
+                                    </tr>
+                                    <tr class="winner">
+                                        <td class="age-col">95</td>
+                                        <td>$1,050K</td>
+                                        <td>$3,790K</td>
+                                        <td class="total-col">$4,840K</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                        
+                        <div class="comparison-note">
+                            <strong>If claimed at 62:</strong> Would pay ~22-24% tax on 85% of SS while working. By age 95, total ~$4,550K. Waiting saves on taxes and locks in maximum benefit. At 95, ahead by ~$290K.
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="card" onclick="toggleCard(this)">
+                    <div class="card-header">
+                        <div class="card-title">Living on Taxable Accounts</div>
+                        <div class="expand-icon">▼</div>
+                    </div>
+                    <div class="card-preview">Tax-efficient bridge strategy pays off</div>
+                    <div class="card-details">
+                        <ul>
+                            <li>Age 70, retired at 65</li>
+                            <li>Started with: $400K traditional IRA, $600K taxable brokerage</li>
+                            <li>Ages 65-70: Lived on taxable withdrawals (~$55K/year, 15% capital gains)</li>
+                            <li>Traditional IRA grew untouched: now $535K</li>
+                            <li>Taxable account: now $350K remaining</li>
+                            <li>Claims SS at 70 ($42K/year) - maximum benefit</li>
+                        </ul>
+                        <div class="highlight">Result: Delayed claiming maximizes SS. Paid minimal taxes during bridge years. Can now blend SS with strategic IRA withdrawals.</div>
+                        
+                        <div class="projection-table">
+                            <table>
+                                <thead>
+                                    <tr>
+                                        <th>Age</th>
+                                        <th>SS Received</th>
+                                        <th>Accounts</th>
+                                        <th>Total Wealth</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td class="age-col">75</td>
+                                        <td>$210K</td>
+                                        <td>$870K</td>
+                                        <td class="total-col">$1,080K</td>
+                                    </tr>
+                                    <tr>
+                                        <td class="age-col">85</td>
+                                        <td>$630K</td>
+                                        <td>$1,180K</td>
+                                        <td class="total-col">$1,810K</td>
+                                    </tr>
+                                    <tr class="winner">
+                                        <td class="age-col">95</td>
+                                        <td>$1,050K</td>
+                                        <td>$1,590K</td>
+                                        <td class="total-col">$2,640K</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                        
+                        <div class="comparison-note">
+                            <strong>If claimed at 62:</strong> Would have received reduced benefit ($24K/year vs $42K). By age 95, total wealth ~$2,420K. Waiting nets an additional ~$220K due to higher benefit and preserved IRA growth.
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="card" onclick="toggleCard(this)">
+                    <div class="card-header">
+                        <div class="card-title">Single with Longevity</div>
+                        <div class="expand-icon">▼</div>
+                    </div>
+                    <div class="card-preview">When the actuarial math is clear</div>
+                    <div class="card-details">
+                        <ul>
+                            <li>Age 70, excellent health, both parents lived to mid-90s</li>
+                            <li>$800K saved, no spouse (no survivor benefit considerations)</li>
+                            <li>Low expenses (~$45K/year), no debt</li>
+                            <li>Lived comfortably on savings ages 62-70</li>
+                            <li>Claims SS at 70 ($42K/year) - maximum benefit</li>
+                            <li>Minimal withdrawals needed going forward</li>
+                        </ul>
+                        <div class="highlight">Result: Maximum benefit for potentially 25+ years of collection. Strong family longevity makes waiting the clear winner.</div>
+                        
+                        <div class="projection-table">
+                            <table>
+                                <thead>
+                                    <tr>
+                                        <th>Age</th>
+                                        <th>SS Received</th>
+                                        <th>Accounts</th>
+                                        <th>Total Wealth</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td class="age-col">75</td>
+                                        <td>$210K</td>
+                                        <td>$880K</td>
+                                        <td class="total-col">$1,090K</td>
+                                    </tr>
+                                    <tr>
+                                        <td class="age-col">85</td>
+                                        <td>$630K</td>
+                                        <td>$1,250K</td>
+                                        <td class="total-col">$1,880K</td>
+                                    </tr>
+                                    <tr class="winner">
+                                        <td class="age-col">95</td>
+                                        <td>$1,050K</td>
+                                        <td>$1,750K</td>
+                                        <td class="total-col">$2,800K</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                        
+                        <div class="comparison-note">
+                            <strong>If claimed at 62:</strong> By age 95, would have ~$2,430K total. The $370K difference grows larger every year lived past 85. At age 100, the gap would be ~$580K. With strong longevity genes and excellent health, waiting is mathematically optimal.
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <script>
+        function toggleCard(card) {
+            card.classList.toggle('expanded');
+        }
+    </script>
+</body>
+</html>
