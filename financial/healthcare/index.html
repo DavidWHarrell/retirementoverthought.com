@@ -1,0 +1,1463 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Healthcare Planning Checklist - Retirement Overthought</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+            line-height: 1.6;
+            color: #333;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            padding: 20px;
+        }
+        
+        .back-link {
+            display: inline-block;
+            color: #ffd93d;
+            text-decoration: none;
+            margin-bottom: 20px;
+            font-weight: 500;
+            transition: color 0.3s;
+        }
+        
+        .back-link:hover {
+            color: #fff;
+        }
+        
+        .container {
+            max-width: 1100px;
+            margin: 0 auto;
+            background: white;
+            padding: 40px;
+            border-radius: 20px;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.3);
+        }
+        
+        header {
+            text-align: center;
+            margin-bottom: 40px;
+            padding-bottom: 30px;
+            border-bottom: 3px solid #667eea;
+        }
+        
+        h1 {
+            color: #667eea;
+            font-size: 2.5em;
+            margin-bottom: 15px;
+        }
+        
+        .subtitle {
+            color: #666;
+            font-size: 1.2em;
+            max-width: 700px;
+            margin: 0 auto;
+        }
+        
+        /* Questionnaire Styles */
+        .questionnaire {
+            background: #f8f9fa;
+            padding: 30px;
+            border-radius: 12px;
+            margin-bottom: 40px;
+            border-left: 4px solid #667eea;
+        }
+        
+        .questionnaire.hidden {
+            display: none;
+        }
+        
+        .question-section {
+            margin-bottom: 30px;
+        }
+        
+        .question-section:last-child {
+            margin-bottom: 0;
+        }
+        
+        .question-title {
+            font-size: 1.2em;
+            font-weight: 600;
+            color: #2d3748;
+            margin-bottom: 15px;
+        }
+        
+        .question-subtitle {
+            color: #718096;
+            font-size: 0.95em;
+            margin-bottom: 12px;
+        }
+        
+        .options-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 12px;
+        }
+        
+        .option-btn {
+            padding: 15px 20px;
+            border: 2px solid #e2e8f0;
+            background: white;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: all 0.3s;
+            text-align: left;
+            font-size: 1em;
+            font-weight: 500;
+            color: #4a5568;
+        }
+        
+        .option-btn:hover {
+            border-color: #667eea;
+            background: #f7fafc;
+        }
+        
+        .option-btn.selected {
+            border-color: #667eea;
+            background: #667eea;
+            color: white;
+        }
+        
+        .option-btn input[type="checkbox"],
+        .option-btn input[type="radio"] {
+            margin-right: 10px;
+        }
+        
+        .checkbox-option {
+            display: flex;
+            align-items: center;
+            padding: 12px 15px;
+            border: 2px solid #e2e8f0;
+            background: white;
+            border-radius: 8px;
+            margin-bottom: 8px;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+        
+        .checkbox-option:hover {
+            border-color: #667eea;
+            background: #f7fafc;
+        }
+        
+        .checkbox-option.selected {
+            border-color: #667eea;
+            background: #edf2f7;
+        }
+        
+        .checkbox-option input {
+            margin-right: 12px;
+            width: 20px;
+            height: 20px;
+            cursor: pointer;
+        }
+        
+        .generate-btn {
+            background: #667eea;
+            color: white;
+            border: none;
+            padding: 15px 40px;
+            border-radius: 8px;
+            font-size: 1.1em;
+            font-weight: 600;
+            cursor: pointer;
+            margin-top: 20px;
+            transition: all 0.3s;
+            width: 100%;
+        }
+        
+        .generate-btn:hover {
+            background: #5568d3;
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(102, 126, 234, 0.4);
+        }
+        
+        .reset-btn {
+            background: #718096;
+            color: white;
+            border: none;
+            padding: 10px 25px;
+            border-radius: 8px;
+            font-size: 0.95em;
+            cursor: pointer;
+            margin-top: 15px;
+            transition: all 0.3s;
+        }
+        
+        .reset-btn:hover {
+            background: #4a5568;
+        }
+        
+        .your-plan {
+            background: #edf2f7;
+            padding: 20px;
+            border-radius: 8px;
+            margin-bottom: 30px;
+            display: none;
+        }
+        
+        .your-plan.visible {
+            display: block;
+        }
+        
+        .your-plan h3 {
+            color: #2d3748;
+            margin-bottom: 10px;
+        }
+        
+        .your-plan-summary {
+            color: #4a5568;
+            line-height: 1.8;
+        }
+        
+        .checklist-section {
+            margin-bottom: 40px;
+            padding: 25px;
+            background: #f7fafc;
+            border-radius: 12px;
+            border-left: 4px solid #48bb78;
+            display: none;
+        }
+        
+        .checklist-section.visible {
+            display: block;
+        }
+        
+        .checklist-section h2 {
+            color: #2d3748;
+            margin-bottom: 20px;
+            font-size: 1.5em;
+        }
+        
+        .checklist-item {
+            background: white;
+            padding: 20px;
+            margin-bottom: 15px;
+            border-radius: 8px;
+            border-left: 3px solid #cbd5e0;
+            transition: all 0.3s;
+            cursor: pointer;
+        }
+        
+        .checklist-item:hover {
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+            border-left-color: #667eea;
+        }
+        
+        .checklist-item.checked {
+            background: #f0fff4;
+            border-left-color: #48bb78;
+        }
+        
+        .checklist-header {
+            display: flex;
+            align-items: start;
+            gap: 15px;
+            margin-bottom: 10px;
+        }
+        
+        .checkbox {
+            width: 24px;
+            height: 24px;
+            min-width: 24px;
+            border: 2px solid #cbd5e0;
+            border-radius: 6px;
+            cursor: pointer;
+            transition: all 0.3s;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: white;
+        }
+        
+        .checklist-item.checked .checkbox {
+            background: #48bb78;
+            border-color: #48bb78;
+        }
+        
+        .checkbox::after {
+            content: "✓";
+            color: white;
+            font-weight: bold;
+            font-size: 16px;
+            display: none;
+        }
+        
+        .checklist-item.checked .checkbox::after {
+            display: block;
+        }
+        
+        .item-title {
+            font-weight: 600;
+            color: #2d3748;
+            font-size: 1.1em;
+            flex: 1;
+        }
+        
+        .item-description {
+            color: #718096;
+            margin-left: 39px;
+            margin-top: 5px;
+        }
+        
+        .critical-warning {
+            background: #fff5f5;
+            border-left-color: #f56565;
+            border-width: 4px;
+        }
+        
+        .critical-warning .item-title {
+            color: #c53030;
+        }
+        
+        .pro-tip {
+            background: #fffaf0;
+            padding: 15px 20px;
+            border-radius: 8px;
+            border-left: 3px solid #ed8936;
+            margin-bottom: 15px;
+        }
+        
+        .pro-tip strong {
+            color: #c05621;
+        }
+        
+        .expandable {
+            background: #edf2f7;
+            padding: 15px;
+            border-radius: 6px;
+            margin-top: 10px;
+            margin-left: 39px;
+        }
+        
+        .expandable summary {
+            cursor: pointer;
+            font-weight: 600;
+            color: #4a5568;
+            padding: 5px;
+        }
+        
+        .expandable summary:hover {
+            color: #667eea;
+        }
+        
+        .expandable ul {
+            margin-top: 10px;
+            margin-left: 20px;
+        }
+        
+        .expandable li {
+            color: #4a5568;
+            margin: 5px 0;
+        }
+        
+        .progress-bar {
+            background: #e2e8f0;
+            height: 10px;
+            border-radius: 10px;
+            margin: 30px 0;
+            overflow: hidden;
+        }
+        
+        .progress-fill {
+            height: 100%;
+            background: linear-gradient(90deg, #48bb78 0%, #38a169 100%);
+            width: 0%;
+            transition: width 0.3s;
+        }
+        
+        .progress-text {
+            text-align: center;
+            color: #4a5568;
+            font-weight: 600;
+            margin-top: 10px;
+        }
+        
+        .resources {
+            background: #edf2f7;
+            padding: 25px;
+            border-radius: 12px;
+            margin-top: 40px;
+        }
+        
+        .resources h3 {
+            color: #2d3748;
+            margin-bottom: 15px;
+        }
+        
+        .resources h4 {
+            color: #4a5568;
+            margin-top: 20px;
+            margin-bottom: 10px;
+            font-size: 1.1em;
+        }
+        
+        .resource-link {
+            display: block;
+            color: #667eea;
+            text-decoration: none;
+            padding: 8px 0;
+            transition: color 0.3s;
+        }
+        
+        .resource-link:hover {
+            color: #764ba2;
+            text-decoration: underline;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <a href="/" class="back-link" style="color: #667eea;">← Back to Home</a>
+        
+        <header>
+            <h1>🏥 Healthcare Planning Checklist</h1>
+            <p class="subtitle">Get your personalized healthcare roadmap based on your age and retirement lifestyle</p>
+        </header>
+        
+        <!-- QUESTIONNAIRE -->
+        <div class="questionnaire" id="questionnaire">
+            <div class="question-section">
+                <div class="question-title">1. What's your age situation?</div>
+                <div class="question-subtitle">This determines whether you need pre-Medicare or Medicare planning</div>
+                <div class="options-grid">
+                    <label class="option-btn">
+                        <input type="radio" name="age" value="under65" checked>
+                        Under 65
+                    </label>
+                    <label class="option-btn">
+                        <input type="radio" name="age" value="approaching">
+                        Approaching 65 (ages 60-64)
+                    </label>
+                    <label class="option-btn">
+                        <input type="radio" name="age" value="over65">
+                        65 or older
+                    </label>
+                </div>
+            </div>
+            
+            <div class="question-section">
+                <div class="question-title">2. What retirement lifestyle(s) are you planning?</div>
+                <div class="question-subtitle">Select all that apply - many people combine multiple lifestyles</div>
+                <label class="checkbox-option">
+                    <input type="checkbox" name="lifestyle" value="traditional">
+                    <span>Traditional (staying in US, one primary location)</span>
+                </label>
+                <label class="checkbox-option">
+                    <input type="checkbox" name="lifestyle" value="rv">
+                    <span>RV Living (full-time or extended travel)</span>
+                </label>
+                <label class="checkbox-option">
+                    <input type="checkbox" name="lifestyle" value="expat">
+                    <span>Expat / Slow Travel (living abroad or extended international travel)</span>
+                </label>
+                <label class="checkbox-option">
+                    <input type="checkbox" name="lifestyle" value="snowbird">
+                    <span>Snowbird (splitting time between two locations seasonally)</span>
+                </label>
+                <label class="checkbox-option">
+                    <input type="checkbox" name="lifestyle" value="cruise">
+                    <span>Cruise Ship Living (living on cruise ships)</span>
+                </label>
+            </div>
+            
+            <div class="question-section">
+                <div class="question-title">3. Any special situations? (Optional)</div>
+                <div class="question-subtitle">Select any that apply</div>
+                <label class="checkbox-option">
+                    <input type="checkbox" name="special" value="chronic">
+                    <span>Chronic health conditions requiring ongoing care</span>
+                </label>
+                <label class="checkbox-option">
+                    <input type="checkbox" name="special" value="prescriptions">
+                    <span>Taking expensive prescription medications</span>
+                </label>
+                <label class="checkbox-option">
+                    <input type="checkbox" name="special" value="roth">
+                    <span>Planning significant Roth conversions</span>
+                </label>
+                <label class="checkbox-option">
+                    <input type="checkbox" name="special" value="va">
+                    <span>Have VA benefits</span>
+                </label>
+            </div>
+            
+            <button class="generate-btn" onclick="generateChecklist()">Generate My Personalized Checklist</button>
+        </div>
+        
+        <!-- YOUR PLAN SUMMARY -->
+        <div class="your-plan" id="yourPlan">
+            <h3>📋 Your Personalized Healthcare Plan:</h3>
+            <div class="your-plan-summary" id="planSummary"></div>
+            <button class="reset-btn" onclick="resetQuestionnaire()">Start Over</button>
+        </div>
+        
+        <!-- PROGRESS BAR -->
+        <div class="progress-bar" style="display:none;" id="progressContainer">
+            <div class="progress-fill" id="progressBar"></div>
+        </div>
+        <div class="progress-text" id="progressText" style="display:none;">0 of 0 items completed (0%)</div>
+        
+        <!-- CHECKLISTS (All hidden by default, shown based on selections) -->
+        
+        <!-- PRE-65 FOUNDATION -->
+        <div class="checklist-section" data-section="pre65">
+            <h2>🏥 Healthcare Foundation (Under 65)</h2>
+            
+            <div class="pro-tip">
+                <strong>Your #1 Priority:</strong> Healthcare costs before Medicare eligibility can make or break early retirement plans. Master the ACA marketplace.
+            </div>
+            
+            <div class="checklist-item critical-warning">
+                <div class="checklist-header">
+                    <div class="checkbox"></div>
+                    <div class="item-title">Calculate your true annual healthcare costs</div>
+                </div>
+                <div class="item-description">Include premiums, deductibles, out-of-pocket maximums, prescriptions. Budget $8K-$24K/year for couple depending on age and health.</div>
+            </div>
+            
+            <div class="checklist-item critical-warning">
+                <div class="checklist-header">
+                    <div class="checkbox"></div>
+                    <div class="item-title">Master the ACA (Affordable Care Act) marketplace</div>
+                </div>
+                <div class="item-description">Healthcare.gov is your primary solution. Understanding subsidy optimization can save $10K+ per year.</div>
+                <details class="expandable">
+                    <summary>ACA Subsidy Optimization Strategy</summary>
+                    <ul>
+                        <li><strong>Income Sweet Spot:</strong> Keep MAGI between 150-250% of Federal Poverty Level</li>
+                        <li><strong>For 2025:</strong> Single $22,590-$37,650, Couple $30,660-$51,100</li>
+                        <li><strong>Tactics:</strong> Time capital gains, strategic Roth conversions, harvest losses, control dividends</li>
+                        <li><strong>Result:</strong> Reduce $1,500/month premiums to $200/month with proper income management</li>
+                    </ul>
+                </details>
+            </div>
+            
+            <div class="checklist-item">
+                <div class="checklist-header">
+                    <div class="checkbox"></div>
+                    <div class="item-title">Design retirement income to optimize ACA subsidies</div>
+                </div>
+                <div class="item-description">Control MAGI through strategic withdrawals from different account types. Use Roth for large expenses (doesn't count as income).</div>
+            </div>
+            
+            <div class="checklist-item">
+                <div class="checklist-header">
+                    <div class="checkbox"></div>
+                    <div class="item-title">Choose between Bronze, Silver, Gold, Platinum ACA plans</div>
+                </div>
+                <div class="item-description">Bronze = low premiums/high deductibles. Silver often best value with subsidies. Gold if ongoing medical needs.</div>
+            </div>
+            
+            <div class="checklist-item">
+                <div class="checklist-header">
+                    <div class="checkbox"></div>
+                    <div class="item-title">Maximize Health Savings Account (HSA) if eligible</div>
+                </div>
+                <div class="item-description">If on High-Deductible Health Plan, HSA is triple-tax-advantaged. Max contribution: $4,300 individual, $8,550 family (2025).</div>
+            </div>
+            
+            <div class="checklist-item">
+                <div class="checklist-header">
+                    <div class="checkbox"></div>
+                    <div class="item-title">Plan for the "gap years" (ages 60-65)</div>
+                </div>
+                <div class="item-description">Most expensive healthcare years - premiums peak but Medicare hasn't kicked in. Budget extra 20-30% for this period.</div>
+            </div>
+        </div>
+        
+        <!-- RV LIVING -->
+        <div class="checklist-section" data-section="rv">
+            <h2>🚐 RV Living Healthcare</h2>
+            
+            <div class="pro-tip">
+                <strong>RV Pro Tip:</strong> Your domicile state choice determines ALL your healthcare options. Choose carefully before hitting the road.
+            </div>
+            
+            <div class="checklist-item critical-warning">
+                <div class="checklist-header">
+                    <div class="checkbox"></div>
+                    <div class="item-title">Establish legal domicile in RV-friendly state</div>
+                </div>
+                <div class="item-description">Popular: South Dakota, Florida, Texas. Your healthcare options depend entirely on domicile state - this is foundational.</div>
+                <details class="expandable">
+                    <summary>State Comparison</summary>
+                    <ul>
+                        <li><strong>Florida:</strong> BCBS "Blue Card" offers nationwide PPO network - excellent for RVers</li>
+                        <li><strong>Texas:</strong> ACA plans often HMO-only in popular domicile areas (Livingston)</li>
+                        <li><strong>South Dakota:</strong> Easy residency, but limited ACA marketplace options</li>
+                    </ul>
+                </details>
+            </div>
+            
+            <div class="checklist-item">
+                <div class="checklist-header">
+                    <div class="checkbox"></div>
+                    <div class="item-title">Choose nationwide coverage (if under 65)</div>
+                </div>
+                <div class="item-description">Many ACA plans only cover in-state. Look for PPO plans or Florida Blue's "Blue Card" network that works nationwide.</div>
+            </div>
+            
+            <div class="checklist-item">
+                <div class="checklist-header">
+                    <div class="checkbox"></div>
+                    <div class="item-title">If 65+: Original Medicare + Medigap is perfect for RVers</div>
+                </div>
+                <div class="item-description">Works anywhere in US, no networks. Plan G or Plan N recommended. AVOID Medicare Advantage - network restrictions don't work for travelers.</div>
+            </div>
+            
+            <div class="checklist-item">
+                <div class="checklist-header">
+                    <div class="checkbox"></div>
+                    <div class="item-title">Consider telemedicine services as backup</div>
+                </div>
+                <div class="item-description">Services like Teladoc provide 24/7 doctor access from your RV. Not insurance replacement but useful for minor issues.</div>
+            </div>
+            
+            <div class="checklist-item">
+                <div class="checklist-header">
+                    <div class="checkbox"></div>
+                    <div class="item-title">Plan prescription medication management</div>
+                </div>
+                <div class="item-description">Use mail-order pharmacies, 90-day supplies, GoodRx for cash pricing. Research pharmacy chains with nationwide locations.</div>
+            </div>
+        </div>
+        
+        <!-- EXPAT / SLOW TRAVEL -->
+        <div class="checklist-section" data-section="expat">
+            <h2>🌍 Expat & Slow Travel Healthcare</h2>
+            
+            <div class="pro-tip">
+                <strong>Expat Pro Tip:</strong> Medicare does NOT cover healthcare outside the US. You need separate international insurance or local coverage.
+            </div>
+            
+            <div class="checklist-item critical-warning">
+                <div class="checklist-header">
+                    <div class="checkbox"></div>
+                    <div class="item-title">Understand Medicare doesn't work abroad</div>
+                </div>
+                <div class="item-description">Original Medicare covers zero healthcare costs outside US (except rare exceptions near Canada/Mexico border).</div>
+            </div>
+            
+            <div class="checklist-item critical-warning">
+                <div class="checklist-header">
+                    <div class="checkbox"></div>
+                    <div class="item-title">Decide whether to keep paying Medicare Part B premiums</div>
+                </div>
+                <div class="item-description">If you drop Part B while abroad, face 10% lifetime penalty when re-enrolling. Only drop if certain you won't return to US.</div>
+            </div>
+            
+            <div class="checklist-item">
+                <div class="checklist-header">
+                    <div class="checkbox"></div>
+                    <div class="item-title">Research international health insurance options</div>
+                </div>
+                <div class="item-description">Major providers: Cigna Global, Allianz Care, GeoBlue. Use brokers like Expat Insurance or International Citizens Insurance for quotes.</div>
+                <details class="expandable">
+                    <summary>What to Look For</summary>
+                    <ul>
+                        <li>Coverage area (worldwide vs regional vs excluding USA)</li>
+                        <li>Pre-existing condition coverage</li>
+                        <li>Medical evacuation/repatriation</li>
+                        <li>Annual maximum ($1M+ recommended)</li>
+                        <li>Age limits (some cut off at 65-70)</li>
+                    </ul>
+                </details>
+            </div>
+            
+            <div class="checklist-item">
+                <div class="checklist-header">
+                    <div class="checkbox"></div>
+                    <div class="item-title">Investigate local healthcare systems in destination</div>
+                </div>
+                <div class="item-description">Many countries let foreign residents buy into national health (Spain, Portugal, Thailand). Often much cheaper than US.</div>
+            </div>
+            
+            <div class="checklist-item">
+                <div class="checklist-header">
+                    <div class="checkbox"></div>
+                    <div class="item-title">Get Medigap plan with foreign travel coverage (if 65+)</div>
+                </div>
+                <div class="item-description">Plans G, M, N cover 80% of emergency care abroad (first 60 days, $50K lifetime max, $250 deductible).</div>
+            </div>
+            
+            <div class="checklist-item">
+                <div class="checklist-header">
+                    <div class="checkbox"></div>
+                    <div class="item-title">Consider geographic arbitrage for healthcare savings</div>
+                </div>
+                <div class="item-description">Living abroad where healthcare is 70% cheaper can dramatically reduce costs. Mexico, Portugal, Thailand, Colombia popular.</div>
+            </div>
+        </div>
+        
+        <!-- SNOWBIRD -->
+        <div class="checklist-section" data-section="snowbird">
+            <h2>🦅 Snowbird Healthcare (Two Locations)</h2>
+            
+            <div class="pro-tip">
+                <strong>Snowbird Tip:</strong> Coordinate healthcare between both locations. Original Medicare (65+) makes this seamless.
+            </div>
+            
+            <div class="checklist-item">
+                <div class="checklist-header">
+                    <div class="checkbox"></div>
+                    <div class="item-title">If 65+: Original Medicare is perfect for snowbirds</div>
+                </div>
+                <div class="item-description">Works nationwide, no networks. See any doctor/hospital accepting Medicare in both locations.</div>
+            </div>
+            
+            <div class="checklist-item critical-warning">
+                <div class="checklist-header">
+                    <div class="checkbox"></div>
+                    <div class="item-title">Avoid Medicare Advantage if snowbirding between states</div>
+                </div>
+                <div class="item-description">Provider networks usually don't extend to winter location. You'll pay out-of-network or have no coverage.</div>
+            </div>
+            
+            <div class="checklist-item">
+                <div class="checklist-header">
+                    <div class="checkbox"></div>
+                    <div class="item-title">Establish primary care providers in both locations</div>
+                </div>
+                <div class="item-description">Build relationships with doctors in summer and winter locations. Schedule annual checkups accordingly.</div>
+            </div>
+            
+            <div class="checklist-item">
+                <div class="checklist-header">
+                    <div class="checkbox"></div>
+                    <div class="item-title">Coordinate prescription refills with travel schedule</div>
+                </div>
+                <div class="item-description">Get 90-day supplies, use mail-order, or transfer prescriptions to pharmacy chain in both locations.</div>
+            </div>
+            
+            <div class="checklist-item">
+                <div class="checklist-header">
+                    <div class="checkbox"></div>
+                    <div class="item-title">If snowbirding internationally (Mexico, etc.)</div>
+                </div>
+                <div class="item-description">Get Medigap with foreign travel coverage OR separate travel medical insurance. Consider local healthcare (often very affordable).</div>
+            </div>
+        </div>
+        
+        <!-- CRUISE SHIP LIVING -->
+        <div class="checklist-section" data-section="cruise">
+            <h2>🚢 Cruise Ship Living Healthcare</h2>
+            
+            <div class="pro-tip">
+                <strong>Critical:</strong> Ship medical facilities are for emergencies only. You MUST have robust evacuation coverage - this is non-negotiable.
+            </div>
+            
+            <div class="checklist-item critical-warning">
+                <div class="checklist-header">
+                    <div class="checkbox"></div>
+                    <div class="item-title">Understand ship medical facilities are extremely limited</div>
+                </div>
+                <div class="item-description">Ships have small urgent care centers - NOT hospitals. Can't handle surgery, advanced diagnostics, complex procedures.</div>
+            </div>
+            
+            <div class="checklist-item critical-warning">
+                <div class="checklist-header">
+                    <div class="checkbox"></div>
+                    <div class="item-title">Get comprehensive medical evacuation insurance</div>
+                </div>
+                <div class="item-description">Medical evacuation from ship can cost $100K-$300K. Being airlifted to hospital is common. Minimum coverage: $250K medical, $100K evacuation.</div>
+                <details class="expandable">
+                    <summary>Evacuation Coverage Options</summary>
+                    <ul>
+                        <li><strong>Travel Insurance:</strong> Allianz, Travel Guard, World Nomads</li>
+                        <li><strong>Annual Plans:</strong> If cruising frequently, annual plan may be cheaper</li>
+                        <li><strong>Check cruise line requirements</strong> - some mandate insurance</li>
+                    </ul>
+                </details>
+            </div>
+            
+            <div class="checklist-item critical-warning">
+                <div class="checklist-header">
+                    <div class="checkbox"></div>
+                    <div class="item-title">Medicare does NOT work on cruise ships</div>
+                </div>
+                <div class="item-description">Medicare only covers ships within 6 hours of US port AND only emergencies. Most cruise time not covered.</div>
+            </div>
+            
+            <div class="checklist-item">
+                <div class="checklist-header">
+                    <div class="checkbox"></div>
+                    <div class="item-title">Maintain US-based health insurance as foundation</div>
+                </div>
+                <div class="item-description">Keep ACA plan (under 65) or Medicare (65+) for US ports and if evacuated back to US.</div>
+            </div>
+            
+            <div class="checklist-item">
+                <div class="checklist-header">
+                    <div class="checkbox"></div>
+                    <div class="item-title">Plan healthcare visits during port stops</div>
+                </div>
+                <div class="item-description">Schedule routine checkups, dental, prescriptions during US port stops or when visiting home between cruises.</div>
+            </div>
+            
+            <div class="checklist-item">
+                <div class="checklist-header">
+                    <div class="checkbox"></div>
+                    <div class="item-title">Stock 90-180 day prescription supplies</div>
+                </div>
+                <div class="item-description">Ship pharmacies expensive and limited inventory. Get maximum prescriptions before boarding, plan refills around ports.</div>
+            </div>
+            
+            <div class="checklist-item">
+                <div class="checklist-header">
+                    <div class="checkbox"></div>
+                    <div class="item-title">Verify travel insurance covers "continuous cruising"</div>
+                </div>
+                <div class="item-description">Some policies limit consecutive travel days (60-90 days). Need policy allowing continuous ship living.</div>
+            </div>
+        </div>
+        
+        <!-- MEDICARE PLANNING -->
+        <div class="checklist-section" data-section="medicare">
+            <h2>📋 Medicare Planning (Age 65+)</h2>
+            
+            <div class="pro-tip">
+                <strong>Critical Timing:</strong> Missing enrollment windows results in lifetime penalties. Mark these dates on your calendar.
+            </div>
+            
+            <div class="checklist-item critical-warning">
+                <div class="checklist-header">
+                    <div class="checkbox"></div>
+                    <div class="item-title">Understand Initial Enrollment Period (IEP)</div>
+                </div>
+                <div class="item-description">3 months before 65th birthday, birthday month, 3 months after (7 months total). Missing this = lifetime penalties.</div>
+                <details class="expandable">
+                    <summary>Penalties for Late Enrollment</summary>
+                    <ul>
+                        <li><strong>Part B:</strong> 10% higher premiums for every 12 months delayed - FOR LIFE</li>
+                        <li><strong>Part D:</strong> 1% of national base premium per month delayed - FOR LIFE</li>
+                        <li>These add up significantly over retirement</li>
+                    </ul>
+                </details>
+            </div>
+            
+            <div class="checklist-item">
+                <div class="checklist-header">
+                    <div class="checkbox"></div>
+                    <div class="item-title">Enroll in Medicare Part A (Hospital Insurance)</div>
+                </div>
+                <div class="item-description">Free for most people if you or spouse worked 10+ years. Covers hospital stays, skilled nursing, hospice.</div>
+            </div>
+            
+            <div class="checklist-item">
+                <div class="checklist-header">
+                    <div class="checkbox"></div>
+                    <div class="item-title">Enroll in Medicare Part B (Medical Insurance)</div>
+                </div>
+                <div class="item-description">Covers doctors, outpatient care, preventive services. Standard premium $185/month (2025), higher if income over $106K.</div>
+            </div>
+            
+            <div class="checklist-item critical-warning">
+                <div class="checklist-header">
+                    <div class="checkbox"></div>
+                    <div class="item-title">Shop for Medigap during 6-month open enrollment</div>
+                </div>
+                <div class="item-description">Starting when you turn 65 and enroll in Part B. Insurers CANNOT deny you or charge more for pre-existing conditions during this window.</div>
+            </div>
+            
+            <div class="checklist-item">
+                <div class="checklist-header">
+                    <div class="checkbox"></div>
+                    <div class="item-title">Choose the right Medigap plan for your lifestyle</div>
+                </div>
+                <div class="item-description">Plan G most comprehensive. Plan N lower premiums with small copays. All Medigap works nationwide - perfect for travelers.</div>
+            </div>
+            
+            <div class="checklist-item">
+                <div class="checklist-header">
+                    <div class="checkbox"></div>
+                    <div class="item-title">Enroll in Medicare Part D (Prescription Drug Coverage)</div>
+                </div>
+                <div class="item-description">Compare plans annually - coverage changes yearly. Use Medicare.gov plan finder with your medication list.</div>
+            </div>
+        </div>
+        
+        <!-- APPROACHING 65 -->
+        <div class="checklist-section" data-section="approaching">
+            <h2>⏰ Approaching Medicare Age (60-64)</h2>
+            
+            <div class="pro-tip">
+                <strong>Transition Planning:</strong> These are the most expensive pre-Medicare years. Plan your transition carefully.
+            </div>
+            
+            <div class="checklist-item">
+                <div class="checklist-header">
+                    <div class="checkbox"></div>
+                    <div class="item-title">Continue maximizing ACA subsidies until 65</div>
+                </div>
+                <div class="item-description">Keep managing income strategically. These years have highest pre-Medicare premiums - subsidies critical.</div>
+            </div>
+            
+            <div class="checklist-item">
+                <div class="checklist-header">
+                    <div class="checkbox"></div>
+                    <div class="item-title">Create Medicare enrollment calendar</div>
+                </div>
+                <div class="item-description">Mark Initial Enrollment Period dates. Set reminders for 3 months before 65th birthday to start process.</div>
+            </div>
+            
+            <div class="checklist-item">
+                <div class="checklist-header">
+                    <div class="checkbox"></div>
+                    <div class="item-title">Research Medigap plans before turning 65</div>
+                </div>
+                <div class="item-description">Start shopping 6 months early. Know which plan you'll choose so you can enroll immediately at 65.</div>
+            </div>
+            
+            <div class="checklist-item">
+                <div class="checklist-header">
+                    <div class="checkbox"></div>
+                    <div class="item-title">Budget for Medicare Part B premiums in retirement income</div>
+                </div>
+                <div class="item-description">$185/month base (2025), but increases with income. IRMAA surcharges start at $106K single, $212K couple.</div>
+            </div>
+            
+            <div class="checklist-item">
+                <div class="checklist-header">
+                    <div class="checkbox"></div>
+                    <div class="item-title">Plan final Roth conversions before Medicare</div>
+                </div>
+                <div class="item-description">IRMAA charges based on income 2 years prior. Do large conversions before age 63 to avoid surcharges at 65.</div>
+            </div>
+        </div>
+        
+        <!-- CHRONIC CONDITIONS -->
+        <div class="checklist-section" data-section="chronic">
+            <h2>🏥 Managing Chronic Health Conditions</h2>
+            
+            <div class="checklist-item critical-warning">
+                <div class="checklist-header">
+                    <div class="checkbox"></div>
+                    <div class="item-title">Prioritize comprehensive coverage over cost</div>
+                </div>
+                <div class="item-description">Don't choose high-deductible catastrophic plans. Need coverage for specialists, ongoing care, procedures.</div>
+            </div>
+            
+            <div class="checklist-item">
+                <div class="checklist-header">
+                    <div class="checkbox"></div>
+                    <div class="item-title">Verify specialists are in-network before choosing plan</div>
+                </div>
+                <div class="item-description">If seeing specialists regularly, confirm they accept your plan. Out-of-network costs can be devastating.</div>
+            </div>
+            
+            <div class="checklist-item">
+                <div class="checklist-header">
+                    <div class="checkbox"></div>
+                    <div class="item-title">If traveling with chronic conditions: establish care in both locations</div>
+                </div>
+                <div class="item-description">Find specialists in travel destinations. Get medical records digitized for easy sharing between providers.</div>
+            </div>
+            
+            <div class="checklist-item">
+                <div class="checklist-header">
+                    <div class="checkbox"></div>
+                    <div class="item-title">Research international coverage for pre-existing conditions</div>
+                </div>
+                <div class="item-description">Many international plans exclude pre-existing conditions. Look for plans specifically covering chronic conditions (Cigna Global, Allianz Care).</div>
+            </div>
+        </div>
+        
+        <!-- PRESCRIPTIONS -->
+        <div class="checklist-section" data-section="prescriptions">
+            <h2>💊 Managing Expensive Prescriptions</h2>
+            
+            <div class="checklist-item critical-warning">
+                <div class="checklist-header">
+                    <div class="checkbox"></div>
+                    <div class="item-title">Check drug formularies before choosing any plan</div>
+                </div>
+                <div class="item-description">Use Medicare.gov plan finder (Part D) or check ACA plan documents. Some drugs only covered by certain plans - can save thousands.</div>
+            </div>
+            
+            <div class="checklist-item">
+                <div class="checklist-header">
+                    <div class="checkbox"></div>
+                    <div class="item-title">Investigate manufacturer assistance programs</div>
+                </div>
+                <div class="item-description">Many drug manufacturers offer copay assistance or patient assistance programs. Can dramatically reduce costs.</div>
+            </div>
+            
+            <div class="checklist-item">
+                <div class="checklist-header">
+                    <div class="checkbox"></div>
+                    <div class="item-title">Consider mail-order pharmacies for maintenance medications</div>
+                </div>
+                <div class="item-description">Often cheaper for 90-day supplies. Works well for travelers - can ship ahead or to mail forwarding service.</div>
+            </div>
+            
+            <div class="checklist-item">
+                <div class="checklist-header">
+                    <div class="checkbox"></div>
+                    <div class="item-title">Research international prescription costs</div>
+                </div>
+                <div class="item-description">Many medications 60-80% cheaper abroad. Canada, Mexico, India common sources. Understand legality and safety.</div>
+            </div>
+            
+            <div class="checklist-item">
+                <div class="checklist-header">
+                    <div class="checkbox"></div>
+                    <div class="item-title">Use GoodRx for price comparison</div>
+                </div>
+                <div class="item-description">Sometimes cash price with GoodRx coupon cheaper than insurance copay. Always check before filling.</div>
+            </div>
+        </div>
+        
+        <!-- ROTH CONVERSIONS -->
+        <div class="checklist-section" data-section="roth">
+            <h2>💰 Healthcare + Roth Conversion Strategy</h2>
+            
+            <div class="pro-tip">
+                <strong>The Balancing Act:</strong> Roth conversions increase MAGI, reducing ACA subsidies. Strategic timing is everything.
+            </div>
+            
+            <div class="checklist-item critical-warning">
+                <div class="checklist-header">
+                    <div class="checkbox"></div>
+                    <div class="item-title">Understand Roth conversions reduce ACA subsidies</div>
+                </div>
+                <div class="item-description">Conversion income counts toward MAGI. Converting too much can eliminate subsidies, costing more than tax savings.</div>
+            </div>
+            
+            <div class="checklist-item">
+                <div class="checklist-header">
+                    <div class="checkbox"></div>
+                    <div class="item-title">Calculate the subsidy cliff (400% FPL)</div>
+                </div>
+                <div class="item-description">At 400% FPL (~$60K single, $81K couple), subsidies disappear completely. Don't accidentally cross this converting.</div>
+            </div>
+            
+            <div class="checklist-item">
+                <div class="checklist-header">
+                    <div class="checkbox"></div>
+                    <div class="item-title">Do conversions in strategic years</div>
+                </div>
+                <div class="item-description">Convert in years with lower expenses or when living abroad (if not claiming ACA). Pause conversions in high-subsidy years.</div>
+            </div>
+            
+            <div class="checklist-item">
+                <div class="checklist-header">
+                    <div class="checkbox"></div>
+                    <div class="item-title">Plan final conversions before age 63</div>
+                </div>
+                <div class="item-description">Medicare IRMAA charges based on income 2 years prior. Large conversions at 63+ can cause surcharges at 65+.</div>
+            </div>
+            
+            <div class="checklist-item">
+                <div class="checklist-header">
+                    <div class="checkbox"></div>
+                    <div class="item-title">Model the tradeoff: tax savings vs subsidy loss</div>
+                </div>
+                <div class="item-description">Use spreadsheet or financial planner. Sometimes better to accept higher taxes and keep subsidies.</div>
+            </div>
+        </div>
+        
+        <!-- VA BENEFITS -->
+        <div class="checklist-section" data-section="va">
+            <h2>🎖️ Using VA Healthcare Benefits</h2>
+            
+            <div class="checklist-item">
+                <div class="checklist-header">
+                    <div class="checkbox"></div>
+                    <div class="item-title">Verify VA healthcare eligibility</div>
+                </div>
+                <div class="item-description">Check eligibility at VA.gov. Based on service history, discharge status, disability rating, income.</div>
+            </div>
+            
+            <div class="checklist-item">
+                <div class="checklist-header">
+                    <div class="checkbox"></div>
+                    <div class="item-title">Understand VA coverage is nationwide</div>
+                </div>
+                <div class="item-description">VA facilities available across US. Can receive care at any VA location - perfect for travelers.</div>
+            </div>
+            
+            <div class="checklist-item">
+                <div class="checklist-header">
+                    <div class="checkbox"></div>
+                    <div class="item-title">Decide how to coordinate VA with Medicare (if 65+)</div>
+                </div>
+                <div class="item-description">VA + Medicare work together. Use VA for services it covers well, Medicare for others. Both valid strategies.</div>
+            </div>
+            
+            <div class="checklist-item">
+                <div class="checklist-header">
+                    <div class="checkbox"></div>
+                    <div class="item-title">Research VA coverage abroad (limited)</div>
+                </div>
+                <div class="item-description">VA only covers care abroad in very specific circumstances. If traveling internationally, need supplemental coverage.</div>
+            </div>
+        </div>
+        
+        <!-- ANNUAL REVIEW -->
+        <div class="checklist-section" data-section="annual">
+            <h2>📅 Annual Healthcare Review</h2>
+            
+            <div class="checklist-item">
+                <div class="checklist-header">
+                    <div class="checkbox"></div>
+                    <div class="item-title">Review Medicare Part D during AEP (Oct 15 - Dec 7)</div>
+                </div>
+                <div class="item-description">Plans change coverage and costs annually. Always shop around - last year's best plan may not be this year's.</div>
+            </div>
+            
+            <div class="checklist-item">
+                <div class="checklist-header">
+                    <div class="checkbox"></div>
+                    <div class="item-title">Review ACA plans during open enrollment (Nov 1 - Jan 15)</div>
+                </div>
+                <div class="item-description">Plans, premiums, subsidies change yearly. Always compare - may find better coverage or lower cost.</div>
+            </div>
+            
+            <div class="checklist-item">
+                <div class="checklist-header">
+                    <div class="checkbox"></div>
+                    <div class="item-title">Re-optimize income strategy for subsidies</div>
+                </div>
+                <div class="item-description">Income needs change yearly. Recalculate optimal MAGI, plan Roth conversions, time capital gains.</div>
+            </div>
+            
+            <div class="checklist-item">
+                <div class="checklist-header">
+                    <div class="checkbox"></div>
+                    <div class="item-title">Update medication list and verify coverage</div>
+                </div>
+                <div class="item-description">If medications changed, optimal Part D plan may have changed. Check formularies for all current prescriptions.</div>
+            </div>
+            
+            <div class="checklist-item">
+                <div class="checklist-header">
+                    <div class="checkbox"></div>
+                    <div class="item-title">Reassess travel plans and insurance needs</div>
+                </div>
+                <div class="item-description">Traveling more/less this year? Time abroad changing? Adjust coverage accordingly.</div>
+            </div>
+        </div>
+        
+        <!-- RESOURCES -->
+        <div class="resources">
+            <h3>🔗 Essential Healthcare Resources</h3>
+            
+            <h4>General Healthcare</h4>
+            <a href="https://www.medicare.gov" target="_blank" class="resource-link">Medicare.gov - Official Medicare Information</a>
+            <a href="https://www.healthcare.gov" target="_blank" class="resource-link">Healthcare.gov - ACA Marketplace</a>
+            <a href="https://www.medicare.gov/plan-compare" target="_blank" class="resource-link">Medicare Plan Finder - Compare Plans</a>
+            
+            <h4>Early Retirement / FIRE</h4>
+            <a href="https://www.reddit.com/r/financialindependence/" target="_blank" class="resource-link">r/FinancialIndependence - Healthcare Discussion</a>
+            <a href="https://www.bogleheads.org/forum/" target="_blank" class="resource-link">Bogleheads Forum - Healthcare Planning</a>
+            <a href="https://www.gocurrycracker.com/obamacare-optimization/" target="_blank" class="resource-link">Go Curry Cracker - ACA Optimization</a>
+            
+            <h4>RV Living</h4>
+            <a href="https://www.rverinsurance.com" target="_blank" class="resource-link">RVer Insurance Exchange</a>
+            
+            <h4>International / Expat</h4>
+            <a href="https://www.expatinsurance.com" target="_blank" class="resource-link">Expat Insurance Broker</a>
+            <a href="https://www.internationalinsurance.com" target="_blank" class="resource-link">International Citizens Insurance</a>
+            <a href="https://www.cignaglobal.com" target="_blank" class="resource-link">Cigna Global Health Insurance</a>
+            <a href="https://www.geoblue.com" target="_blank" class="resource-link">GeoBlue Travel Insurance</a>
+            
+            <h4>Cruise Ship Living</h4>
+            <a href="https://www.allianzassistance.com" target="_blank" class="resource-link">Allianz Travel Insurance</a>
+            <a href="https://www.travelguard.com" target="_blank" class="resource-link">Travel Guard Insurance</a>
+            <a href="https://www.worldnomads.com" target="_blank" class="resource-link">World Nomads Long-Term Travel</a>
+        </div>
+    </div>
+    
+    <script>
+        let userSelections = {
+            age: 'under65',
+            lifestyles: [],
+            specials: []
+        };
+        
+        // Handle radio button styling
+        document.querySelectorAll('input[type="radio"]').forEach(radio => {
+            radio.addEventListener('change', function() {
+                // Remove selected class from all options in this group
+                document.querySelectorAll(`input[name="${this.name}"]`).forEach(r => {
+                    r.closest('.option-btn').classList.remove('selected');
+                });
+                // Add selected class to chosen option
+                this.closest('.option-btn').classList.add('selected');
+            });
+        });
+        
+        // Handle checkbox styling
+        document.querySelectorAll('input[type="checkbox"]').forEach(checkbox => {
+            checkbox.addEventListener('change', function() {
+                if (this.checked) {
+                    this.closest('.checkbox-option').classList.add('selected');
+                } else {
+                    this.closest('.checkbox-option').classList.remove('selected');
+                }
+            });
+        });
+        
+        // Initialize first radio as selected
+        document.querySelector('input[type="radio"]:checked').closest('.option-btn').classList.add('selected');
+        
+        function generateChecklist() {
+            // Collect user selections
+            userSelections.age = document.querySelector('input[name="age"]:checked').value;
+            userSelections.lifestyles = Array.from(document.querySelectorAll('input[name="lifestyle"]:checked')).map(cb => cb.value);
+            userSelections.specials = Array.from(document.querySelectorAll('input[name="special"]:checked')).map(cb => cb.value);
+            
+            // Hide questionnaire
+            document.getElementById('questionnaire').classList.add('hidden');
+            
+            // Show your plan summary
+            showPlanSummary();
+            
+            // Show relevant sections
+            showRelevantSections();
+            
+            // Show progress tracking
+            document.getElementById('progressContainer').style.display = 'block';
+            document.getElementById('progressText').style.display = 'block';
+            
+            // Update progress
+            updateProgress();
+            
+            // Scroll to plan summary
+            document.getElementById('yourPlan').scrollIntoView({ behavior: 'smooth' });
+        }
+        
+        function showPlanSummary() {
+            const plan = document.getElementById('yourPlan');
+            const summary = document.getElementById('planSummary');
+            
+            let summaryText = '<strong>Your Healthcare Priorities:</strong><br>';
+            
+            // Age-based
+            if (userSelections.age === 'under65') {
+                summaryText += '✓ Pre-Medicare healthcare foundation & ACA optimization<br>';
+            } else if (userSelections.age === 'approaching') {
+                summaryText += '✓ Transition planning to Medicare (ages 60-64)<br>';
+            } else {
+                summaryText += '✓ Medicare & Medigap planning<br>';
+            }
+            
+            // Lifestyle-based
+            const lifestyleNames = {
+                'traditional': 'Traditional retirement in US',
+                'rv': 'RV living - domicile & nationwide coverage',
+                'expat': 'International travel - expat insurance',
+                'snowbird': 'Snowbird - coordinating two locations',
+                'cruise': 'Cruise ship living - evacuation coverage'
+            };
+            
+            if (userSelections.lifestyles.length > 0) {
+                userSelections.lifestyles.forEach(lifestyle => {
+                    summaryText += `✓ ${lifestyleNames[lifestyle]}<br>`;
+                });
+            }
+            
+            // Special situations
+            const specialNames = {
+                'chronic': 'Managing chronic health conditions',
+                'prescriptions': 'Expensive prescription strategies',
+                'roth': 'Coordinating with Roth conversions',
+                'va': 'VA benefits integration'
+            };
+            
+            if (userSelections.specials.length > 0) {
+                userSelections.specials.forEach(special => {
+                    summaryText += `✓ ${specialNames[special]}<br>`;
+                });
+            }
+            
+            summary.innerHTML = summaryText;
+            plan.classList.add('visible');
+        }
+        
+        function showRelevantSections() {
+            // Hide all sections first
+            document.querySelectorAll('.checklist-section').forEach(section => {
+                section.classList.remove('visible');
+            });
+            
+            // Age-based sections
+            if (userSelections.age === 'under65') {
+                showSection('pre65');
+            } else if (userSelections.age === 'approaching') {
+                showSection('pre65');
+                showSection('approaching');
+                showSection('medicare');
+            } else {
+                showSection('medicare');
+            }
+            
+            // Lifestyle-based sections
+            userSelections.lifestyles.forEach(lifestyle => {
+                showSection(lifestyle);
+            });
+            
+            // Special situation sections
+            userSelections.specials.forEach(special => {
+                showSection(special);
+            });
+            
+            // Always show annual review
+            showSection('annual');
+        }
+        
+        function showSection(sectionName) {
+            const section = document.querySelector(`[data-section="${sectionName}"]`);
+            if (section) {
+                section.classList.add('visible');
+            }
+        }
+        
+        function resetQuestionnaire() {
+            // Reset selections
+            userSelections = {
+                age: 'under65',
+                lifestyles: [],
+                specials: []
+            };
+            
+            // Reset form
+            document.querySelectorAll('input[type="checkbox"]').forEach(cb => {
+                cb.checked = false;
+                cb.closest('.checkbox-option').classList.remove('selected');
+            });
+            
+            document.querySelectorAll('input[type="radio"]').forEach(radio => {
+                radio.checked = false;
+                radio.closest('.option-btn').classList.remove('selected');
+            });
+            
+            document.querySelector('input[name="age"][value="under65"]').checked = true;
+            document.querySelector('input[name="age"][value="under65"]').closest('.option-btn').classList.add('selected');
+            
+            // Hide plan summary
+            document.getElementById('yourPlan').classList.remove('visible');
+            
+            // Hide all sections
+            document.querySelectorAll('.checklist-section').forEach(section => {
+                section.classList.remove('visible');
+            });
+            
+            // Hide progress
+            document.getElementById('progressContainer').style.display = 'none';
+            document.getElementById('progressText').style.display = 'none';
+            
+            // Show questionnaire
+            document.getElementById('questionnaire').classList.remove('hidden');
+            
+            // Scroll to top
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+        
+        // Checkbox functionality
+        document.addEventListener('click', function(e) {
+            const item = e.target.closest('.checklist-item');
+            if (item && !e.target.tagName === 'A' && !e.target.tagName === 'SUMMARY') {
+                item.classList.toggle('checked');
+                updateProgress();
+                saveState();
+            }
+        });
+        
+        // Progress tracking
+        function updateProgress() {
+            const visibleItems = Array.from(document.querySelectorAll('.checklist-item')).filter(item => {
+                const section = item.closest('.checklist-section');
+                return section && section.classList.contains('visible');
+            });
+            
+            const totalItems = visibleItems.length;
+            const checkedItems = visibleItems.filter(item => item.classList.contains('checked')).length;
+            const percentage = totalItems > 0 ? Math.round((checkedItems / totalItems) * 100) : 0;
+            
+            document.getElementById('progressBar').style.width = percentage + '%';
+            document.getElementById('progressText').textContent = 
+                `${checkedItems} of ${totalItems} items completed (${percentage}%)`;
+        }
+        
+        // Save state
+        function saveState() {
+            const state = {
+                selections: userSelections,
+                checked: []
+            };
+            
+            document.querySelectorAll('.checklist-item.checked').forEach(item => {
+                const title = item.querySelector('.item-title').textContent;
+                state.checked.push(title);
+            });
+            
+            localStorage.setItem('healthcareChecklistState', JSON.stringify(state));
+        }
+        
+        // Load state
+        function loadState() {
+            const savedState = localStorage.getItem('healthcareChecklistState');
+            if (!savedState) return;
+            
+            try {
+                const state = JSON.parse(savedState);
+                
+                // Restore selections and generate checklist
+                if (state.selections) {
+                    userSelections = state.selections;
+                    
+                    // Set form values
+                    document.querySelector(`input[name="age"][value="${state.selections.age}"]`).checked = true;
+                    document.querySelector(`input[name="age"][value="${state.selections.age}"]`).closest('.option-btn').classList.add('selected');
+                    
+                    state.selections.lifestyles.forEach(lifestyle => {
+                        const cb = document.querySelector(`input[name="lifestyle"][value="${lifestyle}"]`);
+                        if (cb) {
+                            cb.checked = true;
+                            cb.closest('.checkbox-option').classList.add('selected');
+                        }
+                    });
+                    
+                    state.selections.specials.forEach(special => {
+                        const cb = document.querySelector(`input[name="special"][value="${special}"]`);
+                        if (cb) {
+                            cb.checked = true;
+                            cb.closest('.checkbox-option').classList.add('selected');
+                        }
+                    });
+                    
+                    // Generate checklist
+                    generateChecklist();
+                    
+                    // Restore checked items
+                    document.querySelectorAll('.checklist-item').forEach(item => {
+                        const title = item.querySelector('.item-title').textContent;
+                        if (state.checked.includes(title)) {
+                            item.classList.add('checked');
+                        }
+                    });
+                    
+                    updateProgress();
+                }
+            } catch (e) {
+                console.error('Error loading state:', e);
+            }
+        }
+        
+        // Initialize
+        document.addEventListener('DOMContentLoaded', function() {
+            loadState();
+        });
+    </script>
+</body>
+</html>
