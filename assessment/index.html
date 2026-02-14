@@ -1527,67 +1527,6 @@ async function subscribeToKit(formData) {
         return null;
     }
 }
-
-// MODIFY YOUR EXISTING submitResults FUNCTION
-// Find your existing submitResults function and UPDATE it to include this Kit call
-// Here's what the updated version should look like:
-
-async function submitResults(event) {
-    event.preventDefault();
-    
-    const submitBtn = document.getElementById('submit-btn');
-    const originalText = submitBtn.textContent;
-    submitBtn.textContent = 'Sending...';
-    submitBtn.disabled = true;
-    
-    try {
-        // Get the results (this should already exist in your code)
-        const results = analyzeResults(calculateScores(answers), answers);
-        
-        // Collect form data (your existing code)
-        const formData = {
-            name: document.getElementById('user-name').value,
-            email: document.getElementById('user-email').value,
-            newsletter: document.getElementById('newsletter-opt-in').checked,
-            accuracy: document.querySelector('input[name="accuracy"]:checked')?.value,
-            feedback: {
-                topDoesntFit: document.getElementById('feedback-top')?.checked || false,
-                missingLifestyle: document.getElementById('feedback-missing')?.checked || false,
-                combinationsWrong: document.getElementById('feedback-combinations')?.checked || false,
-                other: document.getElementById('feedback-other')?.value || ''
-            },
-            answers: answers,
-            scores: calculateScores(answers),
-            primaryMatch: results.primaryMatch,
-            alternatives: results.alternatives,
-            modifiers: results.modifiers,
-            profileSummary: generateProfileSummary(answers, results),
-            timestamp: new Date().toISOString()
-        };
-        
-        // Send to Google Sheets (your existing code - keep this!)
-        const GOOGLE_SCRIPT_URL = 'YOUR_GOOGLE_SHEETS_URL_HERE'; // Use your actual URL
-        await fetch(GOOGLE_SCRIPT_URL, {
-            method: 'POST',
-            mode: 'no-cors',
-            headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify(formData)
-        });
-        
-        // NEW: Subscribe to Kit
-        await subscribeToKit(formData);
-        
-        // Show success message
-        document.getElementById('success-message').style.display = 'block';
-        document.getElementById('email-capture-form').style.display = 'none';
-        
-    } catch (error) {
-        console.error('Submission error:', error);
-        document.getElementById('error-message').style.display = 'block';
-        submitBtn.textContent = originalText;
-        submitBtn.disabled = false;
-    }
-}
 </script>
 </body>
 </html>
