@@ -1432,7 +1432,8 @@
                     },
                     body: JSON.stringify(formData)
                 });
-                
+                // NEW: Subscribe to Kit
+   await subscribeToKit(formData);
                 // Show thank you message immediately (no-cors means we can't wait for response)
                 alert('Thank you! Your results have been submitted. Check your email for detailed results.');
                 
