@@ -1476,7 +1476,8 @@
                         top_lifestyle: formData.primaryMatch?.lifestyle || 'Unknown',
                         top_score: formData.primaryMatch?.percentage?.toString() || '0',
                         assessment_date: new Date().toISOString().split('T')[0],
-                        results_accurate: formData.accuracy || 'not-answered'
+                        results_accurate: formData.accuracy || 'not-answered',
+                        newsletter_opt_in: formData.newsletter ? 'yes' : 'no'
                     },
                     groups: ['179420313960842664'],
                     status: 'active'
