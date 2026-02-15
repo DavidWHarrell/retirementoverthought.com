@@ -598,9 +598,9 @@
                 <div class="example-inputs">
                     <strong>Situation:</strong><br>
                     • Age 62, married<br>
-                    • $800,000 in 401k/IRA<br>
-                    • $3,000/month SS at age 67<br>
-                    • Needs $5,000/month to live (slow travel lifestyle)<br>
+                    • $800,000 in 401k/IRA <em>(combined for both spouses)</em><br>
+                    • $3,000/month SS at age 67 <em>(combined for both spouses)</em><br>
+                    • Needs $5,000/month to live <em>(household budget)</em><br>
                     • No other income
                 </div>
                 <div class="example-result good">
@@ -640,9 +640,9 @@
                 <div class="example-inputs">
                     <strong>Situation:</strong><br>
                     • Age 62, married<br>
-                    • $600,000 in 401k/IRA<br>
-                    • $2,800/month SS at age 67<br>
-                    • Needs $4,500/month to live (RV life)<br>
+                    • $600,000 in 401k/IRA <em>(combined for both spouses)</em><br>
+                    • $2,800/month SS at age 67 <em>(combined for both spouses)</em><br>
+                    • Needs $4,500/month to live <em>(household budget)</em><br>
                     • $1,500/month rental income
                 </div>
                 <div class="example-result good">
@@ -665,6 +665,21 @@
 
             <div class="form-section">
                 <h3>Basic Information</h3>
+                
+                <div style="background: var(--color-primary-light); border: 2px solid var(--color-primary); padding: 1.5rem; border-radius: 8px; margin-bottom: 1.5rem;">
+                    <p style="font-weight: 600; color: var(--color-primary-dark); margin-bottom: 0.5rem;">📋 Important: How to Fill Out This Form</p>
+                    <p style="margin-bottom: 0.5rem;"><strong>If you selected MARRIED:</strong></p>
+                    <ul style="margin-left: 1.5rem; margin-bottom: 1rem;">
+                        <li>Enter <strong>COMBINED</strong> Social Security (both spouses together)</li>
+                        <li>Enter <strong>COMBINED</strong> tax-deferred savings (both 401ks/IRAs together)</li>
+                        <li>Enter <strong>TOTAL HOUSEHOLD</strong> monthly budget (for both of you)</li>
+                        <li>Enter <strong>COMBINED</strong> other income (pensions, rentals, etc. for both)</li>
+                    </ul>
+                    <p style="margin-bottom: 0.5rem;"><strong>If you selected SINGLE:</strong></p>
+                    <ul style="margin-left: 1.5rem;">
+                        <li>Enter your individual amounts</li>
+                    </ul>
+                </div>
                 
                 <div class="form-group">
                     <label for="current-age">Your Current Age</label>
@@ -692,13 +707,14 @@
                         <option value="69">69</option>
                         <option value="70">70</option>
                     </select>
+                    <p class="form-help">If married: use the primary earner's age or the age when you're both considering claiming</p>
                 </div>
 
                 <div class="form-group">
                     <label for="filing-status">Filing Status</label>
                     <select id="filing-status">
-                        <option value="married">Married</option>
-                        <option value="single">Single</option>
+                        <option value="married">Married (use COMBINED amounts below)</option>
+                        <option value="single">Single (use individual amounts below)</option>
                     </select>
                 </div>
             </div>
@@ -709,13 +725,13 @@
                 <div class="form-group">
                     <label for="tax-deferred">Tax-Deferred Savings (401k + Traditional IRA)</label>
                     <input type="number" id="tax-deferred" placeholder="500000" min="0" step="1000">
-                    <p class="form-help">Total balance in all pre-tax retirement accounts</p>
+                    <p class="form-help">Total balance in all pre-tax retirement accounts. <strong>If married: COMBINED total for both spouses.</strong></p>
                 </div>
 
                 <div class="form-group">
                     <label for="ss-benefit">Estimated Monthly Social Security at Age 67</label>
                     <input type="number" id="ss-benefit" placeholder="3000" min="0" step="100">
-                    <p class="form-help">Check your estimate at <a href="https://www.ssa.gov/myaccount/" target="_blank" rel="noopener">ssa.gov/myaccount</a></p>
+                    <p class="form-help"><strong>If married: COMBINED amount for both spouses.</strong> Check your estimates at <a href="https://www.ssa.gov/myaccount/" target="_blank" rel="noopener">ssa.gov/myaccount</a></p>
                 </div>
             </div>
 
@@ -725,11 +741,11 @@
                 <div class="form-group">
                     <label for="monthly-budget">Monthly Budget in Retirement</label>
                     <input type="number" id="monthly-budget" placeholder="5000" min="0" step="100">
-                    <p class="form-help">Total monthly spending (housing, food, healthcare, travel, everything)</p>
+                    <p class="form-help">Total monthly spending (housing, food, healthcare, travel, everything). <strong>If married: TOTAL HOUSEHOLD budget for both of you.</strong></p>
                 </div>
 
                 <div class="form-group">
-                    <label style="margin-bottom: 1rem;">Other Monthly Income Sources</label>
+                    <label style="margin-bottom: 1rem;">Other Monthly Income Sources <span style="font-weight: normal; font-style: italic;">(If married: combined for both spouses)</span></label>
                     
                     <div class="checkbox-group">
                         <input type="checkbox" id="has-pension" onchange="toggleOtherIncome('pension')">
@@ -1031,6 +1047,7 @@
                         <li>Uses simplified tax calculations - your actual situation is more complex</li>
                         <li>Assumes ${(inputs.portfolioReturn * 100).toFixed(1)}% portfolio returns - actual returns will vary wildly</li>
                         <li>Assumes you live to 95 - actual longevity unknown and critical to decision</li>
+                        <li><strong>If MARRIED: This treats you as a single household unit</strong> - in reality, each spouse can claim at different ages for optimal results (higher earner waits, lower earner claims early, survivor benefits, spousal benefits, etc.). This complexity is NOT modeled here.</li>
                         <li>Does NOT account for: spousal benefits, survivor benefits, Medicare IRMAA, state taxes, healthcare costs, market crashes, sequence of returns risk</li>
                         <li>Does NOT consider: your health, family longevity, risk tolerance, personal goals</li>
                         <li>Roth conversion estimates are rough - actual conversion strategy needs professional planning</li>
