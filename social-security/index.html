@@ -1,0 +1,1124 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Social Security Claiming Age Optimizer | Retirement Overthought</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Crimson+Text:wght@400;600;700&family=Work+Sans:wght@400;500;600&display=swap" rel="stylesheet">
+    <!-- Cloudflare Web Analytics --><script defer src='https://static.cloudflareinsights.com/beacon.min.js' data-cf-beacon='{"token": "573cb90827d441118ff702b086d336af"}'></script><!-- End Cloudflare Web Analytics -->
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --color-primary: #0A5F7F;
+            --color-primary-dark: #084A61;
+            --color-primary-light: #E6F3F7;
+            --color-accent: #FFD700;
+            --color-accent-dark: #E6C200;
+            --color-success: #10B981;
+            --color-warning: #F59E0B;
+            --color-danger: #EF4444;
+            --color-text: #1a1a1a;
+            --color-text-light: #4a4a4a;
+            --color-white: #FFFFFF;
+            --color-bg: #f8fafb;
+            --color-border: #d4e3e8;
+            --font-serif: 'Crimson Text', Georgia, serif;
+            --font-sans: 'Work Sans', -apple-system, sans-serif;
+        }
+
+        body {
+            font-family: var(--font-sans);
+            background: var(--color-bg);
+            color: var(--color-text);
+            line-height: 1.6;
+            min-height: 100vh;
+        }
+
+        .container {
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 2rem;
+        }
+
+        /* Header */
+        header {
+            text-align: center;
+            padding: 3rem 0 2rem;
+            background: linear-gradient(135deg, var(--color-primary) 0%, var(--color-primary-dark) 100%);
+            margin: -2rem -2rem 2rem -2rem;
+            border-radius: 0 0 12px 12px;
+            position: relative;
+        }
+
+        .back-to-home {
+            position: absolute;
+            top: 1.5rem;
+            left: 2rem;
+            color: var(--color-white);
+            text-decoration: none;
+            font-size: 0.9rem;
+            opacity: 0.9;
+            transition: opacity 0.2s ease;
+        }
+
+        .back-to-home:hover {
+            opacity: 1;
+        }
+
+        h1 {
+            font-family: var(--font-serif);
+            font-size: 2.5rem;
+            font-weight: 700;
+            color: var(--color-white);
+            margin-bottom: 0.5rem;
+        }
+
+        .subtitle {
+            font-size: 1.1rem;
+            color: var(--color-accent);
+            font-weight: 500;
+        }
+
+        /* Privacy Banner */
+        .privacy-banner {
+            background: var(--color-success);
+            color: var(--color-white);
+            padding: 1.5rem;
+            border-radius: 8px;
+            margin-bottom: 2rem;
+            text-align: center;
+        }
+
+        .privacy-banner h3 {
+            font-size: 1.25rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .privacy-banner p {
+            font-size: 0.95rem;
+            opacity: 0.95;
+        }
+
+        /* Intro Section */
+        .intro {
+            background: var(--color-white);
+            padding: 2rem;
+            border-radius: 8px;
+            margin-bottom: 2rem;
+            border: 2px solid var(--color-border);
+        }
+
+        .intro h2 {
+            font-family: var(--font-serif);
+            font-size: 1.75rem;
+            color: var(--color-primary);
+            margin-bottom: 1rem;
+        }
+
+        .intro p {
+            margin-bottom: 1rem;
+            line-height: 1.8;
+        }
+
+        .intro strong {
+            color: var(--color-primary);
+        }
+
+        /* Warning Box */
+        .warning-box {
+            background: #FEF3C7;
+            border: 2px solid var(--color-warning);
+            border-radius: 8px;
+            padding: 1.5rem;
+            margin-bottom: 2rem;
+        }
+
+        .warning-box h3 {
+            color: #92400E;
+            font-size: 1.25rem;
+            margin-bottom: 0.75rem;
+        }
+
+        .warning-box ul {
+            margin-left: 1.5rem;
+            color: #78350F;
+        }
+
+        .warning-box li {
+            margin-bottom: 0.5rem;
+        }
+
+        /* Form */
+        .calculator-form {
+            background: var(--color-white);
+            padding: 2rem;
+            border-radius: 8px;
+            border: 2px solid var(--color-primary);
+            margin-bottom: 2rem;
+        }
+
+        .form-section {
+            margin-bottom: 2rem;
+            padding-bottom: 2rem;
+            border-bottom: 1px solid var(--color-border);
+        }
+
+        .form-section:last-child {
+            border-bottom: none;
+        }
+
+        .form-section h3 {
+            font-family: var(--font-serif);
+            font-size: 1.5rem;
+            color: var(--color-primary);
+            margin-bottom: 1.5rem;
+        }
+
+        .form-group {
+            margin-bottom: 1.5rem;
+        }
+
+        .form-group label {
+            display: block;
+            font-weight: 600;
+            margin-bottom: 0.5rem;
+            color: var(--color-text);
+        }
+
+        .form-help {
+            font-size: 0.9rem;
+            color: var(--color-text-light);
+            margin-top: 0.25rem;
+            font-style: italic;
+        }
+
+        .form-group input[type="number"],
+        .form-group select {
+            width: 100%;
+            padding: 0.75rem 1rem;
+            border: 2px solid var(--color-border);
+            border-radius: 6px;
+            font-family: var(--font-sans);
+            font-size: 1rem;
+            background: var(--color-white);
+            transition: border-color 0.2s ease;
+        }
+
+        .form-group input[type="number"]:focus,
+        .form-group select:focus {
+            outline: none;
+            border-color: var(--color-primary);
+        }
+
+        .checkbox-group {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            margin-bottom: 1rem;
+        }
+
+        .checkbox-group input[type="checkbox"] {
+            width: 20px;
+            height: 20px;
+            cursor: pointer;
+        }
+
+        .checkbox-group label {
+            cursor: pointer;
+            font-weight: normal;
+            margin-bottom: 0;
+        }
+
+        .nested-input {
+            margin-left: 2.5rem;
+            margin-top: 0.5rem;
+        }
+
+        .btn {
+            font-family: var(--font-sans);
+            font-size: 1.1rem;
+            font-weight: 600;
+            padding: 1rem 2.5rem;
+            background: var(--color-primary);
+            color: var(--color-white);
+            border: none;
+            border-radius: 6px;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            display: inline-block;
+            text-decoration: none;
+            width: 100%;
+        }
+
+        .btn:hover {
+            background: var(--color-primary-dark);
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(10, 95, 127, 0.3);
+        }
+
+        /* Results */
+        .results {
+            display: none;
+        }
+
+        .results.active {
+            display: block;
+        }
+
+        .signal-box {
+            padding: 2rem;
+            border-radius: 8px;
+            margin-bottom: 2rem;
+            text-align: center;
+        }
+
+        .signal-box.strong {
+            background: #ECFDF5;
+            border: 3px solid var(--color-success);
+        }
+
+        .signal-box.moderate {
+            background: #FEF3C7;
+            border: 3px solid var(--color-warning);
+        }
+
+        .signal-box.weak {
+            background: #FEE2E2;
+            border: 3px solid var(--color-danger);
+        }
+
+        .signal-box h2 {
+            font-family: var(--font-serif);
+            font-size: 2rem;
+            margin-bottom: 1rem;
+        }
+
+        .signal-box.strong h2 { color: #065F46; }
+        .signal-box.moderate h2 { color: #92400E; }
+        .signal-box.weak h2 { color: #991B1B; }
+
+        .ratio-display {
+            font-size: 2.5rem;
+            font-weight: 700;
+            margin: 1rem 0;
+        }
+
+        .signal-box.strong .ratio-display { color: var(--color-success); }
+        .signal-box.moderate .ratio-display { color: var(--color-warning); }
+        .signal-box.weak .ratio-display { color: var(--color-danger); }
+
+        .scenario-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 1.5rem;
+            margin: 2rem 0;
+        }
+
+        .scenario-card {
+            background: var(--color-white);
+            border: 2px solid var(--color-border);
+            border-radius: 8px;
+            padding: 1.5rem;
+        }
+
+        .scenario-card.recommended {
+            border-color: var(--color-success);
+            border-width: 3px;
+            position: relative;
+        }
+
+        .recommended-badge {
+            position: absolute;
+            top: -12px;
+            right: 1rem;
+            background: var(--color-success);
+            color: var(--color-white);
+            padding: 0.25rem 0.75rem;
+            border-radius: 12px;
+            font-size: 0.85rem;
+            font-weight: 700;
+        }
+
+        .scenario-card h3 {
+            font-family: var(--font-serif);
+            font-size: 1.5rem;
+            color: var(--color-primary);
+            margin-bottom: 1rem;
+        }
+
+        .scenario-detail {
+            display: flex;
+            justify-content: space-between;
+            padding: 0.5rem 0;
+            border-bottom: 1px solid var(--color-border);
+        }
+
+        .scenario-detail:last-child {
+            border-bottom: none;
+        }
+
+        .scenario-detail .label {
+            color: var(--color-text-light);
+        }
+
+        .scenario-detail .value {
+            font-weight: 600;
+            color: var(--color-text);
+        }
+
+        .key-insights {
+            background: var(--color-primary-light);
+            padding: 2rem;
+            border-radius: 8px;
+            border-left: 4px solid var(--color-primary);
+            margin: 2rem 0;
+        }
+
+        .key-insights h3 {
+            font-family: var(--font-serif);
+            font-size: 1.5rem;
+            color: var(--color-primary-dark);
+            margin-bottom: 1rem;
+        }
+
+        .key-insights ul {
+            margin-left: 1.5rem;
+        }
+
+        .key-insights li {
+            margin-bottom: 0.75rem;
+            line-height: 1.6;
+        }
+
+        .disclaimer {
+            background: #FEE2E2;
+            border: 2px solid var(--color-danger);
+            border-radius: 8px;
+            padding: 2rem;
+            margin: 2rem 0;
+        }
+
+        .disclaimer h3 {
+            color: #991B1B;
+            font-size: 1.5rem;
+            margin-bottom: 1rem;
+        }
+
+        .disclaimer ul {
+            margin-left: 1.5rem;
+            color: #7F1D1D;
+        }
+
+        .disclaimer li {
+            margin-bottom: 0.75rem;
+        }
+
+        .next-steps {
+            background: var(--color-white);
+            border: 2px solid var(--color-primary);
+            border-radius: 8px;
+            padding: 2rem;
+            margin: 2rem 0;
+        }
+
+        .next-steps h3 {
+            font-family: var(--font-serif);
+            font-size: 1.5rem;
+            color: var(--color-primary);
+            margin-bottom: 1rem;
+        }
+
+        .next-steps ol {
+            margin-left: 1.5rem;
+        }
+
+        .next-steps li {
+            margin-bottom: 1rem;
+            line-height: 1.6;
+        }
+
+        .action-buttons {
+            display: flex;
+            gap: 1rem;
+            margin-top: 2rem;
+            flex-wrap: wrap;
+        }
+
+        .btn-secondary {
+            background: var(--color-white);
+            color: var(--color-primary);
+            border: 2px solid var(--color-primary);
+        }
+
+        .btn-secondary:hover {
+            background: var(--color-primary);
+            color: var(--color-white);
+        }
+
+        /* Examples Section */
+        .examples {
+            background: var(--color-white);
+            padding: 2rem;
+            border-radius: 8px;
+            margin-bottom: 2rem;
+            border: 2px solid var(--color-border);
+        }
+
+        .examples h2 {
+            font-family: var(--font-serif);
+            font-size: 1.75rem;
+            color: var(--color-primary);
+            margin-bottom: 1.5rem;
+        }
+
+        .example-box {
+            background: var(--color-bg);
+            padding: 1.5rem;
+            border-radius: 8px;
+            margin-bottom: 1.5rem;
+            border-left: 4px solid var(--color-primary);
+        }
+
+        .example-box h4 {
+            color: var(--color-primary);
+            font-size: 1.25rem;
+            margin-bottom: 1rem;
+        }
+
+        .example-box .example-inputs {
+            background: var(--color-white);
+            padding: 1rem;
+            border-radius: 6px;
+            margin-bottom: 1rem;
+            font-size: 0.95rem;
+        }
+
+        .example-box .example-result {
+            padding: 1rem;
+            border-radius: 6px;
+            font-weight: 600;
+        }
+
+        .example-box .example-result.good {
+            background: #ECFDF5;
+            color: #065F46;
+        }
+
+        .example-box .example-result.bad {
+            background: #FEE2E2;
+            color: #991B1B;
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .container {
+                padding: 1rem;
+            }
+
+            h1 {
+                font-size: 2rem;
+            }
+
+            .back-to-home {
+                position: static;
+                display: block;
+                margin-bottom: 1rem;
+            }
+
+            .scenario-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .action-buttons {
+                flex-direction: column;
+            }
+
+            .btn {
+                width: 100%;
+            }
+        }
+
+        .hidden {
+            display: none;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <a href="/" class="back-to-home">← Back to Home</a>
+            <h1>Social Security Claiming Age Optimizer</h1>
+            <p class="subtitle">When should you claim? It might surprise you.</p>
+        </header>
+
+        <!-- Privacy Banner -->
+        <div class="privacy-banner">
+            <h3>🔒 100% Private & Secure</h3>
+            <p>All calculations happen on YOUR computer. Nothing is sent to our servers. We don't track, store, or see ANY of your financial information. Ever.</p>
+        </div>
+
+        <!-- Intro -->
+        <div class="intro">
+            <h2>Challenge Conventional Wisdom</h2>
+            <p>We've all heard it: <strong>"Wait until 70 to maximize your Social Security benefit."</strong></p>
+            <p>But what if that advice is leaving money on the table? For many people—especially those with significant tax-deferred retirement savings—claiming Social Security earlier can result in hundreds of thousands of dollars more in lifetime wealth.</p>
+            <p><strong>Why?</strong> Three reasons conventional wisdom misses:</p>
+            <ul style="margin-left: 2rem; margin-top: 1rem;">
+                <li><strong>Portfolio Growth:</strong> Taking SS early preserves your 401k/IRA to keep compounding</li>
+                <li><strong>Roth Conversions:</strong> Lower income before age 70 = tax-efficient Roth conversion opportunities</li>
+                <li><strong>Tax Bracket Management:</strong> Smaller SS + Roth withdrawals = lower lifetime taxes than big SS + RMDs</li>
+            </ul>
+            <p style="margin-top: 1rem;"><strong>This tool helps you think differently</strong> about Social Security claiming strategy by showing you scenarios most financial calculators ignore entirely.</p>
+        </div>
+
+        <!-- Warning -->
+        <div class="warning-box">
+            <h3>⚠️ This Is NOT Financial Advice</h3>
+            <ul>
+                <li><strong>This is a thought experiment tool</strong> designed to challenge assumptions and spark conversations with your financial advisor</li>
+                <li><strong>These calculations could be WAY off</strong> - they use simplified assumptions and don't account for your specific situation</li>
+                <li><strong>This does NOT replace professional advice</strong> - always consult with a tax-aware financial advisor before making claiming decisions</li>
+                <li><strong>Goal:</strong> Make you THINK about when to claim, not tell you what to do</li>
+            </ul>
+        </div>
+
+        <!-- Examples -->
+        <div class="examples">
+            <h2>How This Works: Real Examples</h2>
+            
+            <div class="example-box">
+                <h4>Example 1: Large Portfolio → Claim Early Wins</h4>
+                <div class="example-inputs">
+                    <strong>Situation:</strong><br>
+                    • Age 62, married<br>
+                    • $800,000 in 401k/IRA<br>
+                    • $3,000/month SS at age 67<br>
+                    • Needs $5,000/month to live (slow travel lifestyle)<br>
+                    • No other income
+                </div>
+                <div class="example-result good">
+                    <strong>Result: Portfolio-to-SS Ratio = 1.11 → 🟢 CLAIM AT 62</strong><br><br>
+                    Why? Taking SS at 62 ($2,100/mo) instead of waiting until 70 ($3,720/mo) means:<br>
+                    • Portfolio grows from $800K to $850K by age 73 (vs. $550K if waiting)<br>
+                    • Can convert $300K to Roth at 12% tax rate (impossible if waiting)<br>
+                    • Saves ~$60K in lifetime taxes<br>
+                    • Break-even age: 96 years old
+                </div>
+            </div>
+
+            <div class="example-box">
+                <h4>Example 2: Small Portfolio → Wait Until 70</h4>
+                <div class="example-inputs">
+                    <strong>Situation:</strong><br>
+                    • Age 62, single<br>
+                    • $200,000 in 401k/IRA<br>
+                    • $2,500/month SS at age 67<br>
+                    • Needs $4,000/month to live<br>
+                    • No other income
+                </div>
+                <div class="example-result bad">
+                    <strong>Result: Portfolio-to-SS Ratio = 0.33 → 🔴 WAIT UNTIL 70</strong><br><br>
+                    Why? SS is your primary retirement income:<br>
+                    • Small portfolio can't sustain years of heavy withdrawals<br>
+                    • Maximize the benefit you'll depend on most<br>
+                    • Portfolio preservation less important when it's small<br>
+                    • Conventional wisdom actually applies here
+                </div>
+            </div>
+
+            <div class="example-box">
+                <h4>Example 3: Rental Income → Roth Conversion Sweet Spot</h4>
+                <div class="example-inputs">
+                    <strong>Situation:</strong><br>
+                    • Age 62, married<br>
+                    • $600,000 in 401k/IRA<br>
+                    • $2,800/month SS at age 67<br>
+                    • Needs $4,500/month to live (RV life)<br>
+                    • $1,500/month rental income
+                </div>
+                <div class="example-result good">
+                    <strong>Result: Portfolio-to-SS Ratio = 0.89 → 🟢 CLAIM AT 62</strong><br><br>
+                    Why? Perfect Roth conversion opportunity:<br>
+                    • Rental income + small SS keeps you in 12% bracket ages 62-72<br>
+                    • Can convert $30K/year for 10 years = $300K tax-free forever<br>
+                    • If you wait, rental + big SS pushes you to 22% bracket<br>
+                    • RMDs at 73 would push even higher<br>
+                    • Tax savings: ~$30K+ over lifetime
+                </div>
+            </div>
+        </div>
+
+        <!-- Calculator Form -->
+        <div class="calculator-form">
+            <h2 style="font-family: var(--font-serif); font-size: 2rem; color: var(--color-primary); margin-bottom: 1.5rem; text-align: center;">Calculate Your Scenarios</h2>
+
+            <div class="form-section">
+                <h3>Basic Information</h3>
+                
+                <div class="form-group">
+                    <label for="current-age">Your Current Age</label>
+                    <select id="current-age">
+                        <option value="">-- Select Age --</option>
+                        <option value="50">50</option>
+                        <option value="51">51</option>
+                        <option value="52">52</option>
+                        <option value="53">53</option>
+                        <option value="54">54</option>
+                        <option value="55">55</option>
+                        <option value="56">56</option>
+                        <option value="57">57</option>
+                        <option value="58">58</option>
+                        <option value="59">59</option>
+                        <option value="60">60</option>
+                        <option value="61">61</option>
+                        <option value="62">62</option>
+                        <option value="63">63</option>
+                        <option value="64">64</option>
+                        <option value="65">65</option>
+                        <option value="66">66</option>
+                        <option value="67">67</option>
+                        <option value="68">68</option>
+                        <option value="69">69</option>
+                        <option value="70">70</option>
+                    </select>
+                </div>
+
+                <div class="form-group">
+                    <label for="filing-status">Filing Status</label>
+                    <select id="filing-status">
+                        <option value="married">Married</option>
+                        <option value="single">Single</option>
+                    </select>
+                </div>
+            </div>
+
+            <div class="form-section">
+                <h3>Retirement Savings & Social Security</h3>
+                
+                <div class="form-group">
+                    <label for="tax-deferred">Tax-Deferred Savings (401k + Traditional IRA)</label>
+                    <input type="number" id="tax-deferred" placeholder="500000" min="0" step="1000">
+                    <p class="form-help">Total balance in all pre-tax retirement accounts</p>
+                </div>
+
+                <div class="form-group">
+                    <label for="ss-benefit">Estimated Monthly Social Security at Age 67</label>
+                    <input type="number" id="ss-benefit" placeholder="3000" min="0" step="100">
+                    <p class="form-help">Check your estimate at <a href="https://www.ssa.gov/myaccount/" target="_blank" rel="noopener">ssa.gov/myaccount</a></p>
+                </div>
+            </div>
+
+            <div class="form-section">
+                <h3>Monthly Budget & Other Income</h3>
+                
+                <div class="form-group">
+                    <label for="monthly-budget">Monthly Budget in Retirement</label>
+                    <input type="number" id="monthly-budget" placeholder="5000" min="0" step="100">
+                    <p class="form-help">Total monthly spending (housing, food, healthcare, travel, everything)</p>
+                </div>
+
+                <div class="form-group">
+                    <label style="margin-bottom: 1rem;">Other Monthly Income Sources</label>
+                    
+                    <div class="checkbox-group">
+                        <input type="checkbox" id="has-pension" onchange="toggleOtherIncome('pension')">
+                        <label for="has-pension">Pension</label>
+                    </div>
+                    <div id="pension-input" class="nested-input hidden">
+                        <input type="number" id="pension-amount" placeholder="0" min="0" step="100">
+                    </div>
+
+                    <div class="checkbox-group">
+                        <input type="checkbox" id="has-rental" onchange="toggleOtherIncome('rental')">
+                        <label for="has-rental">Rental Property Income</label>
+                    </div>
+                    <div id="rental-input" class="nested-input hidden">
+                        <input type="number" id="rental-amount" placeholder="0" min="0" step="100">
+                    </div>
+
+                    <div class="checkbox-group">
+                        <input type="checkbox" id="has-dividends" onchange="toggleOtherIncome('dividends')">
+                        <label for="has-dividends">Investment Dividends</label>
+                    </div>
+                    <div id="dividends-input" class="nested-input hidden">
+                        <input type="number" id="dividends-amount" placeholder="0" min="0" step="100">
+                    </div>
+
+                    <div class="checkbox-group">
+                        <input type="checkbox" id="has-parttime" onchange="toggleOtherIncome('parttime')">
+                        <label for="has-parttime">Part-Time Work</label>
+                    </div>
+                    <div id="parttime-input" class="nested-input hidden">
+                        <input type="number" id="parttime-amount" placeholder="0" min="0" step="100">
+                    </div>
+                </div>
+            </div>
+
+            <div class="form-section">
+                <h3>Assumptions (Adjustable)</h3>
+                
+                <div class="form-group">
+                    <label for="portfolio-return">Expected Annual Portfolio Return (%)</label>
+                    <input type="number" id="portfolio-return" value="7" min="0" max="15" step="0.5">
+                    <p class="form-help">Historical stock market average is ~10%, conservative estimate is 6-7%</p>
+                </div>
+
+                <div class="form-group">
+                    <label for="inflation-rate">Expected Annual Inflation (%)</label>
+                    <input type="number" id="inflation-rate" value="3" min="0" max="10" step="0.5">
+                    <p class="form-help">Long-term average is ~3%, recent years higher</p>
+                </div>
+            </div>
+
+            <button class="btn" onclick="calculateScenarios()">Calculate My Scenarios</button>
+        </div>
+
+        <!-- Results Section -->
+        <div id="results" class="results">
+            <!-- Will be populated by JavaScript -->
+        </div>
+    </div>
+
+    <script>
+        function toggleOtherIncome(type) {
+            const checkbox = document.getElementById(`has-${type}`);
+            const input = document.getElementById(`${type}-input`);
+            
+            if (checkbox.checked) {
+                input.classList.remove('hidden');
+            } else {
+                input.classList.add('hidden');
+                document.getElementById(`${type}-amount`).value = '0';
+            }
+        }
+
+        function calculateScenarios() {
+            // Get inputs
+            const currentAge = parseInt(document.getElementById('current-age').value);
+            const filingStatus = document.getElementById('filing-status').value;
+            const taxDeferred = parseFloat(document.getElementById('tax-deferred').value) || 0;
+            const ssBenefit = parseFloat(document.getElementById('ss-benefit').value) || 0;
+            const monthlyBudget = parseFloat(document.getElementById('monthly-budget').value) || 0;
+            const portfolioReturn = parseFloat(document.getElementById('portfolio-return').value) / 100 || 0.07;
+            const inflationRate = parseFloat(document.getElementById('inflation-rate').value) / 100 || 0.03;
+
+            // Get other income
+            const pensionAmount = document.getElementById('has-pension').checked ? 
+                (parseFloat(document.getElementById('pension-amount').value) || 0) : 0;
+            const rentalAmount = document.getElementById('has-rental').checked ? 
+                (parseFloat(document.getElementById('rental-amount').value) || 0) : 0;
+            const dividendsAmount = document.getElementById('has-dividends').checked ? 
+                (parseFloat(document.getElementById('dividends-amount').value) || 0) : 0;
+            const parttimeAmount = document.getElementById('has-parttime').checked ? 
+                (parseFloat(document.getElementById('parttime-amount').value) || 0) : 0;
+
+            const otherIncome = pensionAmount + rentalAmount + dividendsAmount + parttimeAmount;
+
+            // Validation
+            if (!currentAge || currentAge < 50 || currentAge > 70) {
+                alert('Please select your current age (50-70)');
+                return;
+            }
+            if (taxDeferred <= 0) {
+                alert('Please enter your tax-deferred savings amount');
+                return;
+            }
+            if (ssBenefit <= 0) {
+                alert('Please enter your estimated Social Security benefit');
+                return;
+            }
+            if (monthlyBudget <= 0) {
+                alert('Please enter your monthly budget');
+                return;
+            }
+
+            // Calculate scenarios
+            const inputs = {
+                currentAge,
+                filingStatus,
+                taxDeferred,
+                ssBenefit,
+                monthlyBudget,
+                otherIncome,
+                portfolioReturn,
+                inflationRate
+            };
+
+            const scenarios = {
+                age62: calculateScenario(inputs, 62),
+                age67: calculateScenario(inputs, 67),
+                age70: calculateScenario(inputs, 70)
+            };
+
+            displayResults(inputs, scenarios);
+        }
+
+        function calculateScenario(inputs, claimAge) {
+            const { currentAge, filingStatus, taxDeferred, ssBenefit, monthlyBudget, otherIncome, portfolioReturn, inflationRate } = inputs;
+
+            // SS benefit multipliers
+            const ssMultipliers = {
+                62: 0.70,  // 70% of FRA
+                63: 0.75,
+                64: 0.80,
+                65: 0.867,
+                66: 0.933,
+                67: 1.00,  // Full Retirement Age
+                68: 1.08,
+                69: 1.16,
+                70: 1.24   // 124% of FRA
+            };
+
+            const ssBenefitMonthly = ssBenefit * ssMultipliers[claimAge];
+            const ssBenefitAnnual = ssBenefitMonthly * 12;
+            const otherIncomeAnnual = otherIncome * 12;
+            const budgetAnnual = monthlyBudget * 12;
+
+            // Calculate needed from portfolio before SS starts
+            const yearsUntilClaim = Math.max(0, claimAge - currentAge);
+            let portfolio = taxDeferred;
+            
+            // Draw from portfolio until claiming age
+            for (let year = 0; year < yearsUntilClaim; year++) {
+                const needed = budgetAnnual - otherIncomeAnnual;
+                portfolio -= needed;
+                portfolio *= (1 + portfolioReturn);
+            }
+
+            // After claiming SS
+            const neededAfterSS = Math.max(0, budgetAnnual - ssBenefitAnnual - otherIncomeAnnual);
+            
+            // Project portfolio to age 73 (when RMDs start)
+            const yearsToRMD = Math.max(0, 73 - Math.max(currentAge, claimAge));
+            for (let year = 0; year < yearsToRMD; year++) {
+                portfolio -= neededAfterSS;
+                portfolio *= (1 + portfolioReturn);
+            }
+
+            const portfolioAt73 = Math.max(0, portfolio);
+
+            // Estimate tax bracket
+            const grossIncome = ssBenefitAnnual + otherIncomeAnnual + neededAfterSS;
+            const standardDeduction = filingStatus === 'married' ? 29200 : 14600;
+            const taxableIncome = Math.max(0, grossIncome - standardDeduction);
+
+            let taxBracket = '0%';
+            if (filingStatus === 'married') {
+                if (taxableIncome > 364200) taxBracket = '35%';
+                else if (taxableIncome > 243725) taxBracket = '32%';
+                else if (taxableIncome > 190750) taxBracket = '24%';
+                else if (taxableIncome > 94300) taxBracket = '22%';
+                else if (taxableIncome > 23200) taxBracket = '12%';
+                else if (taxableIncome > 0) taxBracket = '10%';
+            } else {
+                if (taxableIncome > 182100) taxBracket = '35%';
+                else if (taxableIncome > 121850) taxBracket = '32%';
+                else if (taxableIncome > 95375) taxBracket = '24%';
+                else if (taxableIncome > 47150) taxBracket = '22%';
+                else if (taxableIncome > 11600) taxBracket = '12%';
+                else if (taxableIncome > 0) taxBracket = '10%';
+            }
+
+            // Roth conversion opportunity (ages 62-72, if in 12% bracket or lower)
+            const canConvert = claimAge <= 67 && (taxBracket === '10%' || taxBracket === '12%');
+            const conversionYears = canConvert ? Math.max(0, 72 - claimAge) : 0;
+            const rothConversionSpace = canConvert ? 30000 : 0; // Rough estimate
+            const totalRothConversion = rothConversionSpace * conversionYears;
+
+            return {
+                claimAge,
+                ssBenefitMonthly: Math.round(ssBenefitMonthly),
+                ssBenefitAnnual: Math.round(ssBenefitAnnual),
+                neededFromPortfolio: Math.round(neededAfterSS),
+                portfolioAt73: Math.round(portfolioAt73),
+                taxBracket,
+                canConvert,
+                totalRothConversion: Math.round(totalRothConversion),
+                grossIncome: Math.round(grossIncome)
+            };
+        }
+
+        function displayResults(inputs, scenarios) {
+            const { taxDeferred, ssBenefit } = inputs;
+            
+            // Calculate Portfolio-to-SS Ratio
+            const annualSS = ssBenefit * 12;
+            const ratio = taxDeferred / (annualSS * 20);
+
+            // Determine signal
+            let signal, signalText, signalClass;
+            if (ratio >= 1.0) {
+                signal = '🟢 STRONG SIGNAL';
+                signalText = 'Early claiming likely optimal - Run comprehensive analysis';
+                signalClass = 'strong';
+            } else if (ratio >= 0.5) {
+                signal = '🟡 MIXED SIGNAL';
+                signalText = 'Worth analyzing - Could go either way';
+                signalClass = 'moderate';
+            } else {
+                signal = '🔴 CONVENTIONAL WISDOM';
+                signalText = 'Waiting may be better - SS is your primary income';
+                signalClass = 'weak';
+            }
+
+            // Determine recommended scenario
+            let recommendedAge = 70;
+            if (ratio >= 1.0) {
+                recommendedAge = 62;
+            } else if (ratio >= 0.5 && scenarios.age62.canConvert) {
+                recommendedAge = 62;
+            } else if (ratio >= 0.7) {
+                recommendedAge = 67;
+            }
+
+            // Build HTML
+            let html = `
+                <div class="signal-box ${signalClass}">
+                    <h2>${signal}</h2>
+                    <div class="ratio-display">Portfolio-to-SS Ratio: ${ratio.toFixed(2)}</div>
+                    <p style="font-size: 1.1rem;">${signalText}</p>
+                </div>
+
+                <h2 style="font-family: var(--font-serif); font-size: 2rem; color: var(--color-primary); margin: 2rem 0 1rem; text-align: center;">Three Scenarios Compared</h2>
+
+                <div class="scenario-grid">
+                    ${createScenarioCard(scenarios.age62, 62, recommendedAge)}
+                    ${createScenarioCard(scenarios.age67, 67, recommendedAge)}
+                    ${createScenarioCard(scenarios.age70, 70, recommendedAge)}
+                </div>
+
+                ${createKeyInsights(ratio, scenarios, recommendedAge)}
+
+                <div class="disclaimer">
+                    <h3>⚠️ CRITICAL DISCLAIMERS</h3>
+                    <p style="margin-bottom: 1rem;"><strong>This is a screening tool ONLY, not financial advice.</strong></p>
+                    <p style="margin-bottom: 1rem;"><strong>These calculations could be WAY OFF because:</strong></p>
+                    <ul>
+                        <li>Uses simplified tax calculations - your actual situation is more complex</li>
+                        <li>Assumes ${(inputs.portfolioReturn * 100).toFixed(1)}% portfolio returns - actual returns will vary wildly</li>
+                        <li>Assumes you live to 95 - actual longevity unknown and critical to decision</li>
+                        <li>Does NOT account for: spousal benefits, survivor benefits, Medicare IRMAA, state taxes, healthcare costs, market crashes, sequence of returns risk</li>
+                        <li>Does NOT consider: your health, family longevity, risk tolerance, personal goals</li>
+                        <li>Roth conversion estimates are rough - actual conversion strategy needs professional planning</li>
+                    </ul>
+                    <p style="margin-top: 1rem; font-weight: 600;">The goal is to make you THINK differently about Social Security timing, not tell you what to do.</p>
+                </div>
+
+                <div class="next-steps">
+                    <h3>Next Steps: What To Do With This Information</h3>
+                    <ol>
+                        <li><strong>Don't make any claiming decisions based solely on this tool</strong> - it's meant to spark questions, not provide answers</li>
+                        <li><strong>Schedule meeting with a tax-aware financial advisor</strong> - bring these scenarios and ask them to model your actual situation</li>
+                        <li><strong>Request comprehensive analysis</strong> - insist they model ages 62, 67, and 70 with actual tax calculations, Roth conversion opportunities, and your specific situation</li>
+                        <li><strong>Consider spousal/survivor benefits</strong> - if married, claiming strategy gets much more complex</li>
+                        <li><strong>Factor in health and longevity</strong> - family history and your health matter enormously</li>
+                        <li><strong>Review Medicare IRMAA thresholds</strong> - higher income can mean higher Medicare premiums</li>
+                        <li><strong>Model different portfolio return scenarios</strong> - what if returns are 5% vs 10%?</li>
+                        <li><strong>Consider your risk tolerance</strong> - claiming early means more market risk, waiting means guaranteed income</li>
+                    </ol>
+                </div>
+
+                <div class="action-buttons">
+                    <button class="btn btn-secondary" onclick="window.print()">Print These Results</button>
+                    <button class="btn btn-secondary" onclick="document.getElementById('results').classList.remove('active'); window.scrollTo(0, 0);">Try Different Numbers</button>
+                </div>
+            `;
+
+            document.getElementById('results').innerHTML = html;
+            document.getElementById('results').classList.add('active');
+            document.getElementById('results').scrollIntoView({ behavior: 'smooth' });
+        }
+
+        function createScenarioCard(scenario, age, recommendedAge) {
+            const isRecommended = age === recommendedAge;
+            
+            return `
+                <div class="scenario-card ${isRecommended ? 'recommended' : ''}">
+                    ${isRecommended ? '<div class="recommended-badge">Best Match</div>' : ''}
+                    <h3>Claim at Age ${age}</h3>
+                    <div class="scenario-detail">
+                        <span class="label">Monthly SS:</span>
+                        <span class="value">$${scenario.ssBenefitMonthly.toLocaleString()}</span>
+                    </div>
+                    <div class="scenario-detail">
+                        <span class="label">Annual SS:</span>
+                        <span class="value">$${scenario.ssBenefitAnnual.toLocaleString()}</span>
+                    </div>
+                    <div class="scenario-detail">
+                        <span class="label">Portfolio needed/year:</span>
+                        <span class="value">$${scenario.neededFromPortfolio.toLocaleString()}</span>
+                    </div>
+                    <div class="scenario-detail">
+                        <span class="label">Portfolio at age 73:</span>
+                        <span class="value">$${scenario.portfolioAt73.toLocaleString()}</span>
+                    </div>
+                    <div class="scenario-detail">
+                        <span class="label">Tax bracket:</span>
+                        <span class="value">${scenario.taxBracket}</span>
+                    </div>
+                    <div class="scenario-detail">
+                        <span class="label">Roth conversions:</span>
+                        <span class="value">${scenario.canConvert ? '✓ YES' : '✗ NO'}</span>
+                    </div>
+                    ${scenario.canConvert ? `
+                        <div class="scenario-detail">
+                            <span class="label">Roth opportunity:</span>
+                            <span class="value">~$${scenario.totalRothConversion.toLocaleString()}</span>
+                        </div>
+                    ` : ''}
+                </div>
+            `;
+        }
+
+        function createKeyInsights(ratio, scenarios, recommendedAge) {
+            let insights = [];
+
+            if (ratio >= 1.0) {
+                insights.push(`Your tax-deferred savings (${ratio.toFixed(2)}x your SS benefits) suggest claiming early may be optimal`);
+                insights.push('Taking SS at 62 preserves portfolio to keep compounding');
+                
+                if (scenarios.age62.canConvert) {
+                    insights.push(`Low income years before 70 enable Roth conversions worth ~$${scenarios.age62.totalRothConversion.toLocaleString()} tax-free`);
+                }
+                
+                const portfolioDiff = scenarios.age62.portfolioAt73 - scenarios.age70.portfolioAt73;
+                if (portfolioDiff > 0) {
+                    insights.push(`Portfolio could be $${portfolioDiff.toLocaleString()} larger at age 73 by claiming early`);
+                }
+                
+                insights.push('Waiting until 70 means drawing portfolio faster, reducing compound growth');
+            } else if (ratio >= 0.5) {
+                insights.push('Your situation is mixed - detailed analysis recommended');
+                
+                if (scenarios.age62.canConvert) {
+                    insights.push(`Roth conversion opportunity of ~$${scenarios.age62.totalRothConversion.toLocaleString()} favors claiming early`);
+                }
+                
+                insights.push('Consider your health, longevity expectations, and risk tolerance');
+            } else {
+                insights.push('Social Security represents a large portion of your retirement income');
+                insights.push('Maximizing SS benefit by waiting may be the right strategy');
+                insights.push('Portfolio is too small to make tax optimization as impactful');
+                insights.push('Conventional "wait until 70" advice likely applies in your case');
+            }
+
+            return `
+                <div class="key-insights">
+                    <h3>Why Age ${recommendedAge} May Be Best For You</h3>
+                    <ul>
+                        ${insights.map(insight => `<li>${insight}</li>`).join('')}
+                    </ul>
+                    <p style="margin-top: 1rem; font-style: italic;">Remember: These are estimates based on simplified assumptions. Your actual optimal strategy requires professional analysis of your complete financial situation.</p>
+                </div>
+            `;
+        }
+    </script>
+</body>
+</html>
