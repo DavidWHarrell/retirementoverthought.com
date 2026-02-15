@@ -1,0 +1,1261 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Retirement Timeline Planner | Retirement Overthought</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Crimson+Text:wght@400;600;700&family=Work+Sans:wght@400;500;600&display=swap" rel="stylesheet">
+    <!-- Cloudflare Web Analytics --><script defer src='https://static.cloudflareinsights.com/beacon.min.js' data-cf-beacon='{"token": "573cb90827d441118ff702b086d336af"}'></script><!-- End Cloudflare Web Analytics -->
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --color-primary: #0A5F7F;
+            --color-primary-dark: #084A61;
+            --color-primary-light: #E6F3F7;
+            --color-accent: #FFD700;
+            --color-accent-dark: #E6C200;
+            --color-text: #1a1a1a;
+            --color-text-light: #4a4a4a;
+            --color-white: #FFFFFF;
+            --color-bg: #f8fafb;
+            --color-border: #d4e3e8;
+            --color-success: #10B981;
+            --font-serif: 'Crimson Text', Georgia, serif;
+            --font-sans: 'Work Sans', -apple-system, sans-serif;
+        }
+
+        body {
+            font-family: var(--font-sans);
+            background: var(--color-bg);
+            color: var(--color-text);
+            line-height: 1.6;
+            min-height: 100vh;
+        }
+
+        .container {
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 2rem;
+        }
+
+        /* Header */
+        header {
+            text-align: center;
+            padding: 3rem 0 2rem;
+            background: linear-gradient(135deg, var(--color-primary) 0%, var(--color-primary-dark) 100%);
+            margin: -2rem -2rem 2rem -2rem;
+            border-radius: 0 0 12px 12px;
+            position: relative;
+        }
+
+        .back-to-home {
+            position: absolute;
+            top: 1.5rem;
+            left: 2rem;
+            color: var(--color-white);
+            text-decoration: none;
+            font-size: 0.9rem;
+            opacity: 0.9;
+            transition: opacity 0.2s ease;
+        }
+
+        .back-to-home:hover {
+            opacity: 1;
+        }
+
+        h1 {
+            font-family: var(--font-serif);
+            font-size: 2.5rem;
+            font-weight: 700;
+            color: var(--color-white);
+            margin-bottom: 0.5rem;
+        }
+
+        .subtitle {
+            font-size: 1.1rem;
+            color: var(--color-accent);
+            font-weight: 500;
+        }
+
+        /* Intro Section */
+        .intro {
+            background: var(--color-white);
+            padding: 2rem;
+            border-radius: 8px;
+            margin-bottom: 2rem;
+            border: 2px solid var(--color-border);
+        }
+
+        .intro h2 {
+            font-family: var(--font-serif);
+            font-size: 1.75rem;
+            color: var(--color-primary);
+            margin-bottom: 1rem;
+        }
+
+        /* Selection Section */
+        .selection-section {
+            background: var(--color-white);
+            padding: 2rem;
+            border-radius: 8px;
+            margin-bottom: 2rem;
+            border: 2px solid var(--color-primary);
+        }
+
+        .form-group {
+            margin-bottom: 1.5rem;
+        }
+
+        .form-group label {
+            display: block;
+            font-weight: 600;
+            margin-bottom: 0.5rem;
+            color: var(--color-text);
+        }
+
+        .form-group select {
+            width: 100%;
+            padding: 0.75rem 1rem;
+            border: 2px solid var(--color-border);
+            border-radius: 6px;
+            font-family: var(--font-sans);
+            font-size: 1rem;
+            background: var(--color-white);
+            cursor: pointer;
+            transition: border-color 0.2s ease;
+        }
+
+        .form-group select:focus {
+            outline: none;
+            border-color: var(--color-primary);
+        }
+
+        .btn {
+            font-family: var(--font-sans);
+            font-size: 1.1rem;
+            font-weight: 600;
+            padding: 1rem 2.5rem;
+            background: var(--color-primary);
+            color: var(--color-white);
+            border: none;
+            border-radius: 6px;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            display: inline-block;
+            text-decoration: none;
+        }
+
+        .btn:hover {
+            background: var(--color-primary-dark);
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(10, 95, 127, 0.3);
+        }
+
+        /* Timeline Display */
+        .timeline-display {
+            display: none;
+        }
+
+        .timeline-display.active {
+            display: block;
+        }
+
+        .timeline-header {
+            background: var(--color-primary-light);
+            padding: 2rem;
+            border-radius: 8px;
+            margin-bottom: 2rem;
+            border-left: 4px solid var(--color-primary);
+        }
+
+        .timeline-header h2 {
+            font-family: var(--font-serif);
+            font-size: 2rem;
+            color: var(--color-primary-dark);
+            margin-bottom: 0.5rem;
+        }
+
+        .timeline-meta {
+            color: var(--color-text-light);
+            font-size: 0.95rem;
+        }
+
+        /* Progress Bar */
+        .progress-section {
+            background: var(--color-white);
+            padding: 1.5rem;
+            border-radius: 8px;
+            margin-bottom: 2rem;
+            border: 2px solid var(--color-border);
+        }
+
+        .progress-label {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 0.5rem;
+            font-weight: 600;
+        }
+
+        .progress-bar {
+            width: 100%;
+            height: 12px;
+            background: var(--color-border);
+            border-radius: 6px;
+            overflow: hidden;
+        }
+
+        .progress-fill {
+            height: 100%;
+            background: linear-gradient(90deg, var(--color-primary) 0%, var(--color-success) 100%);
+            transition: width 0.3s ease;
+            border-radius: 6px;
+        }
+
+        /* Phase Sections */
+        .phase {
+            background: var(--color-white);
+            border: 2px solid var(--color-border);
+            border-radius: 8px;
+            padding: 2rem;
+            margin-bottom: 2rem;
+        }
+
+        .phase-header {
+            margin-bottom: 1.5rem;
+            padding-bottom: 1rem;
+            border-bottom: 2px solid var(--color-border);
+        }
+
+        .phase-number {
+            display: inline-block;
+            background: var(--color-primary);
+            color: var(--color-white);
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            text-align: center;
+            line-height: 40px;
+            font-weight: 700;
+            margin-right: 1rem;
+        }
+
+        .phase-title {
+            font-family: var(--font-serif);
+            font-size: 1.75rem;
+            color: var(--color-primary);
+            display: inline;
+            vertical-align: middle;
+        }
+
+        .phase-duration {
+            display: inline-block;
+            background: var(--color-accent);
+            color: var(--color-primary-dark);
+            padding: 0.25rem 0.75rem;
+            border-radius: 4px;
+            font-size: 0.9rem;
+            font-weight: 600;
+            margin-left: 1rem;
+        }
+
+        .phase-description {
+            color: var(--color-text-light);
+            margin-top: 0.75rem;
+            line-height: 1.6;
+        }
+
+        /* Action Items */
+        .action-items {
+            margin-top: 1.5rem;
+        }
+
+        .action-item {
+            display: flex;
+            align-items: flex-start;
+            padding: 1rem;
+            margin-bottom: 0.75rem;
+            background: var(--color-bg);
+            border-radius: 6px;
+            border: 2px solid transparent;
+            transition: all 0.2s ease;
+        }
+
+        .action-item:hover {
+            border-color: var(--color-primary-light);
+        }
+
+        .action-item.completed {
+            background: #f0fff4;
+            border-color: var(--color-success);
+        }
+
+        .action-item input[type="checkbox"] {
+            width: 20px;
+            height: 20px;
+            margin-right: 1rem;
+            margin-top: 0.25rem;
+            cursor: pointer;
+            flex-shrink: 0;
+        }
+
+        .action-item label {
+            cursor: pointer;
+            flex: 1;
+            user-select: none;
+        }
+
+        .action-item.completed label {
+            text-decoration: line-through;
+            color: var(--color-text-light);
+        }
+
+        /* Action Buttons */
+        .action-buttons {
+            display: flex;
+            gap: 1rem;
+            margin-top: 2rem;
+            flex-wrap: wrap;
+        }
+
+        .btn-secondary {
+            background: var(--color-white);
+            color: var(--color-primary);
+            border: 2px solid var(--color-primary);
+        }
+
+        .btn-secondary:hover {
+            background: var(--color-primary);
+            color: var(--color-white);
+        }
+
+        /* Print Styles */
+        @media print {
+            .selection-section,
+            .action-buttons,
+            .back-to-home {
+                display: none;
+            }
+
+            .phase {
+                page-break-inside: avoid;
+            }
+
+            .action-item input[type="checkbox"] {
+                -webkit-appearance: none;
+                appearance: none;
+                width: 16px;
+                height: 16px;
+                border: 2px solid #333;
+                margin-right: 0.5rem;
+            }
+
+            .action-item.completed input[type="checkbox"]::before {
+                content: "✓";
+                display: block;
+                text-align: center;
+                line-height: 14px;
+            }
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .container {
+                padding: 1rem;
+            }
+
+            h1 {
+                font-size: 2rem;
+            }
+
+            .back-to-home {
+                position: static;
+                display: block;
+                margin-bottom: 1rem;
+            }
+
+            .phase-number {
+                display: block;
+                margin-bottom: 0.5rem;
+            }
+
+            .phase-title {
+                display: block;
+            }
+
+            .phase-duration {
+                margin-left: 0;
+                margin-top: 0.5rem;
+            }
+
+            .action-buttons {
+                flex-direction: column;
+            }
+
+            .btn {
+                width: 100%;
+            }
+        }
+
+        .hidden {
+            display: none;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <a href="/" class="back-to-home">← Back to Home</a>
+            <h1>Retirement Timeline Planner</h1>
+            <p class="subtitle">Build your step-by-step plan to test and transition</p>
+        </header>
+
+        <!-- Intro Section -->
+        <div class="intro">
+            <h2>Plan Your Retirement Lifestyle Transition</h2>
+            <p>Most people jump into retirement decisions without testing them first. This planner gives you a concrete, step-by-step timeline to research, test, evaluate, and transition into your ideal retirement lifestyle.</p>
+            <p style="margin-top: 1rem;"><strong>Each timeline has 4 phases:</strong> Research → Test → Decide → Transition. You'll get specific action items, realistic timeframes, and clear success criteria for each phase.</p>
+        </div>
+
+        <!-- Selection Section -->
+        <div class="selection-section">
+            <div class="form-group">
+                <label for="lifestyle-select">Select Your Retirement Lifestyle:</label>
+                <select id="lifestyle-select">
+                    <option value="">-- Choose a lifestyle --</option>
+                    <option value="snowbird">Snowbird - Seasonal rotation between two locations</option>
+                    <option value="slow-travel">Slow Travel - Moving between locations, 1-3 months each</option>
+                    <option value="rv-life">RV Life - Your home travels with you</option>
+                    <option value="expat">Expat - Settle abroad for the long term</option>
+                    <option value="stay-home">Stay at Home Explorer - Engage deeply where you are</option>
+                    <option value="cruise">Cruise Ship Living - Live on cruise ships full-time</option>
+                </select>
+            </div>
+
+            <div class="form-group">
+                <label for="pace-select">Choose Your Timeline Pace:</label>
+                <select id="pace-select">
+                    <option value="moderate">Moderate (12-18 months) - Recommended for most people</option>
+                    <option value="aggressive">Aggressive (6-9 months) - Fast track if you're confident</option>
+                    <option value="cautious">Cautious (18-24 months) - Extra time to be thorough</option>
+                </select>
+            </div>
+
+            <button class="btn" onclick="generateTimeline()">Generate My Timeline</button>
+        </div>
+
+        <!-- Timeline Display -->
+        <div id="timeline-display" class="timeline-display">
+            <!-- Timeline content will be inserted here -->
+        </div>
+    </div>
+
+    <script>
+        // Timeline data for each lifestyle
+        const TIMELINES = {
+            snowbird: {
+                name: "Snowbird",
+                description: "Seasonal rotation between home base and winter destination",
+                phases: {
+                    moderate: [
+                        {
+                            number: 1,
+                            title: "Research Phase",
+                            duration: "Months 1-3",
+                            description: "Learn about snowbird lifestyle, identify potential winter destinations, and understand true costs.",
+                            actions: [
+                                "Join 3-5 snowbird Facebook groups and forums (Snowbird Advisor, RV Snowbirds, Snowbirds in Mexico)",
+                                "Watch 20+ YouTube videos about snowbirding in different locations (Arizona, Florida, Texas, Mexico)",
+                                "Use the Cost Calculator to compare expenses: home base + winter location vs staying home year-round",
+                                "Research healthcare access in potential winter locations - find providers that accept your insurance",
+                                "Interview 5 current snowbirds about their experiences, costs, and unexpected challenges",
+                                "Create a comparison spreadsheet: Arizona vs Florida vs Texas vs Mexico (costs, healthcare, activities, community)",
+                                "Read 2-3 books or comprehensive blogs about snowbird lifestyle and specific destinations",
+                                "Research visa requirements if considering Mexico or other international destinations",
+                                "Identify deal-breakers: specific weather needs, proximity to family, healthcare requirements, budget limits"
+                            ]
+                        },
+                        {
+                            number: 2,
+                            title: "Test Phase",
+                            duration: "Months 4-6",
+                            description: "Experience potential winter locations first-hand and validate your research with reality.",
+                            actions: [
+                                "Visit your top 3 winter destination choices for 5-7 days each during winter season",
+                                "Rent accommodations in each location to test neighborhoods and amenities (don't stay in hotels/resorts)",
+                                "Test healthcare during visits: visit urgent care, find primary care doctors, check hospital quality",
+                                "Attend community events, RV parks, or snowbird meetups in each location to gauge social fit",
+                                "Track all costs daily: lodging, food, activities, transportation, utilities",
+                                "Experience the 'worst' of each location: hottest days, crowds, tourist season inconveniences",
+                                "Choose your top destination and rent for 4-6 weeks during peak winter (January-February)",
+                                "During extended test: live like a local, shop at regular stores, cook at home, establish routines",
+                                "Test driving distances: how far to groceries, healthcare, activities, airport",
+                                "Journal daily: what you love, what's annoying, what's dealbreakers, what's better than expected",
+                                "Calculate actual cost per month and compare to your projection - include everything"
+                            ]
+                        },
+                        {
+                            number: 3,
+                            title: "Decision Phase",
+                            duration: "Month 7",
+                            description: "Evaluate your test results and make an informed go/no-go decision.",
+                            actions: [
+                                "Review your test costs vs original projections - were you within 20%?",
+                                "List everything that worked better than expected vs worse than expected",
+                                "Discuss with partner/family: did this feel sustainable long-term? What concerns came up?",
+                                "Evaluate healthcare: did you feel comfortable with access and quality? Any red flags?",
+                                "Social fit check: did you connect with people? Feel isolated? Find your community?",
+                                "Financial reality check: can you truly afford 2 residences? What's your margin of safety?",
+                                "Identify top 3 concerns or challenges - are they solvable or dealbreakers?",
+                                "Make formal decision: GO (commit to snowbird lifestyle) or NO-GO (try different lifestyle)",
+                                "If NO-GO: identify what you learned and which lifestyle to test next",
+                                "If GO: determine target start date (which winter season) and budget for transition"
+                            ]
+                        },
+                        {
+                            number: 4,
+                            title: "Transition Phase",
+                            duration: "Months 8-18",
+                            description: "Make snowbird lifestyle permanent with proper preparation and setup.",
+                            actions: [
+                                "Secure winter housing: sign lease for next season or begin property search if buying",
+                                "Set up utilities and services at winter location (electric, internet, phone, banking)",
+                                "Research and purchase appropriate insurance: property/rental, auto (multi-state), health",
+                                "Establish healthcare in winter location: find primary care doctor, dentist, specialists if needed",
+                                "Plan home base preparation: winterization, security, mail forwarding, home maintenance during absence",
+                                "Set up mail forwarding service or trusted local contact to handle mail at home",
+                                "Create detailed packing list and systems for seasonal moves (what stays, what travels, what ships)",
+                                "Plan travel logistics: driving route, flight vs drive decision, timeline for the move each year",
+                                "Build social connections in winter location: join clubs, volunteer, establish friendships before season starts",
+                                "Create yearly calendar: when to leave home, when to return, buffer time for weather/flexibility",
+                                "Set up financial systems: banking in both locations, auto-pay for bills, access to funds everywhere",
+                                "First season dry run: be prepared for challenges, keep detailed notes, adjust for next year",
+                                "After first season: evaluate and refine - what worked, what needs changing for year 2",
+                                "Establish long-term: sign multi-year lease or purchase property, deepen community ties",
+                                "Create sustainability plan: budget review annually, healthcare updates, home maintenance schedules"
+                            ]
+                        }
+                    ]
+                }
+            },
+            
+            "slow-travel": {
+                name: "Slow Travel",
+                description: "Moving between locations worldwide, spending 1-3 months in each place",
+                phases: {
+                    moderate: [
+                        {
+                            number: 1,
+                            title: "Research Phase",
+                            duration: "Months 1-3",
+                            description: "Learn about slow travel lifestyle, identify destination regions, and understand logistics.",
+                            actions: [
+                                "Join slow travel communities: Nomad List, Slow Travel Movement, Digital Nomad forums",
+                                "Watch 30+ YouTube channels of long-term slow travelers (Not Just Tourists, Kara and Nate, Sam and Audrey)",
+                                "Use Cost Calculator to estimate monthly costs in different regions: Southeast Asia, Europe, Latin America",
+                                "Research visa requirements for countries you want to visit - tourist visas, visa runs, visa-free durations",
+                                "Identify must-visit regions: create list of 10-15 countries/cities you want to experience",
+                                "Research international health insurance: SafetyWing, Cigna Global, GeoBlue, IMG - compare coverage and costs",
+                                "Read 3-5 books/blogs about long-term travel: logistics, packing, budgeting, cultural adaptation",
+                                "Interview 3-5 current slow travelers about unexpected challenges, costs, and lifestyle realities",
+                                "Create packing list: everything must fit in carry-on + personal item (test this before committing)",
+                                "Research banking: international ATM fees, credit cards with no foreign transaction fees, money transfers",
+                                "Understand mail forwarding, US address maintenance, and staying connected to home systems"
+                            ]
+                        },
+                        {
+                            number: 2,
+                            title: "Test Phase",
+                            duration: "Months 4-7",
+                            description: "Test slow travel lifestyle with 3-4 month trial in different locations and climates.",
+                            actions: [
+                                "Choose test region: Southeast Asia (most affordable) or Europe (familiar infrastructure) recommended for first test",
+                                "Book 3 consecutive 1-month Airbnbs in 3 different cities to test the lifestyle rhythm",
+                                "Purchase international health insurance for test period - do NOT travel uninsured",
+                                "Set up travel banking: notify banks, activate international cards, download banking apps",
+                                "Pack only carry-on + personal item - if you can't do this for test, slow travel may not work",
+                                "Track every expense daily using app (Trail Wallet recommended): housing, food, transport, activities, visas",
+                                "Test moving between locations: book trains/buses/flights, pack up, move to new city, settle in - is this manageable monthly?",
+                                "Experience language barriers, cultural differences, navigating new cities without Google Maps always working",
+                                "Test healthcare access: find local pharmacy, visit clinic for minor issue, understand how to get care",
+                                "Manage homesickness, isolation, constant newness - journal emotional ups and downs",
+                                "Test communication: video calls home, time zone differences, staying connected to family/friends",
+                                "Evaluate laundry, cooking in unfamiliar kitchens, grocery shopping in foreign stores - daily life logistics",
+                                "Experience 'worst case scenarios': got sick, wifi problems, language barrier emergency, unexpected costs",
+                                "Calculate actual monthly costs including everything: flights between cities, visa fees, splurges, emergencies",
+                                "Assess honestly: did you love the constant movement or find it exhausting? Exciting or stressful?"
+                            ]
+                        },
+                        {
+                            number: 3,
+                            title: "Decision Phase",
+                            duration: "Month 8",
+                            description: "Evaluate test experience and decide if slow travel fits your retirement.",
+                            actions: [
+                                "Compare test costs to projections: were you within budget? Where did you overspend? Underspend?",
+                                "Evaluate emotional experience: rate 1-10 on excitement, stress, loneliness, fulfillment, adventure, exhaustion",
+                                "Health check: did you stay healthy? Manage medications? Feel comfortable with healthcare access?",
+                                "Relationship check: if partnered, did you both enjoy it? Any conflicts from constant togetherness/newness?",
+                                "Physical check: could you handle monthly moves? Carrying luggage? Stairs without elevators? Walking everywhere?",
+                                "Social evaluation: did you make friends? Feel isolated? Miss deeper connections vs surface traveler interactions?",
+                                "List top 5 things you loved and top 5 things that were harder than expected",
+                                "Identify dealbreakers encountered: anything that makes this unsustainable long-term?",
+                                "Make decision: COMMIT to slow travel, MODIFY approach (slower pace, home base + travel, specific regions only), or NO-GO (try different lifestyle)",
+                                "If GO: determine if you'll travel indefinitely or set time limits (1 year, 2 years, until X age)"
+                            ]
+                        },
+                        {
+                            number: 4,
+                            title: "Transition Phase",
+                            duration: "Months 9-18",
+                            description: "Prepare for long-term slow travel lifestyle with home transition and systems setup.",
+                            actions: [
+                                "Decide home fate: sell house, rent out long-term, keep but minimize (condo/storage), or keep someone there",
+                                "Downsize possessions: sell, donate, or store everything that doesn't fit in carry-on luggage",
+                                "Set up mail forwarding: virtual mailbox service (US Global Mail, Traveling Mailbox) or family member system",
+                                "Establish US address: family, mail service, or friend - needed for banking, voting, licenses",
+                                "Set up financial systems: online banking, auto-pay all bills, international money transfer (Wise/PayPal), emergency funds",
+                                "Purchase annual international health insurance (not travel insurance - full health coverage)",
+                                "Get international driver's license if planning to drive abroad",
+                                "Scan all important documents: passport, insurance cards, prescriptions, medical records - store in cloud",
+                                "Set up VPN for banking security and accessing US content abroad",
+                                "Create medication plan: prescriptions for extended time, finding pharmacies abroad, managing refills internationally",
+                                "Plan initial route: where to start, rough 6-12 month plan of regions/countries with visa considerations",
+                                "Book first 3 months of accommodations to start - monthly Airbnbs in chosen cities",
+                                "Research visa strategy: which countries offer tourist visas, how long, visa runs needed, or long-stay visas available",
+                                "Purchase travel gear: proper luggage, packing cubes, universal adapters, portable wifi, essentials that fit your limits",
+                                "Launch slow travel: start with easier region (familiar language or strong expat infrastructure)",
+                                "Build routine: after 3-6 months, establish rhythms - how often to move, booking timeline, budget management",
+                                "Join expat/traveler communities in each location - Facebook groups, meetups, coworking spaces",
+                                "Evaluate quarterly: costs, enjoyment, health, sustainability - adjust pace, regions, or approach as needed",
+                                "Plan for long-term: consider eventual home base, aging in place abroad, Medicare/SS considerations when 65+"
+                            ]
+                        }
+                    ]
+                }
+            },
+
+            "rv-life": {
+                name: "RV Life",
+                description: "Full-time living in an RV with ultimate freedom to explore",
+                phases: {
+                    moderate: [
+                        {
+                            number: 1,
+                            title: "Research Phase",
+                            duration: "Months 1-3",
+                            description: "Learn about RV types, costs, lifestyle realities, and whether this is truly for you.",
+                            actions: [
+                                "Join RV living forums and groups: RV Living Full Time, Escapees RV Club, Fulltime Families, Workampers",
+                                "Watch 50+ hours of RV YouTube channels: Less Junk More Journey, Changing Lanes, Keep Your Daydream, RV Odd Couple",
+                                "Research RV types: Class A (motorhome), Class B (van), Class C (cab-over), Travel Trailer, 5th Wheel - understand pros/cons of each",
+                                "Use Cost Calculator: RV purchase ($50K-$300K), monthly campground fees ($300-$800), fuel, insurance, maintenance",
+                                "Learn about hidden costs: repairs, tires (expensive!), propane, dumping fees, campground memberships",
+                                "Research campground options: state parks, private RV parks, Thousand Trails, Harvest Hosts, boondocking",
+                                "Understand RV systems: water (fresh/gray/black tanks), electrical (30/50 amp, solar), propane, generators, plumbing",
+                                "Read 3-5 books about RV life realities: 'RV Living for Beginners', 'The RV Retirement Guide'",
+                                "Interview 5 full-time RVers: ask about unexpected costs, challenges, what they wish they'd known",
+                                "Research domicile state selection: South Dakota, Texas, Florida (important for mail, insurance, registration, taxes)",
+                                "Learn about internet options: Starlink, cellular boosters, hotspots, campground wifi realities",
+                                "Understand healthcare logistics: finding doctors on the road, prescriptions, dental care, Medicare/insurance while traveling"
+                            ]
+                        },
+                        {
+                            number: 2,
+                            title: "Test Phase",
+                            duration: "Months 4-6",
+                            description: "Rent different RVs to experience the lifestyle before buying anything.",
+                            actions: [
+                                "Rent Class C motorhome for one weekend trip - test driving, systems, tight spaces, setup/breakdown",
+                                "Rent travel trailer for one weekend (need truck with tow package to pull it) - test towing, backing up, hitching",
+                                "Rent Class A motorhome for 2-3 weeks and LIVE in it full-time - park in RV park, use all systems, cook, shower, sleep",
+                                "Visit different campground types: state park, private RV resort, Thousand Trails, boondocking spot (free camping)",
+                                "Test RV systems: fill fresh water, dump tanks (yes, the black tank), hook up electric/water/sewer, level the RV",
+                                "Experience RV problems: something WILL break - a pipe, electrical issue, awning problem - learn how this feels",
+                                "Practice daily life: cooking in tiny kitchen, showering in small bathroom, limited storage, organizing space",
+                                "Test your tolerance: can you live in 200-400 sq ft? With your partner constantly? With limited privacy?",
+                                "Drive in different conditions: highways, mountains, cities, backing into tight campsites, gas stations",
+                                "Track every cost during test: rental, campgrounds, fuel (RVs get 6-12 MPG!), food, activities, repairs",
+                                "Stay in RV for 2+ weeks straight: don't go home - experience the reality of this being your only home",
+                                "Talk to RVers at campgrounds: ask about their rig choices, costs, problems, what they'd do differently",
+                                "Test internet for work/staying connected: can you get signal? Good enough for video calls?",
+                                "Experience weather extremes: too hot (AC running constantly), too cold (heater, propane use), rain, wind",
+                                "Evaluate honestly: excited or exhausted? Liberating or claustrophobic? Adventure or hassle?"
+                            ]
+                        },
+                        {
+                            number: 3,
+                            title: "Decision Phase",
+                            duration: "Month 7",
+                            description: "Decide if RV life is right for you and choose your RV type.",
+                            actions: [
+                                "Review test costs: actual vs projected - factor in fuel at 8 MPG and $4/gallon adds up fast",
+                                "Relationship check if partnered: did you enjoy constant togetherness? Resolve conflicts in 200 sq ft? Share chores?",
+                                "Physical capability check: can you handle driving/towing long distances? Dumping tanks? Maintenance? Steps in/out?",
+                                "Space assessment: could you live with limited belongings permanently? Give up walk-in closets and storage?",
+                                "Mechanical comfort: are you willing to learn systems and basic repairs? Can't just call landlord when something breaks",
+                                "Decide RV type: based on test drives - motorhome (easier but more expensive) or towable (cheaper but towing challenges)?",
+                                "Determine budget: what can you truly afford for purchase + monthly expenses + emergency repairs (they happen)?",
+                                "Make GO/NO-GO decision: commit to RV life or recognize it's not your lifestyle",
+                                "If NO-GO: what did you learn? Try different lifestyle or modify (part-time RVing, smaller trailer for trips)?",
+                                "If GO: create purchase plan - new vs used, finance vs cash, what size/type, target acquisition date"
+                            ]
+                        },
+                        {
+                            number: 4,
+                            title: "Transition Phase",
+                            duration: "Months 8-18",
+                            description: "Purchase RV, downsize home, and transition to full-time RV living.",
+                            actions: [
+                                "Take RV buying course or hire RV inspector if buying used - don't trust seller claims",
+                                "Research makes/models extensively: read reviews, watch walkthroughs, check recall history, join brand-specific forums",
+                                "Secure financing if needed: RV loans require good credit, often 10-15 year terms, rates higher than homes",
+                                "Purchase RV: inspect thoroughly, take dealer walkthrough seriously, understand all systems before leaving lot",
+                                "Get proper insurance: full-timer's insurance (different from recreational), roadside assistance (Good Sam, Coach-Net)",
+                                "Establish domicile in mail-forwarding state: get driver's license, register to vote, register RV, change mailing address",
+                                "Set up mail forwarding service: Escapees, Good Sam, Americas Mailbox, or private service",
+                                "Sell or rent current home - most full-timers sell to fund RV lifestyle and eliminate home base costs",
+                                "Downsize possessions drastically: sell 80-90% of belongings, garage sale, donate, storage for essentials only",
+                                "Set up mobile systems: banking apps, scan important docs, get international driver's license, update medical records",
+                                "Learn RV systems thoroughly: water/sewer/electric, propane, HVAC, refrigerator, generator - take classes if needed",
+                                "Stock RV: kitchenware, bedding, tools, leveling blocks, sewer hoses, water pressure regulator, surge protector",
+                                "Plan initial route: where to go first, campground reservations (book popular parks 6+ months ahead), seasonal considerations",
+                                "Join memberships: Thousand Trails, Passport America, KOA, Harvest Hosts - calculate if worth the investment",
+                                "Take shakedown trips: 2-3 short trips near home to work out issues before going far",
+                                "Launch full-time: start traveling, join RV groups on Facebook for area-specific recommendations",
+                                "Build maintenance schedule: tire pressure checks, oil changes, roof seals, tank treatments, generator servicing",
+                                "Establish routines: moving frequency (weekly, monthly?), reservation systems, budgeting, meal planning in small kitchen",
+                                "Find healthcare providers on the road: research before travel, telemedicine, local urgent care, prescriptions by mail",
+                                "Connect with RV community: rallies, meetups, campground friendships - RVers are very social and helpful",
+                                "Evaluate after 6 months: costs tracking (fuel is usually shocking), enjoyment, sustainability, any adjustments needed",
+                                "Plan long-term: seasonal routes (north summer, south winter), eventual home base?, aging in RV realistic?"
+                            ]
+                        }
+                    ]
+                }
+            },
+
+            expat: {
+                name: "Expat",
+                description: "Relocating abroad permanently to establish a new home base",
+                phases: {
+                    moderate: [
+                        {
+                            number: 1,
+                            title: "Research Phase",
+                            duration: "Months 1-4",
+                            description: "Research countries, understand visa requirements, and learn about expat realities.",
+                            actions: [
+                                "Join expat forums: Expat.com, Internations, country-specific Facebook groups (Expats in Portugal, Mexico Expats, etc.)",
+                                "Watch YouTube channels of expats in different countries: understand daily life realities, not just vacation highlights",
+                                "Research top expat destinations for Americans: Portugal, Mexico, Costa Rica, Panama, Spain, Ecuador, Thailand",
+                                "Use Cost Calculator to compare monthly costs: factor in rent, food, healthcare, utilities, transport, visa fees",
+                                "Understand visa types: tourist visa, temporary residence, permanent residence, retirement visa, investment visa requirements",
+                                "Research healthcare systems: quality, costs, insurance requirements, English-speaking doctors, coverage for pre-existing conditions",
+                                "Learn about taxation: US taxes abroad (yes, still file!), foreign earned income exclusion, tax treaties, FATCA/FBAR reporting",
+                                "Research banking: can you keep US bank? Local bank requirements? Money transfers? Currency exchange costs?",
+                                "Identify language requirements: can you live in English or must learn local language? Willingness to learn?",
+                                "Read expat books and blogs specific to target countries: understand culture shock, integration challenges, bureaucracy",
+                                "Interview 5+ expats living in your target countries: ask about unexpected costs, challenges, visa renewals, healthcare experiences",
+                                "Research property: rent vs buy, rental market, deposit requirements, lease terms, furniture, utilities setup",
+                                "Understand climate and seasons: will you tolerate year-round heat/humidity? Rainy seasons? Different from home?",
+                                "Learn about import rules: can you ship belongings? Costs? Taxes? Better to buy new there?",
+                                "Create comparison matrix: 3-5 countries ranked on cost, healthcare, visa ease, language, climate, culture, expat community"
+                            ]
+                        },
+                        {
+                            number: 2,
+                            title: "Test Phase",
+                            duration: "Months 5-8",
+                            description: "Live in your top choice country for 2-3 months to validate your research.",
+                            actions: [
+                                "Choose top country based on research - commit to testing THIS one first",
+                                "Apply for tourist visa if needed (or enter visa-free if allowed) - understand maximum stay duration",
+                                "Book 2-3 month rental in realistic neighborhood: not tourist area, where locals live, test daily life",
+                                "Fly one-way or round-trip with long return date - commit to staying the full test period",
+                                "Set up temporary life: SIM card, learn public transport, find grocery stores, learn basic local language phrases",
+                                "Track every expense daily: rent, utilities, food, transport, entertainment, visa costs, currency exchange fees",
+                                "Find English-speaking doctor and visit for checkup: test healthcare system, understand how to get appointments, prescriptions",
+                                "Practice daily routines: grocery shopping, cooking with local ingredients, using local services, paying bills",
+                                "Navigate bureaucracy: go to bank, post office, government office - experience the paperwork and processes",
+                                "Test internet quality: speed, reliability, can you work remotely or video call home consistently?",
+                                "Join local expat meetups and activities: assess community, make connections, learn insider tips",
+                                "Experience weather extremes during test: rainy season, hot season, whatever is challenging for that location",
+                                "Learn about safety firsthand: walk neighborhoods at different times, use public transport, understand local risks",
+                                "Test language barriers: can you handle daily life with limited local language? Frustrating or manageable?",
+                                "Manage loneliness and culture shock: journal emotional experiences, how do you handle being outsider/foreigner?",
+                                "Research visa requirements from within country: visit immigration office, understand real process vs internet rumors",
+                                "Calculate actual monthly costs in local currency: were projections accurate? What hidden costs appeared?",
+                                "Evaluate quality of life honestly: happy here? Excited? Or homesick, bored, uncomfortable?",
+                                "Test staying connected to US: time zones for calls, shipping packages, accessing US services online"
+                            ]
+                        },
+                        {
+                            number: 3,
+                            title: "Decision Phase",
+                            duration: "Month 9",
+                            description: "Make informed decision about permanent relocation based on actual experience.",
+                            actions: [
+                                "Review finances: actual costs vs budget - can you truly afford this long-term with safety margin?",
+                                "Evaluate healthcare comfort: did you feel secure with medical access? Good enough for aging? Emergencies?",
+                                "Assess social integration: did you connect with people? Make friends? Feel isolated? Find your community?",
+                                "Language reality check: can you learn the language if needed? Willing to put in effort? Or English sufficient?",
+                                "Cultural fit assessment: do you like the culture, pace of life, values, social norms? Or always feel like outsider?",
+                                "Climate tolerance: can you handle the weather year-round? Or will it wear you down over time?",
+                                "Bureaucracy tolerance: can you handle the paperwork, inefficiency, processes that may not make sense?",
+                                "Distance from family: how did being far away feel? Can you handle emergencies remotely? Miss grandkids?",
+                                "Quality of life comparison: is life better here than home? Different but good? Or worse than expected?",
+                                "List top 5 pros and top 5 cons of relocating permanently - are pros worth the cons?",
+                                "Make decision: COMMIT to expat life, TRY different country, or NO-GO (stay in US or try different lifestyle)",
+                                "If GO: choose target move date (considering visa processing, selling home, etc.)",
+                                "If NO-GO: identify what didn't work - wrong country or expat life not for you?",
+                                "If trying different country: apply learnings, choose next country to test, repeat research/test process"
+                            ]
+                        },
+                        {
+                            number: 4,
+                            title: "Transition Phase",
+                            duration: "Months 10-18",
+                            description: "Handle visa, sell home, ship belongings, and establish permanent life abroad.",
+                            actions: [
+                                "Apply for appropriate visa: temporary residence, retirement visa, or whatever fits your situation - hire immigration lawyer if complex",
+                                "Gather required documents: FBI background check, birth certificate, marriage license, apostilled documents, bank statements, medical exams",
+                                "Open local bank account: required for most residence visas, need proof of income or deposit amounts",
+                                "Secure long-term housing: sign lease or begin property purchase process - understand local rental/buying laws",
+                                "Decide fate of US home: sell, rent out, keep? Most expats sell to free up capital and eliminate dual costs",
+                                "Downsize possessions: sell/donate 80% of stuff - shipping is expensive and many things cheaper to buy there",
+                                "Ship essential items if worthwhile: research shipping companies, understand customs, taxes, duties on imports",
+                                "Set up US mail forwarding: virtual mailbox service, family member, or friend - maintain US address for banking, voting",
+                                "Notify IRS of foreign address: file change of address, understand obligation to file US taxes from abroad annually",
+                                "Set up international banking: keep US bank account, understand wire transfers, currency exchange, international ATM fees",
+                                "Purchase international health insurance or join local healthcare system: understand coverage, costs, how to use",
+                                "Register with US Embassy in new country: smart traveler enrollment, know where embassy is for emergencies",
+                                "Get local driver's license if driving: may need to take test, understand local driving rules and insurance",
+                                "Learn language seriously if not English-speaking country: take classes, practice daily, essential for integration",
+                                "Establish routine medical care: find primary doctor, dentist, specialists if needed - build medical team",
+                                "Make permanent move: fly with essentials, receive shipped items, set up apartment/house",
+                                "Complete visa process: attend appointments, get residence card, understand renewal requirements (1 year, 2 year, etc.)",
+                                "Join local community: language classes, volunteer work, clubs, expat organizations, cultural activities",
+                                "Set up utilities and services: electric, water, internet, phone, local Amazon equivalent, streaming services",
+                                "Navigate first-year challenges: cultural adjustment, homesickness, bureaucratic frustrations, learning systems",
+                                "Build support network: close expat friends, local friends if possible, maintain US connections via video",
+                                "Plan trips back to US: how often? Cost? Coordinate with family visits, Medicare appointments if 65+",
+                                "Renew visa when required: understand process, costs, maintain continuous legal status",
+                                "Evaluate annually: still happy? Sustainable financially? Healthcare working? Consider permanent residence/citizenship?"
+                            ]
+                        }
+                    ]
+                }
+            },
+
+            "stay-home": {
+                name: "Stay at Home Explorer",
+                description: "Engage deeply in your current location with renewed purpose and discovery",
+                phases: {
+                    moderate: [
+                        {
+                            number: 1,
+                            title: "Research Phase",
+                            duration: "Months 1-2",
+                            description: "Discover hidden opportunities in your own area and plan meaningful engagement.",
+                            actions: [
+                                "Create 'tourist in your own city' bucket list: 50 things you've never done within 2 hours of home",
+                                "Research local volunteer opportunities: food banks, libraries, schools, hospitals, animal shelters, community gardens",
+                                "Investigate local learning options: community college courses, senior education programs, library workshops, online courses",
+                                "Find local clubs and groups: Meetup.com, Facebook groups, hiking clubs, book clubs, hobby groups, sports leagues",
+                                "Research local history and culture: historical societies, museums, heritage sites you've never visited",
+                                "Identify outdoor activities: state parks, trails, bike paths, lakes, hidden nature spots within driving distance",
+                                "Explore arts and culture: theater companies, galleries, music venues, community performances, festivals",
+                                "Research day trip destinations: towns, attractions, restaurants within 1-3 hour drive you've never explored",
+                                "Interview 3-5 active retirees in your area: how do they stay engaged? What activities do they love?",
+                                "Investigate local food scene: farmers markets, ethnic restaurants, cooking classes, food tours",
+                                "Research seasonal activities: what happens each season in your area that you've been missing?",
+                                "Create purpose plan: volunteering, learning, social, physical, creative - what matters most to you?"
+                            ]
+                        },
+                        {
+                            number: 2,
+                            title: "Test Phase",
+                            duration: "Months 3-6",
+                            description: "Try different activities and involvements to find what brings fulfillment.",
+                            actions: [
+                                "Volunteer at 3 different organizations (1 month each): try food bank, hospital, literacy program, animal shelter - see what fits",
+                                "Take 3 different classes: cooking, language, art, woodworking, fitness - explore new skills and interests",
+                                "Join 2-3 clubs or groups: book club, hiking group, hobby club - test different social activities",
+                                "Visit 10 new local places: restaurants, parks, museums, neighborhoods, shops - explore like a tourist",
+                                "Attend local events: community festivals, concerts, theater, sporting events, farmers markets",
+                                "Try new physical activities: yoga class, swimming, pickleball, walking group, cycling, tai chi",
+                                "Plan and take 5 day trips to nearby towns/attractions: discover what's within 1-2 hour drive",
+                                "Start a project: genealogy research, writing memoir, learning instrument, woodworking, painting - what engages you?",
+                                "Connect with neighbors more deeply: organize coffee meetups, walking dates, dinner parties",
+                                "Test different daily routines: morning volunteer + afternoon hobby, structured schedule vs flexible, busier vs slower pace",
+                                "Track satisfaction: journal which activities energize you vs drain you, what feels purposeful vs obligation",
+                                "Evaluate social needs: are you getting enough connection? Too much? Right type?"
+                            ]
+                        },
+                        {
+                            number: 3,
+                            title: "Decision Phase",
+                            duration: "Month 7",
+                            description: "Identify what brings fulfillment and commit to sustainable engagement plan.",
+                            actions: [
+                                "Review what you loved most: which volunteer work? Which hobbies? Which social activities?",
+                                "Identify what felt like obligation vs genuine interest: be honest about what to keep vs drop",
+                                "Evaluate purpose fulfillment: do you feel useful? Connected? Engaged? Learning? Growing?",
+                                "Assess social connection: do you have enough friends? Meaningful relationships? Too isolated or too busy?",
+                                "Review physical activity: are you moving enough? Enjoying it? Building strength and health?",
+                                "Check mental stimulation: are you learning new things? Challenged intellectually? Preventing boredom?",
+                                "Financial check: can you afford activities you love (memberships, classes, travel costs)?",
+                                "Create sustainable weekly rhythm: what activities make your ideal week? How much structure do you need?",
+                                "Identify gaps: what's still missing? More adventure? More learning? More purpose? More quiet time?",
+                                "Make commitments: which volunteer work to continue? Which groups to join permanently? Which hobbies to invest in?"
+                            ]
+                        },
+                        {
+                            number: 4,
+                            title: "Establish Phase",
+                            duration: "Months 8-18",
+                            description: "Build sustainable, fulfilling routines and deepen community engagement.",
+                            actions: [
+                                "Commit to regular volunteer schedule: 1-2 consistent days per week at organization you loved",
+                                "Join 2-3 groups permanently: pay membership dues, attend regularly, take on roles if desired",
+                                "Establish learning routine: enroll in semester-long courses, commit to skill development, set learning goals",
+                                "Create physical activity habit: join gym, sign up for regular classes, join walking/hiking group with set schedule",
+                                "Plan monthly day trips: create calendar of nearby destinations to explore, keep discovery alive",
+                                "Start or join hobby group: if you love photography, start photo club; woodworking, join maker space",
+                                "Deepen friendships: move from activity friends to real friends - coffee dates, dinners, meaningful connection",
+                                "Build yearly calendar: seasonal activities, annual events, classes by semester, volunteer commitments",
+                                "Create home projects: garden renovation, learning new skill, organizing space for hobbies",
+                                "Establish routines that work: morning walk + coffee, volunteer Tuesdays, group meeting Thursdays, whatever rhythm fits",
+                                "Set boundaries: learn to say no to activities that don't serve you, protect time for rest and spontaneity",
+                                "Plan small adventures: weekend trips, new restaurants monthly, explore different neighborhoods systematically",
+                                "Avoid over-commitment: resist saying yes to everything, maintain balance between structure and flexibility",
+                                "Track spending on activities: memberships, classes, entertainment - ensure budget sustainable",
+                                "Evaluate quarterly: still fulfilled? Need more challenge? Too busy? Adjust as needed",
+                                "Consider leadership roles: if volunteering regularly, take on more responsibility? Lead group? Organize events?",
+                                "Maintain health: regular doctor checkups, dental care, stay active, eat well - foundation for engaged life",
+                                "Deepen local knowledge: become expert in your area, give tours to visitors, write local blog, share your discoveries",
+                                "Plan for seasons: different activities summer vs winter, outdoor vs indoor, adjust rhythm seasonally",
+                                "Build legacy: mentor someone, pass on skills, contribute to community in lasting ways",
+                                "Stay curious: keep adding to bucket list, try new things, resist settling into ruts",
+                                "Reflect annually: is this still working? Need to try something new? Ready to add travel component?"
+                            ]
+                        }
+                    ]
+                }
+            },
+
+            cruise: {
+                name: "Cruise Ship Living",
+                description: "Living full-time on cruise ships with all-inclusive travel and services",
+                phases: {
+                    moderate: [
+                        {
+                            number: 1,
+                            title: "Research Phase",
+                            duration: "Months 1-3",
+                            description: "Learn about cruise ship living costs, lifestyle realities, and health considerations.",
+                            actions: [
+                                "Research cruise lines: Royal Caribbean, Celebrity, Princess, Holland America, Viking - each has different vibe and costs",
+                                "Join cruise communities: Cruise Critic forums, Facebook groups for specific cruise lines, read reviews extensively",
+                                "Watch YouTube channels of full-time cruisers: La Lido Loca, understand daily life beyond vacation highlights",
+                                "Calculate true costs: back-to-back cruises cost $30K-$80K+ per person annually - factor in ALL expenses",
+                                "Understand what's included vs extra: drinks, specialty dining, wifi, laundry, spa, excursions add up fast",
+                                "Research medical care at sea: ship doctors, medical facilities, medical evacuation insurance (essential!), Medicare doesn't cover",
+                                "Learn about loyalty programs: cruise line status, perks, cabin upgrades, onboard credits - maximize benefits",
+                                "Understand debarkation requirements: must leave ship periodically, plan land stays between cruises, passport/visa considerations",
+                                "Research cabin types: inside (cheapest, no windows), ocean view, balcony (worth it?), suites - try different levels",
+                                "Learn about itinerary types: Caribbean loops, transatlantic repositioning, world cruises, seasonal routing",
+                                "Understand internet situation: ship wifi is expensive and slow - can you handle limited connectivity?",
+                                "Research laundry options: self-service, valet service, daily clothing turnover needed",
+                                "Read about dining: main dining room, buffet, specialty restaurants, dietary needs accommodated?",
+                                "Interview 2-3 people who've done extended cruising: what surprised them? What got old? Hidden costs?"
+                            ]
+                        },
+                        {
+                            number: 2,
+                            title: "Test Phase",
+                            duration: "Months 4-7",
+                            description: "Take back-to-back cruises to experience extended ship living.",
+                            actions: [
+                                "Book first test cruise: 7-14 days on cruise line you're considering, mid-tier cabin to test",
+                                "Experience ship daily life: eat all meals onboard, attend activities, use facilities, socialize",
+                                "Track all costs: cabin, drinks package, specialty dining, wifi, laundry, excursions, tips, casino, shopping",
+                                "Test cabin size comfort: can you truly live in 150-300 sq ft? Store belongings? Feel claustrophobic?",
+                                "Evaluate noise: hallway traffic, engine sounds, neighbor noise, announcements - can you sleep?",
+                                "Experience motion sickness: do you get seasick? How bad? Manageable with medication? Dealbreaker?",
+                                "Test social aspects: do you like cruise culture? Make friends easily? Or feel lonely in crowds?",
+                                "Book back-to-back cruises: 3-4 weeks continuous (2 back-to-back cruises) - this is the real test",
+                                "Live fully onboard during test: don't think of it as vacation - this would be your LIFE",
+                                "Experience repetition: same dining staff, same activities, same announcements - does it get old?",
+                                "Test ship healthcare: visit medical center for checkup, understand process, costs, capabilities",
+                                "Evaluate food quality long-term: buffet gets old, special dietary needs met? Dining room routine sustainable?",
+                                "Test wifi reliability: try video calls, check email, pay bills - can you manage life from ship?",
+                                "Experience ports: do you enjoy brief port visits or want more time exploring? Excursions worth cost?",
+                                "Assess physical demands: stairs (elevators crowded), walking miles daily, embark/disembark with luggage",
+                                "Track actual daily costs: what does typical day cost beyond base cruise price?",
+                                "Evaluate comfort in small space: no personal kitchen, limited storage, no privacy except cabin, always people around",
+                                "Test extended time: after 3-4 weeks, excited for more or ready to get off?",
+                                "Calculate realistic annual costs: based on actual spending during test, project full year expenses"
+                            ]
+                        },
+                        {
+                            number: 3,
+                            title: "Decision Phase",
+                            duration: "Month 8",
+                            description: "Honestly evaluate if cruise ship living works for you long-term.",
+                            actions: [
+                                "Review true costs: were they affordable? Sustainable long-term? Hidden costs you didn't expect?",
+                                "Evaluate health concerns: did you stay healthy? Manage medications? Feel secure with ship medical care?",
+                                "Motion sickness reality: was seasickness manageable or miserable? Can you handle rough seas repeatedly?",
+                                "Space assessment: could you truly live in that cabin size permanently? Or need breaks to larger spaces?",
+                                "Social fit: did you enjoy cruise culture? Make meaningful connections? Or feel isolated despite crowds?",
+                                "Food sustainability: will ship food satisfy you year-round? Or will repetitive menus drive you crazy?",
+                                "Entertainment value: were activities engaging or boring after a few days? Can you self-entertain onboard?",
+                                "Port satisfaction: were brief port stops enough? Or frustrating wanting more time to explore?",
+                                "Physical capability: can you handle daily walking, stairs, embark/disembark repeatedly as you age?",
+                                "Internet reality: can you live with expensive, slow wifi? Stay connected to family? Manage finances?",
+                                "Relationship check if partnered: did you enjoy constant togetherness in small space? Or need more personal space?",
+                                "Make decision: COMMIT to cruise ship living, TRY different cruise line, or NO-GO (not sustainable)",
+                                "If GO: determine approach - full-time year-round or seasonal (cruise winters, land summers)?",
+                                "If NO-GO: what didn't work? Wrong cruise line or lifestyle not for you? Consider modified approach?"
+                            ]
+                        },
+                        {
+                            number: 4,
+                            title: "Transition Phase",
+                            duration: "Months 9-18",
+                            description: "Set up systems for full-time cruise living and establish sustainable rhythm.",
+                            actions: [
+                                "Purchase medical evacuation insurance: essential for cruising - Medicare doesn't cover overseas medical transport",
+                                "Set up mail forwarding: virtual mailbox service or family - must have US address for banking, Medicare, SS",
+                                "Decide home fate: sell house, rent out, or keep minimal condo? Most sell to fund cruise lifestyle",
+                                "Downsize to cruise-appropriate belongings: 2-3 suitcases max, seasonal clothing, minimal possessions",
+                                "Join cruise line loyalty program: earn points, status benefits critical for full-timers",
+                                "Set up financial systems: autopay all bills, online banking, access to funds from anywhere, account for port charges",
+                                "Research passport/visa needs: some ports require visas for Americans, plan ahead for documentation",
+                                "Book initial cruise schedule: plan 6-12 months of cruises, book early for best rates, mix itineraries for variety",
+                                "Plan debarkation stays: must leave ship periodically - book hotels between cruises, visit family, handle business",
+                                "Set up healthcare plan: establish US-based doctor for annual visits during land breaks, mail-order prescriptions",
+                                "Research seasonal routing: Caribbean winter, Alaska/Europe summer, repositioning cruises for variety",
+                                "Purchase travel insurance: covers cancellations, interruptions, non-medical emergencies",
+                                "Create packing strategy: seasonal clothes rotation, ship to self between cruises, laundry routines",
+                                "Establish relationships with cruise staff: dining staff, room steward, guest services - makes life smoother",
+                                "Join onboard programs: enrichment lecturers, fitness classes, trivia teams - build community",
+                                "Set up communication system: wifi package, phone plan for ports, video call schedule with family",
+                                "Budget carefully: track spending monthly, ensure sustainable within budget, adjust approach if overspending",
+                                "Plan port activities: balance paid excursions with independent exploring, research ports in advance",
+                                "Manage medications: ensure adequate supply, ship pharmacy can help, plan for refills during land stays",
+                                "Create yearly rhythm: cruise 9-10 months, land 2-3 months for healthcare, family, practical matters",
+                                "Build cruise community: make friends with other long-term cruisers, join loyalty program meetups",
+                                "Establish routines: favorite dining times, preferred activities, workout schedule, quiet time",
+                                "Handle land logistics between cruises: banking, doctor appointments, see family, deal with mail/bills",
+                                "Monitor health closely: regular checkups during land stays, don't ignore issues, plan for aging in place",
+                                "Evaluate quarterly: still enjoying? Financially sustainable? Health okay? Adjust cruise schedule as needed",
+                                "Plan long-term: how long can you do this? When might you need land-based living? Exit strategy?"
+                            ]
+                        }
+                    ]
+                }
+            }
+        };
+
+        let currentLifestyle = null;
+        let currentPace = 'moderate';
+        let completedActions = new Set();
+
+        // Load saved progress
+        function loadProgress() {
+            const saved = localStorage.getItem('timeline-progress');
+            if (saved) {
+                const data = JSON.parse(saved);
+                completedActions = new Set(data.completed || []);
+                currentLifestyle = data.lifestyle;
+                currentPace = data.pace;
+            }
+        }
+
+        // Save progress
+        function saveProgress() {
+            const data = {
+                lifestyle: currentLifestyle,
+                pace: currentPace,
+                completed: Array.from(completedActions)
+            };
+            localStorage.setItem('timeline-progress', JSON.stringify(data));
+        }
+
+        // Generate timeline
+        function generateTimeline() {
+            const lifestyleSelect = document.getElementById('lifestyle-select');
+            const paceSelect = document.getElementById('pace-select');
+
+            if (!lifestyleSelect.value) {
+                alert('Please select a retirement lifestyle first.');
+                return;
+            }
+
+            currentLifestyle = lifestyleSelect.value;
+            currentPace = paceSelect.value;
+
+            // If changing lifestyle, clear completed actions
+            const saved = localStorage.getItem('timeline-progress');
+            if (saved) {
+                const data = JSON.parse(saved);
+                if (data.lifestyle !== currentLifestyle) {
+                    completedActions.clear();
+                }
+            }
+
+            displayTimeline();
+            saveProgress();
+
+            // Scroll to timeline
+            document.getElementById('timeline-display').scrollIntoView({ behavior: 'smooth' });
+        }
+
+        // Display timeline
+        function displayTimeline() {
+            const timeline = TIMELINES[currentLifestyle];
+            const phases = timeline.phases[currentPace];
+
+            let html = `
+                <div class="timeline-header">
+                    <h2>${timeline.name} Timeline</h2>
+                    <p class="timeline-meta">${timeline.description}</p>
+                    <p class="timeline-meta" style="margin-top: 0.5rem;"><strong>Timeline Pace:</strong> ${currentPace.charAt(0).toUpperCase() + currentPace.slice(1)}</p>
+                </div>
+
+                <div class="progress-section">
+                    <div class="progress-label">
+                        <span><strong>Overall Progress</strong></span>
+                        <span id="progress-percentage">0%</span>
+                    </div>
+                    <div class="progress-bar">
+                        <div id="progress-fill" class="progress-fill" style="width: 0%"></div>
+                    </div>
+                </div>
+            `;
+
+            // Add phases
+            phases.forEach(phase => {
+                html += `
+                    <div class="phase">
+                        <div class="phase-header">
+                            <span class="phase-number">${phase.number}</span>
+                            <h3 class="phase-title">${phase.title}</h3>
+                            <span class="phase-duration">${phase.duration}</span>
+                            <p class="phase-description">${phase.description}</p>
+                        </div>
+                        <div class="action-items">
+                `;
+
+                phase.actions.forEach((action, index) => {
+                    const actionId = `${currentLifestyle}-${phase.number}-${index}`;
+                    const isCompleted = completedActions.has(actionId);
+
+                    html += `
+                        <div class="action-item ${isCompleted ? 'completed' : ''}" data-action-id="${actionId}">
+                            <input type="checkbox" id="${actionId}" ${isCompleted ? 'checked' : ''} onchange="toggleAction('${actionId}')">
+                            <label for="${actionId}">${action}</label>
+                        </div>
+                    `;
+                });
+
+                html += `
+                        </div>
+                    </div>
+                `;
+            });
+
+            // Add action buttons
+            html += `
+                <div class="action-buttons">
+                    <button class="btn" onclick="window.print()">Print Timeline</button>
+                    <button class="btn btn-secondary" onclick="resetProgress()">Reset Progress</button>
+                    <button class="btn btn-secondary" onclick="startOver()">Choose Different Lifestyle</button>
+                </div>
+            `;
+
+            document.getElementById('timeline-display').innerHTML = html;
+            document.getElementById('timeline-display').classList.add('active');
+
+            updateProgress();
+        }
+
+        // Toggle action completion
+        function toggleAction(actionId) {
+            if (completedActions.has(actionId)) {
+                completedActions.delete(actionId);
+            } else {
+                completedActions.add(actionId);
+            }
+
+            // Update UI
+            const actionItem = document.querySelector(`[data-action-id="${actionId}"]`);
+            if (actionItem) {
+                actionItem.classList.toggle('completed');
+            }
+
+            updateProgress();
+            saveProgress();
+        }
+
+        // Update progress bar
+        function updateProgress() {
+            const timeline = TIMELINES[currentLifestyle];
+            if (!timeline) return;
+
+            const phases = timeline.phases[currentPace];
+            let totalActions = 0;
+
+            phases.forEach(phase => {
+                totalActions += phase.actions.length;
+            });
+
+            const completedCount = completedActions.size;
+            const percentage = totalActions > 0 ? Math.round((completedCount / totalActions) * 100) : 0;
+
+            const progressFill = document.getElementById('progress-fill');
+            const progressPercentage = document.getElementById('progress-percentage');
+
+            if (progressFill && progressPercentage) {
+                progressFill.style.width = `${percentage}%`;
+                progressPercentage.textContent = `${percentage}% (${completedCount}/${totalActions} actions)`;
+            }
+        }
+
+        // Reset progress
+        function resetProgress() {
+            if (confirm('Are you sure you want to reset all progress? This cannot be undone.')) {
+                completedActions.clear();
+                saveProgress();
+                displayTimeline();
+            }
+        }
+
+        // Start over
+        function startOver() {
+            if (confirm('Start over with a different lifestyle? Your current progress will be saved.')) {
+                document.getElementById('timeline-display').classList.remove('active');
+                window.scrollTo({ top: 0, behavior: 'smooth' });
+            }
+        }
+
+        // Load progress on page load
+        window.addEventListener('DOMContentLoaded', () => {
+            loadProgress();
+            if (currentLifestyle) {
+                document.getElementById('lifestyle-select').value = currentLifestyle;
+                document.getElementById('pace-select').value = currentPace;
+            }
+        });
+    </script>
+</body>
+</html>
