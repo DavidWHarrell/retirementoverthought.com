@@ -609,7 +609,8 @@
                     • Portfolio grows from $800K to $850K by age 73 (vs. $550K if waiting)<br>
                     • Can convert $300K to Roth at 12% tax rate (impossible if waiting)<br>
                     • Saves ~$60K in lifetime taxes<br>
-                    • Break-even age: 96 years old
+                    • <strong>Simple SS break-even: 81 years old</strong><br>
+                    • <strong>TRUE break-even (with portfolio + Roth): ~96+ years old</strong>
                 </div>
             </div>
 
@@ -629,6 +630,7 @@
                     • Small portfolio can't sustain years of heavy withdrawals<br>
                     • Maximize the benefit you'll depend on most<br>
                     • Portfolio preservation less important when it's small<br>
+                    • <strong>Simple SS break-even: 81 years old</strong><br>
                     • Conventional wisdom actually applies here
                 </div>
             </div>
@@ -650,7 +652,9 @@
                     • Can convert $30K/year for 10 years = $300K tax-free forever<br>
                     • If you wait, rental + big SS pushes you to 22% bracket<br>
                     • RMDs at 73 would push even higher<br>
-                    • Tax savings: ~$30K+ over lifetime
+                    • Tax savings: ~$30K+ over lifetime<br>
+                    • <strong>Simple SS break-even: 81 years old</strong><br>
+                    • <strong>TRUE break-even (with Roth value): ~92+ years old</strong>
                 </div>
             </div>
         </div>
@@ -945,6 +949,27 @@
             };
         }
 
+        function calculateBreakEven(scenario1, scenario2) {
+            // Simple SS break-even (just cumulative payments)
+            const age1 = scenario1.claimAge;
+            const age2 = scenario2.claimAge;
+            const benefit1 = scenario1.ssBenefitMonthly * 12;
+            const benefit2 = scenario2.ssBenefitMonthly * 12;
+            
+            // Person claiming earlier gets more years of payments but smaller amount
+            // Person claiming later gets fewer years but larger amount
+            // Break-even when cumulative totals are equal
+            
+            // Total1 = benefit1 × (age - age1)
+            // Total2 = benefit2 × (age - age2)
+            // Set equal: benefit1 × (age - age1) = benefit2 × (age - age2)
+            // Solve for age
+            
+            const breakEvenAge = (benefit2 * age2 - benefit1 * age1) / (benefit2 - benefit1);
+            
+            return Math.round(breakEvenAge);
+        }
+
         function displayResults(inputs, scenarios) {
             const { taxDeferred, ssBenefit } = inputs;
             
@@ -995,6 +1020,8 @@
                 </div>
 
                 ${createKeyInsights(ratio, scenarios, recommendedAge)}
+
+                ${createBreakEvenAnalysis(scenarios)}
 
                 <div class="disclaimer">
                     <h3>⚠️ CRITICAL DISCLAIMERS</h3>
@@ -1116,6 +1143,61 @@
                         ${insights.map(insight => `<li>${insight}</li>`).join('')}
                     </ul>
                     <p style="margin-top: 1rem; font-style: italic;">Remember: These are estimates based on simplified assumptions. Your actual optimal strategy requires professional analysis of your complete financial situation.</p>
+                </div>
+            `;
+        }
+
+        function createBreakEvenAnalysis(scenarios) {
+            const breakEven62vs67 = calculateBreakEven(scenarios.age62, scenarios.age67);
+            const breakEven62vs70 = calculateBreakEven(scenarios.age62, scenarios.age70);
+            const breakEven67vs70 = calculateBreakEven(scenarios.age67, scenarios.age70);
+
+            const monthlyDiff67 = scenarios.age67.ssBenefitMonthly - scenarios.age62.ssBenefitMonthly;
+            const monthlyDiff70 = scenarios.age70.ssBenefitMonthly - scenarios.age62.ssBenefitMonthly;
+            
+            return `
+                <div class="key-insights" style="background: #FEF3C7; border-left-color: var(--color-warning);">
+                    <h3>Break-Even Age Analysis: When Does Waiting Pay Off?</h3>
+                    
+                    <p style="margin-bottom: 1rem;"><strong>Important context:</strong> These are <em>Social Security payment break-even ages only</em>. They don't account for portfolio preservation, Roth conversions, or tax savings - which can push the true break-even much later.</p>
+                    
+                    <div style="background: var(--color-white); padding: 1.5rem; border-radius: 8px; margin: 1rem 0;">
+                        <h4 style="color: var(--color-primary); margin-bottom: 1rem;">Claiming at 62 vs 67</h4>
+                        <p style="margin-bottom: 0.5rem;">• Waiting until 67 gives you <strong>$${monthlyDiff67.toLocaleString()}/month more</strong></p>
+                        <p style="margin-bottom: 0.5rem;">• But you miss <strong>5 years</strong> of payments (age 62-67)</p>
+                        <p style="font-weight: 600; color: var(--color-primary);">→ Break-even age: <strong>${breakEven62vs67}</strong> years old</p>
+                        <p style="font-size: 0.95rem; color: var(--color-text-light); margin-top: 0.5rem;">If you live past ${breakEven62vs67}, waiting until 67 results in more total SS payments. If you don't make it to ${breakEven62vs67}, claiming at 62 was better.</p>
+                    </div>
+
+                    <div style="background: var(--color-white); padding: 1.5rem; border-radius: 8px; margin: 1rem 0;">
+                        <h4 style="color: var(--color-primary); margin-bottom: 1rem;">Claiming at 62 vs 70</h4>
+                        <p style="margin-bottom: 0.5rem;">• Waiting until 70 gives you <strong>$${monthlyDiff70.toLocaleString()}/month more</strong></p>
+                        <p style="margin-bottom: 0.5rem;">• But you miss <strong>8 years</strong> of payments (age 62-70)</p>
+                        <p style="font-weight: 600; color: var(--color-primary);">→ Break-even age: <strong>${breakEven62vs70}</strong> years old</p>
+                        <p style="font-size: 0.95rem; color: var(--color-text-light); margin-top: 0.5rem;">If you live past ${breakEven62vs70}, waiting until 70 results in more total SS payments. If you don't make it to ${breakEven62vs70}, claiming at 62 was better.</p>
+                    </div>
+
+                    <div style="background: var(--color-white); padding: 1.5rem; border-radius: 8px; margin: 1rem 0;">
+                        <h4 style="color: var(--color-primary); margin-bottom: 1rem;">Claiming at 67 vs 70</h4>
+                        <p style="margin-bottom: 0.5rem;">• Waiting until 70 gives you <strong>$${(scenarios.age70.ssBenefitMonthly - scenarios.age67.ssBenefitMonthly).toLocaleString()}/month more</strong></p>
+                        <p style="margin-bottom: 0.5rem;">• But you miss <strong>3 years</strong> of payments (age 67-70)</p>
+                        <p style="font-weight: 600; color: var(--color-primary);">→ Break-even age: <strong>${breakEven67vs70}</strong> years old</p>
+                        <p style="font-size: 0.95rem; color: var(--color-text-light); margin-top: 0.5rem;">If you live past ${breakEven67vs70}, waiting until 70 results in more total SS payments. If you don't make it to ${breakEven67vs70}, claiming at 67 was better.</p>
+                    </div>
+
+                    <div style="background: #FEE2E2; border: 2px solid var(--color-danger); padding: 1rem; border-radius: 6px; margin-top: 1.5rem;">
+                        <p style="font-weight: 600; color: #991B1B; margin-bottom: 0.5rem;">⚠️ Critical: These are SIMPLE break-evens only!</p>
+                        <p style="font-size: 0.95rem; color: #7F1D1D;">These ages only consider cumulative Social Security payments. They do NOT factor in:</p>
+                        <ul style="margin-left: 1.5rem; margin-top: 0.5rem; color: #7F1D1D; font-size: 0.95rem;">
+                            <li>Portfolio preservation and compound growth (claiming early lets portfolio keep growing)</li>
+                            <li>Roth conversion opportunities (worth tens of thousands in tax savings)</li>
+                            <li>Tax bracket differences (smaller SS can mean lower lifetime taxes)</li>
+                            <li>Opportunity cost of portfolio withdrawals before claiming SS</li>
+                        </ul>
+                        <p style="font-size: 0.95rem; color: #7F1D1D; margin-top: 0.5rem; font-weight: 600;">When you factor in these elements, the TRUE break-even age is often 10-20 years later than shown here!</p>
+                    </div>
+
+                    <p style="margin-top: 1.5rem; font-style: italic; font-size: 0.95rem;">Example: If simple break-even is age 81, but claiming at 62 enables $300K in Roth conversions and preserves $300K more portfolio, the true break-even might be age 95+.</p>
                 </div>
             `;
         }
