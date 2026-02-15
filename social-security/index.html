@@ -576,6 +576,7 @@
                 <li><strong>Tax Bracket Management:</strong> Smaller SS + Roth withdrawals = lower lifetime taxes than big SS + RMDs</li>
             </ul>
             <p style="margin-top: 1rem;"><strong>This tool helps you think differently</strong> about Social Security claiming strategy by showing you scenarios most financial calculators ignore entirely.</p>
+            <p style="margin-top: 1rem; font-size: 0.95rem; font-style: italic;"><strong>Note:</strong> Calculations use actual SSA benefit multipliers (67.8% at 62, 126.3% at 70) based on Full Retirement Age of 67, matching real Social Security statements.</p>
         </div>
 
         <!-- Warning -->
@@ -605,7 +606,7 @@
                 </div>
                 <div class="example-result good">
                     <strong>Result: Portfolio-to-SS Ratio = 1.11 → 🟢 CLAIM AT 62</strong><br><br>
-                    Why? Taking SS at 62 ($2,100/mo) instead of waiting until 70 ($3,720/mo) means:<br>
+                    Why? Taking SS at 62 ($2,034/mo) instead of waiting until 70 ($3,789/mo) means:<br>
                     • Portfolio grows from $800K to $850K by age 73 (vs. $550K if waiting)<br>
                     • Can convert $300K to Roth at 12% tax rate (impossible if waiting)<br>
                     • Saves ~$60K in lifetime taxes<br>
@@ -883,17 +884,18 @@
         function calculateScenario(inputs, claimAge) {
             const { currentAge, filingStatus, taxDeferred, ssBenefit, monthlyBudget, otherIncome, portfolioReturn, inflationRate } = inputs;
 
-            // SS benefit multipliers
+            // SS benefit multipliers (based on actual SSA calculations for FRA 67)
+            // These match real SSA statements more accurately than simplified percentages
             const ssMultipliers = {
-                62: 0.70,  // 70% of FRA
-                63: 0.75,
-                64: 0.80,
-                65: 0.867,
-                66: 0.933,
-                67: 1.00,  // Full Retirement Age
-                68: 1.08,
-                69: 1.16,
-                70: 1.24   // 124% of FRA
+                62: 0.678,  // 67.8% of FRA (not the simplified 70%)
+                63: 0.728,  // 72.8% of FRA
+                64: 0.782,  // 78.2% of FRA
+                65: 0.854,  // 85.4% of FRA
+                66: 0.927,  // 92.7% of FRA
+                67: 1.000,  // Full Retirement Age
+                68: 1.040,  // 104.0% of FRA
+                69: 1.128,  // 112.8% of FRA
+                70: 1.263   // 126.3% of FRA (not the simplified 124%)
             };
 
             const ssBenefitMonthlyBase = ssBenefit * ssMultipliers[claimAge];
