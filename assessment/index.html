@@ -1,786 +1,1499 @@
-<!-- 
-MAILERLITE EMAIL TEMPLATE - COMPLETE WITH ALL 16 LIFESTYLES
-===============================================================
-
-SETUP IN MAILERLITE:
-1. Campaigns → Create Email → Regular
-2. Design email → Custom HTML
-3. Paste this entire template
-4. Save and use in automation
-
-MAILERLITE MERGE TAGS:
-{$name} - Subscriber's name
-{$top_lifestyle} - Their #1 match
-{$top_score} - Score percentage
-{$alt_lifestyle_1} - 2nd match
-{$alt_score_1} - 2nd score
-{$alt_lifestyle_2} - 3rd match
-{$alt_score_2} - 3rd score
--->
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Your Retirement Lifestyle Results</title>
+    <title>Retirement Lifestyle Assessment | Retirement Overthought</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Crimson+Text:wght@400;600;700&family=Work+Sans:wght@400;500;600&display=swap" rel="stylesheet">
     <style>
-        body {
-            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
-            line-height: 1.6;
-            color: #333;
+        * {
             margin: 0;
             padding: 0;
-            background-color: #f5f5f5;
+            box-sizing: border-box;
         }
+
+        :root {
+            /* Retirement Overthought Brand Colors */
+            --color-primary: #0A5F7F;
+            --color-primary-dark: #084A61;
+            --color-primary-light: #E6F3F7;
+            --color-accent: #FFD700;
+            --color-accent-dark: #E6C200;
+            --color-text: #1a1a1a;
+            --color-text-light: #4a4a4a;
+            --color-white: #FFFFFF;
+            --color-bg: #f8fafb;
+            --color-border: #d4e3e8;
+            --font-serif: 'Crimson Text', Georgia, serif;
+            --font-sans: 'Work Sans', -apple-system, sans-serif;
+        }
+
+        body {
+            font-family: var(--font-sans);
+            background: var(--color-bg);
+            color: var(--color-text);
+            line-height: 1.6;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+        }
+
         .container {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 2rem;
+            flex: 1;
+        }
+
+        /* Header */
+        header {
+            text-align: center;
+            padding: 3rem 0 2rem;
+            background: linear-gradient(135deg, var(--color-primary) 0%, var(--color-primary-dark) 100%);
+            margin: -2rem -2rem 2rem -2rem;
+            border-radius: 0 0 12px 12px;
+        }
+
+        h1 {
+            font-family: var(--font-serif);
+            font-size: 2.5rem;
+            font-weight: 700;
+            color: var(--color-white);
+            margin-bottom: 0.5rem;
+        }
+
+        .subtitle {
+            font-size: 1.1rem;
+            color: var(--color-accent);
+            font-weight: 500;
+        }
+
+        /* Landing Page */
+        .landing {
+            text-align: center;
+            padding: 4rem 0;
+        }
+
+        .landing h2 {
+            font-family: var(--font-serif);
+            font-size: 2rem;
+            margin-bottom: 1.5rem;
+            color: var(--color-text);
+        }
+
+        .landing-features {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 1.5rem;
+            margin: 3rem 0;
+            text-align: left;
+        }
+
+        .feature {
+            padding: 1.5rem;
+            background: var(--color-white);
+            border-radius: 8px;
+            border: 2px solid var(--color-border);
+            transition: all 0.2s ease;
+        }
+
+        .feature:hover {
+            border-color: var(--color-primary);
+            box-shadow: 0 4px 12px rgba(10, 95, 127, 0.1);
+        }
+
+        .feature-icon {
+            font-size: 1.5rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .feature h3 {
+            font-family: var(--font-sans);
+            font-size: 1rem;
+            font-weight: 600;
+            margin-bottom: 0.5rem;
+            color: var(--color-primary);
+        }
+
+        .feature p {
+            font-size: 0.95rem;
+            color: var(--color-text-light);
+        }
+
+        /* Buttons */
+        .btn {
+            font-family: var(--font-sans);
+            font-size: 1.1rem;
+            font-weight: 600;
+            padding: 1rem 2.5rem;
+            background: var(--color-primary);
+            color: var(--color-white);
+            border: none;
+            border-radius: 6px;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            text-decoration: none;
+            display: inline-block;
+        }
+
+        .btn:hover {
+            background: var(--color-primary-dark);
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(10, 95, 127, 0.3);
+        }
+
+        .btn:disabled {
+            background: var(--color-text-light);
+            cursor: not-allowed;
+            transform: none;
+            box-shadow: none;
+        }
+
+        .btn-secondary {
+            background: var(--color-white);
+            color: var(--color-primary);
+            border: 2px solid var(--color-primary);
+        }
+
+        .btn-secondary:hover {
+            background: var(--color-primary);
+            color: var(--color-white);
+        }
+
+        /* Progress Bar */
+        .progress-container {
+            margin: 2rem 0;
+            padding: 1rem 0;
+        }
+
+        .progress-label {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 0.5rem;
+            font-size: 0.9rem;
+            color: var(--color-text-light);
+        }
+
+        .progress-bar {
+            width: 100%;
+            height: 8px;
+            background: var(--color-border);
+            border-radius: 4px;
+            overflow: hidden;
+        }
+
+        .progress-fill {
+            height: 100%;
+            background: linear-gradient(90deg, var(--color-primary) 0%, var(--color-accent) 100%);
+            transition: width 0.3s ease;
+            border-radius: 4px;
+        }
+
+        /* Question Card */
+        .question-card {
+            background: white;
+            border: 1px solid var(--color-border);
+            border-radius: 12px;
+            padding: 3rem;
+            margin: 2rem 0;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+        }
+
+        .question-text {
+            font-family: var(--font-serif);
+            font-size: 1.5rem;
+            font-weight: 600;
+            margin-bottom: 2rem;
+            color: var(--color-text);
+            line-height: 1.4;
+        }
+
+        .options {
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+        }
+
+        .option {
+            position: relative;
+            display: block;
+            padding: 1.25rem 1.5rem;
+            background: var(--color-bg);
+            border: 2px solid var(--color-border);
+            border-radius: 8px;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            font-size: 1rem;
+        }
+
+        .option:hover {
+            border-color: var(--color-primary);
+            background: var(--color-white);
+        }
+
+        .option input[type="radio"] {
+            position: absolute;
+            opacity: 0;
+        }
+
+        .option input[type="radio"]:checked + label {
+            border-color: var(--color-primary);
+            background: var(--color-white);
+        }
+
+        .option label {
+            cursor: pointer;
+            display: block;
+            padding-left: 2rem;
+            position: relative;
+        }
+
+        .option label:before {
+            content: '';
+            position: absolute;
+            left: 0;
+            top: 50%;
+            transform: translateY(-50%);
+            width: 20px;
+            height: 20px;
+            border: 2px solid var(--color-text-light);
+            border-radius: 50%;
+            background: var(--color-white);
+            transition: all 0.2s ease;
+        }
+
+        .option input[type="radio"]:checked + label:before {
+            border-color: var(--color-primary);
+            background: var(--color-primary);
+            box-shadow: inset 0 0 0 4px var(--color-white);
+        }
+
+        /* Navigation */
+        .navigation {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 2rem;
+            gap: 1rem;
+        }
+
+        /* Results */
+        .results {
+            padding: 2rem 0;
+        }
+
+        .primary-match {
+            background: linear-gradient(135deg, var(--color-primary) 0%, var(--color-primary-dark) 100%);
+            border: none;
+            border-radius: 12px;
+            padding: 2.5rem;
+            margin: 2rem 0;
+            text-align: center;
+            color: var(--color-white);
+        }
+
+        .primary-match h2 {
+            font-family: var(--font-serif);
+            font-size: 2.5rem;
+            color: var(--color-white);
+            margin-bottom: 0.5rem;
+        }
+
+        .match-percentage {
+            font-size: 3rem;
+            font-weight: 700;
+            color: var(--color-accent);
+            margin: 1rem 0;
+            text-shadow: 0 2px 4px rgba(0,0,0,0.2);
+        }
+
+        .match-description {
+            font-size: 1.1rem;
+            color: var(--color-primary-light);
+            line-height: 1.6;
             max-width: 600px;
             margin: 0 auto;
-            background: white;
-            border-radius: 12px;
-            overflow: hidden;
         }
-        .header {
-            background: linear-gradient(135deg, #0A5F7F 0%, #084A61 100%);
-            color: white;
-            padding: 40px 30px;
-            text-align: center;
+
+        .modifiers {
+            margin: 2rem 0;
         }
-        .header h1 {
-            margin: 0 0 10px 0;
-            font-size: 28px;
+
+        .modifier-list {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 1rem;
+            margin-top: 1rem;
         }
-        .header p {
-            margin: 0;
-            opacity: 0.9;
+
+        .modifier-tag {
+            padding: 0.75rem 1.5rem;
+            background: var(--color-primary-light);
+            border: 2px solid var(--color-primary);
+            border-radius: 6px;
+            font-weight: 500;
+            color: var(--color-primary-dark);
         }
-        .content {
-            padding: 30px;
+
+        .alternatives {
+            margin: 2rem 0;
         }
-        h2 {
-            color: #2d3748;
-            margin: 25px 0 15px 0;
-            font-size: 22px;
-        }
-        h3 {
-            color: #4a5568;
-            margin: 20px 0 10px 0;
-            font-size: 18px;
-        }
-        .greeting {
-            font-size: 18px;
-            margin-bottom: 20px;
-        }
-        .score-section {
-            background: #f7fafc;
-            padding: 25px;
-            margin: 20px 0;
+
+        .alternative-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 1rem;
+            background: var(--color-white);
+            border: 1px solid var(--color-border);
             border-radius: 8px;
-            border-left: 4px solid #0A5F7F;
+            margin-bottom: 0.75rem;
+            transition: all 0.2s ease;
         }
-        .score-bar-container {
-            background: #e2e8f0;
-            height: 35px;
-            border-radius: 17px;
-            margin: 15px 0;
-            position: relative;
-            overflow: hidden;
+
+        .alternative-item:hover {
+            border-color: var(--color-primary);
+            box-shadow: 0 2px 8px rgba(10, 95, 127, 0.1);
         }
-        .score-bar {
-            background: linear-gradient(90deg, #0A5F7F 0%, #084A61 100%);
-            height: 100%;
+
+        .alternative-name {
+            font-weight: 600;
+            font-size: 1.1rem;
+            color: var(--color-text);
+        }
+
+        .alternative-percentage {
+            font-size: 1.25rem;
+            font-weight: 700;
+            color: var(--color-primary);
+        }
+
+        .profile-summary {
+            background: var(--color-primary-light);
+            padding: 2rem;
+            border-radius: 8px;
+            border-left: 4px solid var(--color-primary);
+            margin: 2rem 0;
+        }
+
+        .profile-summary h3 {
+            font-family: var(--font-serif);
+            font-size: 1.5rem;
+            margin-bottom: 1rem;
+            color: var(--color-primary-dark);
+        }
+
+        /* Email Form */
+        .email-capture {
+            background: var(--color-white);
+            border: 2px solid var(--color-primary);
+            border-radius: 12px;
+            padding: 2.5rem;
+            margin: 2rem 0;
+        }
+
+        .email-capture h3 {
+            font-family: var(--font-serif);
+            font-size: 1.75rem;
+            margin-bottom: 1.5rem;
+            color: var(--color-primary);
+        }
+
+        .form-group {
+            margin-bottom: 1.5rem;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 0.5rem;
+            font-weight: 500;
+        }
+
+        .form-group input[type="text"],
+        .form-group input[type="email"],
+        .form-group textarea {
+            width: 100%;
+            padding: 0.75rem 1rem;
+            border: 2px solid var(--color-border);
+            border-radius: 6px;
+            font-family: var(--font-sans);
+            font-size: 1rem;
+            transition: border-color 0.2s ease;
+        }
+
+        .form-group input:focus,
+        .form-group textarea:focus {
+            outline: none;
+            border-color: var(--color-primary);
+            box-shadow: 0 0 0 3px rgba(10, 95, 127, 0.1);
+        }
+
+        .checkbox-group {
+            display: flex;
+            align-items: flex-start;
+            gap: 0.75rem;
+            margin: 1rem 0;
+        }
+
+        .checkbox-group input[type="checkbox"] {
+            margin-top: 0.25rem;
+            width: 20px;
+            height: 20px;
+            cursor: pointer;
+        }
+
+        .checkbox-group label {
+            cursor: pointer;
+            font-size: 0.95rem;
+        }
+
+        .feedback-options {
+            margin: 1rem 0;
+        }
+
+        .feedback-option {
             display: flex;
             align-items: center;
-            justify-content: flex-end;
-            padding-right: 15px;
-            color: white;
-            font-weight: 600;
-            font-size: 16px;
+            gap: 0.75rem;
+            padding: 0.5rem 0;
         }
-        .lifestyle-description {
-            color: #4a5568;
-            margin: 15px 0;
-            line-height: 1.8;
+
+        /* Utilities */
+        .hidden {
+            display: none !important;
         }
-        .pros-cons-grid {
-            display: table;
-            width: 100%;
-            margin: 15px 0;
+
+        .section-title {
+            font-family: var(--font-serif);
+            font-size: 1.75rem;
+            margin: 2rem 0 1rem;
+            color: var(--color-primary);
         }
-        .pros, .cons {
-            display: table-cell;
-            width: 50%;
-            padding: 15px;
-            border-radius: 6px;
-            vertical-align: top;
-        }
-        .pros {
-            background: #f0fff4;
-            border-left: 3px solid #48bb78;
-        }
-        .cons {
-            background: #fffaf0;
-            border-left: 3px solid #ed8936;
-            padding-left: 20px;
-        }
-        .pros h4 {
-            margin: 0 0 10px 0;
-            font-size: 14px;
-            color: #22543d;
-        }
-        .cons h4 {
-            margin: 0 0 10px 0;
-            font-size: 14px;
-            color: #7c2d12;
-        }
-        ul {
-            margin: 0;
-            padding-left: 20px;
-        }
-        li {
-            margin: 5px 0;
-            font-size: 14px;
-        }
-        .cta-section {
-            text-align: center;
-            padding: 30px;
-            background: #f7fafc;
-            margin: 30px 0;
-            border-radius: 8px;
-        }
-        .cta-button {
-            display: inline-block;
-            background: #0A5F7F;
-            color: white !important;
-            padding: 15px 35px;
-            text-decoration: none;
-            border-radius: 8px;
-            font-weight: 600;
-            margin-top: 15px;
-            font-size: 16px;
-        }
-        .footer {
-            text-align: center;
-            padding: 30px;
-            color: #718096;
-            font-size: 14px;
-            border-top: 2px solid #e2e8f0;
-        }
-        .footer p {
-            margin: 10px 0;
-        }
-        .footer a {
-            color: #0A5F7F;
-            text-decoration: none;
-        }
-        
-        @media only screen and (max-width: 600px) {
-            .pros-cons-grid {
-                display: block;
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .container {
+                padding: 1rem;
             }
-            .pros, .cons {
-                display: block;
-                width: 100%;
-                margin-bottom: 10px;
-                padding-left: 15px !important;
+
+            h1 {
+                font-size: 2rem;
             }
-            .content {
-                padding: 20px;
+
+            .question-card {
+                padding: 2rem 1.5rem;
             }
-            .header {
-                padding: 30px 20px;
+
+            .question-text {
+                font-size: 1.25rem;
             }
-            .header h1 {
-                font-size: 24px;
+
+            .navigation {
+                flex-direction: column;
             }
+
+            .landing-features {
+                grid-template-columns: 1fr;
+            }
+
+            .primary-match h2 {
+                font-size: 2rem;
+            }
+
+            .match-percentage {
+                font-size: 2.5rem;
+            }
+        }
+
+        /* Animations */
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(10px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .question-card {
+            animation: fadeIn 0.3s ease;
         }
     </style>
 </head>
 <body>
     <div class="container">
-        <!-- HEADER -->
-        <div class="header">
-            <h1>🎯 Your Retirement Lifestyle Results</h1>
-            <p>Personalized assessment from Retirement Overthought</p>
-        </div>
-        
-        <!-- CONTENT -->
-        <div class="content">
-            <p class="greeting">Hi {$name},</p>
-            
-            <p>Thanks for taking the Retirement Lifestyle Assessment! Based on your answers, here's your complete breakdown with detailed recommendations for your top matches.</p>
-            
-            <!-- PRIMARY MATCH -->
-            <h2>🌟 Your Top Match: {$top_lifestyle}</h2>
-            
-            <div class="score-section">
-                <div class="score-bar-container">
-                    <div class="score-bar" style="width: {$top_score}%;">
-                        {$top_score}% Match
-                    </div>
-                </div>
-                
-                <div class="lifestyle-description">
-                    <p><strong>What this means:</strong> Based on your answers about weather preferences, social needs, family proximity, financial flexibility, and sense of adventure, <strong>{$top_lifestyle}</strong> aligns best with your priorities and retirement vision.</p>
-                </div>
-                
-                <!-- CONDITIONAL CONTENT BY LIFESTYLE -->
-                
-                <!-- STAY AT HOME EXPLORER -->
-                {% if top_lifestyle == "Stay at Home Explorer" %}
-                <div class="lifestyle-description">
-                    <p><strong>The Stay at Home Explorer Lifestyle:</strong> You love where you are and don't want to uproot your life. This lifestyle is about going deeper - volunteering locally, exploring hidden gems in your area, taking classes, joining community groups, and really engaging with the place you've chosen to call home.</p>
-                    
-                    <div class="pros-cons-grid">
-                        <div class="pros">
-                            <h4>✓ Perfect For You If:</h4>
-                            <ul>
-                                <li>You love your current location and community</li>
-                                <li>Family and friends nearby are important</li>
-                                <li>You value stability and established routines</li>
-                                <li>You have trusted healthcare providers</li>
-                            </ul>
-                        </div>
-                        <div class="cons">
-                            <h4>⚠ Consider:</h4>
-                            <ul>
-                                <li>Higher costs if in expensive area</li>
-                                <li>Typical: $45K-$80K/year depending on location</li>
-                                <li>Weather limitations (if applicable)</li>
-                                <li>Need to actively avoid boredom and routine</li>
-                            </ul>
-                        </div>
-                    </div>
-                    
-                    <h3>Next Steps to Test This Lifestyle:</h3>
-                    <p>Make a list of 50 things you've never done in your area. Join local volunteer organizations or community groups. Take day trips to nearby towns you've never explored. Consider classes at local colleges or community centers to add purpose and social connection.</p>
-                </div>
-                {% endif %}
-                
-                <!-- SNOWBIRD -->
-                {% if top_lifestyle == "Snowbird" %}
-                <div class="lifestyle-description">
-                    <p><strong>The Snowbird Lifestyle:</strong> You value having a home base and established community, but winter significantly impacts your wellbeing and quality of life. The Snowbird lifestyle gives you the best of both worlds - maintaining your roots while escaping harsh winters for 4-6 months each year.</p>
-                    
-                    <div class="pros-cons-grid">
-                        <div class="pros">
-                            <h4>✓ Perfect For You If:</h4>
-                            <ul>
-                                <li>Winter weather affects your mood or health</li>
-                                <li>You want to keep your primary home base</li>
-                                <li>You can afford two locations</li>
-                                <li>You enjoy seasonal variety and rhythm</li>
-                            </ul>
-                        </div>
-                        <div class="cons">
-                            <h4>⚠ Consider:</h4>
-                            <ul>
-                                <li>Maintaining two residences</li>
-                                <li>Costs: $40K-$70K/year total</li>
-                                <li>Healthcare access in both locations</li>
-                                <li>Finding the right winter destination</li>
-                            </ul>
-                        </div>
-                    </div>
-                    
-                    <h3>Next Steps to Test This Lifestyle:</h3>
-                    <p>Try renting in popular snowbird destinations (Arizona, Florida, Texas, Mexico) for 4-6 weeks during peak winter. Track actual costs vs staying home. Research healthcare access and build a social network in your potential winter location before committing long-term.</p>
-                </div>
-                {% endif %}
-                
-                <!-- SLOW TRAVEL -->
-                {% if top_lifestyle == "Slow Travel" %}
-                <div class="lifestyle-description">
-                    <p><strong>The Slow Travel Lifestyle:</strong> You're drawn to experiencing different places without the rushed pace of typical tourism. Slow travel means spending 1-3 months in each location, really getting to know a place, its culture, and its rhythms before moving on. You value cultural immersion and flexibility over having a permanent home base.</p>
-                    
-                    <div class="pros-cons-grid">
-                        <div class="pros">
-                            <h4>✓ Perfect For You If:</h4>
-                            <ul>
-                                <li>You love discovering new places deeply</li>
-                                <li>You're comfortable without a fixed home</li>
-                                <li>You enjoy planning and logistics</li>
-                                <li>You can live with what fits in suitcases</li>
-                            </ul>
-                        </div>
-                        <div class="cons">
-                            <h4>⚠ Consider:</h4>
-                            <ul>
-                                <li>Constant planning and moving every 1-3 months</li>
-                                <li>Costs: $30K-$60K/year depending on locations</li>
-                                <li>International health insurance needed</li>
-                                <li>Visa requirements and restrictions</li>
-                            </ul>
-                        </div>
-                    </div>
-                    
-                    <h3>Next Steps to Test This Lifestyle:</h3>
-                    <p>Try 2-3 months in Southeast Asia or Europe as a test. Use Airbnb monthly rentals. Track all costs including flights, insurance, visas. Research international health insurance providers like SafetyWing, Cigna Global, or GeoBlue before committing long-term.</p>
-                </div>
-                {% endif %}
-                
-                <!-- RV LIFE -->
-                {% if top_lifestyle == "RV Life" %}
-                <div class="lifestyle-description">
-                    <p><strong>The RV Life Lifestyle:</strong> You want the freedom to explore without being tied to one place, and you want your home to travel with you. RV life offers ultimate flexibility - you can stay a week, a month, or a season anywhere, and everything you need is right there. It's adventure with the comfort of home.</p>
-                    
-                    <div class="pros-cons-grid">
-                        <div class="pros">
-                            <h4>✓ Perfect For You If:</h4>
-                            <ul>
-                                <li>You love road trips and exploration</li>
-                                <li>You're comfortable in smaller spaces</li>
-                                <li>You enjoy DIY and problem-solving</li>
-                                <li>You want ultimate geographic flexibility</li>
-                            </ul>
-                        </div>
-                        <div class="cons">
-                            <h4>⚠ Consider:</h4>
-                            <ul>
-                                <li>RV purchase: $50K-$300K+ upfront</li>
-                                <li>Ongoing: $30K-$50K/year (fuel, parks, maintenance)</li>
-                                <li>Mechanical issues and repairs</li>
-                                <li>Finding reliable healthcare while traveling</li>
-                            </ul>
-                        </div>
-                    </div>
-                    
-                    <h3>Next Steps to Test This Lifestyle:</h3>
-                    <p>Rent an RV for 2-4 weeks before buying anything. Visit different types of RV parks (state parks, private campgrounds, Thousand Trails). Talk to full-timers at parks. Calculate total true costs including depreciation, insurance, fuel, campground fees, and maintenance before committing.</p>
-                </div>
-                {% endif %}
-                
-                <!-- SAILING -->
-                {% if top_lifestyle == "Sailing" %}
-                <div class="lifestyle-description">
-                    <p><strong>The Sailing Lifestyle:</strong> Living aboard a sailboat offers freedom and adventure on the water - whether coastal cruising or ocean crossings. It's a unique combination of minimalist living, self-sufficiency, and the ability to wake up in a different anchorage whenever you want.</p>
-                    
-                    <div class="pros-cons-grid">
-                        <div class="pros">
-                            <h4>✓ Perfect For You If:</h4>
-                            <ul>
-                                <li>You love the ocean and water activities</li>
-                                <li>You're comfortable with mechanical systems</li>
-                                <li>You can handle confined spaces</li>
-                                <li>You want ultimate freedom to explore coastlines</li>
-                            </ul>
-                        </div>
-                        <div class="cons">
-                            <h4>⚠ Consider:</h4>
-                            <ul>
-                                <li>Boat purchase: $50K-$500K+ depending on size</li>
-                                <li>Ongoing: $20K-$40K/year (slip fees, maintenance, insurance)</li>
-                                <li>Constant maintenance and repairs</li>
-                                <li>Healthcare access while cruising</li>
-                            </ul>
-                        </div>
-                    </div>
-                    
-                    <h3>Next Steps to Test This Lifestyle:</h3>
-                    <p>Charter a sailboat for 1-2 weeks in the Caribbean or Mediterranean. Take sailing courses to build skills. Join cruiser communities online (Cruisers Forum, Sailnet). Spend time on a boat before buying - many cruisers need crew for passages. Research marine insurance and offshore medical coverage.</p>
-                </div>
-                {% endif %}
-                
-                <!-- CRUISE SHIP LIVING -->
-                {% if top_lifestyle == "Cruise Ship Living" %}
-                <div class="lifestyle-description">
-                    <p><strong>The Cruise Ship Living Lifestyle:</strong> Living on cruise ships full-time offers all-inclusive meals, entertainment, housekeeping, and constantly changing destinations without the hassle of packing and unpacking. Everything is handled for you while you explore the world.</p>
-                    
-                    <div class="pros-cons-grid">
-                        <div class="pros">
-                            <h4>✓ Perfect For You If:</h4>
-                            <ul>
-                                <li>You love cruising and ship atmosphere</li>
-                                <li>You want everything included and planned</li>
-                                <li>You're very social and enjoy group activities</li>
-                                <li>You don't need much personal space or privacy</li>
-                            </ul>
-                        </div>
-                        <div class="cons">
-                            <h4>⚠ Consider:</h4>
-                            <ul>
-                                <li>Costs: $30K-$80K+/year per person</li>
-                                <li>Limited healthcare available on ships</li>
-                                <li>Small cabin living with no personal kitchen</li>
-                                <li>Constant movement, noise, and crowds</li>
-                            </ul>
-                        </div>
-                    </div>
-                    
-                    <h3>Next Steps to Test This Lifestyle:</h3>
-                    <p>Take back-to-back cruises (2-4 weeks continuous) to test extended ship living. Try different cruise lines to find your preference. Research medical evacuation insurance. Calculate annual costs vs traditional retirement - include all shore excursions and extras in your budget.</p>
-                </div>
-                {% endif %}
-                
-                <!-- DOWNSIZING -->
-                {% if top_lifestyle == "Downsizing" %}
-                <div class="lifestyle-description">
-                    <p><strong>The Downsizing Lifestyle:</strong> You're ready to move to a smaller, more manageable home in your current area or a new location. Less house means less maintenance, lower costs, and freedom from stuff you don't use. It's about right-sizing your life for this phase.</p>
-                    
-                    <div class="pros-cons-grid">
-                        <div class="pros">
-                            <h4>✓ Perfect For You If:</h4>
-                            <ul>
-                                <li>Your current home feels too big or burdensome</li>
-                                <li>You want to free up home equity</li>
-                                <li>You're ready to simplify and declutter</li>
-                                <li>You want lower maintenance and costs</li>
-                            </ul>
-                        </div>
-                        <div class="cons">
-                            <h4>⚠ Consider:</h4>
-                            <ul>
-                                <li>Emotional difficulty of leaving long-time home</li>
-                                <li>Costs: $35K-$60K/year depending on location</li>
-                                <li>Purging decades of accumulated possessions</li>
-                                <li>Finding the right-sized place that feels like home</li>
-                            </ul>
-                        </div>
-                    </div>
-                    
-                    <h3>Next Steps to Test This Lifestyle:</h3>
-                    <p>Rent a smaller place for 2-3 months while keeping your current home. Practice living with less. Visit different downsized housing options (condos, townhomes, 55+ communities). Calculate total costs including HOA fees. Make a realistic decluttering plan before making the move.</p>
-                </div>
-                {% endif %}
-                
-                <!-- TINY HOME -->
-                {% if top_lifestyle == "Tiny Home" %}
-                <div class="lifestyle-description">
-                    <p><strong>The Tiny Home Lifestyle:</strong> Extreme minimalism with a very small footprint - typically under 500 square feet. It's about radical simplification, lower costs, smaller environmental impact, and the freedom that comes from needing very little. Not for everyone, but transformative for the right person.</p>
-                    
-                    <div class="pros-cons-grid">
-                        <div class="pros">
-                            <h4>✓ Perfect For You If:</h4>
-                            <ul>
-                                <li>You're excited by extreme minimalism</li>
-                                <li>You want minimal maintenance and costs</li>
-                                <li>You're comfortable in very small spaces</li>
-                                <li>You value environmental sustainability</li>
-                            </ul>
-                        </div>
-                        <div class="cons">
-                            <h4>⚠ Consider:</h4>
-                            <ul>
-                                <li>Finding legal parking/placement</li>
-                                <li>Costs: $30K-$80K to build/buy, $15K-$25K/year ongoing</li>
-                                <li>Limited storage and no room for guests</li>
-                                <li>Zoning laws and building codes</li>
-                            </ul>
-                        </div>
-                    </div>
-                    
-                    <h3>Next Steps to Test This Lifestyle:</h3>
-                    <p>Rent a tiny home on Airbnb for 2-4 weeks. Practice extreme decluttering - can you live with 10% of your stuff? Research tiny home communities and zoning laws in your target area. Tour tiny homes at shows. Be realistic about long-term feasibility before committing.</p>
-                </div>
-                {% endif %}
-                
-                <!-- EXPAT -->
-                {% if top_lifestyle == "Expat" %}
-                <div class="lifestyle-description">
-                    <p><strong>The Expat Lifestyle:</strong> You're ready to establish a new home base abroad - whether for lower cost of living, better weather, quality healthcare, or cultural reasons. This is about relocating and putting down new roots in another country, not just traveling.</p>
-                    
-                    <div class="pros-cons-grid">
-                        <div class="pros">
-                            <h4>✓ Perfect For You If:</h4>
-                            <ul>
-                                <li>You're open to permanent relocation abroad</li>
-                                <li>You want to cut living costs 30-70%</li>
-                                <li>You enjoy immersing in new cultures</li>
-                                <li>You're willing to navigate visa requirements</li>
-                            </ul>
-                        </div>
-                        <div class="cons">
-                            <h4>⚠ Consider:</h4>
-                            <ul>
-                                <li>Visa and residency requirements (can be complex)</li>
-                                <li>Costs: $20K-$50K/year depending on country</li>
-                                <li>Distance from family and friends</li>
-                                <li>Learning new systems, language, and culture</li>
-                            </ul>
-                        </div>
-                    </div>
-                    
-                    <h3>Next Steps to Test This Lifestyle:</h3>
-                    <p>Research visa options for top countries (Portugal, Mexico, Thailand, Costa Rica, Spain, Ecuador). Visit for 2-3 months before committing to residency. Connect with expat communities online and in-country. Understand healthcare system, banking, taxes, and legal requirements before making the move.</p>
-                </div>
-                {% endif %}
-                
-                <!-- SEMI-RETIREMENT -->
-                {% if top_lifestyle == "Semi-Retirement" %}
-                <div class="lifestyle-description">
-                    <p><strong>The Semi-Retirement Lifestyle:</strong> You're not ready to fully stop working, but you want it on your terms. This might mean part-time work, consulting in your field, a passion project that generates income, or a completely different lower-stress job. It's about maintaining purpose and some income while gaining more freedom.</p>
-                    
-                    <div class="pros-cons-grid">
-                        <div class="pros">
-                            <h4>✓ Perfect For You If:</h4>
-                            <ul>
-                                <li>You enjoy your work and expertise</li>
-                                <li>You want continued income and purpose</li>
-                                <li>You need to bridge to full retirement financially</li>
-                                <li>You thrive on productivity and contribution</li>
-                            </ul>
-                        </div>
-                        <div class="cons">
-                            <h4>⚠ Consider:</h4>
-                            <ul>
-                                <li>Still working (even if part-time or consulting)</li>
-                                <li>May limit travel and complete flexibility</li>
-                                <li>Need to establish clear boundaries and schedule</li>
-                                <li>Potential for work to creep back to full-time</li>
-                            </ul>
-                        </div>
-                    </div>
-                    
-                    <h3>Next Steps to Test This Lifestyle:</h3>
-                    <p>Negotiate part-time arrangement with current employer if possible. Research consulting rates in your field. Set strict boundaries on hours and availability from the start. Calculate how much income you actually need vs want. Consider project-based work that allows for flexibility and time off.</p>
-                </div>
-                {% endif %}
-                
-                <!-- LEARNING-CENTERED -->
-                {% if top_lifestyle == "Learning-Centered" %}
-                <div class="lifestyle-description">
-                    <p><strong>The Learning-Centered Lifestyle:</strong> Your retirement is focused on education and intellectual growth. This might mean auditing university courses, learning new languages, mastering musical instruments, deep research into topics you've always been curious about, or pursuing degrees you never had time for.</p>
-                    
-                    <div class="pros-cons-grid">
-                        <div class="pros">
-                            <h4>✓ Perfect For You If:</h4>
-                            <ul>
-                                <li>You're intellectually curious and love learning</li>
-                                <li>You want structured intellectual engagement</li>
-                                <li>You enjoy academic environments</li>
-                                <li>You value knowledge and skill acquisition</li>
-                            </ul>
-                        </div>
-                        <div class="cons">
-                            <h4>⚠ Consider:</h4>
-                            <ul>
-                                <li>Costs for courses, materials, tuition</li>
-                                <li>Requires self-discipline and time commitment</li>
-                                <li>May be location-dependent for in-person programs</li>
-                                <li>Less emphasis on travel and adventure</li>
-                            </ul>
-                        </div>
-                    </div>
-                    
-                    <h3>Next Steps to Test This Lifestyle:</h3>
-                    <p>Audit university courses near you or online (many schools offer senior audit programs). Try platforms like Coursera, edX, or The Great Courses. Join learning communities or study groups. Set specific learning goals - languages, instruments, subjects. Many universities have lifelong learning programs specifically for retirees.</p>
-                </div>
-                {% endif %}
-                
-                <!-- VOLUNTEERING -->
-                {% if top_lifestyle == "Volunteering" %}
-                <div class="lifestyle-description">
-                    <p><strong>The Volunteering Lifestyle:</strong> Service-focused retirement with built-in purpose and community impact. Whether it's local organizations, international service, or cause-based work, volunteering becomes the core structure of your retirement and provides meaning, social connection, and contribution.</p>
-                    
-                    <div class="pros-cons-grid">
-                        <div class="pros">
-                            <h4>✓ Perfect For You If:</h4>
-                            <ul>
-                                <li>You want to make a meaningful difference</li>
-                                <li>You need purpose and structure in retirement</li>
-                                <li>You value community and social connection</li>
-                                <li>You want to use your skills for good</li>
-                            </ul>
-                        </div>
-                        <div class="cons">
-                            <h4>⚠ Consider:</h4>
-                            <ul>
-                                <li>Time commitment can be significant</li>
-                                <li>No income (though some programs cover expenses)</li>
-                                <li>Risk of burnout if not managed</li>
-                                <li>May limit complete flexibility for travel</li>
-                            </ul>
-                        </div>
-                    </div>
-                    
-                    <h3>Next Steps to Test This Lifestyle:</h3>
-                    <p>Try volunteering 10-15 hours per week with local organizations you care about. Research programs like Peace Corps (50+), Habitat for Humanity, SCORE mentoring, hospital volunteers. Match your skills and interests to organizations that need them. Set boundaries to avoid over-commitment.</p>
-                </div>
-                {% endif %}
-                
-                <!-- CULTURAL IMMERSION -->
-                {% if top_lifestyle == "Cultural Immersion" %}
-                <div class="lifestyle-description">
-                    <p><strong>The Cultural Immersion Lifestyle:</strong> Deep dive into one culture or language - spending extended time (6+ months to years) in a specific country or region to truly understand and integrate into local life. It's about becoming part of a community, not just observing it as a tourist.</p>
-                    
-                    <div class="pros-cons-grid">
-                        <div class="pros">
-                            <h4>✓ Perfect For You If:</h4>
-                            <ul>
-                                <li>You're fascinated by specific cultures</li>
-                                <li>You want to learn languages deeply</li>
-                                <li>You value authentic local experiences</li>
-                                <li>You're patient with the learning curve</li>
-                            </ul>
-                        </div>
-                        <div class="cons">
-                            <h4>⚠ Consider:</h4>
-                            <ul>
-                                <li>Requires long-term commitment to one place</li>
-                                <li>Language learning can be challenging</li>
-                                <li>Costs vary widely by destination</li>
-                                <li>Visa requirements for extended stays</li>
-                            </ul>
-                        </div>
-                    </div>
-                    
-                    <h3>Next Steps to Test This Lifestyle:</h3>
-                    <p>Choose one country/culture that fascinates you. Spend 3-6 months there initially. Take language classes locally. Live in neighborhoods with locals, not expat areas. Join cultural activities and classes. Research long-stay visas. Build genuine relationships with local community members.</p>
-                </div>
-                {% endif %}
-                
-                <!-- ADVENTURE TRAVEL -->
-                {% if top_lifestyle == "Adventure Travel" %}
-                <div class="lifestyle-description">
-                    <p><strong>The Adventure Travel Lifestyle:</strong> Bucket list focused with physical challenges - think hiking Patagonia, trekking Nepal, cycling across Europe, diving remote reefs. This lifestyle prioritizes experiences, physical activity, and checking off adventures while you're still able to do them.</p>
-                    
-                    <div class="pros-cons-grid">
-                        <div class="pros">
-                            <h4>✓ Perfect For You If:</h4>
-                            <ul>
-                                <li>You're physically active and adventurous</li>
-                                <li>You have a bucket list of experiences</li>
-                                <li>You value adrenaline and challenge</li>
-                                <li>You want to do things while you still can</li>
-                            </ul>
-                        </div>
-                        <div class="cons">
-                            <h4>⚠ Consider:</h4>
-                            <ul>
-                                <li>Physical demands and fitness requirements</li>
-                                <li>Costs: $40K-$80K+/year for active travel</li>
-                                <li>Need for travel/medical insurance</li>
-                                <li>Risk of injury and age-related limitations</li>
-                            </ul>
-                        </div>
-                    </div>
-                    
-                    <h3>Next Steps to Test This Lifestyle:</h3>
-                    <p>Book one adventure trip to gauge your fitness and interest level. Train physically before major trips. Start with easier adventures and build up. Research adventure tour companies vs independent travel. Get comprehensive travel insurance including medical evacuation. Build a realistic bucket list with timeframes.</p>
-                </div>
-                {% endif %}
-                
-                <!-- GEOARBITRAGE -->
-                {% if top_lifestyle == "Geoarbitrage" %}
-                <div class="lifestyle-description">
-                    <p><strong>The Geoarbitrage Lifestyle:</strong> This is a modifier more than a primary lifestyle - it means optimizing your cost of living by relocating to a less expensive area, whether that's a lower-cost US state or a country abroad. The goal is to maintain or improve quality of life while significantly reducing expenses.</p>
-                    
-                    <div class="pros-cons-grid">
-                        <div class="pros">
-                            <h4>✓ Perfect For You If:</h4>
-                            <ul>
-                                <li>You're motivated by financial optimization</li>
-                                <li>You're flexible about location</li>
-                                <li>You want to stretch retirement savings</li>
-                                <li>You can maintain quality of life for less</li>
-                            </ul>
-                        </div>
-                        <div class="cons">
-                            <h4>⚠ Consider:</h4>
-                            <ul>
-                                <li>Leaving established community and support</li>
-                                <li>Potential trade-offs in healthcare, culture, amenities</li>
-                                <li>Research required to find right locations</li>
-                                <li>Not all "cheap" places offer good quality of life</li>
-                            </ul>
-                        </div>
-                    </div>
-                    
-                    <h3>Next Steps to Test This Lifestyle:</h3>
-                    <p>Research low-cost US states (Tennessee, Arkansas, Mississippi, Alabama) or countries (Mexico, Portugal, Thailand, Ecuador). Visit for 2-3 months. Track actual living costs. Research healthcare quality and access. Calculate total savings vs costs of moving. Consider combining with other lifestyles like Expat or Slow Travel.</p>
-                </div>
-                {% endif %}
-                
-                <!-- CAREGIVER -->
-                {% if top_lifestyle == "Caregiver" %}
-                <div class="lifestyle-description">
-                    <p><strong>The Caregiver Lifestyle:</strong> Your retirement is shaped around family obligations - whether caring for aging parents, helping with grandchildren full-time, or supporting a partner with health issues. This lifestyle recognizes that caregiving becomes the primary focus, and other retirement plans adapt around it.</p>
-                    
-                    <div class="pros-cons-grid">
-                        <div class="pros">
-                            <h4>✓ This Reflects Your Reality If:</h4>
-                            <ul>
-                                <li>Family needs you and you're committed to being there</li>
-                                <li>You find purpose in caregiving and support</li>
-                                <li>Family relationships are your top priority</li>
-                                <li>You can find fulfillment in this role</li>
-                            </ul>
-                        </div>
-                        <div class="cons">
-                            <h4>⚠ Important Considerations:</h4>
-                            <ul>
-                                <li>Very limited flexibility for travel or other plans</li>
-                                <li>Risk of caregiver burnout</li>
-                                <li>Need for support systems and respite care</li>
-                                <li>May need to delay other retirement goals</li>
-                            </ul>
-                        </div>
-                    </div>
-                    
-                    <h3>Next Steps to Support This Reality:</h3>
-                    <p>Research local caregiver support groups. Look into respite care options to avoid burnout. Consider adult day programs or part-time help. Connect with Area Agency on Aging for resources. Set boundaries where possible. Plan for what comes after caregiving responsibilities end - have a "next chapter" ready.</p>
-                </div>
-                {% endif %}
-                
-            </div>
-            
-            <!-- OTHER STRONG MATCHES -->
-            {% if alt_lifestyle_1 %}
-            <h2>Other Strong Matches</h2>
-            <p>These lifestyles also scored high for you and might work as combinations or alternatives:</p>
-            
-            <div class="score-section">
-                <h3>{$alt_lifestyle_1}</h3>
-                <div class="score-bar-container">
-                    <div class="score-bar" style="width: {$alt_score_1}%;">
-                        {$alt_score_1}%
-                    </div>
-                </div>
-                <p style="color: #4a5568;">This scored in your top 3, suggesting it aligns well with your preferences and could complement your primary lifestyle choice.</p>
-            </div>
-            
-            {% if alt_lifestyle_2 %}
-            <div class="score-section">
-                <h3>{$alt_lifestyle_2}</h3>
-                <div class="score-bar-container">
-                    <div class="score-bar" style="width: {$alt_score_2}%;">
-                        {$alt_score_2}%
-                    </div>
-                </div>
-                <p style="color: #4a5568;">Another strong option worth exploring. Many people combine multiple retirement lifestyles based on what works for different seasons or life phases.</p>
-            </div>
-            {% endif %}
-            {% endif %}
-            
-            <!-- CTA SECTION -->
-<div class="cta-section">
-    <h2>Want to Learn More?</h2>
-    <p>I create detailed videos exploring each retirement lifestyle - real costs, pros/cons, and how to test them before committing your retirement savings.</p>
-    <a href="https://www.youtube.com/@retirementoverthought" class="cta-button">
-        Watch Videos About Your Matches →
-    </a>
-</div>            
-            <!-- WHAT'S NEXT -->
-            <h2>What to Do With These Results</h2>
-            <p><strong>1. Watch the videos</strong> for your top 3 matches to understand them deeply</p>
-            <p><strong>2. Test before committing</strong> - Try your top lifestyle for 2-4 weeks before making permanent moves</p>
-            <p><strong>3. Run the numbers</strong> - Use realistic budgets, not best-case scenarios</p>
-            <p><strong>4. Consider combinations</strong> - Many successful retirees blend multiple lifestyles</p>
-            <p><strong>5. Keep learning</strong> - Your preferences may evolve as you learn more</p>
-        </div>
-        
-        <!-- FOOTER -->
-        <div class="footer">
-            <p>Thanks for taking the assessment! If these results don't quite fit or you have questions, just reply to this email. I read everything and use feedback to improve the assessment.</p>
-            
-            <p style="margin-top: 20px;"><strong>— David</strong><br>Retirement Overthought</p>
-            
-            <p style="margin-top: 25px; font-size: 12px;">
-                <a href="https://retirementoverthought.com">Visit Website</a> | 
-                <a href="https://www.youtube.com/@retirementoverthought">YouTube Channel</a> | 
-                <a href="{$unsubscribe}">Unsubscribe</a>
+        <header>
+            <h1>Retirement Lifestyle Assessment</h1>
+            <p class="subtitle">Discover which retirement lifestyle fits you best</p>
+        </header>
+
+        <!-- Landing Page -->
+        <div id="landing" class="landing">
+            <h2>Find Your Ideal Retirement Lifestyle</h2>
+            <p style="max-width: 600px; margin: 1rem auto; color: var(--color-muted); font-size: 1.1rem;">
+                Most retirement planning focuses on money. This assessment helps you figure out what you actually want your retirement to <em>look like</em>.
             </p>
+            
+            <div class="landing-features">
+                <div class="feature">
+                    <div class="feature-icon">⏱️</div>
+                    <h3>5-7 Minutes</h3>
+                    <p>25 thoughtful questions designed to understand your preferences</p>
+                </div>
+                <div class="feature">
+                    <div class="feature-icon">🎯</div>
+                    <h3>Personalized Results</h3>
+                    <p>Get matched to lifestyles that fit your unique situation</p>
+                </div>
+                <div class="feature">
+                    <div class="feature-icon">📺</div>
+                    <h3>Free Resources</h3>
+                    <p>Video guides for each lifestyle recommendation</p>
+                </div>
+            </div>
+
+            <button class="btn" onclick="startAssessment()">Start Assessment</button>
+        </div>
+
+        <!-- Assessment Questions -->
+        <div id="assessment" class="hidden">
+            <div class="progress-container">
+                <div class="progress-label">
+                    <span id="progress-text">Question 1 of 25</span>
+                    <span id="progress-percent">4%</span>
+                </div>
+                <div class="progress-bar">
+                    <div id="progress-fill" class="progress-fill" style="width: 4%"></div>
+                </div>
+            </div>
+
+            <div id="question-container" class="question-card">
+                <!-- Questions will be inserted here -->
+            </div>
+
+            <div class="navigation">
+                <button id="back-btn" class="btn btn-secondary" onclick="previousQuestion()" disabled>← Back</button>
+                <button id="next-btn" class="btn" onclick="nextQuestion()" disabled>Next →</button>
+            </div>
+        </div>
+
+        <!-- Results Page -->
+        <div id="results" class="results hidden">
+            <h2 class="section-title">Your Retirement Lifestyle Results</h2>
+            
+            <div class="primary-match">
+                <h2 id="primary-lifestyle-name">Loading...</h2>
+                <div class="match-percentage" id="primary-percentage">--</div>
+                <p class="match-description" id="primary-description"></p>
+            </div>
+
+            <div id="modifiers-section" class="modifiers hidden">
+                <h3 class="section-title">Key Modifiers for You</h3>
+                <div id="modifiers-list" class="modifier-list"></div>
+            </div>
+
+            <div class="alternatives">
+                <h3 class="section-title">Other Strong Matches</h3>
+                <div id="alternatives-list"></div>
+            </div>
+
+            <div class="profile-summary">
+                <h3>Your Profile</h3>
+                <p id="profile-text"></p>
+            </div>
+
+            <!-- Email Capture -->
+            <div class="email-capture">
+                <h3>Get Your Complete Results</h3>
+                <p style="margin-bottom: 1.5rem; color: var(--color-muted);">
+                    We'll email you a detailed breakdown plus links to videos for your top matches.
+                </p>
+
+                <form id="email-form" onsubmit="submitResults(event)">
+                    <div class="form-group">
+                        <label for="user-name">Name (optional)</label>
+                        <input type="text" id="user-name" placeholder="Your name">
+                    </div>
+
+                    <div class="form-group">
+                        <label for="user-email">Email *</label>
+                        <input type="email" id="user-email" required placeholder="your@email.com">
+                    </div>
+
+                    <div class="checkbox-group">
+                        <input type="checkbox" id="newsletter-opt-in" checked>
+                        <label for="newsletter-opt-in">Send me new retirement lifestyle videos (1-2x per month)</label>
+                    </div>
+
+                    <div class="form-group" style="margin-top: 2rem;">
+                        <label style="font-weight: 600;">Do these results feel accurate?</label>
+                        <div class="feedback-options">
+                            <div class="feedback-option">
+                                <input type="radio" name="accuracy" id="accuracy-yes" value="yes" onchange="toggleFeedback()">
+                                <label for="accuracy-yes">Yes, this makes sense</label>
+                            </div>
+                            <div class="feedback-option">
+                                <input type="radio" name="accuracy" id="accuracy-no" value="no" onchange="toggleFeedback()">
+                                <label for="accuracy-no">Not quite right</label>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div id="feedback-section" class="form-group hidden">
+                        <label>What feels off? (Check all that apply)</label>
+                        <div class="checkbox-group">
+                            <input type="checkbox" id="feedback-top" value="top-doesnt-fit">
+                            <label for="feedback-top">My top recommendation doesn't fit</label>
+                        </div>
+                        <div class="checkbox-group">
+                            <input type="checkbox" id="feedback-missing" value="missing-lifestyle">
+                            <label for="feedback-missing">Missing a lifestyle that would work for me</label>
+                        </div>
+                        <div class="checkbox-group">
+                            <input type="checkbox" id="feedback-combinations" value="combinations-wrong">
+                            <label for="feedback-combinations">The combinations suggested don't make sense</label>
+                        </div>
+                        <div class="form-group">
+                            <label for="feedback-other">Other feedback:</label>
+                            <textarea id="feedback-other" rows="3" placeholder="Tell us what's not quite right..."></textarea>
+                        </div>
+                    </div>
+
+                    <button type="submit" class="btn" style="width: 100%; margin-top: 1.5rem;">Send Me My Results</button>
+                </form>
+            </div>
         </div>
     </div>
+
+    <script>
+        // MailerLite Configuration
+        const MAILERLITE_API_KEY = 'eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiJ9.eyJhdWQiOiI0IiwianRpIjoiNjg1ZTIwMjVhMjMxMWYyNGY2NzJkNTYyYTNlZmVjZGRlNzYzMGM5OWVkZWVkN2Q1NzZiNjQwNjIxYzM5MTM0M2RmMjQ4NDUzOGVkYzg5YjIiLCJpYXQiOjE3NzExMDg0NTkuMTIyMDAxLCJuYmYiOjE3NzExMDg0NTkuMTIyMDAzLCJleHAiOjQ5MjY3ODIwNTkuMTE2MDg2LCJzdWIiOiIyMTMzNTMwIiwic2NvcGVzIjpbXX0.N4HtVhptt1vz4C-t0Qvlw7fWHU39ixTkVlGDgUDnRdLdgzpEo95hGZ1jjcTvy3EHvIjfc2IwLBaplCMEciRQ-z0gp75erYhJZ6cQuTAYmz8mq9xG4mfliseGGDsBcWynzhDB6q7fOs9mfvLGNGfWx7X_LidDHI-9deXWb7rkolgJSOp8XtG0fGDEfkqUot-LCpUCQrxgL6pjU1q22JSRx-mcMS2i0da25bDg9bNRNkoaR9aHVlfDozI9SGLxrUhnXWYkJom2j1tgIxKkdLZf1O2Gdt0Ez1j4P5-HcRjcMWliwOI4tKMjXofn3od3zi_vgScs1exDXtnxFtgOtfr0iYjCX0wVI0tuPtyhtQBBf5ZIik7kuxg4Cb_0_TarrK6o0wQ5eTjCTR_p-9YDQczFgDRBlE60nWVHDqVtUdwDhZLc5Dxy0L5R3jXcN7AUb7vq9Ol_MOd0Cvi9DO7bVkQm2AZPsM5vt6H5SldwP3n39FohHXdkiZWzqrqt6XSiM3e5Jdso6EbY24hEXC7Oa_VjZBHJdkDV9dEOIfiebK-K5cRaZPQ4wtTGqzTRtLPOqDinie5swVYCjxXsJoDpp-aSnsyFk_OeMxh5Ne-bkVHp2nZ1UbdxCKDXIYJY0zYzYtCO4uAXawDFlUkpZ-9SxnaoO8w1Lie7jGP5smzORt0ECUA';
+        
+        // Google Sheets Configuration
+        const GOOGLE_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbydWco4Eva3i4fceRUIMPUaW918DHETJaz5N-aAeXywgW_D1sLA98qEW6CEhgtZVAd0/exec';
+
+        // Assessment data and state
+        const questions = [
+            {
+                section: "Weather & Location",
+                text: "It's mid-February. There's a foot of snow outside and you can't remember the last time you saw the sun. How are you feeling?",
+                options: [
+                    { text: "This is perfect - I genuinely love winter", value: "A" },
+                    { text: "It's fine - part of living where I live", value: "B" },
+                    { text: "Counting the days until spring - this wears on me", value: "C" },
+                    { text: "Absolutely miserable - my joints ache and I'm depressed", value: "D" }
+                ]
+            },
+            {
+                section: "Weather & Location",
+                text: "Picture yourself five years into retirement. Where do you see yourself living most of the time?",
+                options: [
+                    { text: "Right where I am now - I love this place", value: "A" },
+                    { text: "Splitting time between two places I love", value: "B" },
+                    { text: "Somewhere completely different - new chapter, new location", value: "C" },
+                    { text: "Lots of different places - I want variety", value: "D" },
+                    { text: "On the move - my home comes with me", value: "E" }
+                ]
+            },
+            {
+                section: "Relationships & Community",
+                text: "When you imagine your social life in retirement, what sounds best?",
+                options: [
+                    { text: "The friends I have now - I want to go deeper with them", value: "A" },
+                    { text: "Friends at home plus a whole second group of friends somewhere else", value: "B" },
+                    { text: "Always meeting new people - I thrive on fresh faces and conversations", value: "C" },
+                    { text: "A ready-made community where I just show up and there are activities", value: "D" },
+                    { text: "I make friends easily - any of these could work for me", value: "E" }
+                ]
+            },
+            {
+                section: "Relationships & Community",
+                text: "Your daughter just called - she's having a baby in six months. What's your first thought?",
+                options: [
+                    { text: "Perfect! I'll be there for everything - doctors appointments, babysitting, the works", value: "A" },
+                    { text: "Great! I'm close enough to visit regularly and help out when needed", value: "B" },
+                    { text: "Wonderful! I'll plan visits around major milestones and FaceTime weekly", value: "C" },
+                    { text: "Exciting! We'll make it work with visits and video calls - distance won't change our relationship", value: "D" },
+                    { text: "This changes everything - I need to be there because they're counting on me", value: "E" }
+                ]
+            },
+            {
+                section: "Relationships & Community",
+                text: "You walk into a coffee shop in a new town. Nobody knows you. How does that feel?",
+                options: [
+                    { text: "Uncomfortable - I miss being a regular where people know my name", value: "A" },
+                    { text: "A bit awkward - I'd rather be the person people come to for local advice", value: "B" },
+                    { text: "Kind of exciting - chance to meet new people", value: "C" },
+                    { text: "Energizing - I love the fresh start and meeting people", value: "D" }
+                ]
+            },
+            {
+                section: "Daily Life & Adaptation",
+                text: "Your partner (or you, if solo) - who typically handles researching new restaurants, booking travel, figuring out how things work?",
+                options: [
+                    { text: "Me - I love researching and figuring out systems", value: "A" },
+                    { text: "We split it - or I can handle it if needed", value: "B" },
+                    { text: "My partner does most of it - and that works great for us", value: "C" },
+                    { text: "Neither of us loves it - we prefer things that are already figured out, or honestly we're just not that decisive", value: "D" }
+                ]
+            },
+            {
+                section: "Daily Life & Adaptation",
+                text: "You've just arrived in a new place for a month-long stay. The shower is weird, the grocery store layout makes no sense, and you can't figure out the local bus system. Your reaction?",
+                options: [
+                    { text: "This is fun! Figuring this stuff out is half the adventure", value: "A" },
+                    { text: "Mildly annoying but I'll sort it out in a few days", value: "B" },
+                    { text: "Frustrating - I really prefer knowing how everything works", value: "C" },
+                    { text: "Ugh, this is exhausting - why isn't everything like it is at home?", value: "D" }
+                ]
+            },
+            {
+                section: "Financial Considerations",
+                text: "You've got the house paid off and cars are fine, but insurance keeps going up, property taxes increased again, and you just got a $4,000 HVAC repair bill. Meanwhile you keep hearing about people living cheaper - whether that's retiring to a lower-cost state or going abroad. Your thoughts?",
+                options: [
+                    { text: "That's exactly what I need - I'm ready to move somewhere my money goes further", value: "A" },
+                    { text: "Interesting - if I could significantly cut my cost of living, I'd have more money for experiences", value: "B" },
+                    { text: "Not really my concern - I'm comfortable with my current spending", value: "C" },
+                    { text: "I've got plenty - I'd rather focus on what I want to do, not what things cost", value: "D" }
+                ]
+            },
+            {
+                section: "Financial Considerations",
+                text: "Your home is paid off but still costs you $2,000/month in property tax, insurance, utilities, and maintenance. A friend just downsized and now spends $800/month total. What's your reaction?",
+                options: [
+                    { text: "Wait, tell me more - that's exactly what I need", value: "A" },
+                    { text: "That's appealing - I'd like to free up that money", value: "B" },
+                    { text: "Good for them, but I love my house - I'm not interested in changing", value: "C" },
+                    { text: "I've got room in my budget - I'd rather keep the space and familiarity", value: "D" }
+                ]
+            },
+            {
+                section: "Financial Considerations",
+                text: "You're looking at your monthly budget. Between housing, utilities, insurance, groceries, and basic living, you're spending about $4,500/month before any fun stuff. If you could get that same lifestyle for $2,500-3,000/month somewhere else, would you move?",
+                options: [
+                    { text: "Absolutely - show me where to sign up", value: "A" },
+                    { text: "Maybe - I'd seriously consider it if the place was right", value: "B" },
+                    { text: "Probably not - I value being where I am", value: "C" },
+                    { text: "No - location and familiarity matter more than the savings", value: "D" }
+                ]
+            },
+            {
+                section: "Purpose & Daily Life",
+                text: "It's Tuesday at 10am. You've been retired for six months. What sounds most fulfilling?",
+                options: [
+                    { text: "Volunteering at the food bank, then meeting friends at our regular coffee spot", value: "A" },
+                    { text: "Sitting in on a university lecture about something I've always wanted to learn", value: "B" },
+                    { text: "Exploring a neighborhood in Lisbon I haven't seen yet", value: "C" },
+                    { text: "Teaching English to kids in a small village in Guatemala", value: "D" },
+                    { text: "Working on my consulting project - still using my expertise but on my schedule", value: "E" },
+                    { text: "Hiking a trail I've been wanting to tackle for years", value: "F" }
+                ]
+            },
+            {
+                section: "Purpose & Daily Life",
+                text: "Fast forward - you've been retired for two years. What kind of structure sounds best?",
+                options: [
+                    { text: "Same routine as always - morning walk, coffee shop, volunteer shift, dinner with friends", value: "A" },
+                    { text: "Regular rhythm with built-in variety - home from May-September, somewhere warm October-April", value: "B" },
+                    { text: "No set schedule - I decide each month where I want to be", value: "C" },
+                    { text: "Structured for me - activities planned, meals served, entertainment provided", value: "D" }
+                ]
+            },
+            {
+                section: "Health & Medical Care",
+                text: "You've got some ongoing health stuff - nothing major, but you (or your partner) see your primary care doc every few months, a specialist annually, and you're on a few prescriptions. How does this affect your retirement plans?",
+                options: [
+                    { text: "Major concern - we need to stay near our doctors and healthcare system", value: "A" },
+                    { text: "Mild concern - we could probably find new doctors if we moved, but it's a hassle", value: "B" },
+                    { text: "Not really a factor - generally healthy and can manage care anywhere", value: "C" },
+                    { text: "We're fortunate to be very healthy - healthcare access isn't a constraint", value: "D" }
+                ]
+            },
+            {
+                section: "Health & Medical Care",
+                text: "You're staying in Mexico for three months. You wake up with severe stomach pain - might be appendicitis. The local hospital is clean and modern, but you don't speak Spanish and they don't speak much English. What's going through your head?",
+                options: [
+                    { text: "This is exactly why I shouldn't travel - I want my doctors who know my history", value: "A" },
+                    { text: "Concerning, but I can figure it out - hospitals are hospitals", value: "B" },
+                    { text: "Not ideal, but Google Translate and hand gestures will work", value: "C" },
+                    { text: "Healthcare is often better abroad - I'm more worried about the bill back home", value: "D" }
+                ]
+            },
+            {
+                section: "Stuff & Space",
+                text: "You're standing in your garage looking at 30 years of accumulated stuff. The bike you haven't ridden in 10 years, the tools your dad gave you, boxes of who-knows-what. How do you feel?",
+                options: [
+                    { text: "Overwhelmed - these things have memories, I can't just get rid of them", value: "A" },
+                    { text: "Neutral - it's just stuff, I could pare it down if I needed to", value: "B" },
+                    { text: "Suffocated - I need to clear this out, it's weighing me down", value: "C" },
+                    { text: "Confused why I still have all this - I've been meaning to minimize for years", value: "D" }
+                ]
+            },
+            {
+                section: "Stuff & Space",
+                text: "Someone offers you a fully-paid year traveling the world. Catch? Everything you bring has to fit in a carry-on suitcase and a backpack. Could you do it?",
+                options: [
+                    { text: "Absolutely not - I need my stuff around me to feel at home", value: "A" },
+                    { text: "For a short trip maybe, but not long-term - I'd miss having my things", value: "B" },
+                    { text: "Challenging but doable - I could figure out what really matters", value: "C" },
+                    { text: "Easy - I'd love to live that light, sounds freeing", value: "D" }
+                ]
+            },
+            {
+                section: "Stuff & Space",
+                text: "Your current home has four bedrooms. You actually use one for sleeping and one as an office. The other two? Storage for stuff you look at maybe once a year. What would it take for you to get rid of those rooms?",
+                options: [
+                    { text: "Nothing - I like having the space even if I don't use it daily", value: "A" },
+                    { text: "If I could use the equity for something else, I'd consider it", value: "B" },
+                    { text: "Show me a 2-bedroom that feels right and I'm interested", value: "C" },
+                    { text: "Yesterday - I'm ready to downsize and simplify", value: "D" }
+                ]
+            },
+            {
+                section: "Change & Adventure",
+                text: "You're planning a month-long trip. Which sounds most appealing?",
+                options: [
+                    { text: "Staying in one familiar place where I know how everything works", value: "A" },
+                    { text: "Splitting time between two comfortable places - mix of familiar and new", value: "B" },
+                    { text: "Three different cities - enough time to settle in but still variety", value: "C" },
+                    { text: "New place every few days - I want to see as much as possible", value: "D" }
+                ]
+            },
+            {
+                section: "Work & Identity",
+                text: "Monday morning, 9am. You've been retired for a year. Your former colleagues are in their weekly meeting. How do you feel?",
+                options: [
+                    { text: "Relief - so glad that's not me anymore", value: "A" },
+                    { text: "A little wistful - I miss the expertise and contribution", value: "B" },
+                    { text: "Fine - I've replaced that structure with other commitments", value: "C" },
+                    { text: "Motivated - I'm working on my own project now, on my terms", value: "D" }
+                ]
+            },
+            {
+                section: "Work & Identity",
+                text: "Someone asks \"So what do you do?\" at a party. What's your answer?",
+                options: [
+                    { text: "I'm retired, but I consult part-time in my field", value: "A" },
+                    { text: "I'm retired and loving being involved in my community", value: "B" },
+                    { text: "I'm retired and traveling/experiencing the world", value: "C" },
+                    { text: "I'm retired and taking care of family", value: "D" },
+                    { text: "I'm retired - honestly still figuring out what that means for me", value: "E" }
+                ]
+            },
+            {
+                section: "Living Space & Preferences",
+                text: "Where do you picture yourself waking up most mornings in retirement?",
+                options: [
+                    { text: "My current bedroom - I love this house and don't want to change", value: "A" },
+                    { text: "A smaller place in my current area - less house to maintain", value: "B" },
+                    { text: "Two different bedrooms - winter place and summer place", value: "C" },
+                    { text: "Different places all the time - one month it's Portugal, next month it's Mexico", value: "D" },
+                    { text: "My RV/boat - my bedroom travels with me", value: "E" },
+                    { text: "A beautiful cabin with someone else changing the sheets", value: "F" }
+                ]
+            },
+            {
+                section: "Living Space & Preferences",
+                text: "You're house-hunting in retirement. Which description catches your eye?",
+                options: [
+                    { text: "Charming home in established neighborhood, close to everything you know", value: "A" },
+                    { text: "Efficient condo, low maintenance, walkable to amenities", value: "B" },
+                    { text: "Seasonal rental in Florida - your winter escape awaits", value: "C" },
+                    { text: "Furnished apartment in Barcelona - month-to-month lease", value: "D" },
+                    { text: "Turnkey RV - your home goes wherever you go", value: "E" },
+                    { text: "Sailboat - 40ft, ready for live-aboard", value: "F" }
+                ]
+            },
+            {
+                section: "Living Space & Preferences",
+                text: "Your best friend calls: \"We bought a place in Arizona for winters!\" Your honest reaction?",
+                options: [
+                    { text: "Why would you do that? I love it here year-round", value: "A" },
+                    { text: "That sounds amazing - we've been thinking about the same thing", value: "B" },
+                    { text: "Interesting, but we're thinking of trying different places each year", value: "C" },
+                    { text: "We're actually looking at moving somewhere warm permanently", value: "D" },
+                    { text: "We bought an RV instead - more flexibility", value: "E" }
+                ]
+            },
+            {
+                section: "Final Lifestyle Indicators",
+                text: "YouTube recommended a video: \"We Retired on a Sailboat.\" Your click decision?",
+                options: [
+                    { text: "Hard pass - seasickness is real and that sounds terrible", value: "A" },
+                    { text: "Maybe watch later - sounds interesting but probably not for me", value: "B" },
+                    { text: "Click immediately - I'm fascinated by alternative lifestyles", value: "C" },
+                    { text: "Already subscribed to five sailing channels - I'm researching this", value: "D" }
+                ]
+            },
+            {
+                section: "Final Lifestyle Indicators",
+                text: "If money and family obligations were completely equal across all options, what sounds most exciting?",
+                options: [
+                    { text: "Finally having time to really engage where I live - volunteer, explore, connect", value: "A" },
+                    { text: "Splitting time between two places I love - variety with stability", value: "B" },
+                    { text: "Living in different countries - deep cultural experiences", value: "C" },
+                    { text: "Constant movement and adventure - seeing the world", value: "D" },
+                    { text: "Total freedom to go wherever, whenever - no fixed home", value: "E" },
+                    { text: "Someone else handling everything while I explore - ease and adventure combined", value: "F" }
+                ]
+            }
+        ];
+
+        // Scoring system
+        const SCORING_RULES = [
+            // Q0: Winter weather affects you
+            {
+                'A': { 'Stay at Home Explorer': 3, 'RV Life': 1, 'Sailing': 1 },
+                'B': { 'Stay at Home Explorer': 2 },
+                'C': { 'Snowbird': 5, 'Slow Travel': 2, 'Expat': 2 },
+                'D': { 'Snowbird': 7, 'Expat': 4, 'Slow Travel': 3, 'Cruise Ship': 2 }
+            },
+            // Q1: Where living in 5 years
+            {
+                'A': { 'Stay at Home Explorer': 6, 'Learning-Centered': 2 },
+                'B': { 'Snowbird': 7, 'Expat': 2 },
+                'C': { 'Expat': 6, 'Downsizing': 3 },
+                'D': { 'Slow Travel': 7, 'Adventure Travel': 3 },
+                'E': { 'RV Life': 6, 'Sailing': 6, 'Cruise Ship': 5 }
+            },
+            // Q2: Social life preferences
+            {
+                'A': { 'Stay at Home Explorer': 6, 'Learning-Centered': 2, 'Volunteering': 2 },
+                'B': { 'Snowbird': 7, 'Expat': 2 },
+                'C': { 'Slow Travel': 6, 'RV Life': 3, 'Sailing': 3, 'Adventure Travel': 3 },
+                'D': { 'Cruise Ship': 5, 'Learning-Centered': 3, 'Volunteering': 2 },
+                'E': { } // All lifestyles +1 - handle separately
+            },
+            // Q3: Daughter having baby
+            {
+                'A': { 'Stay at Home Explorer': 7, 'Downsizing': 2, 'Caregiver': 10 },
+                'B': { 'Snowbird': 5, 'Stay at Home Explorer': 3, 'Caregiver': 8 },
+                'C': { 'Snowbird': 2, 'Slow Travel': 2 },
+                'D': { 'Slow Travel': 4, 'Expat': 4, 'RV Life': 3, 'Sailing': 3 },
+                'E': { 'Caregiver': 15 }
+            },
+            // Q4: Coffee shop in new town
+            {
+                'A': { 'Stay at Home Explorer': 5, 'Snowbird': 2 },
+                'B': { 'Stay at Home Explorer': 4, 'Learning-Centered': 2 },
+                'C': { 'Slow Travel': 5, 'RV Life': 3, 'Sailing': 3, 'Expat': 2 },
+                'D': { 'Slow Travel': 6, 'Adventure Travel': 4, 'Cultural Immersion': 3 }
+            },
+            // Q5: Who handles planning
+            {
+                'A': { 'Slow Travel': 5, 'RV Life': 3, 'Sailing': 4, 'Expat': 3, 'Semi-Retirement': 2 },
+                'B': { 'Snowbird': 3 },
+                'C': { },
+                'D': { 'Stay at Home Explorer': 6, 'Cruise Ship': 4, 'Downsizing': 2 }
+            },
+            // Q6: Weird shower, confusing grocery
+            {
+                'A': { 'Slow Travel': 6, 'RV Life': 4, 'Sailing': 5, 'Adventure Travel': 5 },
+                'B': { 'Snowbird': 2, 'Expat': 2 },
+                'C': { 'Stay at Home Explorer': 3, 'Snowbird': 2, 'Cruise Ship': 2 },
+                'D': { 'Stay at Home Explorer': 5, 'Cruise Ship': 4 }
+            },
+            // Q7: HVAC bill, cost of living
+            {
+                'A': { 'Geoarbitrage': 10, 'Slow Travel': 5, 'Expat': 4, 'Downsizing': 5 },
+                'B': { 'Geoarbitrage': 5, 'Downsizing': 3, 'Slow Travel': 3 },
+                'C': { },
+                'D': { }
+            },
+            // Q8: Friend downsized to $800/month
+            {
+                'A': { 'Downsizing': 6, 'Geoarbitrage': 5, 'Tiny Home': 4 },
+                'B': { 'Downsizing': 4, 'Snowbird': 2, 'Expat': 2 },
+                'C': { 'Stay at Home Explorer': 4 },
+                'D': { 'Stay at Home Explorer': 3, 'Snowbird': 2 }
+            },
+            // Q9: $4500/month to $2500-3000/month
+            {
+                'A': { 'Geoarbitrage': 8, 'Expat': 6, 'Slow Travel': 4 },
+                'B': { 'Geoarbitrage': 4, 'Expat': 3, 'Downsizing': 3 },
+                'C': { 'Stay at Home Explorer': 3, 'Snowbird': 2 },
+                'D': { 'Stay at Home Explorer': 4 }
+            },
+            // Q10: Tuesday 10am, what's fulfilling
+            {
+                'A': { 'Stay at Home Explorer': 6, 'Volunteering': 5 },
+                'B': { 'Learning-Centered': 7, 'Cultural Immersion': 3 },
+                'C': { 'Slow Travel': 6, 'Adventure Travel': 3, 'Cultural Immersion': 3 },
+                'D': { 'Volunteering': 8, 'Expat': 4 },
+                'E': { 'Semi-Retirement': 8 },
+                'F': { 'Adventure Travel': 7, 'RV Life': 3, 'Stay at Home Explorer': 2 }
+            },
+            // Q11: Retired 2 years, structure
+            {
+                'A': { 'Stay at Home Explorer': 5, 'Learning-Centered': 3 },
+                'B': { 'Snowbird': 6, 'Semi-Retirement': 2 },
+                'C': { 'Slow Travel': 6, 'RV Life': 5, 'Sailing': 5, 'Adventure Travel': 3 },
+                'D': { 'Cruise Ship': 7, 'Learning-Centered': 3 }
+            },
+            // Q12: Healthcare needs
+            {
+                'A': { 'Stay at Home Explorer': 6, 'Caregiver': 3 },
+                'B': { 'Stay at Home Explorer': 3, 'Snowbird': 3, 'Learning-Centered': 2 },
+                'C': { 'Snowbird': 2, 'Slow Travel': 2, 'Expat': 2 },
+                'D': { 'Slow Travel': 2, 'Expat': 2, 'RV Life': 2, 'Sailing': 2 }
+            },
+            // Q13: Mexico hospital scenario
+            {
+                'A': { 'Stay at Home Explorer': 6 },
+                'B': { 'Snowbird': 4, 'Slow Travel': 2, 'Expat': 2 },
+                'C': { 'Slow Travel': 5, 'Expat': 4, 'RV Life': 3 },
+                'D': { 'Slow Travel': 5, 'Expat': 5, 'Adventure Travel': 2 }
+            },
+            // Q14: Garage full of stuff
+            {
+                'A': { 'Stay at Home Explorer': 5, 'Snowbird': 2 },
+                'B': { },
+                'C': { 'Downsizing': 6, 'Slow Travel': 3, 'Tiny Home': 5 },
+                'D': { 'Slow Travel': 5, 'Tiny Home': 5, 'RV Life': 4, 'Sailing': 4 }
+            },
+            // Q15: Carry-on and backpack for a year
+            {
+                'A': { 'Stay at Home Explorer': 6, 'Snowbird': 1 },
+                'B': { 'Snowbird': 3, 'Stay at Home Explorer': 2 },
+                'C': { 'Slow Travel': 4, 'RV Life': 2, 'Expat': 2 },
+                'D': { 'Slow Travel': 7, 'Tiny Home': 6, 'RV Life': 4, 'Sailing': 5 }
+            },
+            // Q16: Four bedroom house, two unused
+            {
+                'A': { 'Stay at Home Explorer': 5, 'Snowbird': 2 },
+                'B': { 'Downsizing': 4, 'Snowbird': 2 },
+                'C': { 'Downsizing': 6, 'Expat': 2 },
+                'D': { 'Downsizing': 7, 'Tiny Home': 6 }
+            },
+            // Q17: Month-long trip planning
+            {
+                'A': { 'Stay at Home Explorer': 6, 'Cruise Ship': 2 },
+                'B': { 'Snowbird': 5, 'Stay at Home Explorer': 2 },
+                'C': { 'Slow Travel': 7, 'Expat': 4, 'RV Life': 4 },
+                'D': { 'Adventure Travel': 7, 'Cruise Ship': 4, 'RV Life': 3 }
+            },
+            // Q18: Former colleagues in meeting
+            {
+                'A': { 'Stay at Home Explorer': 2, 'Cruise Ship': 2, 'RV Life': 2 },
+                'B': { 'Semi-Retirement': 6, 'Learning-Centered': 3 },
+                'C': { 'Volunteering': 4, 'Stay at Home Explorer': 3 },
+                'D': { 'Semi-Retirement': 8, 'Slow Travel': 2 }
+            },
+            // Q19: "What do you do?"
+            {
+                'A': { 'Semi-Retirement': 7, 'Learning-Centered': 2 },
+                'B': { 'Stay at Home Explorer': 6, 'Volunteering': 5 },
+                'C': { 'Slow Travel': 6, 'Adventure Travel': 5, 'RV Life': 3 },
+                'D': { 'Caregiver': 10, 'Stay at Home Explorer': 3 },
+                'E': { }
+            },
+            // Q20: Waking up where
+            {
+                'A': { 'Stay at Home Explorer': 7 },
+                'B': { 'Downsizing': 7, 'Stay at Home Explorer': 3 },
+                'C': { 'Snowbird': 8, 'Expat': 2 },
+                'D': { 'Slow Travel': 8, 'Adventure Travel': 4 },
+                'E': { 'RV Life': 8, 'Sailing': 8 },
+                'F': { 'Cruise Ship': 7 }
+            },
+            // Q21: House-hunting description
+            {
+                'A': { 'Stay at Home Explorer': 6 },
+                'B': { 'Downsizing': 7 },
+                'C': { 'Snowbird': 7 },
+                'D': { 'Slow Travel': 7, 'Expat': 5 },
+                'E': { 'RV Life': 8 },
+                'F': { 'Sailing': 8 }
+            },
+            // Q22: Friend bought Arizona place
+            {
+                'A': { 'Stay at Home Explorer': 6 },
+                'B': { 'Snowbird': 8 },
+                'C': { 'Slow Travel': 6, 'RV Life': 3 },
+                'D': { 'Expat': 7 },
+                'E': { 'RV Life': 7, 'Sailing': 4 }
+            },
+            // Q23: Sailboat video on YouTube
+            {
+                'A': { 'Stay at Home Explorer': 4, 'Downsizing': 2 },
+                'B': { },
+                'C': { 'Slow Travel': 3, 'RV Life': 3, 'Sailing': 2, 'Adventure Travel': 3 },
+                'D': { 'Sailing': 8, 'RV Life': 4 }
+            },
+            // Q24: If money/family equal
+            {
+                'A': { 'Stay at Home Explorer': 8, 'Volunteering': 4, 'Learning-Centered': 3 },
+                'B': { 'Snowbird': 8, 'Expat': 3 },
+                'C': { 'Expat': 7, 'Cultural Immersion': 7, 'Slow Travel': 5 },
+                'D': { 'Adventure Travel': 8, 'Slow Travel': 6, 'RV Life': 4 },
+                'E': { 'Slow Travel': 7, 'RV Life': 6, 'Sailing': 6 },
+                'F': { 'Cruise Ship': 8, 'Adventure Travel': 3 }
+            }
+        ];
+        
+        const MAX_SCORES = {
+            'Stay at Home Explorer': 140,
+            'Snowbird': 135,
+            'Slow Travel': 155,
+            'RV Life': 130,
+            'Sailing': 115,
+            'Cruise Ship': 110,
+            'Downsizing': 100,
+            'Tiny Home': 90,
+            'Expat': 90,
+            'Semi-Retirement': 75,
+            'Learning-Centered': 65,
+            'Volunteering': 60,
+            'Cultural Immersion': 70,
+            'Adventure Travel': 90,
+            'Geoarbitrage': 60,
+            'Caregiver': 70
+        };
+
+        let currentQuestion = 0;
+        let answers = {};
+
+        function startAssessment() {
+            document.getElementById('landing').classList.add('hidden');
+            document.getElementById('assessment').classList.remove('hidden');
+            renderQuestion();
+        }
+
+        function renderQuestion() {
+            const question = questions[currentQuestion];
+            const container = document.getElementById('question-container');
+            
+            let html = `<h3 class="question-text">${question.text}</h3><div class="options">`;
+            
+            question.options.forEach((option, index) => {
+                const optionId = `q${currentQuestion}-opt${index}`;
+                const isChecked = answers[currentQuestion] === option.value ? 'checked' : '';
+                html += `
+                    <div class="option">
+                        <input type="radio" id="${optionId}" name="q${currentQuestion}" value="${option.value}" ${isChecked} onchange="selectAnswer('${option.value}')">
+                        <label for="${optionId}">${option.text}</label>
+                    </div>
+                `;
+            });
+            
+            html += '</div>';
+            container.innerHTML = html;
+            
+            updateProgress();
+            updateNavigation();
+            
+            // Scroll to top of page
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+
+        function selectAnswer(value) {
+            answers[currentQuestion] = value;
+            document.getElementById('next-btn').disabled = false;
+            
+            // Save to localStorage
+            localStorage.setItem('retirement-assessment', JSON.stringify(answers));
+        }
+
+        function nextQuestion() {
+            if (currentQuestion < questions.length - 1) {
+                currentQuestion++;
+                renderQuestion();
+            } else {
+                showResults();
+            }
+        }
+
+        function previousQuestion() {
+            if (currentQuestion > 0) {
+                currentQuestion--;
+                renderQuestion();
+            }
+        }
+
+        function updateProgress() {
+            const progress = ((currentQuestion + 1) / questions.length * 100).toFixed(0);
+            document.getElementById('progress-text').textContent = `Question ${currentQuestion + 1} of ${questions.length}`;
+            document.getElementById('progress-percent').textContent = `${progress}%`;
+            document.getElementById('progress-fill').style.width = `${progress}%`;
+        }
+
+        function updateNavigation() {
+            document.getElementById('back-btn').disabled = currentQuestion === 0;
+            document.getElementById('next-btn').disabled = !answers[currentQuestion];
+            
+            if (currentQuestion === questions.length - 1 && answers[currentQuestion]) {
+                document.getElementById('next-btn').textContent = 'See Results →';
+            } else {
+                document.getElementById('next-btn').textContent = 'Next →';
+            }
+        }
+
+        function calculateScores() {
+            const scores = {
+                'Stay at Home Explorer': 0,
+                'Snowbird': 0,
+                'Slow Travel': 0,
+                'RV Life': 0,
+                'Sailing': 0,
+                'Cruise Ship': 0,
+                'Downsizing': 0,
+                'Tiny Home': 0,
+                'Expat': 0,
+                'Semi-Retirement': 0,
+                'Learning-Centered': 0,
+                'Volunteering': 0,
+                'Cultural Immersion': 0,
+                'Adventure Travel': 0,
+                'Geoarbitrage': 0,
+                'Caregiver': 0
+            };
+            
+            // Apply scoring rules for each answer
+            Object.keys(answers).forEach(qIndex => {
+                const answerValue = answers[qIndex];
+                const numIndex = parseInt(qIndex);
+                const rules = SCORING_RULES[numIndex];
+                
+                if (rules && rules[answerValue]) {
+                    Object.entries(rules[answerValue]).forEach(([lifestyle, points]) => {
+                        scores[lifestyle] += points;
+                    });
+                }
+                
+                // Special case: Q2 answer E gives all lifestyles +1
+                if (numIndex === 2 && answerValue === 'E') {
+                    Object.keys(scores).forEach(lifestyle => {
+                        scores[lifestyle] += 1;
+                    });
+                }
+            });
+            
+            return scores;
+        }
+
+        function showResults() {
+            document.getElementById('assessment').classList.add('hidden');
+            document.getElementById('results').classList.remove('hidden');
+            
+            const scores = calculateScores();
+            
+            // Sort and display results
+            const sorted = Object.entries(scores)
+                .sort((a, b) => b[1] - a[1])
+                .filter(([_, score]) => score > 0);
+            
+            if (sorted.length > 0) {
+                const [topLifestyle, topScore] = sorted[0];
+                const percentage = Math.round((topScore / MAX_SCORES[topLifestyle]) * 100);
+                
+                document.getElementById('primary-lifestyle-name').textContent = topLifestyle;
+                document.getElementById('primary-percentage').textContent = `${percentage}%`;
+                document.getElementById('primary-description').textContent = getLifestyleDescription(topLifestyle);
+                
+                // Show alternatives
+                const alternativesList = document.getElementById('alternatives-list');
+                alternativesList.innerHTML = '';
+                
+                for (let i = 1; i < Math.min(4, sorted.length); i++) {
+                    const [lifestyle, score] = sorted[i];
+                    const altPercentage = Math.round((score / MAX_SCORES[lifestyle]) * 100);
+                    
+                    alternativesList.innerHTML += `
+                        <div class="alternative-item">
+                            <span class="alternative-name">${lifestyle}</span>
+                            <span class="alternative-percentage">${altPercentage}%</span>
+                        </div>
+                    `;
+                }
+                
+                // Generate profile summary
+                document.getElementById('profile-text').textContent = generateProfileSummary(answers);
+            }
+            
+            // Scroll to top
+            window.scrollTo(0, 0);
+        }
+
+        function getLifestyleDescription(lifestyle) {
+            const descriptions = {
+                'Stay at Home Explorer': 'Keep your current home and community while engaging locally in new ways.',
+                'Snowbird': 'Seasonal rotation between two locations - winter warmth, summer at home.',
+                'Slow Travel': 'Moving between locations, staying 1+ months in each place.',
+                'RV Life': 'Your home travels with you - ultimate freedom and flexibility.',
+                'Sailing': 'Live aboard a sailboat - coastal cruising or ocean crossings.',
+                'Cruise Ship': 'Live on cruise ships with everything handled for you.',
+                'Downsizing': 'Smaller traditional home with less maintenance.',
+                'Tiny Home': 'Extreme minimalism with a very small footprint.',
+                'Expat': 'Settle in one place abroad for the long term.',
+                'Semi-Retirement': 'Continue working part-time or consulting on your terms.',
+                'Learning-Centered': 'Focus on education and intellectual growth.',
+                'Volunteering': 'Service-focused retirement with built-in purpose.',
+                'Cultural Immersion': 'Deep dive into one culture or language.',
+                'Adventure Travel': 'Bucket list focused with physical challenges.',
+                'Geoarbitrage': 'Optimize cost of living by relocating.',
+                'Caregiver': 'Retirement shaped around family obligations.'
+            };
+            
+            return descriptions[lifestyle] || '';
+        }
+
+        function generateProfileSummary(answers) {
+            return "Based on your responses, you value variety, cultural experiences, and staying mobile. This suggests you'd thrive in lifestyles that offer flexibility and regular change.";
+        }
+
+        function toggleFeedback() {
+            const isNotAccurate = document.getElementById('accuracy-no').checked;
+            const feedbackSection = document.getElementById('feedback-section');
+            
+            if (isNotAccurate) {
+                feedbackSection.classList.remove('hidden');
+            } else {
+                feedbackSection.classList.add('hidden');
+            }
+        }
+
+        async function submitResults(event) {
+            event.preventDefault();
+            
+            const submitBtn = event.target.querySelector('button[type="submit"]');
+            const originalText = submitBtn.textContent;
+            submitBtn.textContent = 'Sending...';
+            submitBtn.disabled = true;
+            
+            try {
+                const scores = calculateScores();
+                
+                // Get primary match and alternatives
+                const sorted = Object.entries(scores)
+                    .sort((a, b) => b[1] - a[1])
+                    .filter(([_, score]) => score > 0);
+                
+                const primaryMatch = sorted[0] ? {
+                    lifestyle: sorted[0][0],
+                    score: sorted[0][1],
+                    percentage: Math.round((sorted[0][1] / MAX_SCORES[sorted[0][0]]) * 100)
+                } : null;
+                
+                const alternatives = sorted.slice(1, 4).map(([lifestyle, score]) => ({
+                    lifestyle,
+                    score,
+                    percentage: Math.round((score / MAX_SCORES[lifestyle]) * 100)
+                }));
+                
+                const formData = {
+                    name: document.getElementById('user-name').value,
+                    email: document.getElementById('user-email').value,
+                    newsletter: document.getElementById('newsletter-opt-in').checked,
+                    accuracy: document.querySelector('input[name="accuracy"]:checked')?.value,
+                    feedback: {
+                        topDoesntFit: document.getElementById('feedback-top')?.checked,
+                        missingLifestyle: document.getElementById('feedback-missing')?.checked,
+                        combinationsWrong: document.getElementById('feedback-combinations')?.checked,
+                        other: document.getElementById('feedback-other')?.value
+                    },
+                    answers: answers,
+                    scores: scores,
+                    primaryMatch: primaryMatch,
+                    alternatives: alternatives,
+                    modifiers: [],
+                    profileSummary: generateProfileSummary(answers),
+                    timestamp: new Date().toISOString()
+                };
+                
+                console.log('Submitting:', formData);
+                
+                // Send to Google Sheets
+                fetch(GOOGLE_SCRIPT_URL, {
+                    method: 'POST',
+                    mode: 'no-cors',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify(formData)
+                });
+                
+                // Send to MailerLite
+                await subscribeToMailerLite(formData);
+                
+                // Show success message
+                alert('Thank you! Your results have been submitted. Check your email for detailed results.');
+                
+                // Clear saved answers
+                localStorage.removeItem('retirement-assessment');
+                
+            } catch (error) {
+                console.error('Submission error:', error);
+                alert('There was an error submitting your results. Please try again.');
+                submitBtn.textContent = originalText;
+                submitBtn.disabled = false;
+            }
+        }
+
+        // MailerLite Integration
+        async function subscribeToMailerLite(formData) {
+            try {
+                const subscriberData = {
+                    email: formData.email,
+                    fields: {
+                        name: formData.name || '',
+                        top_lifestyle: formData.primaryMatch?.lifestyle || 'Unknown',
+                        top_score: formData.primaryMatch?.percentage?.toString() || '0',
+                        assessment_date: new Date().toISOString().split('T')[0],
+                        results_accurate: formData.accuracy || 'not-answered'
+                    },
+                    groups: ['179420313960842664'],
+                    status: 'active'
+                };
+                
+                // Add alternative matches
+                if (formData.alternatives && formData.alternatives.length > 0) {
+                    subscriberData.fields.alt_lifestyle_1 = formData.alternatives[0]?.lifestyle || '';
+                    subscriberData.fields.alt_score_1 = formData.alternatives[0]?.percentage?.toString() || '0';
+                    
+                    if (formData.alternatives.length > 1) {
+                        subscriberData.fields.alt_lifestyle_2 = formData.alternatives[1]?.lifestyle || '';
+                        subscriberData.fields.alt_score_2 = formData.alternatives[1]?.percentage?.toString() || '0';
+                    }
+                }
+                
+                console.log('Subscribing to MailerLite:', subscriberData);
+                
+                const response = await fetch('https://connect.mailerlite.com/api/subscribers', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'Authorization': `Bearer ${MAILERLITE_API_KEY}`,
+                        'Accept': 'application/json'
+                    },
+                    body: JSON.stringify(subscriberData)
+                });
+                
+                if (!response.ok) {
+                    const errorData = await response.json();
+                    console.error('MailerLite API error:', errorData);
+                }
+                
+                const data = await response.json();
+                console.log('Successfully subscribed to MailerLite:', data);
+                
+                return data;
+                
+            } catch (error) {
+                console.error('Error subscribing to MailerLite:', error);
+                return null;
+            }
+        }
+
+        // Load saved progress on page load
+        window.addEventListener('DOMContentLoaded', () => {
+            const saved = localStorage.getItem('retirement-assessment');
+            if (saved) {
+                answers = JSON.parse(saved);
+            }
+        });
+    </script>
 </body>
 </html>
