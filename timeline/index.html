@@ -421,6 +421,7 @@
             <h2>Plan Your Retirement Lifestyle Transition</h2>
             <p>Most people jump into retirement decisions without testing them first. This planner gives you a concrete, step-by-step timeline to research, test, evaluate, and transition into your ideal retirement lifestyle.</p>
             <p style="margin-top: 1rem;"><strong>Each timeline has 4 phases:</strong> Research → Test → Decide → Transition. You'll get specific action items, realistic timeframes, and clear success criteria for each phase.</p>
+            <p style="margin-top: 1rem;"><strong>Timeline Pace:</strong> All paces use the same action items - your pace selection adjusts the suggested timeframes to match how quickly you want to move through the process.</p>
         </div>
 
         <!-- Selection Section -->
@@ -441,9 +442,9 @@
             <div class="form-group">
                 <label for="pace-select">Choose Your Timeline Pace:</label>
                 <select id="pace-select">
-                    <option value="moderate">Moderate (12-18 months) - Recommended for most people</option>
-                    <option value="aggressive">Aggressive (6-9 months) - Fast track if you're confident</option>
-                    <option value="cautious">Cautious (18-24 months) - Extra time to be thorough</option>
+                    <option value="moderate">Moderate (12-18 months) - Recommended pace for thorough testing</option>
+                    <option value="aggressive">Aggressive (6-9 months) - Compressed timeline if you're ready to move fast</option>
+                    <option value="cautious">Cautious (18-24 months) - Extended timeline with extra time for each phase</option>
                 </select>
             </div>
 
@@ -1123,13 +1124,21 @@
         // Display timeline
         function displayTimeline() {
             const timeline = TIMELINES[currentLifestyle];
-            const phases = timeline.phases[currentPace];
+            // Always use moderate timeline but adjust messaging based on pace
+            const phases = timeline.phases.moderate;
+            
+            const paceDescriptions = {
+                aggressive: "Fast-tracked timeline - compress phases and move quickly if you're confident and ready to commit",
+                moderate: "Recommended pace - thorough testing with realistic timeframes for most people",
+                cautious: "Extended timeline - extra time for thorough research, longer testing periods, and careful decision-making"
+            };
 
             let html = `
                 <div class="timeline-header">
                     <h2>${timeline.name} Timeline</h2>
                     <p class="timeline-meta">${timeline.description}</p>
                     <p class="timeline-meta" style="margin-top: 0.5rem;"><strong>Timeline Pace:</strong> ${currentPace.charAt(0).toUpperCase() + currentPace.slice(1)}</p>
+                    <p class="timeline-meta" style="margin-top: 0.5rem; font-style: italic;">${paceDescriptions[currentPace]}</p>
                 </div>
 
                 <div class="progress-section">
@@ -1145,12 +1154,28 @@
 
             // Add phases
             phases.forEach(phase => {
+                // Adjust duration display based on pace
+                let adjustedDuration = phase.duration;
+                if (currentPace === 'aggressive') {
+                    adjustedDuration = adjustedDuration.replace(/(\d+)-(\d+)/, (match, min, max) => {
+                        const newMin = Math.max(1, Math.floor(parseInt(min) * 0.6));
+                        const newMax = Math.floor(parseInt(max) * 0.6);
+                        return `${newMin}-${newMax}`;
+                    });
+                } else if (currentPace === 'cautious') {
+                    adjustedDuration = adjustedDuration.replace(/(\d+)-(\d+)/, (match, min, max) => {
+                        const newMin = Math.ceil(parseInt(min) * 1.5);
+                        const newMax = Math.ceil(parseInt(max) * 1.5);
+                        return `${newMin}-${newMax}`;
+                    });
+                }
+                
                 html += `
                     <div class="phase">
                         <div class="phase-header">
                             <span class="phase-number">${phase.number}</span>
                             <h3 class="phase-title">${phase.title}</h3>
-                            <span class="phase-duration">${phase.duration}</span>
+                            <span class="phase-duration">${adjustedDuration}</span>
                             <p class="phase-description">${phase.description}</p>
                         </div>
                         <div class="action-items">
@@ -1212,7 +1237,8 @@
             const timeline = TIMELINES[currentLifestyle];
             if (!timeline) return;
 
-            const phases = timeline.phases[currentPace];
+            // Always use moderate timeline for counting actions
+            const phases = timeline.phases.moderate;
             let totalActions = 0;
 
             phases.forEach(phase => {
