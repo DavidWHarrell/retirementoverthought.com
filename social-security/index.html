@@ -793,7 +793,7 @@
                 <div class="form-group">
                     <label for="inflation-rate">Expected Annual Inflation (%)</label>
                     <input type="number" id="inflation-rate" value="3" min="0" max="10" step="0.5">
-                    <p class="form-help">Long-term average is ~3%, recent years higher</p>
+                    <p class="form-help"><strong>Important:</strong> This inflates BOTH your monthly budget AND Social Security (COLA) each year. Long-term average is ~3%, recent years higher. This number significantly impacts results.</p>
                 </div>
             </div>
 
@@ -896,36 +896,47 @@
                 70: 1.24   // 124% of FRA
             };
 
-            const ssBenefitMonthly = ssBenefit * ssMultipliers[claimAge];
-            const ssBenefitAnnual = ssBenefitMonthly * 12;
+            const ssBenefitMonthlyBase = ssBenefit * ssMultipliers[claimAge];
+            const ssBenefitAnnualBase = ssBenefitMonthlyBase * 12;
             const otherIncomeAnnual = otherIncome * 12;
-            const budgetAnnual = monthlyBudget * 12;
+            const budgetAnnualBase = monthlyBudget * 12;
 
             // Calculate needed from portfolio before SS starts
             const yearsUntilClaim = Math.max(0, claimAge - currentAge);
             let portfolio = taxDeferred;
             
-            // Draw from portfolio until claiming age
+            // Draw from portfolio until claiming age (with inflation-adjusted budget)
             for (let year = 0; year < yearsUntilClaim; year++) {
-                const needed = budgetAnnual - otherIncomeAnnual;
+                // Inflate budget each year
+                const inflatedBudget = budgetAnnualBase * Math.pow(1 + inflationRate, year);
+                const needed = inflatedBudget - otherIncomeAnnual;
                 portfolio -= needed;
                 portfolio *= (1 + portfolioReturn);
             }
 
-            // After claiming SS
-            const neededAfterSS = Math.max(0, budgetAnnual - ssBenefitAnnual - otherIncomeAnnual);
+            // After claiming SS - calculate inflation-adjusted amounts at claiming age
+            const yearsFromNowToClaim = Math.max(0, claimAge - currentAge);
+            const inflatedSSatClaim = ssBenefitAnnualBase * Math.pow(1 + inflationRate, yearsFromNowToClaim);
+            const inflatedBudgetAtClaim = budgetAnnualBase * Math.pow(1 + inflationRate, yearsFromNowToClaim);
             
-            // Project portfolio to age 73 (when RMDs start)
+            // Project portfolio to age 73 (when RMDs start) with continued inflation
             const yearsToRMD = Math.max(0, 73 - Math.max(currentAge, claimAge));
             for (let year = 0; year < yearsToRMD; year++) {
-                portfolio -= neededAfterSS;
+                // Both SS and budget continue to inflate
+                const inflatedSS = inflatedSSatClaim * Math.pow(1 + inflationRate, year);
+                const inflatedBudget = inflatedBudgetAtClaim * Math.pow(1 + inflationRate, year);
+                const neededThisYear = Math.max(0, inflatedBudget - inflatedSS - otherIncomeAnnual);
+                portfolio -= neededThisYear;
                 portfolio *= (1 + portfolioReturn);
             }
 
             const portfolioAt73 = Math.max(0, portfolio);
+            
+            // For display purposes, use amounts at claiming age
+            const neededAfterSS = Math.max(0, inflatedBudgetAtClaim - inflatedSSatClaim - otherIncomeAnnual);
 
-            // Estimate tax bracket
-            const grossIncome = ssBenefitAnnual + otherIncomeAnnual + neededAfterSS;
+            // Estimate tax bracket (use first year after claiming)
+            const grossIncome = inflatedSSatClaim + otherIncomeAnnual + neededAfterSS;
             const standardDeduction = filingStatus === 'married' ? 29200 : 14600;
             const taxableIncome = Math.max(0, grossIncome - standardDeduction);
 
@@ -954,8 +965,8 @@
 
             return {
                 claimAge,
-                ssBenefitMonthly: Math.round(ssBenefitMonthly),
-                ssBenefitAnnual: Math.round(ssBenefitAnnual),
+                ssBenefitMonthly: Math.round(ssBenefitMonthlyBase),  // Show base amount, not inflated
+                ssBenefitAnnual: Math.round(ssBenefitAnnualBase),
                 neededFromPortfolio: Math.round(neededAfterSS),
                 portfolioAt73: Math.round(portfolioAt73),
                 taxBracket,
@@ -1169,12 +1180,17 @@
             const breakEven62vs70 = calculateBreakEven(scenarios.age62, scenarios.age70);
             const breakEven67vs70 = calculateBreakEven(scenarios.age67, scenarios.age70);
 
-            // Calculate TRUE break-even accounting for portfolio and Roth
+            // Calculate TRUE break-even accounting for portfolio and Roth (returns object)
             const trueBreakEven62vs70 = calculateTrueBreakEven(scenarios.age62, scenarios.age70);
             const trueBreakEven62vs67 = calculateTrueBreakEven(scenarios.age62, scenarios.age67);
             
             const monthlyDiff67 = scenarios.age67.ssBenefitMonthly - scenarios.age62.ssBenefitMonthly;
             const monthlyDiff70 = scenarios.age70.ssBenefitMonthly - scenarios.age62.ssBenefitMonthly;
+            
+            // Calculate year difference for display (handle 120+ case)
+            const yearDiff = trueBreakEven62vs70.age > 120 ? 
+                "39+" : 
+                (trueBreakEven62vs70.age - breakEven62vs70);
             
             return `
                 <div class="key-insights" style="background: #FEF3C7; border-left-color: var(--color-warning);">
@@ -1196,13 +1212,13 @@
                             <div style="background: #ECFDF5; padding: 1.25rem; border-radius: 6px; border: 2px solid var(--color-success);">
                                 <p style="font-weight: 600; color: #065F46; margin-bottom: 0.5rem; font-size: 1.1rem;">✓ TRUE Break-Even</p>
                                 <p style="font-size: 0.9rem; color: #047857; margin-bottom: 0.75rem;">Includes portfolio + Roth + taxes</p>
-                                <p style="font-size: 2rem; font-weight: 700; color: var(--color-success); margin: 0.5rem 0;">Age ${trueBreakEven62vs70}</p>
-                                <p style="font-size: 0.85rem; color: #047857; margin-top: 0.5rem;">This is reality - ${trueBreakEven62vs70 - breakEven62vs70} years later!</p>
+                                <p style="font-size: 2rem; font-weight: 700; color: var(--color-success); margin: 0.5rem 0;">Age ${trueBreakEven62vs70.display}</p>
+                                <p style="font-size: 0.85rem; color: #047857; margin-top: 0.5rem;">This is reality - ${yearDiff} years later!</p>
                             </div>
                         </div>
                         
                         <div style="background: #FEF3C7; padding: 1rem; border-radius: 6px; margin-top: 1rem;">
-                            <p style="font-weight: 600; color: #92400E; margin-bottom: 0.5rem;">🔍 Why the ${trueBreakEven62vs70 - breakEven62vs70}-Year Difference?</p>
+                            <p style="font-weight: 600; color: #92400E; margin-bottom: 0.5rem;">🔍 Why the ${yearDiff}-Year Difference?</p>
                             <ul style="margin-left: 1.5rem; color: #78350F; font-size: 0.95rem;">
                                 <li style="margin: 0.5rem 0;"><strong>Portfolio preservation:</strong> Claiming at 62 leaves $${(scenarios.age62.portfolioAt73 - scenarios.age70.portfolioAt73).toLocaleString()} more growing</li>
                                 ${scenarios.age62.canConvert ? `<li style="margin: 0.5rem 0;"><strong>Roth conversions:</strong> $${scenarios.age62.totalRothConversion.toLocaleString()} tax-free forever (impossible if waiting)</li>` : ''}
@@ -1211,7 +1227,7 @@
                             </ul>
                         </div>
                         
-                        <p style="margin-top: 1rem; font-size: 0.95rem; color: var(--color-text-light); font-style: italic;">Translation: You'd need to live to ${trueBreakEven62vs70} (not ${breakEven62vs70}!) for waiting to actually leave you wealthier overall.</p>
+                        <p style="margin-top: 1rem; font-size: 0.95rem; color: var(--color-text-light); font-style: italic;">Translation: You'd need to live to ${trueBreakEven62vs70.display} (not ${breakEven62vs70}!) for waiting to actually leave you wealthier overall.</p>
                     </div>
 
                     <div style="background: var(--color-white); padding: 1.5rem; border-radius: 8px; margin: 1rem 0;">
@@ -1231,13 +1247,13 @@
                                     <td style="padding: 0.75rem; font-weight: 600;">Age 62 vs 67</td>
                                     <td style="padding: 0.75rem; text-align: center;">+$${monthlyDiff67.toLocaleString()}/mo</td>
                                     <td style="padding: 0.75rem; text-align: center; font-weight: 600; color: var(--color-danger);">${breakEven62vs67}</td>
-                                    <td style="padding: 0.75rem; text-align: center; font-weight: 600; color: var(--color-success);">${trueBreakEven62vs67}</td>
+                                    <td style="padding: 0.75rem; text-align: center; font-weight: 600; color: var(--color-success);">${trueBreakEven62vs67.display}</td>
                                 </tr>
                                 <tr style="border-bottom: 1px solid var(--color-border);">
                                     <td style="padding: 0.75rem; font-weight: 600;">Age 62 vs 70</td>
                                     <td style="padding: 0.75rem; text-align: center;">+$${monthlyDiff70.toLocaleString()}/mo</td>
                                     <td style="padding: 0.75rem; text-align: center; font-weight: 600; color: var(--color-danger);">${breakEven62vs70}</td>
-                                    <td style="padding: 0.75rem; text-align: center; font-weight: 600; color: var(--color-success);">${trueBreakEven62vs70}</td>
+                                    <td style="padding: 0.75rem; text-align: center; font-weight: 600; color: var(--color-success);">${trueBreakEven62vs70.display}</td>
                                 </tr>
                                 <tr>
                                     <td style="padding: 0.75rem; font-weight: 600;">Age 67 vs 70</td>
@@ -1254,9 +1270,12 @@
                         <p style="color: #78350F; font-size: 0.95rem; line-height: 1.6;">
                             Most people look at the <strong>simple break-even (age ${breakEven62vs70})</strong> and think: "I might live that long, so I should wait."
                             <br><br>
-                            But when you factor in <strong>portfolio growth, Roth conversions, and tax savings</strong>, the real question becomes: "Will I live to <strong>age ${trueBreakEven62vs70}</strong>?"
+                            But when you factor in <strong>portfolio growth, Roth conversions, and tax savings</strong>, the real question becomes: "Will I live to <strong>age ${trueBreakEven62vs70.display}</strong>?"
                             <br><br>
-                            That's a ${trueBreakEven62vs70 - breakEven62vs70}-year difference - and it changes the calculation completely. This is why you need to run comprehensive numbers with a tax-aware advisor, not just look at Social Security break-even charts.
+                            ${trueBreakEven62vs70.age > 120 ? 
+                                `That's effectively <strong>never</strong> - waiting would almost never leave you wealthier overall. This is why you need to run comprehensive numbers with a tax-aware advisor, not just look at Social Security break-even charts.` :
+                                `That's a ${yearDiff}-year difference - and it changes the calculation completely. This is why you need to run comprehensive numbers with a tax-aware advisor, not just look at Social Security break-even charts.`
+                            }
                         </p>
                     </div>
                 </div>
@@ -1286,7 +1305,7 @@
             const annualSSdiff = benefit2 - benefit1;
             
             if (annualSSdiff <= 0) {
-                return 120; // If waiting doesn't increase benefit, break-even is never
+                return { age: 999, display: "Never" }; // If waiting doesn't increase benefit, break-even is never
             }
             
             // Years after the later claiming age to overcome wealth advantage
@@ -1295,8 +1314,12 @@
             // True break-even age
             const trueBreakEven = Math.round(age2 + yearsNeeded);
             
-            // Cap at reasonable age
-            return Math.min(trueBreakEven, 120);
+            // Return object with actual age and display string
+            if (trueBreakEven > 120) {
+                return { age: trueBreakEven, display: "120+" };
+            } else {
+                return { age: trueBreakEven, display: trueBreakEven.toString() };
+            }
         }
     </script>
 </body>
