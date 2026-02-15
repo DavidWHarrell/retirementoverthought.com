@@ -54,6 +54,22 @@
             background: linear-gradient(135deg, var(--color-primary) 0%, var(--color-primary-dark) 100%);
             margin: -2rem -2rem 2rem -2rem;
             border-radius: 0 0 12px 12px;
+            position: relative;
+        }
+        
+        .back-to-home {
+            position: absolute;
+            top: 1.5rem;
+            left: 2rem;
+            color: var(--color-white);
+            text-decoration: none;
+            font-size: 0.9rem;
+            opacity: 0.9;
+            transition: opacity 0.2s ease;
+        }
+        
+        .back-to-home:hover {
+            opacity: 1;
         }
 
         h1 {
@@ -480,6 +496,12 @@
             h1 {
                 font-size: 2rem;
             }
+            
+            .back-to-home {
+                position: static;
+                display: block;
+                margin-bottom: 1rem;
+            }
 
             .question-card {
                 padding: 2rem 1.5rem;
@@ -526,6 +548,7 @@
 <body>
     <div class="container">
         <header>
+            <a href="/" class="back-to-home">← Back to Home</a>
             <h1>Retirement Lifestyle Assessment</h1>
             <p class="subtitle">Discover which retirement lifestyle fits you best</p>
         </header>
@@ -662,8 +685,15 @@
                         </div>
                     </div>
 
-                    <button type="submit" class="btn" style="width: 100%; margin-top: 1.5rem;">Send Me My Results</button>
+                    <button type="submit" class="btn" id="submit-btn" style="width: 100%; margin-top: 1.5rem;">Send Me My Results</button>
                 </form>
+                
+                <!-- Success Message -->
+                <div id="success-message" class="hidden" style="text-align: center; padding: 2rem; background: #f0fff4; border: 2px solid #48bb78; border-radius: 8px; margin-top: 2rem;">
+                    <h3 style="color: #22543d; margin-bottom: 1rem;">✓ Results Sent!</h3>
+                    <p style="color: #4a5568; margin-bottom: 1.5rem;">Check your email for your detailed retirement lifestyle breakdown. It should arrive within 1-2 minutes.</p>
+                    <a href="/" class="btn" style="display: inline-block;">← Back to Home</a>
+                </div>
             </div>
         </div>
     </div>
@@ -1358,7 +1388,7 @@
         async function submitResults(event) {
             event.preventDefault();
             
-            const submitBtn = event.target.querySelector('button[type="submit"]');
+            const submitBtn = document.getElementById('submit-btn');
             const originalText = submitBtn.textContent;
             submitBtn.textContent = 'Sending...';
             submitBtn.disabled = true;
@@ -1418,11 +1448,15 @@
                 // Send to MailerLite
                 await subscribeToMailerLite(formData);
                 
-                // Show success message
-                alert('Thank you! Your results have been submitted. Check your email for detailed results.');
+                // Show success message and hide form
+                document.getElementById('email-form').classList.add('hidden');
+                document.getElementById('success-message').classList.remove('hidden');
                 
                 // Clear saved answers
                 localStorage.removeItem('retirement-assessment');
+                
+                // Scroll to success message
+                document.getElementById('success-message').scrollIntoView({ behavior: 'smooth', block: 'center' });
                 
             } catch (error) {
                 console.error('Submission error:', error);
