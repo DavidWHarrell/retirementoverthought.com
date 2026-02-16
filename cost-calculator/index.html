@@ -1296,7 +1296,7 @@ function calculateRVVariation(costArea, budget, people, rvOwn, rvTravel) {
     };
 }
 
-// DON'T REPLACE displayAffordableResults - keep your existing function        function displayAffordableResults(budget, symbol, options) {
+        function displayAffordableResults(budget, symbol, options) {
             document.getElementById('budget-display').textContent = symbol + Math.round(budget).toLocaleString() + '/month';
 
             const wellWithin = options.filter(opt => opt.cushion >= 500);
