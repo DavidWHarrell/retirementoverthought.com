@@ -7,7 +7,7 @@
     <meta name="description" content="Calculate retirement lifestyle costs or find what you can afford with your budget.">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Crimson+Text:wght@400;600;700&family=Work+Sans:wght@400;500;600&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Crimson+Text:wght@400;600;700&family+Sans:wght@400;500;600&display=swap" rel="stylesheet">
     <style>
         * { margin: 0; padding: 0; box-sizing: border-box; }
         :root {
@@ -35,7 +35,6 @@
         .privacy-notice strong { color: var(--color-accent); }
         .container { max-width: 1200px; margin: 0 auto; padding: 2rem; }
         
-        /* Tabs */
         .tabs { display: flex; gap: 0; margin-bottom: 2rem; background: var(--color-white); border-radius: 8px; overflow: hidden; box-shadow: 0 2px 8px rgba(0,0,0,0.1); }
         .tab-btn { flex: 1; padding: 1.25rem; background: var(--color-white); border: none; font-size: 1.1rem; font-weight: 600; color: var(--color-text-light); cursor: pointer; transition: all 0.2s; border-bottom: 3px solid transparent; }
         .tab-btn:hover { background: var(--color-bg); }
@@ -50,7 +49,6 @@
         .form-group select, .form-group input[type="number"] { width: 100%; padding: 0.75rem; border: 2px solid var(--color-border); border-radius: 6px; font-size: 1rem; font-family: var(--font-sans); }
         .form-group select:focus, .form-group input:focus { outline: none; border-color: var(--color-primary); }
         
-        /* Radio Groups */
         .radio-group { display: flex; gap: 1rem; flex-wrap: wrap; }
         .radio-option { flex: 1; min-width: 150px; }
         .radio-option input[type="radio"] { display: none; }
@@ -59,7 +57,6 @@
         .radio-option label:hover { border-color: var(--color-primary); }
         .radio-option label small { display: block; font-size: 0.85rem; opacity: 0.8; margin-top: 0.25rem; }
         
-        /* Checkboxes */
         .checkbox-group { display: flex; flex-direction: column; gap: 0.75rem; }
         .checkbox-option { display: flex; align-items: center; gap: 0.5rem; }
         .checkbox-option input[type="checkbox"] { width: 20px; height: 20px; cursor: pointer; }
@@ -74,7 +71,6 @@
         .calculate-btn { width: 100%; padding: 1.25rem; background: var(--color-accent); color: var(--color-primary-dark); font-size: 1.25rem; font-weight: 600; border: none; border-radius: 6px; cursor: pointer; transition: all 0.2s; }
         .calculate-btn:hover { background: var(--color-accent-dark); transform: translateY(-2px); box-shadow: 0 4px 12px rgba(230, 194, 0, 0.3); }
         
-        /* Results */
         .results { display: none; margin-top: 2rem; }
         .results.active { display: block; }
         .result-summary { background: var(--color-primary); color: var(--color-white); padding: 2rem; border-radius: 8px; margin-bottom: 2rem; text-align: center; }
@@ -88,7 +84,6 @@
         .breakdown-label { font-weight: 500; }
         .breakdown-amount { font-weight: 600; color: var(--color-primary-dark); }
         
-        /* Filters */
         .filter-buttons { display: flex; gap: 0.75rem; flex-wrap: wrap; }
         .filter-btn { padding: 0.75rem 1.25rem; background: var(--color-bg); border: 2px solid var(--color-border); border-radius: 6px; font-weight: 600; cursor: pointer; transition: all 0.2s; font-family: var(--font-sans); font-size: 1rem; }
         .filter-btn:hover { border-color: var(--color-primary); }
@@ -96,7 +91,6 @@
         .filter-count { display: inline-block; margin-left: 0.5rem; padding: 0.125rem 0.5rem; background: rgba(0, 0, 0, 0.1); border-radius: 12px; font-size: 0.85rem; }
         .filter-btn.active .filter-count { background: rgba(255, 255, 255, 0.3); }
         
-        /* Lifestyle Cards */
         .lifestyle-cards { display: grid; gap: 1.5rem; margin-top: 2rem; }
         .lifestyle-card { background: var(--color-white); border: 2px solid var(--color-border); border-radius: 8px; padding: 1.5rem; transition: all 0.2s; }
         .lifestyle-card:hover { box-shadow: 0 4px 12px rgba(0,0,0,0.1); transform: translateY(-2px); }
@@ -136,7 +130,7 @@
             .filter-btn { width: 100%; }
         }
     </style>
-    <!-- Cloudflare Web Analytics --><script defer src='https://static.cloudflareinsights.com/beacon.min.js' data-cf-beacon='{"token": "573cb90827d441118ff702b086d336af"}'></script><!-- End Cloudflare Web Analytics -->
+    <script defer src='https://static.cloudflareinsights.com/beacon.min.js' data-cf-beacon='{"token": "573cb90827d441118ff702b086d336af"}'></script>
 </head>
 <body>
     <header>
@@ -151,13 +145,11 @@
     </header>
 
     <div class="container">
-        <!-- Tabs -->
         <div class="tabs">
             <button class="tab-btn active" onclick="switchTab('calculate')">💰 Calculate Lifestyle Costs</button>
             <button class="tab-btn" onclick="switchTab('afford')">🔍 Find What I Can Afford</button>
         </div>
 
-        <!-- Tab 1: Calculate Costs -->
         <div id="calculate-tab" class="tab-content active">
             <div class="calculator-card">
                 <h2 class="section-title">What Will My Lifestyle Cost?</h2>
@@ -187,7 +179,6 @@
                 </div>
 
                 <form id="calculator-form">
-                    <!-- Currency -->
                     <div class="form-group">
                         <label for="currency">Currency</label>
                         <select id="currency" name="currency">
@@ -199,7 +190,6 @@
                         </select>
                     </div>
 
-                    <!-- Current Cost Area -->
                     <div class="form-group">
                         <label>Your Current Cost of Living Area</label>
                         <div class="radio-group">
@@ -218,7 +208,6 @@
                         </div>
                     </div>
 
-                    <!-- Number of People -->
                     <div class="form-group">
                         <label>Number of People</label>
                         <div class="radio-group">
@@ -233,7 +222,6 @@
                         </div>
                     </div>
 
-                    <!-- Budget Level -->
                     <div class="form-group">
                         <label>Budget Level</label>
                         <div class="radio-group">
@@ -252,7 +240,6 @@
                         </div>
                     </div>
 
-                    <!-- Lifestyle Type -->
                     <div class="form-group">
                         <label for="lifestyle">Retirement Lifestyle</label>
                         <select id="lifestyle" name="lifestyle">
@@ -263,7 +250,6 @@
                         </select>
                     </div>
 
-                    <!-- Stay Home Fields -->
                     <div id="stay-home-fields" class="conditional-field active">
                         <div class="form-group">
                             <label>Housing Situation</label>
@@ -297,7 +283,6 @@
                             </div>
                         </div>
 
-                        <!-- Expat Country Selection -->
                         <div id="expat-country-field" style="display: none; margin-top: 1rem;">
                             <div class="form-group">
                                 <label for="expat-country">Expat Country</label>
@@ -359,7 +344,6 @@
                         </div>
                     </div>
 
-                    <!-- Slow Travel Fields -->
                     <div id="slow-travel-fields" class="conditional-field">
                         <div class="info-box" style="margin-bottom: 1rem;">
                             <h4>Slow Travel Costs Explained:</h4>
@@ -425,7 +409,6 @@
                         </div>
                     </div>
 
-                    <!-- Snowbird Fields -->
                     <div id="snowbird-fields" class="conditional-field">
                         <div class="info-box" style="margin-bottom: 1rem;">
                             <h4>Snowbird Costs Explained:</h4>
@@ -476,7 +459,6 @@
                         </div>
                     </div>
 
-                    <!-- RV Fields -->
                     <div id="rv-fields" class="conditional-field">
                         <div class="info-box" style="margin-bottom: 1rem;">
                             <h4>RV Costs Explained:</h4>
@@ -524,7 +506,6 @@
                 </form>
             </div>
 
-            <!-- Results for Tab 1 -->
             <div id="results-calculate" class="results">
                 <div class="result-summary">
                     <h3>Your Estimated Monthly Cost</h3>
@@ -539,7 +520,6 @@
             </div>
         </div>
 
-        <!-- Tab 2: Find Affordable Lifestyles -->
         <div id="afford-tab" class="tab-content">
             <div class="calculator-card">
                 <h2 class="section-title">What Can I Afford?</h2>
@@ -556,7 +536,6 @@
                 </div>
 
                 <form id="afford-form">
-                    <!-- Currency -->
                     <div class="form-group">
                         <label for="currency-afford">Currency</label>
                         <select id="currency-afford" name="currency">
@@ -568,13 +547,11 @@
                         </select>
                     </div>
 
-                    <!-- Budget Input -->
                     <div class="form-group">
                         <label for="monthly-budget">Your Monthly Retirement Budget</label>
                         <input type="number" id="monthly-budget" name="monthlyBudget" min="500" step="100" placeholder="e.g., 3500" required>
                     </div>
 
-                    <!-- Current Cost Area -->
                     <div class="form-group">
                         <label>Your Current Cost of Living Area</label>
                         <div class="radio-group">
@@ -593,7 +570,6 @@
                         </div>
                     </div>
 
-                    <!-- Number of People -->
                     <div class="form-group">
                         <label>Number of People</label>
                         <div class="radio-group">
@@ -608,7 +584,6 @@
                         </div>
                     </div>
 
-                    <!-- Preferences -->
                     <div class="form-group">
                         <label>Preferences (Optional)</label>
                         <div class="checkbox-group">
@@ -631,7 +606,6 @@
                 </form>
             </div>
 
-            <!-- Results for Tab 2 -->
             <div id="results-afford" class="results">
                 <div class="result-summary">
                     <h3>Lifestyles Within Your Budget</h3>
@@ -639,7 +613,6 @@
                     <div class="result-annual">Filter results below</div>
                 </div>
 
-                <!-- Filter Controls -->
                 <div class="calculator-card" style="margin-bottom: 1.5rem;">
                     <h4 style="font-family: var(--font-serif); font-size: 1.25rem; color: var(--color-primary); margin-bottom: 1rem;">Filter Results</h4>
                     
@@ -683,7 +656,6 @@
     </div>
 
     <script>
-        // Exchange rates and costs
         const exchangeRates = { USD: 1.00, CAD: 1.36, GBP: 0.79, AUD: 1.52, EUR: 0.92 };
         const countryCosts = {
             thailand: 0.5, vietnam: 0.45, cambodia: 0.4, malaysia: 0.55, philippines: 0.5, indonesia: 0.5, laos: 0.4,
@@ -694,13 +666,11 @@
             uae: 1.2, 'south-africa': 0.55, morocco: 0.5
         };
 
-        // Filter state
         let currentBudgetFilter = 'all';
         let currentLocationFilter = 'all';
         let allOptions = [];
         let currentSymbol = '$';
 
-        // Tab switching
         function switchTab(tab) {
             document.querySelectorAll('.tab-btn').forEach(btn => btn.classList.remove('active'));
             document.querySelectorAll('.tab-content').forEach(content => content.classList.remove('active'));
@@ -714,7 +684,6 @@
             }
         }
 
-        // Show/hide conditional fields for Tab 1
         document.getElementById('lifestyle').addEventListener('change', function() {
             document.querySelectorAll('.conditional-field').forEach(field => field.classList.remove('active'));
             const lifestyle = this.value;
@@ -724,7 +693,6 @@
             else if (lifestyle === 'rv') document.getElementById('rv-fields').classList.add('active');
         });
 
-        // Show/hide expat country field
         document.querySelectorAll('input[name="stayLocation"]').forEach(radio => {
             radio.addEventListener('change', function() {
                 if (this.value === 'expat') {
@@ -735,7 +703,6 @@
             });
         });
 
-        // Form submissions
         document.getElementById('calculator-form').addEventListener('submit', function(e) {
             e.preventDefault();
             calculateCosts();
@@ -746,24 +713,20 @@
             findAffordable();
         });
 
-        // Filter buttons
         document.querySelectorAll('.filter-btn').forEach(btn => {
             btn.addEventListener('click', function() {
                 const filterType = this.getAttribute('data-filter');
                 const filterValue = this.getAttribute('data-value');
                 
-                // Update active state
                 document.querySelectorAll(`[data-filter="${filterType}"]`).forEach(b => b.classList.remove('active'));
                 this.classList.add('active');
                 
-                // Update filter state
                 if (filterType === 'budget') {
                     currentBudgetFilter = filterValue;
                 } else {
                     currentLocationFilter = filterValue;
                 }
                 
-                // Apply filters
                 applyFilters();
             });
         });
@@ -813,7 +776,6 @@
             document.getElementById('count-international').textContent = counts['international'];
         }
 
-        // Calculate costs (Tab 1) - simplified for space
         function calculateCosts() {
             const currency = document.getElementById('currency').value;
             const costArea = document.querySelector('input[name="costArea"]:checked').value;
@@ -997,13 +959,11 @@
                 </div>
             `;
 
-            // Remove any existing reminder note first
             const existingReminder = document.querySelector('#breakdown-reminder');
             if (existingReminder) {
                 existingReminder.remove();
             }
 
-            // Add reminder note after breakdown
             const reminderNote = `
                 <div id="breakdown-reminder" style="background: #FEF3C7; border: 2px solid #F59E0B; border-radius: 8px; padding: 1rem; margin-top: 1.5rem; text-align: center;">
                     <strong style="color: #92400E;">💡 Remember:</strong> 
@@ -1017,7 +977,6 @@
             document.getElementById('results-calculate').scrollIntoView({ behavior: 'smooth', block: 'start' });
         }
 
-        // Find affordable (Tab 2) - continuing in next comment due to length
         function findAffordable() {
             const budget = parseFloat(document.getElementById('monthly-budget').value);
             const currency = document.getElementById('currency-afford').value;
@@ -1034,13 +993,9 @@
             const symbols = { USD: '$', CAD: 'CA$', GBP: '£', AUD: 'A$', EUR: '€' };
             currentSymbol = symbols[currency];
 
-            // Generate all options (simplified - would be full implementation)
             allOptions = generateAllOptions(budget, currency, costArea, people, prefNorthAmerica, prefInternational);
-
-            // Update counts
             updateCounts();
 
-            // Reset filters
             currentBudgetFilter = 'all';
             currentLocationFilter = 'all';
             document.querySelectorAll('.filter-btn').forEach(btn => {
@@ -1048,253 +1003,233 @@
                 else btn.classList.remove('active');
             });
 
-            // Display results
             displayAffordableResults(budget, currentSymbol, allOptions);
         }
 
-// COMPLETE REPLACEMENT FOR THE "WHAT CAN I AFFORD" JAVASCRIPT SECTION
-// Replace everything from "function generateAllOptions" down to "function displayAffordableResults"
-// with this complete code:
+        function generateAllOptions(budget, currency, costArea, people, prefNA, prefIntl) {
+            const options = [];
+            const rate = exchangeRates[currency];
 
-function generateAllOptions(budget, currency, costArea, people, prefNA, prefIntl) {
-    const options = [];
-    const rate = exchangeRates[currency];
-
-    // Stay at Home (consolidated - one card per budget level)
-    if (prefNA) {
-        ['frugal', 'moderate', 'comfortable'].forEach(budgetLevel => {
-            const costs = calculateStayHomeVariation(costArea, budgetLevel, people, 'own-paid');
-            const total = Object.values(costs).reduce((a, b) => a + b, 0) * rate;
-            
-            options.push({
-                lifestyle: `Stay at Home (${budgetLevel.charAt(0).toUpperCase() + budgetLevel.slice(1)})`,
-                icon: '🏠',
-                variant: 'Home paid off - add $900-1200/mo if mortgage/rent',
-                cost: total,
-                cushion: budget - total,
-                budgetLevel: budgetLevel,
-                isNorthAmerica: true,
-                included: ['Housing (utilities/taxes only)', 'Food & groceries', 'Healthcare', 'Transportation', 'Entertainment', 'Misc expenses'],
-                considerations: ['Stay near family and friends', 'Maintain existing social connections', 'No travel disruption', 'Add $900-1200/month if paying mortgage or rent']
-            });
-        });
-    }
-
-    // RV Life
-    if (prefNA) {
-        ['frugal', 'moderate', 'comfortable'].forEach(budgetLevel => {
-            const rvOwn = 'own';
-            const rvTravel = 'moderate';
-            const costs = calculateRVVariation(costArea, budgetLevel, people, rvOwn, rvTravel);
-            const total = Object.values(costs).reduce((a, b) => a + b, 0) * rate;
-            
-            options.push({
-                lifestyle: `RV Life (${budgetLevel.charAt(0).toUpperCase() + budgetLevel.slice(1)})`,
-                icon: '🚐',
-                variant: 'Own RV, moderate travel',
-                cost: total,
-                cushion: budget - total,
-                budgetLevel: budgetLevel,
-                isNorthAmerica: true,
-                included: ['Campground fees', 'Fuel', 'Food', 'Healthcare', 'Insurance', 'Maintenance', 'Entertainment'],
-                considerations: ['Freedom to move anywhere', 'Smaller living space (200-400 sq ft)', 'Add $500-1200/mo if financing or renting RV', 'Fuel costs vary with travel frequency']
-            });
-        });
-    }
-
-    // Snowbird (US/Canada destinations)
-    if (prefNA) {
-        const snowbirdDests = [
-            { dest: 'arizona', name: 'Arizona', icon: '🌵' },
-            { dest: 'florida', name: 'Florida', icon: '🌴' }
-        ];
-
-        snowbirdDests.forEach(({ dest, name, icon }) => {
-            ['frugal', 'moderate', 'comfortable'].forEach(budgetLevel => {
-                const costs = calculateSnowbirdVariation(costArea, budgetLevel, people, 'own-paid', dest, 5);
-                const total = Object.values(costs).reduce((a, b) => a + b, 0) * rate;
-                
-                options.push({
-                    lifestyle: `Snowbird - ${name} (${budgetLevel.charAt(0).toUpperCase() + budgetLevel.slice(1)})`,
-                    icon: icon,
-                    variant: 'Home paid off, 5 months away',
-                    cost: total,
-                    cushion: budget - total,
-                    budgetLevel: budgetLevel,
-                    isNorthAmerica: true,
-                    included: ['Year-round home costs', 'Winter rental (5 months)', 'Food & healthcare', 'Transportation', 'Seasonal travel', 'Entertainment'],
-                    considerations: ['Maintain home base', 'Escape harsh winters', 'Two sets of living expenses', 'Add $900-1200/mo if paying mortgage or rent']
+            if (prefNA) {
+                ['frugal', 'moderate', 'comfortable'].forEach(budgetLevel => {
+                    const costs = calculateStayHomeVariation(costArea, budgetLevel, people, 'own-paid');
+                    const total = Object.values(costs).reduce((a, b) => a + b, 0) * rate;
+                    
+                    options.push({
+                        lifestyle: `Stay at Home (${budgetLevel.charAt(0).toUpperCase() + budgetLevel.slice(1)})`,
+                        icon: '🏠',
+                        variant: 'Home paid off - add $900-1200/mo if mortgage/rent',
+                        cost: total,
+                        cushion: budget - total,
+                        budgetLevel: budgetLevel,
+                        isNorthAmerica: true,
+                        included: ['Housing (utilities/taxes only)', 'Food & groceries', 'Healthcare', 'Transportation', 'Entertainment', 'Misc expenses'],
+                        considerations: ['Stay near family and friends', 'Maintain existing social connections', 'No travel disruption', 'Add $900-1200/month if paying mortgage or rent']
+                    });
                 });
-            });
-        });
-    }
 
-    // Expat - Popular Countries
-    if (prefIntl) {
-        const popularExpat = [
-            { country: 'thailand', name: 'Thailand', icon: '🇹🇭' },
-            { country: 'mexico', name: 'Mexico', icon: '🇲🇽' },
-            { country: 'portugal', name: 'Portugal', icon: '🇵🇹' },
-            { country: 'costa-rica', name: 'Costa Rica', icon: '🇨🇷' },
-            { country: 'spain', name: 'Spain', icon: '🇪🇸' },
-            { country: 'ecuador', name: 'Ecuador', icon: '🇪🇨' },
-            { country: 'colombia', name: 'Colombia', icon: '🇨🇴' },
-            { country: 'vietnam', name: 'Vietnam', icon: '🇻🇳' }
-        ];
-
-        popularExpat.forEach(({ country, name, icon }) => {
-            ['frugal', 'moderate', 'comfortable'].forEach(budgetLevel => {
-                const costs = calculateExpatVariation(costArea, budgetLevel, people, 'rent', country);
-                const total = Object.values(costs).reduce((a, b) => a + b, 0) * rate;
-                
-                options.push({
-                    lifestyle: `Expat - ${name} (${budgetLevel.charAt(0).toUpperCase() + budgetLevel.slice(1)})`,
-                    icon: icon,
-                    variant: 'Renting long-term',
-                    cost: total,
-                    cushion: budget - total,
-                    budgetLevel: budgetLevel,
-                    isNorthAmerica: false,
-                    included: ['Rent', 'Food', 'Healthcare', 'Transportation', 'Utilities', 'Entertainment', 'Misc'],
-                    considerations: ['Learn local language/culture', 'Visa requirements vary', 'International health insurance needed', 'Lower cost than US/Canada']
+                ['frugal', 'moderate', 'comfortable'].forEach(budgetLevel => {
+                    const costs = calculateRVVariation(costArea, budgetLevel, people, 'own', 'moderate');
+                    const total = Object.values(costs).reduce((a, b) => a + b, 0) * rate;
+                    
+                    options.push({
+                        lifestyle: `RV Life (${budgetLevel.charAt(0).toUpperCase() + budgetLevel.slice(1)})`,
+                        icon: '🚐',
+                        variant: 'Own RV, moderate travel',
+                        cost: total,
+                        cushion: budget - total,
+                        budgetLevel: budgetLevel,
+                        isNorthAmerica: true,
+                        included: ['Campground fees', 'Fuel', 'Food', 'Healthcare', 'Insurance', 'Maintenance', 'Entertainment'],
+                        considerations: ['Freedom to move anywhere', 'Smaller living space (200-400 sq ft)', 'Add $500-1200/mo if financing or renting RV', 'Fuel costs vary with travel frequency']
+                    });
                 });
-            });
-        });
-    }
 
-    // Slow Travel - Popular Regions
-    if (prefIntl) {
-        const travelRegions = [
-            { country: 'thailand', name: 'Southeast Asia', icon: '🌏' },
-            { country: 'portugal', name: 'Southern Europe', icon: '🇪🇺' },
-            { country: 'mexico', name: 'Latin America', icon: '🌎' },
-            { country: 'poland', name: 'Eastern Europe', icon: '🏰' }
-        ];
+                const snowbirdDests = [
+                    { dest: 'arizona', name: 'Arizona', icon: '🌵' },
+                    { dest: 'florida', name: 'Florida', icon: '🌴' }
+                ];
 
-        travelRegions.forEach(({ country, name, icon }) => {
-            ['frugal', 'moderate', 'comfortable'].forEach(budgetLevel => {
-                const costs = calculateSlowTravelVariation(costArea, budgetLevel, people, country);
-                const total = Object.values(costs).reduce((a, b) => a + b, 0) * rate;
-                
-                options.push({
-                    lifestyle: `Slow Travel - ${name} (${budgetLevel.charAt(0).toUpperCase() + budgetLevel.slice(1)})`,
-                    icon: icon,
-                    variant: '4-6 countries per year',
-                    cost: total,
-                    cushion: budget - total,
-                    budgetLevel: budgetLevel,
-                    isNorthAmerica: false,
-                    included: ['Short-term rentals', 'Food', 'Healthcare/travel insurance', 'Local transport', 'Activities', 'Flights between countries', 'Misc'],
-                    considerations: ['Constant movement and change', 'Pack light (carry-on only)', 'Visa requirements vary by country', 'Cultural immersion opportunities']
+                snowbirdDests.forEach(({ dest, name, icon }) => {
+                    ['frugal', 'moderate', 'comfortable'].forEach(budgetLevel => {
+                        const costs = calculateSnowbirdVariation(costArea, budgetLevel, people, 'own-paid', dest, 5);
+                        const total = Object.values(costs).reduce((a, b) => a + b, 0) * rate;
+                        
+                        options.push({
+                            lifestyle: `Snowbird - ${name} (${budgetLevel.charAt(0).toUpperCase() + budgetLevel.slice(1)})`,
+                            icon: icon,
+                            variant: 'Home paid off, 5 months away',
+                            cost: total,
+                            cushion: budget - total,
+                            budgetLevel: budgetLevel,
+                            isNorthAmerica: true,
+                            included: ['Year-round home costs', 'Winter rental (5 months)', 'Food & healthcare', 'Transportation', 'Seasonal travel', 'Entertainment'],
+                            considerations: ['Maintain home base', 'Escape harsh winters', 'Two sets of living expenses', 'Add $900-1200/mo if paying mortgage or rent']
+                        });
+                    });
                 });
-            });
-        });
-    }
+            }
 
-    return options.sort((a, b) => b.cushion - a.cushion);
-}
+            if (prefIntl) {
+                const popularExpat = [
+                    { country: 'thailand', name: 'Thailand', icon: '🇹🇭' },
+                    { country: 'mexico', name: 'Mexico', icon: '🇲🇽' },
+                    { country: 'portugal', name: 'Portugal', icon: '🇵🇹' },
+                    { country: 'costa-rica', name: 'Costa Rica', icon: '🇨🇷' },
+                    { country: 'spain', name: 'Spain', icon: '🇪🇸' },
+                    { country: 'ecuador', name: 'Ecuador', icon: '🇪🇨' },
+                    { country: 'colombia', name: 'Colombia', icon: '🇨🇴' },
+                    { country: 'vietnam', name: 'Vietnam', icon: '🇻🇳' }
+                ];
 
-// NEW HELPER FUNCTIONS - Add these right after generateAllOptions
-function calculateStayHomeVariation(costArea, budget, people, housing) {
-    const areaMultipliers = { high: 1.4, medium: 1.0, low: 0.7 };
-    const budgetMultipliers = { frugal: 0.75, moderate: 1.225, comfortable: 1.7 };
-    const areaMult = areaMultipliers[costArea];
-    const budgetMult = budgetMultipliers[budget];
-    const peopleMult = people === 2 ? 1.6 : 1.0;
+                popularExpat.forEach(({ country, name, icon }) => {
+                    ['frugal', 'moderate', 'comfortable'].forEach(budgetLevel => {
+                        const costs = calculateExpatVariation(costArea, budgetLevel, people, 'rent', country);
+                        const total = Object.values(costs).reduce((a, b) => a + b, 0) * rate;
+                        
+                        options.push({
+                            lifestyle: `Expat - ${name} (${budgetLevel.charAt(0).toUpperCase() + budgetLevel.slice(1)})`,
+                            icon: icon,
+                            variant: 'Renting long-term',
+                            cost: total,
+                            cushion: budget - total,
+                            budgetLevel: budgetLevel,
+                            isNorthAmerica: false,
+                            included: ['Rent', 'Food', 'Healthcare', 'Transportation', 'Utilities', 'Entertainment', 'Misc'],
+                            considerations: ['Learn local language/culture', 'Visa requirements vary', 'International health insurance needed', 'Lower cost than US/Canada']
+                        });
+                    });
+                });
 
-    return {
-        housing: (housing === 'own-paid' ? 300 : (housing === 'own-mortgage' ? 1200 : 1500)) * areaMult * budgetMult,
-        other: (400 + 500 + 300 + 200 + 250 + 150) * areaMult * budgetMult * peopleMult
-    };
-}
+                const travelRegions = [
+                    { country: 'thailand', name: 'Southeast Asia', icon: '🌏' },
+                    { country: 'portugal', name: 'Southern Europe', icon: '🇪🇺' },
+                    { country: 'mexico', name: 'Latin America', icon: '🌎' },
+                    { country: 'poland', name: 'Eastern Europe', icon: '🏰' }
+                ];
 
-function calculateExpatVariation(costArea, budget, people, housing, country) {
-    const budgetMultipliers = { frugal: 0.7, moderate: 1.225, comfortable: 1.7 };
-    const budgetMult = budgetMultipliers[budget];
-    const peopleMult = people === 2 ? 1.5 : 1.0;
-    const countryMult = countryCosts[country] || 0.7;
+                travelRegions.forEach(({ country, name, icon }) => {
+                    ['frugal', 'moderate', 'comfortable'].forEach(budgetLevel => {
+                        const costs = calculateSlowTravelVariation(costArea, budgetLevel, people, country);
+                        const total = Object.values(costs).reduce((a, b) => a + b, 0) * rate;
+                        
+                        options.push({
+                            lifestyle: `Slow Travel - ${name} (${budgetLevel.charAt(0).toUpperCase() + budgetLevel.slice(1)})`,
+                            icon: icon,
+                            variant: '4-6 countries per year',
+                            cost: total,
+                            cushion: budget - total,
+                            budgetLevel: budgetLevel,
+                            isNorthAmerica: false,
+                            included: ['Short-term rentals', 'Food', 'Healthcare/travel insurance', 'Local transport', 'Activities', 'Flights between countries', 'Misc'],
+                            considerations: ['Constant movement and change', 'Pack light (carry-on only)', 'Visa requirements vary by country', 'Cultural immersion opportunities']
+                        });
+                    });
+                });
+            }
 
-    const housingBase = housing === 'own-paid' ? 300 : (housing === 'own-mortgage' ? 1200 : 1500);
+            return options.sort((a, b) => b.cushion - a.cushion);
+        }
 
-    return {
-        housing: housingBase * countryMult * budgetMult,
-        food: 400 * countryMult * budgetMult * peopleMult,
-        healthcare: 200 * budgetMult,
-        transportation: 200 * countryMult * budgetMult,
-        utilities: 150 * countryMult,
-        entertainment: 250 * countryMult * budgetMult * peopleMult,
-        misc: 150 * countryMult
-    };
-}
+        function calculateStayHomeVariation(costArea, budget, people, housing) {
+            const areaMultipliers = { high: 1.4, medium: 1.0, low: 0.7 };
+            const budgetMultipliers = { frugal: 0.75, moderate: 1.225, comfortable: 1.7 };
+            const areaMult = areaMultipliers[costArea];
+            const budgetMult = budgetMultipliers[budget];
+            const peopleMult = people === 2 ? 1.6 : 1.0;
 
-function calculateSlowTravelVariation(costArea, budget, people, travelCountry) {
-    const budgetMultipliers = { frugal: 0.7, moderate: 1.225, comfortable: 1.7 };
-    const peopleMult = people === 2 ? 1.5 : 1.0;
-    const countryMult = countryCosts[travelCountry] || 0.7;
-    const budgetMult = budgetMultipliers[budget];
+            return {
+                housing: (housing === 'own-paid' ? 300 : (housing === 'own-mortgage' ? 1200 : 1500)) * areaMult * budgetMult,
+                other: (400 + 500 + 300 + 200 + 250 + 150) * areaMult * budgetMult * peopleMult
+            };
+        }
 
-    return {
-        housing: 1000 * countryMult * budgetMult * peopleMult,
-        food: 400 * countryMult * budgetMult * peopleMult,
-        healthcare: 200 * budgetMult,
-        transportation: 200 * countryMult * budgetMult,
-        activities: 300 * countryMult * budgetMult * peopleMult,
-        flights: 400 * countryMult * budgetMult * peopleMult,
-        misc: 150 * countryMult
-    };
-}
+        function calculateExpatVariation(costArea, budget, people, housing, country) {
+            const budgetMultipliers = { frugal: 0.7, moderate: 1.225, comfortable: 1.7 };
+            const budgetMult = budgetMultipliers[budget];
+            const peopleMult = people === 2 ? 1.5 : 1.0;
+            const countryMult = countryCosts[country] || 0.7;
+            const housingBase = housing === 'own-paid' ? 300 : (housing === 'own-mortgage' ? 1200 : 1500);
 
-function calculateSnowbirdVariation(costArea, budget, people, housing, winterDest, winterMonths) {
-    const areaMultipliers = { high: 1.4, medium: 1.0, low: 0.7 };
-    const budgetMultipliers = { frugal: 0.75, moderate: 1.225, comfortable: 1.7 };
-    const areaMult = areaMultipliers[costArea];
-    const budgetMult = budgetMultipliers[budget];
-    const peopleMult = people === 2 ? 1.5 : 1.0;
+            return {
+                housing: housingBase * countryMult * budgetMult,
+                food: 400 * countryMult * budgetMult * peopleMult,
+                healthcare: 200 * budgetMult,
+                transportation: 200 * countryMult * budgetMult,
+                utilities: 150 * countryMult,
+                entertainment: 250 * countryMult * budgetMult * peopleMult,
+                misc: 150 * countryMult
+            };
+        }
 
-    const homeMonths = 12 - winterMonths;
-    const homeHousing = housing === 'own-paid' ? 300 : (housing === 'own-mortgage' ? 1200 : 1500);
-    const winterCosts = {
-        florida: 1800, arizona: 1600, california: 2200, texas: 1500,
-        mexico: 1000, 'costa-rica': 1200, portugal: 1300, spain: 1400
-    };
+        function calculateSlowTravelVariation(costArea, budget, people, travelCountry) {
+            const budgetMultipliers = { frugal: 0.7, moderate: 1.225, comfortable: 1.7 };
+            const peopleMult = people === 2 ? 1.5 : 1.0;
+            const countryMult = countryCosts[travelCountry] || 0.7;
+            const budgetMult = budgetMultipliers[budget];
 
-    return {
-        housing: ((homeHousing * homeMonths) + (winterCosts[winterDest] * winterMonths)) / 12,
-        food: 450 * areaMult * budgetMult * peopleMult,
-        healthcare: 550 * budgetMult,
-        transportation: 350 * budgetMult * peopleMult,
-        utilities: 200 * areaMult,
-        travel: (800 / 12) * 2,
-        entertainment: 300 * budgetMult * peopleMult,
-        misc: 150
-    };
-}
+            return {
+                housing: 1000 * countryMult * budgetMult * peopleMult,
+                food: 400 * countryMult * budgetMult * peopleMult,
+                healthcare: 200 * budgetMult,
+                transportation: 200 * countryMult * budgetMult,
+                activities: 300 * countryMult * budgetMult * peopleMult,
+                flights: 400 * countryMult * budgetMult * peopleMult,
+                misc: 150 * countryMult
+            };
+        }
 
-function calculateRVVariation(costArea, budget, people, rvOwn, rvTravel) {
-    const budgetMultipliers = { frugal: 0.75, moderate: 1.225, comfortable: 1.7 };
-    const budgetMult = budgetMultipliers[budget];
-    const peopleMult = people === 2 ? 1.3 : 1.0;
-    const rvPayment = rvOwn === 'own' ? 0 : (rvOwn === 'financing' ? 500 : 1200);
-    const travelCosts = {
-        stationary: { fuel: 100, camping: 400 },
-        moderate: { fuel: 300, camping: 600 },
-        frequent: { fuel: 600, camping: 800 }
-    };
-    const travel = travelCosts[rvTravel];
+        function calculateSnowbirdVariation(costArea, budget, people, housing, winterDest, winterMonths) {
+            const areaMultipliers = { high: 1.4, medium: 1.0, low: 0.7 };
+            const budgetMultipliers = { frugal: 0.75, moderate: 1.225, comfortable: 1.7 };
+            const areaMult = areaMultipliers[costArea];
+            const budgetMult = budgetMultipliers[budget];
+            const peopleMult = people === 2 ? 1.5 : 1.0;
 
-    return {
-        rvPayment: rvPayment,
-        fuel: travel.fuel * budgetMult,
-        camping: travel.camping * budgetMult,
-        food: 350 * budgetMult * peopleMult,
-        healthcare: 550 * budgetMult,
-        insurance: 200,
-        maintenance: 150,
-        utilities: 150,
-        entertainment: 200 * budgetMult * peopleMult,
-        misc: 100
-    };
-}
+            const homeMonths = 12 - winterMonths;
+            const homeHousing = housing === 'own-paid' ? 300 : (housing === 'own-mortgage' ? 1200 : 1500);
+            const winterCosts = {
+                florida: 1800, arizona: 1600, california: 2200, texas: 1500,
+                mexico: 1000, 'costa-rica': 1200, portugal: 1300, spain: 1400
+            };
+
+            return {
+                housing: ((homeHousing * homeMonths) + (winterCosts[winterDest] * winterMonths)) / 12,
+                food: 450 * areaMult * budgetMult * peopleMult,
+                healthcare: 550 * budgetMult,
+                transportation: 350 * budgetMult * peopleMult,
+                utilities: 200 * areaMult,
+                travel: (800 / 12) * 2,
+                entertainment: 300 * budgetMult * peopleMult,
+                misc: 150
+            };
+        }
+
+        function calculateRVVariation(costArea, budget, people, rvOwn, rvTravel) {
+            const budgetMultipliers = { frugal: 0.75, moderate: 1.225, comfortable: 1.7 };
+            const budgetMult = budgetMultipliers[budget];
+            const peopleMult = people === 2 ? 1.3 : 1.0;
+            const rvPayment = rvOwn === 'own' ? 0 : (rvOwn === 'financing' ? 500 : 1200);
+            const travelCosts = {
+                stationary: { fuel: 100, camping: 400 },
+                moderate: { fuel: 300, camping: 600 },
+                frequent: { fuel: 600, camping: 800 }
+            };
+            const travel = travelCosts[rvTravel];
+
+            return {
+                rvPayment: rvPayment,
+                fuel: travel.fuel * budgetMult,
+                camping: travel.camping * budgetMult,
+                food: 350 * budgetMult * peopleMult,
+                healthcare: 550 * budgetMult,
+                insurance: 200,
+                maintenance: 150,
+                utilities: 150,
+                entertainment: 200 * budgetMult * peopleMult,
+                misc: 100
+            };
+        }
 
         function displayAffordableResults(budget, symbol, options) {
             document.getElementById('budget-display').textContent = symbol + Math.round(budget).toLocaleString() + '/month';
@@ -1308,17 +1243,17 @@ function calculateRVVariation(costArea, budget, people, rvOwn, rvTravel) {
 
             if (wellWithin.length > 0) {
                 html += `<h3 class="category-header">Well Within Budget (${symbol}500+ cushion)</h3>`;
-                html += wellWithin.slice(0, 10).map(opt => createLifestyleCard(opt, symbol, 'well-within', 'green')).join('');
+                html += wellWithin.map(opt => createLifestyleCard(opt, symbol, 'well-within', 'green')).join('');
             }
 
             if (comfortable.length > 0) {
                 html += `<h3 class="category-header">Comfortable Fit (${symbol}200-500 cushion)</h3>`;
-                html += comfortable.slice(0, 10).map(opt => createLifestyleCard(opt, symbol, 'comfortable', 'blue')).join('');
+                html += comfortable.map(opt => createLifestyleCard(opt, symbol, 'comfortable', 'blue')).join('');
             }
 
             if (tight.length > 0) {
                 html += `<h3 class="category-header">Tight Budget (${symbol}0-200 cushion)</h3>`;
-                html += tight.slice(0, 8).map(opt => createLifestyleCard(opt, symbol, 'tight', 'yellow')).join('');
+                html += tight.map(opt => createLifestyleCard(opt, symbol, 'tight', 'yellow')).join('');
             }
 
             if (stretch.length > 0) {
