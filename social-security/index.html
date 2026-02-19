@@ -742,13 +742,16 @@
                 <div class="form-group">
                     <label for="tax-deferred">Tax-Deferred Savings (401k + Traditional IRA)</label>
                     <input type="number" id="tax-deferred" placeholder="500000" min="0" step="1000">
-                    <p class="form-help">Total balance in all pre-tax retirement accounts. <strong>If married: COMBINED total for both spouses.</strong></p>
+                    <p class="form-help"><strong>Expected total balance at your retirement age</strong> (the age you entered above when you stop working). <strong>If married: COMBINED total for both spouses.</strong></p>
                 </div>
 
                 <div class="form-group">
                     <label for="ss-benefit">Estimated Monthly Social Security at Age 67</label>
                     <input type="number" id="ss-benefit" placeholder="3000" min="0" step="100">
                     <p class="form-help"><strong>If married: COMBINED amount for both spouses.</strong> Check your estimates at <a href="https://www.ssa.gov/myaccount/" target="_blank" rel="noopener">ssa.gov/myaccount</a></p>
+                    <div class="info-box" style="background: #FEF3C7; border-left-color: #F59E0B; margin-top: 1rem; padding: 1rem; border-radius: 6px;">
+                        <p style="color: #92400E; font-size: 0.95rem; margin: 0;"><strong>⚠️ Note on Future Benefits:</strong> The Social Security trust fund is projected to be depleted around 2033-2034. After that, benefits would be reduced to approximately 77-80% of scheduled amounts unless Congress acts. If you'll be claiming after 2033, you may want to multiply your estimated benefit by 0.80 to be conservative.</p>
+                    </div>
                 </div>
             </div>
 
@@ -1138,14 +1141,17 @@
                     </div>
                     <div class="scenario-detail">
                         <span class="label">Roth conversions:</span>
-                        <span class="value">${scenario.canConvert ? '✓ YES' : '✗ NO'}</span>
+                        <span class="value" title="${scenario.canConvert ? 'Tax-efficient opportunity to convert pre-tax retirement funds to Roth IRA during low-income years' : 'Not recommended - either claiming too late for conversion window or tax bracket too high'}">${scenario.canConvert ? '✓ YES' : '✗ NO'}</span>
                     </div>
                     ${scenario.canConvert ? `
                         <div class="scenario-detail">
                             <span class="label">Roth opportunity:</span>
                             <span class="value">~$${scenario.totalRothConversion.toLocaleString()}</span>
                         </div>
-                    ` : ''}
+                        <p style="font-size: 0.85rem; color: var(--color-text-light); margin-top: 0.5rem; font-style: italic;">This is the estimated total you could convert from traditional IRA/401k to Roth while in a favorable tax bracket (10-12%) between retirement and age 72.</p>
+                    ` : `
+                        <p style="font-size: 0.85rem; color: var(--color-text-light); margin-top: 0.5rem; font-style: italic;">Roth conversions not optimal in this scenario - either claiming age too late for conversion window, or income keeps you in higher tax brackets.</p>
+                    `}
                 </div>
             `;
         }
