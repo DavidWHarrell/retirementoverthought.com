@@ -442,6 +442,7 @@
             <div class="form-group">
                 <label for="pace-select">Choose Your Timeline Pace:</label>
                 <select id="pace-select">
+                    <option value="no-timeframe">No Timeframe - Just curious, show me the steps in order</option>
                     <option value="moderate">Moderate (12-18 months) - Recommended pace for thorough testing</option>
                     <option value="aggressive">Aggressive (6-9 months) - Compressed timeline if you're ready to move fast</option>
                     <option value="cautious">Cautious (18-24 months) - Extended timeline with extra time for each phase</option>
@@ -1128,6 +1129,7 @@
             const phases = timeline.phases.moderate;
             
             const paceDescriptions = {
+                'no-timeframe': "Exploratory mode - see all the steps in the order they should happen, without specific timeframes",
                 aggressive: "Fast-tracked timeline - compress phases and move quickly if you're confident and ready to commit",
                 moderate: "Recommended pace - thorough testing with realistic timeframes for most people",
                 cautious: "Extended timeline - extra time for thorough research, longer testing periods, and careful decision-making"
@@ -1156,7 +1158,9 @@
             phases.forEach(phase => {
                 // Adjust duration display based on pace
                 let adjustedDuration = phase.duration;
-                if (currentPace === 'aggressive') {
+                if (currentPace === 'no-timeframe') {
+                    adjustedDuration = ''; // Hide duration for exploratory mode
+                } else if (currentPace === 'aggressive') {
                     adjustedDuration = adjustedDuration.replace(/(\d+)-(\d+)/, (match, min, max) => {
                         const newMin = Math.max(1, Math.floor(parseInt(min) * 0.6));
                         const newMax = Math.floor(parseInt(max) * 0.6);
@@ -1175,7 +1179,7 @@
                         <div class="phase-header">
                             <span class="phase-number">${phase.number}</span>
                             <h3 class="phase-title">${phase.title}</h3>
-                            <span class="phase-duration">${adjustedDuration}</span>
+                            ${adjustedDuration ? `<span class="phase-duration">${adjustedDuration}</span>` : ''}
                             <p class="phase-description">${phase.description}</p>
                         </div>
                         <div class="action-items">
