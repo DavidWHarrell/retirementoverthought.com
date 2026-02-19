@@ -683,9 +683,25 @@
                 </div>
                 
                 <div class="form-group">
-                    <label for="current-age">Your Current Age</label>
+                    <label for="current-age">Age When You Stop Working</label>
+                    <small style="display: block; color: var(--color-text-light); margin-top: 0.25rem;">The age you plan to retire or transition from full-time work</small>
                     <select id="current-age">
                         <option value="">-- Select Age --</option>
+                        <option value="35">35</option>
+                        <option value="36">36</option>
+                        <option value="37">37</option>
+                        <option value="38">38</option>
+                        <option value="39">39</option>
+                        <option value="40">40</option>
+                        <option value="41">41</option>
+                        <option value="42">42</option>
+                        <option value="43">43</option>
+                        <option value="44">44</option>
+                        <option value="45">45</option>
+                        <option value="46">46</option>
+                        <option value="47">47</option>
+                        <option value="48">48</option>
+                        <option value="49">49</option>
                         <option value="50">50</option>
                         <option value="51">51</option>
                         <option value="52">52</option>
@@ -844,7 +860,7 @@
 
             // Validation
             if (!currentAge || currentAge < 50 || currentAge > 70) {
-                alert('Please select your current age (50-70)');
+                alert('Please select your retirement age (35-70)');
                 return;
             }
             if (taxDeferred <= 0) {
