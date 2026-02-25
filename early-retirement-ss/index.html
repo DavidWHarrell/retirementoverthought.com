@@ -456,8 +456,8 @@
                 <h3 class="option-title">Manual Entry</h3>
                 <p class="option-description">Enter your numbers from your Social Security statement. Quick estimate with ±10-15% accuracy.</p>
                 <ul class="option-features">
-                    <li>Just 6 numbers from your SS statement</li>
-                    <li>See if early retirement wrecks your SS or barely dents it</li>
+                    <li>Just 7 quick questions from your SS statement</li>
+                    <li>See impact at different retirement ages</li>
                     <li>Good enough for decision-making</li>
                 </ul>
                 <div class="option-privacy">
@@ -504,6 +504,12 @@
                     </div>
 
                     <div class="form-group">
+                        <label for="retirement-age">Age When You Plan to Stop Working</label>
+                        <input type="number" id="retirement-age" min="35" max="70" required>
+                        <p class="form-help">Enter your current age if you're stopping now, or a future age if you plan to work a few more years</p>
+                    </div>
+
+                    <div class="form-group">
                         <label for="years-worked">Years of SS Contributions</label>
                         <input type="number" id="years-worked" min="0" max="50" required>
                         <p class="form-help">How many years have you worked and paid into Social Security? (Check your SS statement)</p>
@@ -511,7 +517,7 @@
 
                     <div class="form-group">
                         <label for="current-income">Current Annual Income Subject to SS Tax</label>
-                        <input type="number" id="current-income" min="0" step="1000" required>
+                        <input type="number" id="current-income" min="0" step="1" required>
                         <p class="form-help">Your most recent year's earnings that were taxed for Social Security (max $168,600 in 2024)</p>
                     </div>
                 </div>
@@ -566,9 +572,12 @@ I'm uploading my Social Security statement PDF. Please:
 1. Extract my complete earnings history from the statement
 2. Identify my 35 highest indexed earning years
 3. Calculate my current AIME (Average Indexed Monthly Earnings) and PIA (Primary Insurance Amount)
-4. Show me what happens to my benefits if I stop working at different ages:
-   - If I stop working NOW (my current age)
+4. Show me what happens to my benefits if I stop working at different ages. Calculate scenarios for:
+   - If I stop working NOW (my current age shown in the statement)
    - If I stop at age 55
+   - If I stop at age 56
+   - If I stop at age 57
+   - If I stop at age 58
    - If I stop at age 60
    - If I stop at age 62
 
@@ -576,7 +585,7 @@ For each stop-work scenario, show me:
 - What my monthly SS benefit would be at age 62
 - What my monthly SS benefit would be at age 67 (FRA)
 - What my monthly SS benefit would be at age 70
-- How much this differs from SSA's projections (which assume continued work)
+- The percentage reduction from SSA's projections (which assume continued work)
 
 Please present the results in a clear table format so I can compare scenarios.
 
@@ -615,7 +624,7 @@ Account for early/delayed claiming adjustments:
                 <p id="accuracy-note">These are estimates with ±10-15% accuracy. For maximum precision, use Option 2 (Upload to Claude).</p>
             </div>
 
-            <h3 style="font-family: var(--font-serif); font-size: 1.5rem; color: var(--color-primary); margin: 2rem 0 1rem;">If You Stop Working NOW</h3>
+            <h3 style="font-family: var(--font-serif); font-size: 1.5rem; color: var(--color-primary); margin: 2rem 0 1rem;" id="results-scenario-title">If You Stop Working at Age XX</h3>
             
             <div class="results-grid">
                 <div class="result-card">
@@ -690,6 +699,7 @@ Account for early/delayed claiming adjustments:
             e.preventDefault();
             
             const currentAge = parseInt(document.getElementById('current-age').value);
+            const retirementAge = parseInt(document.getElementById('retirement-age').value);
             const yearsWorked = parseInt(document.getElementById('years-worked').value);
             const currentIncome = parseInt(document.getElementById('current-income').value);
             const ss62 = parseInt(document.getElementById('ss-62').value);
@@ -697,8 +707,13 @@ Account for early/delayed claiming adjustments:
             const ss70 = parseInt(document.getElementById('ss-70').value);
 
             // Validation
-            if (!currentAge || !yearsWorked || !currentIncome || !ss62 || !ss67 || !ss70) {
+            if (!currentAge || !retirementAge || !yearsWorked || !currentIncome || !ss62 || !ss67 || !ss70) {
                 alert('Please fill in all fields');
+                return;
+            }
+
+            if (retirementAge < currentAge) {
+                alert('Retirement age cannot be before your current age');
                 return;
             }
 
@@ -715,11 +730,15 @@ Account for early/delayed claiming adjustments:
             // Reverse engineer AIME from FRA benefit
             const estimatedAIME = reverseEngineerAIME(ss67);
             
-            // Calculate years remaining if they kept working
-            const yearsToFRA = Math.max(0, 67 - currentAge);
+            // Calculate years until retirement and years to FRA
+            const yearsToRetirement = retirementAge - currentAge;
+            const yearsToFRA = Math.max(0, 67 - retirementAge);
             
-            // Estimate reduction from stopping work now
-            const reductionFactor = calculateReductionFactor(yearsWorked, yearsToFRA, currentIncome, estimatedAIME);
+            // Calculate total years worked at retirement
+            const yearsWorkedAtRetirement = yearsWorked + yearsToRetirement;
+            
+            // Estimate reduction from stopping work at retirement age
+            const reductionFactor = calculateReductionFactor(yearsWorkedAtRetirement, yearsToFRA, currentIncome, estimatedAIME);
             
             // Calculate new benefits
             const newAIME = estimatedAIME * reductionFactor;
@@ -727,13 +746,15 @@ Account for early/delayed claiming adjustments:
             
             const results = {
                 currentAge: currentAge,
+                retirementAge: retirementAge,
                 benefit62: Math.round(newPIA * 0.70),
                 benefit67: Math.round(newPIA),
                 benefit70: Math.round(newPIA * 1.24),
                 original62: ss62,
                 original67: ss67,
                 original70: ss70,
-                reductionPercent: Math.round((1 - reductionFactor) * 100)
+                // Calculate actual percentage reduction at age 67
+                reductionPercent: Math.round(((ss67 - newPIA) / ss67) * 100)
             };
 
             displayResults(results);
@@ -792,6 +813,12 @@ Account for early/delayed claiming adjustments:
         function displayResults(results) {
             calculatedResults = results;
             
+            // Set scenario title
+            const retirementText = results.retirementAge === results.currentAge 
+                ? 'If You Stop Working NOW' 
+                : `If You Stop Working at Age ${results.retirementAge}`;
+            document.getElementById('results-scenario-title').textContent = retirementText;
+            
             // Display benefit amounts
             document.getElementById('result-62').textContent = '$' + results.benefit62.toLocaleString();
             document.getElementById('result-67').textContent = '$' + results.benefit67.toLocaleString();
@@ -816,12 +843,14 @@ Account for early/delayed claiming adjustments:
             
             // Interpretation
             let interpretation = '';
+            const retirementAgeText = results.retirementAge === results.currentAge ? 'now' : `at age ${results.retirementAge}`;
+            
             if (results.reductionPercent < 5) {
-                interpretation = `Stopping work now reduces your Social Security by only ${results.reductionPercent}%. If you already have 35+ years of work history, those missing years are replacing your lowest-earning early career years, which is why the impact is minimal.`;
+                interpretation = `Stopping work ${retirementAgeText} reduces your Social Security by only ${results.reductionPercent}%. If you already have 35+ years of work history, those missing years are replacing your lowest-earning early career years, which is why the impact is minimal.`;
             } else if (results.reductionPercent < 15) {
-                interpretation = `Stopping work now reduces your Social Security by ${results.reductionPercent}%. This is a moderate impact - working a few more years would improve your benefit, but early retirement might still be worth it depending on your other retirement income.`;
+                interpretation = `Stopping work ${retirementAgeText} reduces your Social Security by ${results.reductionPercent}%. This is a moderate impact - working a few more years would improve your benefit, but early retirement might still be worth it depending on your other retirement income.`;
             } else {
-                interpretation = `Stopping work now reduces your Social Security by ${results.reductionPercent}%. This is significant - you either don't have 35 years yet, or your recent years are much higher than your early career. Consider whether the benefit reduction is worth early retirement in your situation.`;
+                interpretation = `Stopping work ${retirementAgeText} reduces your Social Security by ${results.reductionPercent}%. This is significant - you either don't have 35 years yet, or your recent years are much higher than your early career. Consider whether the benefit reduction is worth early retirement in your situation.`;
             }
             document.getElementById('interpretation').textContent = interpretation;
             
