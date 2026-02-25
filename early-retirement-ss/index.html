@@ -384,6 +384,75 @@
             color: #92400E;
         }
 
+        /* Info Tooltip */
+        .info-icon {
+            display: inline-block;
+            width: 20px;
+            height: 20px;
+            line-height: 20px;
+            text-align: center;
+            background: var(--color-primary);
+            color: var(--color-white);
+            border-radius: 50%;
+            font-size: 0.75rem;
+            font-weight: 700;
+            cursor: help;
+            margin-left: 0.5rem;
+            position: relative;
+            user-select: none;
+        }
+
+        .info-icon:hover {
+            background: var(--color-primary-dark);
+        }
+
+        .info-tooltip {
+            display: none;
+            position: absolute;
+            bottom: calc(100% + 10px);
+            left: 50%;
+            transform: translateX(-50%);
+            background: var(--color-white);
+            border: 2px solid var(--color-primary);
+            border-radius: 8px;
+            padding: 1rem;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+            z-index: 1000;
+            width: 320px;
+            font-size: 0.9rem;
+            font-weight: normal;
+            line-height: 1.5;
+        }
+
+        .info-tooltip.active {
+            display: block;
+        }
+
+        .info-tooltip::after {
+            content: '';
+            position: absolute;
+            top: 100%;
+            left: 50%;
+            transform: translateX(-50%);
+            border: 8px solid transparent;
+            border-top-color: var(--color-primary);
+        }
+
+        .info-tooltip-title {
+            font-weight: 700;
+            color: var(--color-primary);
+            margin-bottom: 0.5rem;
+        }
+
+        .info-tooltip ul {
+            margin: 0.5rem 0 0 1.25rem;
+            padding: 0;
+        }
+
+        .info-tooltip li {
+            margin: 0.25rem 0;
+        }
+
         /* Prompt Box */
         .prompt-box {
             background: var(--color-bg);
@@ -434,7 +503,7 @@
         <header>
             <a href="/" class="back-to-home">← Back to Home</a>
             <h1>Early Retirement SS Calculator</h1>
-            <p class="subtitle">What happens to your Social Security if you stop working early?</p>
+            <p class="subtitle">Separate "when you stop working" from "when you claim benefits"</p>
         </header>
 
         <!-- Intro -->
@@ -443,6 +512,13 @@
             <p style="margin-bottom: 1rem;">Your Social Security statement assumes you'll keep working at your current income until you claim benefits. But what if you retire at 55 instead of 65? Your benefit will be lower because those missing work years get replaced with zeros in the calculation.</p>
             
             <p style="margin-bottom: 1.5rem;"><strong>This tool shows you exactly how much your SS benefit changes if you stop working early.</strong></p>
+
+            <div class="info-box" style="margin-bottom: 1.5rem;">
+                <h4>💡 Critical Insight Most People Miss</h4>
+                <p><strong>Your SS statement shows different benefits at ages 62, 67, and 70 - but each assumes you work until that claiming age.</strong></p>
+                <p style="margin-top: 0.5rem;">Example: If you're 55 and your statement shows higher benefits at age 70, that assumes you continue working (with raises) from age 55 to 70 and then claim. <span class="info-icon" onclick="toggleTooltip(event, 'tooltip-intro')">i<span class="info-tooltip" id="tooltip-intro"><div class="info-tooltip-title">Gen X Example (Age 55)</div><strong>What your statement might show:</strong><ul><li>Age 62: $1,750/month</li><li>Age 67: $2,500/month</li><li>Age 70: $3,100/month</li></ul><p style="margin-top: 0.5rem;"><strong>The catch:</strong> These assume you work from now (55) until each claiming age. If you retire at 55 but wait to claim at 70, your benefit will be much less than $3,100 because those 15 years (55-70) become zeros.</p></span></span> If you actually retire at 55 and wait to claim at 70, your benefit will be lower because Social Security is based on your 35 highest earning years - and those years from 55-70 become zeros instead of high-earning years.</p>
+                <p style="margin-top: 0.5rem;"><strong>This calculator separates "when you stop working" from "when you claim benefits"</strong> so you can see the true impact of early retirement.</p>
+            </div>
 
             <div class="info-box warning" style="margin-top: 1.5rem;">
                 <h4>⚠️ Important Disclaimer</h4>
@@ -517,9 +593,9 @@
                     </div>
 
                     <div class="form-group">
-                        <label for="years-worked">Years of SS Contributions</label>
+                        <label for="years-worked">Years of SS Contributions So Far</label>
                         <input type="number" id="years-worked" min="0" max="50" required>
-                        <p class="form-help">How many years have you worked and paid into Social Security? (Check your SS statement)</p>
+                        <p class="form-help">How many years have you already worked and paid into Social Security? (Check your SS statement). If you enter a future retirement age above, this tool will automatically add those working years to your total.</p>
                     </div>
 
                     <div class="form-group">
@@ -532,22 +608,29 @@
                 <div class="form-section">
                     <h3>Your SS Statement Estimates (Assuming Continued Work)</h3>
                     
+                    <div class="info-box warning" style="margin-bottom: 1.5rem;">
+                        <h4>🚨 Critical: Understand What These Numbers Mean</h4>
+                        <p><strong>Your SS statement assumes you work until the age you CLAIM benefits, not just until you retire.</strong></p>
+                        <p style="margin-top: 0.5rem;">For example, if you're currently 55, your statement shows benefits at different ages - but each assumes you keep working until that age. <span class="info-icon" onclick="toggleTooltip(event, 'tooltip-form')">i<span class="info-tooltip" id="tooltip-form"><div class="info-tooltip-title">Gen X Example (Age 55)</div><p><strong>What your statement shows:</strong></p><ul><li>$1,750 at age 62 → assumes you work 55-62</li><li>$2,500 at age 67 → assumes you work 55-67</li><li>$3,100 at age 70 → assumes you work 55-70</li></ul><p style="margin-top: 0.5rem;"><strong>Reality if you retire at 55:</strong> Those 7-15 years of earnings won't happen, so your actual benefits will be lower.</p></span></span></p>
+                        <p style="margin-top: 0.5rem;"><strong>If you retire early but wait to claim later, the benefit estimate on your statement is WRONG</strong> because it assumes years of earnings that won't happen. This calculator shows what you'll actually get.</p>
+                    </div>
+                    
                     <div class="form-group">
                         <label for="ss-62">Monthly Benefit at Age 62</label>
                         <input type="number" id="ss-62" min="0" step="1" required>
-                        <p class="form-help">What SSA says you'd get if you claimed at 62 and kept working until then</p>
+                        <p class="form-help">What SSA says you'd get if you claimed at 62 (assuming you work until 62)</p>
                     </div>
 
                     <div class="form-group">
                         <label for="ss-67">Monthly Benefit at Age 67 (Full Retirement Age)</label>
                         <input type="number" id="ss-67" min="0" step="1" required>
-                        <p class="form-help">Your Full Retirement Age benefit estimate</p>
+                        <p class="form-help">Your Full Retirement Age benefit (assuming you work until 67)</p>
                     </div>
 
                     <div class="form-group">
                         <label for="ss-70">Monthly Benefit at Age 70</label>
                         <input type="number" id="ss-70" min="0" step="1" required>
-                        <p class="form-help">Maximum benefit if you delay until 70</p>
+                        <p class="form-help">Maximum benefit if you delay until 70 (assuming you work until 70)</p>
                     </div>
                 </div>
 
@@ -574,27 +657,31 @@
             <h3 style="margin-top: 2rem; margin-bottom: 1rem; color: var(--color-primary);">Step 3: Copy This Prompt</h3>
             <div class="prompt-box" id="option2-prompt">I need help calculating what my Social Security benefits would be if I stop working early, rather than continuing to work as SSA assumes.
 
+🚨 CRITICAL CONTEXT: My Social Security statement shows benefits at ages 62, 67, and 70 - but these numbers assume I continue working until the age I CLAIM benefits, not just until I retire. For example, if my statement shows $4,841 at age 70, that assumes I work continuously until age 70 and then claim. If I actually retire at 55 and wait to claim until 70, that $4,841 is completely wrong because it assumes 15 years of earnings that won't happen.
+
 I'm uploading my Social Security statement PDF. Please:
 
 1. Extract my complete earnings history from the statement
 2. Identify my 35 highest indexed earning years
 3. Calculate my current AIME (Average Indexed Monthly Earnings) and PIA (Primary Insurance Amount)
-4. Show me what happens to my benefits if I stop working at different ages. Calculate scenarios for:
-   - If I stop working NOW (my current age shown in the statement)
-   - If I stop at age 55
-   - If I stop at age 56
-   - If I stop at age 57
-   - If I stop at age 58
-   - If I stop at age 60
-   - If I stop at age 62
+4. Show me what happens to my benefits if I STOP WORKING at different ages but WAIT TO CLAIM later. Calculate scenarios for:
+   - Stop working NOW (my current age), then show what I'd get if I claim at 62, 67, or 70
+   - Stop working at age 55, then show what I'd get if I claim at 62, 67, or 70
+   - Stop working at age 56, then show what I'd get if I claim at 62, 67, or 70
+   - Stop working at age 57, then show what I'd get if I claim at 62, 67, or 70
+   - Stop working at age 58, then show what I'd get if I claim at 62, 67, or 70
+   - Stop working at age 60, then show what I'd get if I claim at 62, 67, or 70
+   - Stop working at age 62, then show what I'd get if I claim at 62, 67, or 70
 
-For each stop-work scenario, show me:
-- What my monthly SS benefit would be at age 62
-- What my monthly SS benefit would be at age 67 (FRA)
-- What my monthly SS benefit would be at age 70
-- The percentage reduction from SSA's projections (which assume continued work)
+This is VERY DIFFERENT from what my SSA statement shows. My statement assumes I work continuously until I claim. I want to know what happens if I retire early but delay claiming.
 
-Please present the results in a clear table format so I can compare scenarios.
+For each stop-work age, show me:
+- Monthly SS benefit if I claim at age 62 (after retiring early)
+- Monthly SS benefit if I claim at age 67 (after retiring early)
+- Monthly SS benefit if I claim at age 70 (after retiring early)
+- The percentage reduction from SSA's projections (which wrongly assume I work until claiming age)
+
+Please present the results in a clear table format so I can compare scenarios. Make it clear that "Stop at 55, Claim at 70" is VERY different from SSA's assumption of "Work until 70, Claim at 70."
 
 Use 2024 bend points for calculations:
 - 90% of first $1,174 of AIME
@@ -604,7 +691,9 @@ Use 2024 bend points for calculations:
 Account for early/delayed claiming adjustments:
 - Age 62: 70% of PIA
 - Age 67: 100% of PIA (Full Retirement Age)
-- Age 70: 124% of PIA</div>
+- Age 70: 124% of PIA
+
+The key insight: My PIA is based on when I STOP WORKING (which determines my AIME), but my actual benefit is PIA × claiming age adjustment. Most people don't realize their SSA statement conflates these two things.</div>
 
             <button class="copy-button" onclick="copyPrompt()">📋 Copy Prompt to Clipboard</button>
 
@@ -851,22 +940,25 @@ Account for early/delayed claiming adjustments:
                 }
             };
             
-            document.getElementById('change-62').textContent = `${formatChange(change62)} vs. continuing work`;
-            document.getElementById('change-67').textContent = `${formatChange(change67)} vs. continuing work`;
-            document.getElementById('change-70').textContent = `${formatChange(change70)} vs. continuing work`;
+            document.getElementById('change-62').textContent = `${formatChange(change62)} vs. working until 62`;
+            document.getElementById('change-67').textContent = `${formatChange(change67)} vs. working until 67`;
+            document.getElementById('change-70').textContent = `${formatChange(change70)} vs. working until 70`;
             
             // Interpretation
             let interpretation = '';
             const retirementAgeText = results.retirementAge === results.currentAge ? 'now' : `at age ${results.retirementAge}`;
             
             if (results.reductionPercent < 5) {
-                interpretation = `Stopping work ${retirementAgeText} reduces your Social Security by only ${results.reductionPercent}%. If you already have 35+ years of work history, those missing years are replacing your lowest-earning early career years, which is why the impact is minimal.`;
+                interpretation = `Stopping work ${retirementAgeText} reduces your Social Security by only ${results.reductionPercent}%. If you already have 35+ years of work history, those missing years are replacing your lowest-earning early career years, which is why the impact is minimal. `;
+                interpretation += `<strong>Key insight:</strong> You can retire at ${results.retirementAge} and still delay claiming until 70 - your benefit would be ${results.benefit70.toLocaleString()}/month, not the much higher number on your SS statement (which assumes you work until 70).`;
             } else if (results.reductionPercent < 15) {
-                interpretation = `Stopping work ${retirementAgeText} reduces your Social Security by ${results.reductionPercent}%. This is a moderate impact - working a few more years would improve your benefit, but early retirement might still be worth it depending on your other retirement income.`;
+                interpretation = `Stopping work ${retirementAgeText} reduces your Social Security by ${results.reductionPercent}%. This is a moderate impact - working a few more years would improve your benefit, but early retirement might still be worth it depending on your other retirement income. `;
+                interpretation += `<strong>Remember:</strong> The numbers above show what you'd get if you retire at ${results.retirementAge} but wait to claim later. This is very different from your SS statement, which assumes you work until claiming age.`;
             } else {
-                interpretation = `Stopping work ${retirementAgeText} reduces your Social Security by ${results.reductionPercent}%. This is significant - you either don't have 35 years yet, or your recent years are much higher than your early career. Consider whether the benefit reduction is worth early retirement in your situation.`;
+                interpretation = `Stopping work ${retirementAgeText} reduces your Social Security by ${results.reductionPercent}%. This is significant - you either don't have 35 years yet, or your recent years are much higher than your early career. `;
+                interpretation += `<strong>Important:</strong> If you retire at ${results.retirementAge} and wait to claim at 70, you'd get $${results.benefit70.toLocaleString()}/month - NOT the higher amount shown on your SS statement, which incorrectly assumes you work until 70.`;
             }
-            document.getElementById('interpretation').textContent = interpretation;
+            document.getElementById('interpretation').innerHTML = interpretation;
             
             // Show results
             document.getElementById('results').classList.add('active');
@@ -898,6 +990,28 @@ Account for early/delayed claiming adjustments:
             document.getElementById('results').classList.remove('active');
             window.scrollTo({ top: 0, behavior: 'smooth' });
         }
+
+        // Toggle info tooltip
+        function toggleTooltip(event, tooltipId) {
+            event.stopPropagation();
+            const tooltip = document.getElementById(tooltipId);
+            const wasActive = tooltip.classList.contains('active');
+            
+            // Close all tooltips
+            document.querySelectorAll('.info-tooltip').forEach(t => t.classList.remove('active'));
+            
+            // Toggle this tooltip
+            if (!wasActive) {
+                tooltip.classList.add('active');
+            }
+        }
+
+        // Close tooltips when clicking outside
+        document.addEventListener('click', function(event) {
+            if (!event.target.closest('.info-icon')) {
+                document.querySelectorAll('.info-tooltip').forEach(t => t.classList.remove('active'));
+            }
+        });
     </script>
 </body>
 </html>
