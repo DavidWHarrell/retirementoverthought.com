@@ -563,19 +563,19 @@
                     
                     <div class="form-group">
                         <label for="ss-62-t1">Monthly Benefit at Age 62</label>
-                        <input type="number" id="ss-62-t1" min="0" step="10" required>
+                        <input type="number" id="ss-62-t1" min="0" step="1" required>
                         <p class="form-help">What SSA says you'd get if you claimed at 62 and kept working until then</p>
                     </div>
 
                     <div class="form-group">
                         <label for="ss-67-t1">Monthly Benefit at Age 67 (Full Retirement Age)</label>
-                        <input type="number" id="ss-67-t1" min="0" step="10" required>
+                        <input type="number" id="ss-67-t1" min="0" step="1" required>
                         <p class="form-help">Your Full Retirement Age benefit estimate</p>
                     </div>
 
                     <div class="form-group">
                         <label for="ss-70-t1">Monthly Benefit at Age 70</label>
-                        <input type="number" id="ss-70-t1" min="0" step="10" required>
+                        <input type="number" id="ss-70-t1" min="0" step="1" required>
                         <p class="form-help">Maximum benefit if you delay until 70</p>
                     </div>
                 </div>
@@ -787,6 +787,25 @@ Account for early/delayed claiming adjustments:
             const ss67 = parseInt(document.getElementById('ss-67-t1').value);
             const ss70 = parseInt(document.getElementById('ss-70-t1').value);
 
+            // Validation
+            if (!currentAge || !yearsWorked || !currentIncome || !ss62 || !ss67 || !ss70) {
+                alert('Please fill in all fields');
+                return;
+            }
+
+            if (ss62 < 500 || ss62 > 5000) {
+                alert('Age 62 benefit seems unusual. Please enter your MONTHLY benefit amount (typically $1,000-$4,000)');
+                return;
+            }
+
+            if (ss67 < 500 || ss67 > 6000) {
+                alert('Age 67 benefit seems unusual. Please enter your MONTHLY benefit amount (typically $1,500-$5,000)');
+                return;
+            }
+
+            // Debug logging
+            console.log('Input values:', { currentAge, yearsWorked, currentIncome, ss62, ss67, ss70 });
+
             // Reverse engineer AIME from FRA benefit
             const estimatedAIME = reverseEngineerAIME(ss67);
             
@@ -812,6 +831,9 @@ Account for early/delayed claiming adjustments:
                 original70: ss70,
                 reductionPercent: Math.round((1 - reductionFactor) * 100)
             };
+
+            // Debug logging
+            console.log('Calculated results:', results);
 
             displayResults(results);
         });
@@ -988,9 +1010,17 @@ Account for early/delayed claiming adjustments:
             const change67 = results.benefit67 - results.original67;
             const change70 = results.benefit70 - results.original70;
             
-            document.getElementById('change-62').textContent = `${change62 > 0 ? '+' : ''}$${change62.toLocaleString()} vs. continuing work`;
-            document.getElementById('change-67').textContent = `${change67 > 0 ? '+' : ''}$${change67.toLocaleString()} vs. continuing work`;
-            document.getElementById('change-70').textContent = `${change70 > 0 ? '+' : ''}$${change70.toLocaleString()} vs. continuing work`;
+            const formatChange = (change) => {
+                if (change >= 0) {
+                    return `+$${change.toLocaleString()}`;
+                } else {
+                    return `-$${Math.abs(change).toLocaleString()}`;
+                }
+            };
+            
+            document.getElementById('change-62').textContent = `${formatChange(change62)} vs. continuing work`;
+            document.getElementById('change-67').textContent = `${formatChange(change67)} vs. continuing work`;
+            document.getElementById('change-70').textContent = `${formatChange(change70)} vs. continuing work`;
             
             // Interpretation
             let interpretation = '';
