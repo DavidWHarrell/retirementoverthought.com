@@ -442,7 +442,13 @@
             <h2>The Problem</h2>
             <p style="margin-bottom: 1rem;">Your Social Security statement assumes you'll keep working at your current income until you claim benefits. But what if you retire at 55 instead of 65? Your benefit will be lower because those missing work years get replaced with zeros in the calculation.</p>
             
-            <p><strong>This tool shows you exactly how much your SS benefit changes if you stop working early.</strong></p>
+            <p style="margin-bottom: 1.5rem;"><strong>This tool shows you exactly how much your SS benefit changes if you stop working early.</strong></p>
+
+            <div class="info-box warning" style="margin-top: 1.5rem;">
+                <h4>⚠️ Important Disclaimer</h4>
+                <p><strong>This is NOT financial advice.</strong> These calculators are educational tools to help you understand how early retirement affects Social Security benefits. The estimates are approximations meant to give you better talking points when discussing retirement planning with your financial advisor.</p>
+                <p style="margin-top: 0.5rem;">Always consult with a qualified financial advisor before making retirement decisions. Your actual benefits may differ based on your complete earnings history, future Social Security policy changes, and individual circumstances.</p>
+            </div>
         </div>
 
         <!-- Option Selection -->
@@ -454,11 +460,11 @@
                     <span class="option-time">~5 minutes</span>
                 </div>
                 <h3 class="option-title">Manual Entry</h3>
-                <p class="option-description">Enter your numbers from your Social Security statement. Quick estimate with ±10-15% accuracy.</p>
+                <p class="option-description">Quick estimate to see if early retirement significantly impacts your Social Security or not. Good enough for informed conversations with your financial advisor.</p>
                 <ul class="option-features">
                     <li>Just 7 quick questions from your SS statement</li>
-                    <li>See impact at different retirement ages</li>
-                    <li>Good enough for decision-making</li>
+                    <li>Know if stopping early wrecks your benefit or barely dents it</li>
+                    <li>Better talking points for your financial advisor</li>
                 </ul>
                 <div class="option-privacy">
                     <strong>🔒 Privacy:</strong> 100% secure. All calculations happen in your browser. Your data never leaves your computer.
@@ -472,9 +478,9 @@
                     <span class="option-time">~10 minutes</span>
                 </div>
                 <h3 class="option-title">Upload to Claude</h3>
-                <p class="option-description">Upload your SS statement PDF to Claude for maximum accuracy. Within $10-20/month of actual benefits.</p>
+                <p class="option-description">Upload your SS statement PDF to Claude for the most accurate estimate. Best for precise numbers when planning with your financial advisor.</p>
                 <ul class="option-features">
-                    <li>Most accurate possible estimate</li>
+                    <li>Most accurate estimate possible</li>
                     <li>Uses your complete earnings history</li>
                     <li>Pre-written prompt - just copy & paste</li>
                 </ul>
@@ -492,6 +498,7 @@
                 <h4>What You Need</h4>
                 <p>Your Social Security statement shows your estimated benefits at ages 62, 67, and 70 <strong>assuming you keep working</strong> at your current income. We'll use those numbers to estimate what they'd be if you stopped working early.</p>
                 <p style="margin-top: 0.5rem;">Find your statement at: <a href="https://www.ssa.gov/myaccount/" target="_blank">ssa.gov/myaccount</a></p>
+                <p style="margin-top: 0.5rem;"><em>This tool gives you directional guidance - enough to know if early retirement significantly impacts your SS. For precise planning, work with your financial advisor or use Option 2 for more accurate estimates.</em></p>
             </div>
 
             <form id="option1-form">
@@ -607,6 +614,7 @@ Account for early/delayed claiming adjustments:
             <div class="info-box" style="margin-top: 2rem;">
                 <h4>💡 What You'll Get</h4>
                 <p>Claude will provide a detailed breakdown showing exactly how your benefits change at each retirement age, using your actual full earnings history. This is the most accurate estimate possible without being the SSA itself.</p>
+                <p style="margin-top: 0.5rem;"><strong>Remember:</strong> These are still estimates for educational purposes. Use them to have informed discussions with your financial advisor, who can help you make decisions based on your complete financial picture.</p>
             </div>
 
             <button class="btn-secondary" onclick="window.open('https://claude.ai', '_blank')">Open Claude.ai →</button>
@@ -616,12 +624,13 @@ Account for early/delayed claiming adjustments:
         <div id="results" class="results-section">
             <div class="results-header">
                 <h2>Your Early Retirement Impact</h2>
-                <p style="color: var(--color-text-light); font-size: 1.1rem;">Manual Entry Estimate (±10-15% accuracy)</p>
+                <p style="color: var(--color-text-light); font-size: 1.1rem;">Manual Entry Estimate</p>
             </div>
 
             <div class="info-box warning">
-                <h4>⚠️ Important Context</h4>
-                <p id="accuracy-note">These are estimates with ±10-15% accuracy. For maximum precision, use Option 2 (Upload to Claude).</p>
+                <h4>⚠️ About These Estimates</h4>
+                <p id="accuracy-note">These are estimates designed to show you the general impact of early retirement on your Social Security benefits. They're meant to help you have informed conversations with your financial advisor, not to replace professional financial planning.</p>
+                <p style="margin-top: 0.5rem;">For maximum precision, use Option 2 (Upload to Claude) or consult with your financial advisor using these estimates as talking points.</p>
             </div>
 
             <h3 style="font-family: var(--font-serif); font-size: 1.5rem; color: var(--color-primary); margin: 2rem 0 1rem;" id="results-scenario-title">If You Stop Working at Age XX</h3>
@@ -649,9 +658,14 @@ Account for early/delayed claiming adjustments:
                 <p id="interpretation"></p>
             </div>
 
-            <h3 style="font-family: var(--font-serif); font-size: 1.5rem; color: var(--color-primary); margin: 2rem 0 1rem;">Next Step: Optimize Your Claiming Age</h3>
+            <h3 style="font-family: var(--font-serif); font-size: 1.5rem; color: var(--color-primary); margin: 2rem 0 1rem;">Next Steps</h3>
             
-            <p style="margin-bottom: 1rem;">Now that you know what your SS benefit will be if you retire early, use our SS Claiming Age Optimizer to determine whether claiming at 62, 67, or 70 makes the most financial sense for your situation.</p>
+            <div class="info-box" style="margin-bottom: 1.5rem;">
+                <h4>💼 Discuss With Your Financial Advisor</h4>
+                <p>Use these estimates as talking points with your financial advisor. They can help you understand how this SS impact fits into your complete retirement picture, including your other income sources, tax strategy, and long-term financial goals.</p>
+            </div>
+
+            <p style="margin-bottom: 1rem;"><strong>Want to optimize when to claim Social Security?</strong> Our SS Claiming Age Optimizer helps you determine whether claiming at 62, 67, or 70 makes the most financial sense based on your portfolio size and retirement income needs.</p>
 
             <button class="btn" onclick="goToOptimizer()">Use These Numbers in SS Optimizer →</button>
 
