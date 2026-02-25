@@ -102,98 +102,103 @@
             margin-bottom: 1rem;
         }
 
-        /* Tier Cards */
-        .tier-selection {
+        /* Option Cards */
+        .option-selection {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 1.5rem;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 2rem;
             margin-bottom: 2rem;
         }
 
-        .tier-card {
+        .option-card {
             background: var(--color-white);
-            border: 2px solid var(--color-border);
+            border: 3px solid var(--color-border);
             border-radius: 8px;
-            padding: 1.5rem;
+            padding: 2rem;
             cursor: pointer;
             transition: all 0.3s ease;
         }
 
-        .tier-card:hover {
+        .option-card:hover {
             border-color: var(--color-primary);
             box-shadow: 0 4px 12px rgba(10, 95, 127, 0.15);
             transform: translateY(-2px);
         }
 
-        .tier-card.active {
+        .option-card.active {
             border-color: var(--color-primary);
             background: var(--color-primary-light);
         }
 
-        .tier-header {
+        .option-header {
             display: flex;
             justify-content: space-between;
             align-items: center;
-            margin-bottom: 1rem;
+            margin-bottom: 1.5rem;
+            padding-bottom: 1rem;
+            border-bottom: 2px solid var(--color-border);
         }
 
-        .tier-number {
+        .option-number {
             font-family: var(--font-serif);
-            font-size: 2rem;
+            font-size: 2.5rem;
             font-weight: 700;
             color: var(--color-primary);
         }
 
-        .tier-time {
+        .option-time {
             background: var(--color-primary);
             color: var(--color-white);
-            padding: 0.25rem 0.75rem;
+            padding: 0.5rem 1rem;
             border-radius: 12px;
-            font-size: 0.85rem;
+            font-size: 0.9rem;
             font-weight: 600;
         }
 
-        .tier-title {
+        .option-title {
             font-family: var(--font-serif);
-            font-size: 1.5rem;
+            font-size: 1.75rem;
             color: var(--color-primary);
-            margin-bottom: 0.5rem;
+            margin-bottom: 0.75rem;
         }
 
-        .tier-accuracy {
+        .option-description {
             color: var(--color-text-light);
-            font-size: 0.9rem;
-            margin-bottom: 1rem;
+            font-size: 1rem;
+            margin-bottom: 1.5rem;
+            line-height: 1.6;
         }
 
-        .tier-features {
+        .option-features {
             list-style: none;
-            margin-bottom: 1rem;
+            margin-bottom: 1.5rem;
         }
 
-        .tier-features li {
-            padding: 0.25rem 0;
-            padding-left: 1.5rem;
+        .option-features li {
+            padding: 0.5rem 0;
+            padding-left: 1.75rem;
             position: relative;
+            line-height: 1.5;
         }
 
-        .tier-features li:before {
+        .option-features li:before {
             content: "✓";
             position: absolute;
             left: 0;
             color: var(--color-success);
             font-weight: 700;
+            font-size: 1.2rem;
         }
 
-        .tier-privacy {
-            font-size: 0.85rem;
-            padding: 0.75rem;
+        .option-privacy {
+            font-size: 0.9rem;
+            padding: 1rem;
             background: var(--color-primary-light);
-            border-radius: 4px;
-            border-left: 3px solid var(--color-primary);
+            border-radius: 6px;
+            border-left: 4px solid var(--color-primary);
         }
 
-        .tier-privacy.warning {
+        .option-privacy.warning {
             background: #FEF3C7;
             border-left-color: var(--color-warning);
         }
@@ -379,34 +384,7 @@
             color: #92400E;
         }
 
-        /* Tier 2 Earnings Table */
-        .earnings-table {
-            width: 100%;
-            border-collapse: collapse;
-            margin: 1rem 0;
-        }
-
-        .earnings-table th,
-        .earnings-table td {
-            padding: 0.75rem;
-            border: 1px solid var(--color-border);
-            text-align: left;
-        }
-
-        .earnings-table th {
-            background: var(--color-primary-light);
-            color: var(--color-primary-dark);
-            font-weight: 600;
-        }
-
-        .earnings-table input {
-            width: 100%;
-            padding: 0.5rem;
-            border: 1px solid var(--color-border);
-            border-radius: 4px;
-        }
-
-        /* Tier 3 Prompt Box */
+        /* Prompt Box */
         .prompt-box {
             background: var(--color-bg);
             border: 2px solid var(--color-border);
@@ -423,12 +401,13 @@
         .copy-button {
             background: var(--color-success);
             color: var(--color-white);
-            padding: 0.5rem 1rem;
+            padding: 0.75rem 1.5rem;
             border: none;
-            border-radius: 4px;
+            border-radius: 6px;
             font-weight: 600;
             cursor: pointer;
             margin-top: 0.5rem;
+            font-size: 1rem;
         }
 
         .copy-button:hover {
@@ -440,7 +419,7 @@
                 font-size: 2rem;
             }
 
-            .tier-selection {
+            .option-selection {
                 grid-template-columns: 1fr;
             }
 
@@ -463,72 +442,51 @@
             <h2>The Problem</h2>
             <p style="margin-bottom: 1rem;">Your Social Security statement assumes you'll keep working at your current income until you claim benefits. But what if you retire at 55 instead of 65? Your benefit will be lower because those missing work years get replaced with zeros in the calculation.</p>
             
-            <p style="margin-bottom: 1rem;"><strong>This tool shows you exactly how much your SS benefit changes if you stop working early.</strong></p>
-
-            <h2 style="margin-top: 2rem; margin-bottom: 1rem;">Your Data, Your Computer</h2>
-            <p>We built this tool so your data never has to leave your computer. Choose the level of accuracy you want:</p>
+            <p><strong>This tool shows you exactly how much your SS benefit changes if you stop working early.</strong></p>
         </div>
 
-        <!-- Tier Selection -->
-        <div class="tier-selection">
-            <!-- Tier 1 -->
-            <div class="tier-card" onclick="selectTier(1)">
-                <div class="tier-header">
-                    <span class="tier-number">Tier 1</span>
-                    <span class="tier-time">5 minutes</span>
+        <!-- Option Selection -->
+        <div class="option-selection">
+            <!-- Option 1: Manual Entry -->
+            <div class="option-card" onclick="selectOption(1)">
+                <div class="option-header">
+                    <span class="option-number">Option 1</span>
+                    <span class="option-time">~5 minutes</span>
                 </div>
-                <h3 class="tier-title">Quick Estimate</h3>
-                <p class="tier-accuracy">Accuracy: ±10-15%</p>
-                <ul class="tier-features">
-                    <li>Just 3 numbers from your SS statement</li>
-                    <li>No earnings history needed</li>
+                <h3 class="option-title">Manual Entry</h3>
+                <p class="option-description">Enter your numbers from your Social Security statement. Quick estimate with ±10-15% accuracy.</p>
+                <ul class="option-features">
+                    <li>Just 6 numbers from your SS statement</li>
                     <li>See if early retirement wrecks your SS or barely dents it</li>
+                    <li>Good enough for decision-making</li>
                 </ul>
-                <div class="tier-privacy">
-                    <strong>🔒 Privacy:</strong> 100% client-side. Data never leaves your browser.
+                <div class="option-privacy">
+                    <strong>🔒 Privacy:</strong> 100% secure. All calculations happen in your browser. Your data never leaves your computer.
                 </div>
             </div>
 
-            <!-- Tier 2 -->
-            <div class="tier-card" onclick="selectTier(2)">
-                <div class="tier-header">
-                    <span class="tier-number">Tier 2</span>
-                    <span class="tier-time">15 minutes</span>
+            <!-- Option 2: Upload to Claude -->
+            <div class="option-card" onclick="selectOption(2)">
+                <div class="option-header">
+                    <span class="option-number">Option 2</span>
+                    <span class="option-time">~10 minutes</span>
                 </div>
-                <h3 class="tier-title">Refined Estimate</h3>
-                <p class="tier-accuracy">Accuracy: ±3-5%</p>
-                <ul class="tier-features">
-                    <li>Add your top 10-15 earning years</li>
-                    <li>Close enough for real planning</li>
-                    <li>See exact impact of each retirement age</li>
-                </ul>
-                <div class="tier-privacy">
-                    <strong>🔒 Privacy:</strong> Still 100% client-side. Data processed locally, gone when you close the tab.
-                </div>
-            </div>
-
-            <!-- Tier 3 -->
-            <div class="tier-card" onclick="selectTier(3)">
-                <div class="tier-header">
-                    <span class="tier-number">Tier 3</span>
-                    <span class="tier-time">10 minutes</span>
-                </div>
-                <h3 class="tier-title">Maximum Accuracy</h3>
-                <p class="tier-accuracy">Accuracy: Within $10-20/month</p>
-                <ul class="tier-features">
-                    <li>Upload SS statement PDF to Claude</li>
-                    <li>Full earnings history analysis</li>
+                <h3 class="option-title">Upload to Claude</h3>
+                <p class="option-description">Upload your SS statement PDF to Claude for maximum accuracy. Within $10-20/month of actual benefits.</p>
+                <ul class="option-features">
                     <li>Most accurate possible estimate</li>
+                    <li>Uses your complete earnings history</li>
+                    <li>Pre-written prompt - just copy & paste</li>
                 </ul>
-                <div class="tier-privacy warning">
+                <div class="option-privacy warning">
                     <strong>⚠️ Privacy:</strong> You upload your PDF directly to Claude (Anthropic), not this site. <a href="https://www.anthropic.com/legal/privacy" target="_blank">Read their privacy policy</a>
                 </div>
             </div>
         </div>
 
-        <!-- Tier 1 Calculator -->
-        <div id="tier1-calc" class="calculator-section">
-            <h2 style="font-family: var(--font-serif); font-size: 2rem; color: var(--color-primary); margin-bottom: 1.5rem;">Tier 1: Quick Estimate</h2>
+        <!-- Option 1 Calculator -->
+        <div id="option1-calc" class="calculator-section">
+            <h2 style="font-family: var(--font-serif); font-size: 2rem; color: var(--color-primary); margin-bottom: 1.5rem;">Manual Entry</h2>
 
             <div class="info-box">
                 <h4>What You Need</h4>
@@ -536,24 +494,24 @@
                 <p style="margin-top: 0.5rem;">Find your statement at: <a href="https://www.ssa.gov/myaccount/" target="_blank">ssa.gov/myaccount</a></p>
             </div>
 
-            <form id="tier1-form">
+            <form id="option1-form">
                 <div class="form-section">
                     <h3>About You</h3>
                     
                     <div class="form-group">
-                        <label for="current-age-t1">Your Current Age</label>
-                        <input type="number" id="current-age-t1" min="35" max="70" required>
+                        <label for="current-age">Your Current Age</label>
+                        <input type="number" id="current-age" min="35" max="70" required>
                     </div>
 
                     <div class="form-group">
-                        <label for="years-worked-t1">Years of SS Contributions</label>
-                        <input type="number" id="years-worked-t1" min="0" max="50" required>
+                        <label for="years-worked">Years of SS Contributions</label>
+                        <input type="number" id="years-worked" min="0" max="50" required>
                         <p class="form-help">How many years have you worked and paid into Social Security? (Check your SS statement)</p>
                     </div>
 
                     <div class="form-group">
-                        <label for="current-income-t1">Current Annual Income Subject to SS Tax</label>
-                        <input type="number" id="current-income-t1" min="0" step="1000" required>
+                        <label for="current-income">Current Annual Income Subject to SS Tax</label>
+                        <input type="number" id="current-income" min="0" step="1000" required>
                         <p class="form-help">Your most recent year's earnings that were taxed for Social Security (max $168,600 in 2024)</p>
                     </div>
                 </div>
@@ -562,20 +520,20 @@
                     <h3>Your SS Statement Estimates (Assuming Continued Work)</h3>
                     
                     <div class="form-group">
-                        <label for="ss-62-t1">Monthly Benefit at Age 62</label>
-                        <input type="number" id="ss-62-t1" min="0" step="1" required>
+                        <label for="ss-62">Monthly Benefit at Age 62</label>
+                        <input type="number" id="ss-62" min="0" step="1" required>
                         <p class="form-help">What SSA says you'd get if you claimed at 62 and kept working until then</p>
                     </div>
 
                     <div class="form-group">
-                        <label for="ss-67-t1">Monthly Benefit at Age 67 (Full Retirement Age)</label>
-                        <input type="number" id="ss-67-t1" min="0" step="1" required>
+                        <label for="ss-67">Monthly Benefit at Age 67 (Full Retirement Age)</label>
+                        <input type="number" id="ss-67" min="0" step="1" required>
                         <p class="form-help">Your Full Retirement Age benefit estimate</p>
                     </div>
 
                     <div class="form-group">
-                        <label for="ss-70-t1">Monthly Benefit at Age 70</label>
-                        <input type="number" id="ss-70-t1" min="0" step="1" required>
+                        <label for="ss-70">Monthly Benefit at Age 70</label>
+                        <input type="number" id="ss-70" min="0" step="1" required>
                         <p class="form-help">Maximum benefit if you delay until 70</p>
                     </div>
                 </div>
@@ -584,68 +542,24 @@
             </form>
         </div>
 
-        <!-- Tier 2 Calculator -->
-        <div id="tier2-calc" class="calculator-section">
-            <h2 style="font-family: var(--font-serif); font-size: 2rem; color: var(--color-primary); margin-bottom: 1.5rem;">Tier 2: Refined Estimate</h2>
-
-            <div class="info-box">
-                <h4>Why This Is More Accurate</h4>
-                <p>Social Security uses your 35 highest earning years. By entering your actual top earning years, we can precisely calculate how zeros from early retirement affect your benefit.</p>
-                <p style="margin-top: 0.5rem;"><strong>Good news:</strong> If you already have 35+ years of work, you probably only need to enter your last 10-15 years — those are almost certainly your highest.</p>
-            </div>
-
-            <p style="margin-bottom: 1rem;"><em>Start with Tier 1 inputs, then add your earnings history below:</em></p>
-
-            <button class="btn-secondary" onclick="copyTier1Data()">↑ Copy My Tier 1 Data</button>
-
-            <form id="tier2-form">
-                <div class="form-section">
-                    <h3>About You</h3>
-                    
-                    <div class="form-group">
-                        <label for="current-age-t2">Your Current Age</label>
-                        <input type="number" id="current-age-t2" min="35" max="70" required>
-                    </div>
-
-                    <div class="form-group">
-                        <label for="years-worked-t2">Years of SS Contributions</label>
-                        <input type="number" id="years-worked-t2" min="0" max="50" required>
-                    </div>
-                </div>
-
-                <div class="form-section">
-                    <h3>Your Earnings History</h3>
-                    <p class="form-help" style="margin-bottom: 1rem;">Enter your earnings for your highest-earning years. If you have 35+ years worked, focus on your most recent 10-15 years.</p>
-                    
-                    <div id="earnings-inputs">
-                        <!-- Dynamic earnings inputs will be added here -->
-                    </div>
-
-                    <button type="button" class="btn-secondary" onclick="addEarningsRow()">+ Add Year</button>
-                </div>
-
-                <button type="submit" class="btn">Calculate Refined Estimate</button>
-            </form>
-        </div>
-
-        <!-- Tier 3 Instructions -->
-        <div id="tier3-calc" class="calculator-section">
-            <h2 style="font-family: var(--font-serif); font-size: 2rem; color: var(--color-primary); margin-bottom: 1.5rem;">Tier 3: Maximum Accuracy</h2>
+        <!-- Option 2: Upload Instructions -->
+        <div id="option2-calc" class="calculator-section">
+            <h2 style="font-family: var(--font-serif); font-size: 2rem; color: var(--color-primary); margin-bottom: 1.5rem;">Upload to Claude for Maximum Accuracy</h2>
 
             <div class="info-box warning">
                 <h4>⚠️ Important Privacy Notice</h4>
-                <p><strong>This tier works differently.</strong> You'll upload your Social Security statement PDF directly to Claude (made by Anthropic), not to this website. Your data goes to Anthropic's servers to be processed.</p>
+                <p><strong>This option works differently.</strong> You'll upload your Social Security statement PDF directly to Claude (made by Anthropic), not to this website. Your data goes to Anthropic's servers to be processed.</p>
                 <p style="margin-top: 0.5rem;">Before proceeding, read <a href="https://www.anthropic.com/legal/privacy" target="_blank">Anthropic's Privacy Policy</a> to understand how they handle your data.</p>
             </div>
 
-            <h3 style="margin-top: 2rem; margin-bottom: 1rem;">Step 1: Get Your SS Statement PDF</h3>
-            <p style="margin-bottom: 1rem;">Download your statement from: <a href="https://www.ssa.gov/myaccount/" target="_blank">ssa.gov/myaccount</a></p>
+            <h3 style="margin-top: 2rem; margin-bottom: 1rem; color: var(--color-primary);">Step 1: Get Your SS Statement PDF</h3>
+            <p style="margin-bottom: 1.5rem;">Download your statement from: <a href="https://www.ssa.gov/myaccount/" target="_blank">ssa.gov/myaccount</a></p>
 
-            <h3 style="margin-top: 2rem; margin-bottom: 1rem;">Step 2: Open Claude</h3>
-            <p style="margin-bottom: 1rem;">Go to <a href="https://claude.ai" target="_blank">claude.ai</a> and start a new chat</p>
+            <h3 style="margin-top: 2rem; margin-bottom: 1rem; color: var(--color-primary);">Step 2: Open Claude</h3>
+            <p style="margin-bottom: 1.5rem;">Go to <a href="https://claude.ai" target="_blank">claude.ai</a> and start a new chat</p>
 
-            <h3 style="margin-top: 2rem; margin-bottom: 1rem;">Step 3: Copy This Prompt</h3>
-            <div class="prompt-box" id="tier3-prompt">I need help calculating what my Social Security benefits would be if I stop working early, rather than continuing to work as SSA assumes.
+            <h3 style="margin-top: 2rem; margin-bottom: 1rem; color: var(--color-primary);">Step 3: Copy This Prompt</h3>
+            <div class="prompt-box" id="option2-prompt">I need help calculating what my Social Security benefits would be if I stop working early, rather than continuing to work as SSA assumes.
 
 I'm uploading my Social Security statement PDF. Please:
 
@@ -676,27 +590,29 @@ Account for early/delayed claiming adjustments:
 - Age 67: 100% of PIA (Full Retirement Age)
 - Age 70: 124% of PIA</div>
 
-            <button class="copy-button" onclick="copyPrompt()">📋 Copy Prompt</button>
+            <button class="copy-button" onclick="copyPrompt()">📋 Copy Prompt to Clipboard</button>
 
-            <h3 style="margin-top: 2rem; margin-bottom: 1rem;">Step 4: Upload Your PDF & Paste the Prompt</h3>
-            <p style="margin-bottom: 1rem;">Upload your SS statement PDF to Claude and paste the prompt. Claude will analyze your complete earnings history and give you precise estimates for each early retirement scenario.</p>
+            <h3 style="margin-top: 2rem; margin-bottom: 1rem; color: var(--color-primary);">Step 4: Upload Your PDF & Paste the Prompt</h3>
+            <p style="margin-bottom: 1.5rem;">In Claude, upload your SS statement PDF and paste the prompt you just copied. Claude will analyze your complete earnings history and give you precise estimates for each early retirement scenario.</p>
 
             <div class="info-box" style="margin-top: 2rem;">
                 <h4>💡 What You'll Get</h4>
                 <p>Claude will provide a detailed breakdown showing exactly how your benefits change at each retirement age, using your actual full earnings history. This is the most accurate estimate possible without being the SSA itself.</p>
             </div>
+
+            <button class="btn-secondary" onclick="window.open('https://claude.ai', '_blank')">Open Claude.ai →</button>
         </div>
 
         <!-- Results Section -->
         <div id="results" class="results-section">
             <div class="results-header">
                 <h2>Your Early Retirement Impact</h2>
-                <p id="results-subtitle" style="color: var(--color-text-light); font-size: 1.1rem;"></p>
+                <p style="color: var(--color-text-light); font-size: 1.1rem;">Manual Entry Estimate (±10-15% accuracy)</p>
             </div>
 
             <div class="info-box warning">
                 <h4>⚠️ Important Context</h4>
-                <p id="accuracy-note"></p>
+                <p id="accuracy-note">These are estimates with ±10-15% accuracy. For maximum precision, use Option 2 (Upload to Claude).</p>
             </div>
 
             <h3 style="font-family: var(--font-serif); font-size: 1.5rem; color: var(--color-primary); margin: 2rem 0 1rem;">If You Stop Working NOW</h3>
@@ -736,7 +652,7 @@ Account for early/delayed claiming adjustments:
 
     <script>
         // Global state
-        let currentTier = null;
+        let currentOption = null;
         let calculatedResults = null;
 
         // 2024 Bend Points for PIA calculation
@@ -746,19 +662,19 @@ Account for early/delayed claiming adjustments:
             rates: [0.90, 0.32, 0.15]
         };
 
-        // Tier Selection
-        function selectTier(tier) {
-            currentTier = tier;
+        // Option Selection
+        function selectOption(option) {
+            currentOption = option;
             
             // Hide all calculators
             document.querySelectorAll('.calculator-section').forEach(el => el.classList.remove('active'));
             
             // Show selected calculator
-            document.getElementById(`tier${tier}-calc`).classList.add('active');
+            document.getElementById(`option${option}-calc`).classList.add('active');
             
-            // Update tier cards
-            document.querySelectorAll('.tier-card').forEach((card, index) => {
-                if (index + 1 === tier) {
+            // Update option cards
+            document.querySelectorAll('.option-card').forEach((card, index) => {
+                if (index + 1 === option) {
                     card.classList.add('active');
                 } else {
                     card.classList.remove('active');
@@ -766,26 +682,19 @@ Account for early/delayed claiming adjustments:
             });
 
             // Scroll to calculator
-            document.getElementById(`tier${tier}-calc`).scrollIntoView({ behavior: 'smooth', block: 'start' });
-
-            // Initialize tier 2 if selected
-            if (tier === 2 && document.getElementById('earnings-inputs').children.length === 0) {
-                for (let i = 0; i < 5; i++) {
-                    addEarningsRow();
-                }
-            }
+            document.getElementById(`option${option}-calc`).scrollIntoView({ behavior: 'smooth', block: 'start' });
         }
 
-        // Tier 1 Form Submission
-        document.getElementById('tier1-form').addEventListener('submit', function(e) {
+        // Option 1 Form Submission
+        document.getElementById('option1-form').addEventListener('submit', function(e) {
             e.preventDefault();
             
-            const currentAge = parseInt(document.getElementById('current-age-t1').value);
-            const yearsWorked = parseInt(document.getElementById('years-worked-t1').value);
-            const currentIncome = parseInt(document.getElementById('current-income-t1').value);
-            const ss62 = parseInt(document.getElementById('ss-62-t1').value);
-            const ss67 = parseInt(document.getElementById('ss-67-t1').value);
-            const ss70 = parseInt(document.getElementById('ss-70-t1').value);
+            const currentAge = parseInt(document.getElementById('current-age').value);
+            const yearsWorked = parseInt(document.getElementById('years-worked').value);
+            const currentIncome = parseInt(document.getElementById('current-income').value);
+            const ss62 = parseInt(document.getElementById('ss-62').value);
+            const ss67 = parseInt(document.getElementById('ss-67').value);
+            const ss70 = parseInt(document.getElementById('ss-70').value);
 
             // Validation
             if (!currentAge || !yearsWorked || !currentIncome || !ss62 || !ss67 || !ss70) {
@@ -803,9 +712,6 @@ Account for early/delayed claiming adjustments:
                 return;
             }
 
-            // Debug logging
-            console.log('Input values:', { currentAge, yearsWorked, currentIncome, ss62, ss67, ss70 });
-
             // Reverse engineer AIME from FRA benefit
             const estimatedAIME = reverseEngineerAIME(ss67);
             
@@ -813,7 +719,6 @@ Account for early/delayed claiming adjustments:
             const yearsToFRA = Math.max(0, 67 - currentAge);
             
             // Estimate reduction from stopping work now
-            // This is simplified - assumes recent years are higher earning
             const reductionFactor = calculateReductionFactor(yearsWorked, yearsToFRA, currentIncome, estimatedAIME);
             
             // Calculate new benefits
@@ -821,7 +726,6 @@ Account for early/delayed claiming adjustments:
             const newPIA = calculatePIA(newAIME);
             
             const results = {
-                tier: 1,
                 currentAge: currentAge,
                 benefit62: Math.round(newPIA * 0.70),
                 benefit67: Math.round(newPIA),
@@ -832,62 +736,11 @@ Account for early/delayed claiming adjustments:
                 reductionPercent: Math.round((1 - reductionFactor) * 100)
             };
 
-            // Debug logging
-            console.log('Calculated results:', results);
-
             displayResults(results);
         });
 
-        // Tier 2 Form Submission
-        document.getElementById('tier2-form').addEventListener('submit', function(e) {
-            e.preventDefault();
-            
-            const currentAge = parseInt(document.getElementById('current-age-t2').value);
-            const yearsWorked = parseInt(document.getElementById('years-worked-t2').value);
-            
-            // Collect earnings data
-            const earnings = [];
-            document.querySelectorAll('.earnings-row').forEach(row => {
-                const year = parseInt(row.querySelector('.earnings-year').value);
-                const amount = parseInt(row.querySelector('.earnings-amount').value);
-                if (year && amount) {
-                    earnings.push({ year, amount });
-                }
-            });
-
-            if (earnings.length === 0) {
-                alert('Please enter at least one year of earnings');
-                return;
-            }
-
-            // Calculate AIME using actual earnings
-            const aimeCalc = calculateAIMEFromEarnings(earnings, yearsWorked, currentAge);
-            const newPIA = calculatePIA(aimeCalc.currentAIME);
-            
-            // Also calculate what it would be if they kept working
-            const futureAIME = aimeCalc.projectedAIME;
-            const futurePIA = calculatePIA(futureAIME);
-
-            const results = {
-                tier: 2,
-                currentAge: currentAge,
-                benefit62: Math.round(newPIA * 0.70),
-                benefit67: Math.round(newPIA),
-                benefit70: Math.round(newPIA * 1.24),
-                original62: Math.round(futurePIA * 0.70),
-                original67: Math.round(futurePIA),
-                original70: Math.round(futurePIA * 1.24),
-                reductionPercent: Math.round((1 - (aimeCalc.currentAIME / aimeCalc.projectedAIME)) * 100)
-            };
-
-            displayResults(results);
-        });
-
-        // Reverse engineer AIME from PIA (working backwards through bend points)
+        // Reverse engineer AIME from PIA
         function reverseEngineerAIME(pia) {
-            // This is an approximation working backwards from the bend point formula
-            // PIA = 0.90 * min(AIME, 1174) + 0.32 * min(AIME - 1174, 5904) + 0.15 * (AIME - 7078)
-            
             if (pia <= BEND_POINTS.first * BEND_POINTS.rates[0]) {
                 return pia / BEND_POINTS.rates[0];
             }
@@ -906,16 +759,13 @@ Account for early/delayed claiming adjustments:
         function calculatePIA(aime) {
             let pia = 0;
             
-            // First bend point: 90% of first $1,174
             pia += Math.min(aime, BEND_POINTS.first) * BEND_POINTS.rates[0];
             
-            // Second bend point: 32% of amount between $1,174 and $7,078
             if (aime > BEND_POINTS.first) {
                 const secondBend = Math.min(aime - BEND_POINTS.first, BEND_POINTS.second - BEND_POINTS.first);
                 pia += secondBend * BEND_POINTS.rates[1];
             }
             
-            // Third bend point: 15% of amount over $7,078
             if (aime > BEND_POINTS.second) {
                 pia += (aime - BEND_POINTS.second) * BEND_POINTS.rates[2];
             }
@@ -923,89 +773,31 @@ Account for early/delayed claiming adjustments:
             return pia;
         }
 
-        // Calculate reduction factor for stopping work early (Tier 1 approximation)
+        // Calculate reduction factor for stopping work early
         function calculateReductionFactor(yearsWorked, yearsToFRA, currentIncome, estimatedAIME) {
-            // If you already have 35+ years, missing years replace lowest years
-            // Simplified assumption: recent years are higher, so impact depends on 
-            // how many zeros vs how much higher recent years are
-            
             if (yearsWorked >= 35) {
-                // You already have 35 years, so zeros replace your lowest years
-                // Impact is relatively small - estimate 1-2% per missing year
-                const impactPerYear = 0.015; // 1.5% per year is conservative
+                // Already have 35 years - zeros replace lowest years
+                const impactPerYear = 0.015; // 1.5% per year
                 return Math.max(0.70, 1 - (yearsToFRA * impactPerYear));
             } else {
-                // You don't have 35 years yet, zeros count heavily
+                // Don't have 35 years yet - zeros count heavily
                 const yearsShort = 35 - yearsWorked;
                 const totalYearsNeeded = yearsShort + yearsToFRA;
-                // Each zero year in the 35-year average hurts significantly
-                const impactPerYear = 0.028; // ~2.8% per missing year
+                const impactPerYear = 0.028; // 2.8% per missing year
                 return Math.max(0.50, 1 - (totalYearsNeeded * impactPerYear));
             }
-        }
-
-        // Calculate AIME from actual earnings (Tier 2)
-        function calculateAIMEFromEarnings(earnings, yearsWorked, currentAge) {
-            // Sort earnings highest to lowest
-            earnings.sort((a, b) => b.amount - a.amount);
-            
-            // Take top 35 years (or all if less than 35)
-            const top35 = earnings.slice(0, 35);
-            
-            // If less than 35 years, pad with zeros
-            while (top35.length < 35) {
-                top35.push({ year: 0, amount: 0 });
-            }
-            
-            // Calculate current AIME (if stopped working now)
-            const currentTotal = top35.reduce((sum, e) => sum + e.amount, 0);
-            const currentAIME = currentTotal / 420; // 35 years * 12 months
-            
-            // Estimate future AIME if they kept working
-            // Assume they'd continue at current income level
-            const futureYears = Math.max(0, 67 - currentAge);
-            const avgRecentIncome = top35.slice(0, 5).reduce((sum, e) => sum + e.amount, 0) / Math.min(5, top35.length);
-            
-            // Replace lowest years with projected future earnings
-            const futureEarnings = [...top35];
-            for (let i = 0; i < futureYears; i++) {
-                // Replace the lowest earning year with projected income
-                const lowestIndex = futureEarnings.reduce((minIdx, curr, idx, arr) => 
-                    curr.amount < arr[minIdx].amount ? idx : minIdx, 0);
-                if (avgRecentIncome > futureEarnings[lowestIndex].amount) {
-                    futureEarnings[lowestIndex] = { year: currentAge + i, amount: avgRecentIncome };
-                }
-            }
-            
-            const projectedTotal = futureEarnings.reduce((sum, e) => sum + e.amount, 0);
-            const projectedAIME = projectedTotal / 420;
-            
-            return {
-                currentAIME,
-                projectedAIME
-            };
         }
 
         // Display results
         function displayResults(results) {
             calculatedResults = results;
             
-            // Set subtitle
-            const tierName = results.tier === 1 ? 'Quick Estimate (Tier 1)' : 'Refined Estimate (Tier 2)';
-            document.getElementById('results-subtitle').textContent = tierName;
-            
-            // Set accuracy note
-            const accuracyText = results.tier === 1 
-                ? 'These are estimates with ±10-15% accuracy. For more precision, try Tier 2 with your actual earnings history.'
-                : 'These estimates use your actual earnings data and should be within ±3-5% of your real benefits.';
-            document.getElementById('accuracy-note').textContent = accuracyText;
-            
             // Display benefit amounts
             document.getElementById('result-62').textContent = '$' + results.benefit62.toLocaleString();
             document.getElementById('result-67').textContent = '$' + results.benefit67.toLocaleString();
             document.getElementById('result-70').textContent = '$' + results.benefit70.toLocaleString();
             
-            // Display changes
+            // Display changes with proper formatting
             const change62 = results.benefit62 - results.original62;
             const change67 = results.benefit67 - results.original67;
             const change70 = results.benefit70 - results.original70;
@@ -1038,35 +830,9 @@ Account for early/delayed claiming adjustments:
             document.getElementById('results').scrollIntoView({ behavior: 'smooth', block: 'start' });
         }
 
-        // Copy Tier 1 data to Tier 2
-        function copyTier1Data() {
-            document.getElementById('current-age-t2').value = document.getElementById('current-age-t1').value;
-            document.getElementById('years-worked-t2').value = document.getElementById('years-worked-t1').value;
-            alert('Data copied! Now add your earnings history below.');
-        }
-
-        // Add earnings row for Tier 2
-        function addEarningsRow() {
-            const container = document.getElementById('earnings-inputs');
-            const currentYear = new Date().getFullYear();
-            
-            const row = document.createElement('div');
-            row.className = 'earnings-row';
-            row.style.display = 'grid';
-            row.style.gridTemplateColumns = '1fr 2fr auto';
-            row.style.gap = '1rem';
-            row.style.marginBottom = '1rem';
-            row.innerHTML = `
-                <input type="number" class="earnings-year" placeholder="Year" min="1960" max="${currentYear}" style="padding: 0.75rem; border: 2px solid var(--color-border); border-radius: 6px;">
-                <input type="number" class="earnings-amount" placeholder="Earnings" min="0" step="100" style="padding: 0.75rem; border: 2px solid var(--color-border); border-radius: 6px;">
-                <button type="button" onclick="this.parentElement.remove()" style="padding: 0.75rem 1rem; background: var(--color-danger); color: white; border: none; border-radius: 6px; cursor: pointer;">Remove</button>
-            `;
-            container.appendChild(row);
-        }
-
-        // Copy Tier 3 prompt
+        // Copy Option 2 prompt
         function copyPrompt() {
-            const prompt = document.getElementById('tier3-prompt').textContent;
+            const prompt = document.getElementById('option2-prompt').textContent;
             navigator.clipboard.writeText(prompt).then(() => {
                 alert('Prompt copied! Now paste it in Claude after uploading your PDF.');
             });
@@ -1075,7 +841,6 @@ Account for early/delayed claiming adjustments:
         // Go to SS Optimizer
         function goToOptimizer() {
             if (calculatedResults) {
-                // Store results in sessionStorage to pass to optimizer
                 sessionStorage.setItem('earlyRetirementSS', JSON.stringify({
                     benefit67: calculatedResults.benefit67,
                     fromEarlyRetirement: true
