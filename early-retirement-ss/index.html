@@ -516,7 +516,7 @@
             <div class="info-box" style="margin-bottom: 1.5rem;">
                 <h4>💡 Critical Insight Most People Miss</h4>
                 <p><strong>Your SS statement shows different benefits at ages 62, 67, and 70 - but each assumes you work until that claiming age.</strong></p>
-                <p style="margin-top: 0.5rem;">Example: If you're 55 and your statement shows higher benefits at age 70, that assumes you continue working (with raises) from age 55 to 70 and then claim. <span class="info-icon" onclick="toggleTooltip(event, 'tooltip-intro')">i<span class="info-tooltip" id="tooltip-intro"><div class="info-tooltip-title">Gen X Example (Age 55)</div><strong>What your statement might show:</strong><ul><li>Age 62: $1,750/month</li><li>Age 67: $2,500/month</li><li>Age 70: $3,100/month</li></ul><p style="margin-top: 0.5rem;"><strong>The catch:</strong> These assume you work from now (55) until each claiming age. If you retire at 55 but wait to claim at 70, your benefit will be much less than $3,100 because those 15 years (55-70) become zeros.</p></span></span> If you actually retire at 55 and wait to claim at 70, your benefit will be lower because Social Security is based on your 35 highest earning years - and those years from 55-70 become zeros instead of high-earning years.</p>
+                <p style="margin-top: 0.5rem;">Example: If you're 55 and your statement shows higher benefits at age 70, that assumes you continue working (with raises) from age 55 to 70 and then claim. <span class="info-icon" onclick="toggleTooltip(event, 'tooltip-intro')">i<span class="info-tooltip" id="tooltip-intro"><div class="info-tooltip-title">Gen X Example (Currently Age 55)</div><p><strong>You right now:</strong> 55 years old, worked 33 years, earn $65,000/year</p><p style="margin-top: 0.5rem;"><strong>Your statement shows if you keep working:</strong></p><ul><li>Age 62: $1,750/month (assumes 7 MORE years of work)</li><li>Age 67: $2,500/month (assumes 12 MORE years of work)</li><li>Age 70: $3,100/month (assumes 15 MORE years of work)</li></ul><p style="margin-top: 0.5rem;"><strong>The trap:</strong> If you retire TODAY but wait to claim at 70, you won't get $3,100. You'll get less because those 15 future years become zeros.</p></span></span> If you actually retire at 55 and wait to claim at 70, your benefit will be lower because Social Security is based on your 35 highest earning years - and those years from 55-70 become zeros instead of high-earning years.</p>
                 <p style="margin-top: 0.5rem;"><strong>This calculator separates "when you stop working" from "when you claim benefits"</strong> so you can see the true impact of early retirement.</p>
             </div>
 
@@ -587,21 +587,21 @@
                     </div>
 
                     <div class="form-group">
-                        <label for="retirement-age">Age When You Plan to Stop Working</label>
-                        <input type="number" id="retirement-age" min="35" max="70" required>
-                        <p class="form-help">Enter your current age if you're stopping now, or a future age if you plan to work a few more years</p>
+                        <label for="years-to-retirement">Years Until You Plan to Stop Working</label>
+                        <input type="number" id="years-to-retirement" min="0" max="35" step="0.5" required>
+                        <p class="form-help"><strong>Retiring now?</strong> Enter 0. <strong>Working a bit longer?</strong> Enter years from TODAY (e.g., 1.5, 2, 3.5, 5). Use decimals for half-years: if you're 55.5 now and retiring at 57, that's 1.5 years.</p>
                     </div>
 
                     <div class="form-group">
-                        <label for="years-worked">Years of SS Contributions So Far</label>
+                        <label for="years-worked">Years of SS Contributions (As of Today)</label>
                         <input type="number" id="years-worked" min="0" max="50" required>
-                        <p class="form-help">How many years have you already worked and paid into Social Security? (Check your SS statement). If you enter a future retirement age above, this tool will automatically add those working years to your total.</p>
+                        <p class="form-help"><strong>Enter years worked RIGHT NOW, not in the future.</strong> Example: If you're 55 and have worked 33 years so far, enter 33. If you plan to retire at 58, this tool will automatically calculate that you'll have 36 years by then.</p>
                     </div>
 
                     <div class="form-group">
-                        <label for="current-income">Current Annual Income Subject to SS Tax</label>
+                        <label for="current-income">Your Most Recent Year's Income (Subject to SS Tax)</label>
                         <input type="number" id="current-income" min="0" step="1" required>
-                        <p class="form-help">Your most recent year's earnings that were taxed for Social Security (max $168,600 in 2024)</p>
+                        <p class="form-help">Your most recent year's earnings that were taxed for Social Security (2024 or 2025). Maximum taxable: $168,600 in 2024, $176,100 in 2025.</p>
                     </div>
                 </div>
 
@@ -611,7 +611,7 @@
                     <div class="info-box warning" style="margin-bottom: 1.5rem;">
                         <h4>🚨 Critical: Understand What These Numbers Mean</h4>
                         <p><strong>Your SS statement assumes you work until the age you CLAIM benefits, not just until you retire.</strong></p>
-                        <p style="margin-top: 0.5rem;">For example, if you're currently 55, your statement shows benefits at different ages - but each assumes you keep working until that age. <span class="info-icon" onclick="toggleTooltip(event, 'tooltip-form')">i<span class="info-tooltip" id="tooltip-form"><div class="info-tooltip-title">Gen X Example (Age 55)</div><p><strong>What your statement shows:</strong></p><ul><li>$1,750 at age 62 → assumes you work 55-62</li><li>$2,500 at age 67 → assumes you work 55-67</li><li>$3,100 at age 70 → assumes you work 55-70</li></ul><p style="margin-top: 0.5rem;"><strong>Reality if you retire at 55:</strong> Those 7-15 years of earnings won't happen, so your actual benefits will be lower.</p></span></span></p>
+                <p style="margin-top: 0.5rem;">For example, if you're currently 55, your statement shows benefits at different ages - but each assumes you keep working until that age. <span class="info-icon" onclick="toggleTooltip(event, 'tooltip-form')">i<span class="info-tooltip" id="tooltip-form"><div class="info-tooltip-title">Gen X Example (Currently Age 55)</div><p><strong>You today:</strong> 55 years old, worked 33 years so far, make $65,000/year</p><p style="margin-top: 0.5rem;"><strong>Your SS statement shows:</strong></p><ul><li>$1,750 at age 62 → assumes you work 7 MORE years</li><li>$2,500 at age 67 → assumes you work 12 MORE years</li><li>$3,100 at age 70 → assumes you work 15 MORE years</li></ul><p style="margin-top: 0.5rem;"><strong>If you retire TODAY (0 years):</strong> Those future years won't happen, so your actual benefits will be lower than shown.</p><p style="margin-top: 0.5rem;"><strong>If you work 2 more years (retire at 57):</strong> You'd still miss 13 years of earnings before age 70, reducing benefits.</p></span></span></p>
                         <p style="margin-top: 0.5rem;"><strong>If you retire early but wait to claim later, the benefit estimate on your statement is WRONG</strong> because it assumes years of earnings that won't happen. This calculator shows what you'll actually get.</p>
                     </div>
                     
@@ -747,6 +747,29 @@ The key insight: My PIA is based on when I STOP WORKING (which determines my AIM
                 <p id="interpretation"></p>
             </div>
 
+            <h3 style="font-family: var(--font-serif); font-size: 1.5rem; color: var(--color-primary); margin: 2rem 0 1rem;">The Bigger Picture</h3>
+            
+            <div class="info-box">
+                <h4>💡 Social Security Is Just One Piece of the Puzzle</h4>
+                <p><strong>Important context:</strong> Social Security math is complex, and this calculator shows only one dimension - the impact of when you stop working vs. when you claim. There are many other factors that could offset (or amplify) these differences:</p>
+                
+                <p style="margin-top: 1rem;"><strong>Tax Optimization Opportunities:</strong></p>
+                <ul style="margin-left: 1.5rem;">
+                    <li><strong>Roth Conversions:</strong> Early retirement years with low income create opportunities to convert traditional IRA/401(k) to Roth at low tax rates - potentially worth tens of thousands in tax savings</li>
+                    <li><strong>Capital Gains Harvesting:</strong> Lower income years mean you might pay 0% on long-term capital gains</li>
+                    <li><strong>ACA Premium Tax Credits:</strong> Lower income could qualify you for substantial health insurance subsidies</li>
+                </ul>
+
+                <p style="margin-top: 1rem;"><strong>Lifestyle Cost Reductions:</strong></p>
+                <ul style="margin-left: 1.5rem;">
+                    <li><strong>Geographic Arbitrage:</strong> Moving to a lower cost-of-living area (or country) could save far more than the SS reduction</li>
+                    <li><strong>Lifestyle Changes:</strong> Slow travel, house sitting, RV living, or other alternative lifestyles can dramatically reduce expenses</li>
+                    <li><strong>No Commute/Work Expenses:</strong> Eliminating work wardrobes, commuting costs, and convenience expenses adds up</li>
+                </ul>
+
+                <p style="margin-top: 1rem;"><strong>The Bottom Line:</strong> Don't make retirement decisions based solely on Social Security. A $400/month SS reduction might be completely offset by Roth conversion tax savings, geographic arbitrage, or other strategies. Use these numbers as <em>talking points with your financial advisor</em> to understand your complete picture.</p>
+            </div>
+
             <h3 style="font-family: var(--font-serif); font-size: 1.5rem; color: var(--color-primary); margin: 2rem 0 1rem;">Next Steps</h3>
             
             <div class="info-box" style="margin-bottom: 1.5rem;">
@@ -802,21 +825,24 @@ The key insight: My PIA is based on when I STOP WORKING (which determines my AIM
             e.preventDefault();
             
             const currentAge = parseInt(document.getElementById('current-age').value);
-            const retirementAge = parseInt(document.getElementById('retirement-age').value);
+            const yearsToRetirement = parseFloat(document.getElementById('years-to-retirement').value);
             const yearsWorked = parseInt(document.getElementById('years-worked').value);
             const currentIncome = parseInt(document.getElementById('current-income').value);
             const ss62 = parseInt(document.getElementById('ss-62').value);
             const ss67 = parseInt(document.getElementById('ss-67').value);
             const ss70 = parseInt(document.getElementById('ss-70').value);
 
+            // Calculate retirement age
+            const retirementAge = currentAge + yearsToRetirement;
+
             // Validation
-            if (!currentAge || !retirementAge || !yearsWorked || !currentIncome || !ss62 || !ss67 || !ss70) {
+            if (currentAge === undefined || yearsToRetirement === undefined || !yearsWorked || !currentIncome || !ss62 || !ss67 || !ss70) {
                 alert('Please fill in all fields');
                 return;
             }
 
-            if (retirementAge < currentAge) {
-                alert('Retirement age cannot be before your current age');
+            if (retirementAge > 70) {
+                alert('Retirement age cannot be greater than 70. If you plan to work past 70, this calculator may not be right for you.');
                 return;
             }
 
@@ -834,7 +860,6 @@ The key insight: My PIA is based on when I STOP WORKING (which determines my AIM
             const estimatedAIME = reverseEngineerAIME(ss67);
             
             // Calculate years until retirement and years to FRA
-            const yearsToRetirement = retirementAge - currentAge;
             const yearsToFRA = Math.max(0, 67 - retirementAge);
             
             // Calculate total years worked at retirement
@@ -849,6 +874,7 @@ The key insight: My PIA is based on when I STOP WORKING (which determines my AIM
             
             const results = {
                 currentAge: currentAge,
+                yearsToRetirement: yearsToRetirement,
                 retirementAge: retirementAge,
                 benefit62: Math.round(newPIA * 0.70),
                 benefit67: Math.round(newPIA),
@@ -917,9 +943,13 @@ The key insight: My PIA is based on when I STOP WORKING (which determines my AIM
             calculatedResults = results;
             
             // Set scenario title
-            const retirementText = results.retirementAge === results.currentAge 
+            const retirementAgeDisplay = Number.isInteger(results.retirementAge) 
+                ? results.retirementAge 
+                : results.retirementAge.toFixed(1);
+            
+            const retirementText = results.yearsToRetirement === 0
                 ? 'If You Stop Working NOW' 
-                : `If You Stop Working at Age ${results.retirementAge}`;
+                : `If You Stop Working at Age ${retirementAgeDisplay}`;
             document.getElementById('results-scenario-title').textContent = retirementText;
             
             // Display benefit amounts
@@ -940,23 +970,31 @@ The key insight: My PIA is based on when I STOP WORKING (which determines my AIM
                 }
             };
             
-            document.getElementById('change-62').textContent = `${formatChange(change62)} vs. working until 62`;
-            document.getElementById('change-67').textContent = `${formatChange(change67)} vs. working until 67`;
-            document.getElementById('change-70').textContent = `${formatChange(change70)} vs. working until 70`;
+            const retirementAgeDisplay = Number.isInteger(results.retirementAge) 
+                ? results.retirementAge 
+                : results.retirementAge.toFixed(1);
+            
+            document.getElementById('change-62').textContent = `${formatChange(change62)} vs. working until 62 to claim at 62`;
+            document.getElementById('change-67').textContent = `${formatChange(change67)} vs. working until 67 to claim at 67`;
+            document.getElementById('change-70').textContent = `${formatChange(change70)} vs. working until 70 to claim at 70`;
             
             // Interpretation
             let interpretation = '';
-            const retirementAgeText = results.retirementAge === results.currentAge ? 'now' : `at age ${results.retirementAge}`;
+            const retirementAgeDisplay = Number.isInteger(results.retirementAge) 
+                ? results.retirementAge 
+                : results.retirementAge.toFixed(1);
+            const retirementAgeText = results.yearsToRetirement === 0 ? 'now' : `at age ${retirementAgeDisplay}`;
+            const yearsToWork70 = Math.max(0, 70 - results.retirementAge);
             
             if (results.reductionPercent < 5) {
                 interpretation = `Stopping work ${retirementAgeText} reduces your Social Security by only ${results.reductionPercent}%. If you already have 35+ years of work history, those missing years are replacing your lowest-earning early career years, which is why the impact is minimal. `;
-                interpretation += `<strong>Key insight:</strong> You can retire at ${results.retirementAge} and still delay claiming until 70 - your benefit would be ${results.benefit70.toLocaleString()}/month, not the much higher number on your SS statement (which assumes you work until 70).`;
+                interpretation += `<strong>Key insight:</strong> You can retire at ${retirementAgeDisplay} and still delay claiming until 70 - your benefit would be $${results.benefit70.toLocaleString()}/month. To get the $${results.original70.toLocaleString()}/month your statement shows, you'd have to work ${yearsToWork70.toFixed(1)} more years for just a $${(results.original70 - results.benefit70).toLocaleString()}/month increase.`;
             } else if (results.reductionPercent < 15) {
-                interpretation = `Stopping work ${retirementAgeText} reduces your Social Security by ${results.reductionPercent}%. This is a moderate impact - working a few more years would improve your benefit, but early retirement might still be worth it depending on your other retirement income. `;
-                interpretation += `<strong>Remember:</strong> The numbers above show what you'd get if you retire at ${results.retirementAge} but wait to claim later. This is very different from your SS statement, which assumes you work until claiming age.`;
+                interpretation = `Stopping work ${retirementAgeText} reduces your Social Security by ${results.reductionPercent}%. This is a moderate impact - working longer would improve your benefit. `;
+                interpretation += `<strong>The tradeoff:</strong> To get the full $${results.original70.toLocaleString()}/month at age 70, you'd need to work ${yearsToWork70.toFixed(1)} more years for a $${(results.original70 - results.benefit70).toLocaleString()}/month increase. Whether that's worth it depends on your other retirement income and life priorities.`;
             } else {
                 interpretation = `Stopping work ${retirementAgeText} reduces your Social Security by ${results.reductionPercent}%. This is significant - you either don't have 35 years yet, or your recent years are much higher than your early career. `;
-                interpretation += `<strong>Important:</strong> If you retire at ${results.retirementAge} and wait to claim at 70, you'd get $${results.benefit70.toLocaleString()}/month - NOT the higher amount shown on your SS statement, which incorrectly assumes you work until 70.`;
+                interpretation += `<strong>Important:</strong> If you retire at ${retirementAgeDisplay} and wait to claim at 70, you'd get $${results.benefit70.toLocaleString()}/month - NOT the $${results.original70.toLocaleString()}/month your statement shows. To get that extra $${(results.original70 - results.benefit70).toLocaleString()}/month, you'd need to work ${yearsToWork70.toFixed(1)} more years.`;
             }
             document.getElementById('interpretation').innerHTML = interpretation;
             
