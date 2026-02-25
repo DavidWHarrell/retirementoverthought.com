@@ -799,13 +799,20 @@ The key insight: My PIA is based on when I STOP WORKING (which determines my AIM
 
         // Option Selection
         function selectOption(option) {
+            console.log('selectOption called with:', option);
             currentOption = option;
             
             // Hide all calculators
             document.querySelectorAll('.calculator-section').forEach(el => el.classList.remove('active'));
             
             // Show selected calculator
-            document.getElementById(`option${option}-calc`).classList.add('active');
+            const calc = document.getElementById(`option${option}-calc`);
+            console.log('Calculator element:', calc);
+            if (calc) {
+                calc.classList.add('active');
+            } else {
+                console.error(`Calculator option${option}-calc not found!`);
+            }
             
             // Update option cards
             document.querySelectorAll('.option-card').forEach((card, index) => {
@@ -817,7 +824,9 @@ The key insight: My PIA is based on when I STOP WORKING (which determines my AIM
             });
 
             // Scroll to calculator
-            document.getElementById(`option${option}-calc`).scrollIntoView({ behavior: 'smooth', block: 'start' });
+            if (calc) {
+                calc.scrollIntoView({ behavior: 'smooth', block: 'start' });
+            }
         }
 
         // Option 1 Form Submission
@@ -970,19 +979,12 @@ The key insight: My PIA is based on when I STOP WORKING (which determines my AIM
                 }
             };
             
-            const retirementAgeDisplay = Number.isInteger(results.retirementAge) 
-                ? results.retirementAge 
-                : results.retirementAge.toFixed(1);
-            
             document.getElementById('change-62').textContent = `${formatChange(change62)} vs. working until 62 to claim at 62`;
             document.getElementById('change-67').textContent = `${formatChange(change67)} vs. working until 67 to claim at 67`;
             document.getElementById('change-70').textContent = `${formatChange(change70)} vs. working until 70 to claim at 70`;
             
             // Interpretation
             let interpretation = '';
-            const retirementAgeDisplay = Number.isInteger(results.retirementAge) 
-                ? results.retirementAge 
-                : results.retirementAge.toFixed(1);
             const retirementAgeText = results.yearsToRetirement === 0 ? 'now' : `at age ${retirementAgeDisplay}`;
             const yearsToWork70 = Math.max(0, 70 - results.retirementAge);
             
