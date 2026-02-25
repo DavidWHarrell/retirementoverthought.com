@@ -1016,11 +1016,17 @@ The key insight: My PIA is based on when I STOP WORKING (which determines my AIM
         // Go to SS Optimizer
         function goToOptimizer() {
             if (calculatedResults) {
-                sessionStorage.setItem('earlyRetirementSS', JSON.stringify({
+                const dataToStore = {
                     benefit67: calculatedResults.benefit67,
                     fromEarlyRetirement: true
-                }));
+                };
+                console.log('Storing in sessionStorage:', dataToStore);
+                sessionStorage.setItem('earlyRetirementSS', JSON.stringify(dataToStore));
+                console.log('Stored data:', sessionStorage.getItem('earlyRetirementSS'));
                 window.location.href = '/social-security/';
+            } else {
+                console.error('No calculated results to pass!');
+                alert('Please calculate your benefits first before using the SS Optimizer.');
             }
         }
 
