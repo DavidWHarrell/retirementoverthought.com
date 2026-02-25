@@ -827,6 +827,53 @@
     </div>
 
     <script>
+        // Check for data passed from Early Retirement SS Calculator
+        window.addEventListener('DOMContentLoaded', function() {
+            console.log('SS Optimizer loaded, checking for early retirement data...');
+            const earlyRetirementData = sessionStorage.getItem('earlyRetirementSS');
+            console.log('Early retirement data from sessionStorage:', earlyRetirementData);
+            
+            if (earlyRetirementData) {
+                try {
+                    const data = JSON.parse(earlyRetirementData);
+                    console.log('Parsed data:', data);
+                    
+                    if (data.benefit67) {
+                        // Auto-populate the SS benefit field
+                        const benefitField = document.getElementById('ss-benefit');
+                        console.log('Benefit field:', benefitField);
+                        
+                        if (benefitField) {
+                            benefitField.value = data.benefit67;
+                            console.log('Set benefit field to:', data.benefit67);
+                            
+                            // Show notification banner
+                            const banner = document.createElement('div');
+                            banner.style.cssText = 'background: #10B981; color: white; padding: 1rem; text-align: center; margin-bottom: 1rem; border-radius: 6px; font-weight: 600;';
+                            banner.innerHTML = '✓ Your early retirement SS benefit has been imported: $' + data.benefit67.toLocaleString() + '/month at age 67';
+                            
+                            const form = document.querySelector('.calculator-card');
+                            if (form) {
+                                form.insertBefore(banner, form.firstChild);
+                            }
+                            
+                            // Clear sessionStorage after using it
+                            sessionStorage.removeItem('earlyRetirementSS');
+                            
+                            // Scroll to the benefit field so user sees it
+                            benefitField.scrollIntoView({ behavior: 'smooth', block: 'center' });
+                        } else {
+                            console.error('ss-benefit field not found!');
+                        }
+                    }
+                } catch (e) {
+                    console.error('Error loading early retirement data:', e);
+                }
+            } else {
+                console.log('No early retirement data found in sessionStorage');
+            }
+        });
+
         function toggleOtherIncome(type) {
             const checkbox = document.getElementById(`has-${type}`);
             const input = document.getElementById(`${type}-input`);
