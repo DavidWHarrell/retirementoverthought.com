@@ -1242,10 +1242,10 @@
                         <span class="value">$${scenario.rothAt73.toLocaleString()}</span>
                     </div>
                     <div class="scenario-detail" style="border-top: 2px solid var(--color-border); padding-top: 0.5rem; margin-top: 0.5rem;">
-                        <span class="label" style="font-weight: 700;">Total retirement savings at 73:</span>
+                        <span class="label" style="font-weight: 700;">Total savings at 73:</span>
                         <span class="value" style="font-weight: 700; color: var(--color-primary);">$${scenario.totalAt73.toLocaleString()}</span>
                     </div>
-                    <p style="font-size: 0.85rem; color: var(--color-text-light); margin: 0.75rem 0; font-style: italic;"><strong>💡 Best practice:</strong> Spend tax-deferred money first (shown in projections above), save Roth for last. Roth grows tax-free and has no RMDs, giving you extra flexibility in retirement.</p>
+                    <p style="font-size: 0.85rem; color: var(--color-text-light); margin: 0.75rem 0; padding: 0.75rem; background: #F9FAFB; border-radius: 4px; border-left: 3px solid var(--color-primary);"><strong>💡 Strategy:</strong> Spend tax-deferred first, save Roth last. Roth grows tax-free with no RMDs.</p>
                     <div class="scenario-detail">
                         <span class="label">Tax bracket:</span>
                         <span class="value">${scenario.taxBracket}</span>
@@ -1255,25 +1255,29 @@
                         <span class="value" title="${scenario.canConvert ? 'Tax-efficient opportunity to convert pre-tax retirement funds to Roth IRA during low-income years' : 'Not recommended - either claiming too late for conversion window or tax bracket too high'}">${scenario.canConvert ? '✓ YES' : '✗ NO'}</span>
                     </div>
                     ${scenario.canConvert ? `
-                        <div class="scenario-detail" style="background: #F0FDF4; padding: 1rem; border-radius: 6px; margin-top: 0.75rem;">
-                            <div style="font-weight: 600; color: #065F46; margin-bottom: 0.5rem;">🎯 Roth Conversion Opportunity:</div>
-                            <div class="scenario-detail" style="margin: 0.25rem 0;">
-                                <span class="label">Total conversions (ages ${scenario.claimAge}-72):</span>
-                                <span class="value">~$${scenario.totalRothConversion.toLocaleString()}</span>
+                        <div style="background: #F0FDF4; padding: 1rem; border-radius: 6px; margin-top: 0.75rem; border: 1px solid #10B981;">
+                            <div style="font-weight: 600; color: #065F46; margin-bottom: 0.75rem; font-size: 1rem;">🎯 Roth Conversion Opportunity</div>
+                            
+                            <div style="display: grid; gap: 0.5rem; margin-bottom: 0.75rem;">
+                                <div style="display: flex; justify-content: space-between; padding: 0.25rem 0;">
+                                    <span style="color: #065F46;">Total conversions (ages ${scenario.claimAge}-72):</span>
+                                    <span style="font-weight: 600;">~$${scenario.totalRothConversion.toLocaleString()}</span>
+                                </div>
+                                <div style="display: flex; justify-content: space-between; padding: 0.25rem 0;">
+                                    <span style="color: #065F46;">RMD at 73 (with conversions):</span>
+                                    <span style="font-weight: 600;">$${scenario.rmdWithConversions.toLocaleString()}/year</span>
+                                </div>
+                                <div style="display: flex; justify-content: space-between; padding: 0.25rem 0;">
+                                    <span style="color: #065F46;">RMD reduction vs. no conversions:</span>
+                                    <span style="color: #10B981; font-weight: 700;">-$${scenario.rmdReduction.toLocaleString()}/year</span>
+                                </div>
+                                <div style="display: flex; justify-content: space-between; padding: 0.25rem 0;">
+                                    <span style="color: #065F46;">Est. tax savings (22% bracket):</span>
+                                    <span style="color: #10B981; font-weight: 700;">~$${scenario.taxSavingsFromSmallerRMD.toLocaleString()}/year</span>
+                                </div>
                             </div>
-                            <div class="scenario-detail" style="margin: 0.25rem 0;">
-                                <span class="label">RMD at 73 (with conversions):</span>
-                                <span class="value">$${scenario.rmdWithConversions.toLocaleString()}/year</span>
-                            </div>
-                            <div class="scenario-detail" style="margin: 0.25rem 0;">
-                                <span class="label">RMD reduction vs. no conversions:</span>
-                                <span class="value" style="color: #10B981; font-weight: 600;">-$${scenario.rmdReduction.toLocaleString()}/year</span>
-                            </div>
-                            <div class="scenario-detail" style="margin: 0.25rem 0;">
-                                <span class="label">Est. annual tax savings (22% bracket):</span>
-                                <span class="value" style="color: #10B981; font-weight: 600;">~$${scenario.taxSavingsFromSmallerRMD.toLocaleString()}/year</span>
-                            </div>
-                            <p style="font-size: 0.85rem; color: #065F46; margin-top: 0.75rem; line-height: 1.5;"><strong>Why this matters:</strong> By converting ~$${scenario.totalRothConversion.toLocaleString()} from tax-deferred to Roth during low-income years (10-12% tax bracket), you permanently reduce your Required Minimum Distributions starting at age 73. Smaller RMDs mean less forced taxable income, potentially saving you ~$${scenario.taxSavingsFromSmallerRMD.toLocaleString()}/year in taxes (at 22% bracket) for life. Plus, Roth has NO RMDs ever, giving you more control.</p>
+                            
+                            <p style="font-size: 0.85rem; color: #065F46; margin: 0; line-height: 1.5; padding-top: 0.75rem; border-top: 1px solid #BBF7D0;"><strong>Why this matters:</strong> Converting $${scenario.totalRothConversion.toLocaleString()} to Roth at 10-12% tax rates permanently reduces Required Minimum Distributions at age 73+. Smaller RMDs = less forced taxable income, saving ~$${scenario.taxSavingsFromSmallerRMD.toLocaleString()}/year in taxes for life.</p>
                         </div>
                     ` : `
                         <p style="font-size: 0.85rem; color: var(--color-text-light); margin-top: 0.5rem; font-style: italic;">Roth conversions not optimal in this scenario - either claiming age too late for conversion window, or income keeps you in higher tax brackets.</p>
