@@ -1002,48 +1002,64 @@
             const yearsToRMD = Math.max(0, 73 - Math.max(currentAge, claimAge));
             let totalConversions = 0; // Track total Roth conversions
             
+            // RUN TWO PARALLEL SIMULATIONS: with conversions vs without conversions
+            // Scenario A: WITH conversions (what we show to user)
+            let portfolioWithConversions = portfolio;
+            let rothWithConversions = rothBalance;
+            
+            // Scenario B: WITHOUT conversions (for comparison only)
+            let portfolioWithoutConversions = portfolio;
+            let rothWithoutConversions = rothBalance;
+            
             for (let year = 0; year < yearsToRMD; year++) {
                 // Both SS and budget continue to inflate
                 const inflatedSS = inflatedSSatClaim * Math.pow(1 + inflationRate, year);
                 const inflatedBudget = inflatedBudgetAtClaim * Math.pow(1 + inflationRate, year);
                 const neededThisYear = Math.max(0, inflatedBudget - inflatedSS - otherIncomeAnnual);
                 
-                // Roth conversion opportunity (if in 10-12% bracket and before age 73)
+                // SCENARIO A: WITH CONVERSIONS
                 const currentAgeInLoop = Math.max(currentAge, claimAge) + year;
                 const canConvertThisYear = currentAgeInLoop < 73 && claimAge <= 67;
                 
-                if (canConvertThisYear) {
+                if (canConvertThisYear && portfolioWithConversions > 0) {
                     // Estimate how much we can convert while staying in 12% bracket
                     const grossIncomeThisYear = inflatedSS + otherIncomeAnnual + neededThisYear;
                     const standardDeduction = filingStatus === 'married' ? 29200 : 14600;
                     const topOf12Bracket = filingStatus === 'married' ? 94300 : 47150;
                     const roomInBracket = Math.max(0, topOf12Bracket + standardDeduction - grossIncomeThisYear);
-                    const conversionAmount = Math.min(roomInBracket, portfolio * 0.1); // Convert up to 10% of remaining balance
+                    const conversionAmount = Math.min(roomInBracket, portfolioWithConversions * 0.1); // Convert up to 10% of remaining balance
                     
-                    if (conversionAmount > 0 && portfolio > 0) {
-                        portfolio -= conversionAmount;      // Reduce tax-deferred
-                        rothBalance += conversionAmount;     // Increase Roth
-                        totalConversions += conversionAmount; // Track total conversions
+                    if (conversionAmount > 0) {
+                        portfolioWithConversions -= conversionAmount;      // Reduce tax-deferred
+                        rothWithConversions += conversionAmount;           // Increase Roth
+                        totalConversions += conversionAmount;              // Track total conversions
                     }
                 }
                 
-                // Draw needed amount from tax-deferred (BEST PRACTICE: use tax-deferred first)
-                portfolio -= neededThisYear;
+                // Draw needed amount from tax-deferred (BOTH scenarios)
+                portfolioWithConversions -= neededThisYear;
+                portfolioWithoutConversions -= neededThisYear;
                 
                 // Both grow
-                portfolio *= (1 + portfolioReturn);
-                rothBalance *= (1 + portfolioReturn);
+                portfolioWithConversions *= (1 + portfolioReturn);
+                rothWithConversions *= (1 + portfolioReturn);
+                
+                // SCENARIO B: No conversions, just growth
+                portfolioWithoutConversions *= (1 + portfolioReturn);
+                rothWithoutConversions *= (1 + portfolioReturn);
             }
 
-            const portfolioAt73 = Math.max(0, portfolio);
-            const rothAt73 = Math.max(0, rothBalance);
+            const portfolioAt73 = Math.max(0, portfolioWithConversions);
+            const rothAt73 = Math.max(0, rothWithConversions);
             const totalAt73 = portfolioAt73 + rothAt73;
             
+            const portfolioAt73NoConversions = Math.max(0, portfolioWithoutConversions);
+            
             // Calculate RMD impact at age 73
-            // RMD at 73 is approximately 3.5% of balance (distribution period of 28.5 years)
-            const rmdPercentage = 0.035; // Simplified RMD calculation
-            const rmdWithoutConversions = taxDeferred * rmdPercentage; // If no conversions were made
-            const rmdWithConversions = portfolioAt73 * rmdPercentage;  // Actual RMD with conversions
+            // RMD at 73 is approximately 3.5% of tax-deferred balance (distribution period of 28.5 years)
+            const rmdPercentage = 0.035;
+            const rmdWithConversions = portfolioAt73 * rmdPercentage;
+            const rmdWithoutConversions = portfolioAt73NoConversions * rmdPercentage;
             const rmdReduction = Math.max(0, rmdWithoutConversions - rmdWithConversions);
             
             // Estimate tax savings from smaller RMD (assume 22% marginal rate)
@@ -1263,24 +1279,28 @@
                             
                             <table style="width: 100%; font-size: 0.9rem; border-collapse: collapse;">
                                 <tr>
-                                    <td style="padding: 0.4rem 0; color: #065F46;">Total conversions:</td>
+                                    <td style="padding: 0.4rem 0; color: #065F46;">Total conversions (cumulative ${scenario.claimAge}-72):</td>
                                     <td style="padding: 0.4rem 0; text-align: right; font-weight: 600;">~$${scenario.totalRothConversion.toLocaleString()}</td>
                                 </tr>
                                 <tr style="border-top: 1px solid #BBF7D0;">
-                                    <td style="padding: 0.4rem 0; color: #065F46;">RMD at 73:</td>
+                                    <td style="padding: 0.4rem 0; color: #065F46; font-size: 0.85rem;">Convert a little each year to stay in 10-12% bracket</td>
+                                    <td style="padding: 0.4rem 0; text-align: right; color: #065F46; font-size: 0.85rem;">~$${Math.round(scenario.totalRothConversion / Math.max(1, 73 - scenario.claimAge)).toLocaleString()}/year</td>
+                                </tr>
+                                <tr style="border-top: 1px solid #BBF7D0;">
+                                    <td style="padding: 0.4rem 0; color: #065F46;">Your RMD at 73 (with conversions):</td>
                                     <td style="padding: 0.4rem 0; text-align: right; font-weight: 600;">$${scenario.rmdWithConversions.toLocaleString()}/yr</td>
                                 </tr>
                                 <tr>
-                                    <td style="padding: 0.4rem 0; color: #065F46;">RMD reduction:</td>
+                                    <td style="padding: 0.4rem 0; color: #065F46;">RMD saved vs. no conversions:</td>
                                     <td style="padding: 0.4rem 0; text-align: right; font-weight: 700; color: #10B981;">-$${scenario.rmdReduction.toLocaleString()}/yr</td>
                                 </tr>
                                 <tr>
-                                    <td style="padding: 0.4rem 0; color: #065F46;">Tax savings:</td>
+                                    <td style="padding: 0.4rem 0; color: #065F46;">Annual tax savings (22% bracket):</td>
                                     <td style="padding: 0.4rem 0; text-align: right; font-weight: 700; color: #10B981;">~$${scenario.taxSavingsFromSmallerRMD.toLocaleString()}/yr</td>
                                 </tr>
                             </table>
                             
-                            <p style="font-size: 0.85rem; color: #065F46; margin: 0.75rem 0 0 0; line-height: 1.4;"><strong>Bottom line:</strong> Convert at 10-12% rates now, save ~$${scenario.taxSavingsFromSmallerRMD.toLocaleString()}/year in taxes later (at 22% bracket).</p>
+                            <p style="font-size: 0.85rem; color: #065F46; margin: 0.75rem 0 0 0; line-height: 1.4;"><strong>The strategy:</strong> Convert $${Math.round(scenario.totalRothConversion / Math.max(1, 73 - scenario.claimAge)).toLocaleString()}/year at 10-12% rates (ages ${scenario.claimAge}-72). At 73, your smaller tax-deferred balance means lower RMDs and ~$${scenario.taxSavingsFromSmallerRMD.toLocaleString()}/year less in taxes (at 22% bracket) forever.</p>
                         </div>
                     ` : `
                         <p style="font-size: 0.85rem; color: #6B7280; margin-top: 0.75rem; padding: 0.75rem; background: #F9FAFB; border-radius: 4px;">Conversions not optimal - claiming too late or tax bracket too high.</p>
