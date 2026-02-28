@@ -1221,6 +1221,7 @@
                 <div class="scenario-card ${isRecommended ? 'recommended' : ''}">
                     ${isRecommended ? '<div class="recommended-badge">Best Match</div>' : ''}
                     <h3>Claim at Age ${age}</h3>
+                    
                     <div class="scenario-detail">
                         <span class="label">Monthly SS:</span>
                         <span class="value">$${scenario.ssBenefitMonthly.toLocaleString()}</span>
@@ -1233,7 +1234,8 @@
                         <span class="label">Tax-deferred needed/year:</span>
                         <span class="value">$${scenario.neededFromPortfolio.toLocaleString()}</span>
                     </div>
-                    <div class="scenario-detail">
+                    
+                    <div class="scenario-detail" style="margin-top: 1rem; padding-top: 1rem; border-top: 2px solid var(--color-border);">
                         <span class="label">Tax-deferred at age 73:</span>
                         <span class="value">$${scenario.portfolioAt73.toLocaleString()}</span>
                     </div>
@@ -1241,46 +1243,47 @@
                         <span class="label">Roth IRA at age 73:</span>
                         <span class="value">$${scenario.rothAt73.toLocaleString()}</span>
                     </div>
-                    <div class="scenario-detail" style="border-top: 2px solid var(--color-border); padding-top: 0.5rem; margin-top: 0.5rem;">
+                    <div class="scenario-detail" style="background: #F3F4F6; margin: 0.5rem -0.5rem; padding: 0.75rem 0.5rem;">
                         <span class="label" style="font-weight: 700;">Total savings at 73:</span>
-                        <span class="value" style="font-weight: 700; color: var(--color-primary);">$${scenario.totalAt73.toLocaleString()}</span>
+                        <span class="value" style="font-weight: 700; color: var(--color-primary); font-size: 1.1rem;">$${scenario.totalAt73.toLocaleString()}</span>
                     </div>
-                    <p style="font-size: 0.85rem; color: var(--color-text-light); margin: 0.75rem 0; padding: 0.75rem; background: #F9FAFB; border-radius: 4px; border-left: 3px solid var(--color-primary);"><strong>💡 Strategy:</strong> Spend tax-deferred first, save Roth last. Roth grows tax-free with no RMDs.</p>
-                    <div class="scenario-detail">
+                    
+                    <div class="scenario-detail" style="margin-top: 1rem; padding-top: 1rem; border-top: 2px solid var(--color-border);">
                         <span class="label">Tax bracket:</span>
                         <span class="value">${scenario.taxBracket}</span>
                     </div>
                     <div class="scenario-detail">
-                        <span class="label">Roth conversions:</span>
-                        <span class="value" title="${scenario.canConvert ? 'Tax-efficient opportunity to convert pre-tax retirement funds to Roth IRA during low-income years' : 'Not recommended - either claiming too late for conversion window or tax bracket too high'}">${scenario.canConvert ? '✓ YES' : '✗ NO'}</span>
+                        <span class="label">Roth conversions possible:</span>
+                        <span class="value" style="font-weight: 600; color: ${scenario.canConvert ? '#10B981' : '#6B7280'};">${scenario.canConvert ? '✓ YES' : '✗ NO'}</span>
                     </div>
+                    
                     ${scenario.canConvert ? `
-                        <div style="background: #F0FDF4; padding: 1rem; border-radius: 6px; margin-top: 0.75rem; border: 1px solid #10B981;">
-                            <div style="font-weight: 600; color: #065F46; margin-bottom: 0.75rem; font-size: 1rem;">🎯 Roth Conversion Opportunity</div>
+                        <div style="background: #ECFDF5; margin-top: 1rem; padding: 1rem; border-radius: 6px; border-left: 4px solid #10B981;">
+                            <div style="font-weight: 700; color: #065F46; margin-bottom: 0.75rem;">🎯 Roth Conversion Benefits</div>
                             
-                            <div style="display: grid; gap: 0.5rem; margin-bottom: 0.75rem;">
-                                <div style="display: flex; justify-content: space-between; padding: 0.25rem 0;">
-                                    <span style="color: #065F46;">Total conversions (ages ${scenario.claimAge}-72):</span>
-                                    <span style="font-weight: 600;">~$${scenario.totalRothConversion.toLocaleString()}</span>
-                                </div>
-                                <div style="display: flex; justify-content: space-between; padding: 0.25rem 0;">
-                                    <span style="color: #065F46;">RMD at 73 (with conversions):</span>
-                                    <span style="font-weight: 600;">$${scenario.rmdWithConversions.toLocaleString()}/year</span>
-                                </div>
-                                <div style="display: flex; justify-content: space-between; padding: 0.25rem 0;">
-                                    <span style="color: #065F46;">RMD reduction vs. no conversions:</span>
-                                    <span style="color: #10B981; font-weight: 700;">-$${scenario.rmdReduction.toLocaleString()}/year</span>
-                                </div>
-                                <div style="display: flex; justify-content: space-between; padding: 0.25rem 0;">
-                                    <span style="color: #065F46;">Est. tax savings (22% bracket):</span>
-                                    <span style="color: #10B981; font-weight: 700;">~$${scenario.taxSavingsFromSmallerRMD.toLocaleString()}/year</span>
-                                </div>
-                            </div>
+                            <table style="width: 100%; font-size: 0.9rem; border-collapse: collapse;">
+                                <tr>
+                                    <td style="padding: 0.4rem 0; color: #065F46;">Total conversions:</td>
+                                    <td style="padding: 0.4rem 0; text-align: right; font-weight: 600;">~$${scenario.totalRothConversion.toLocaleString()}</td>
+                                </tr>
+                                <tr style="border-top: 1px solid #BBF7D0;">
+                                    <td style="padding: 0.4rem 0; color: #065F46;">RMD at 73:</td>
+                                    <td style="padding: 0.4rem 0; text-align: right; font-weight: 600;">$${scenario.rmdWithConversions.toLocaleString()}/yr</td>
+                                </tr>
+                                <tr>
+                                    <td style="padding: 0.4rem 0; color: #065F46;">RMD reduction:</td>
+                                    <td style="padding: 0.4rem 0; text-align: right; font-weight: 700; color: #10B981;">-$${scenario.rmdReduction.toLocaleString()}/yr</td>
+                                </tr>
+                                <tr>
+                                    <td style="padding: 0.4rem 0; color: #065F46;">Tax savings:</td>
+                                    <td style="padding: 0.4rem 0; text-align: right; font-weight: 700; color: #10B981;">~$${scenario.taxSavingsFromSmallerRMD.toLocaleString()}/yr</td>
+                                </tr>
+                            </table>
                             
-                            <p style="font-size: 0.85rem; color: #065F46; margin: 0; line-height: 1.5; padding-top: 0.75rem; border-top: 1px solid #BBF7D0;"><strong>Why this matters:</strong> Converting $${scenario.totalRothConversion.toLocaleString()} to Roth at 10-12% tax rates permanently reduces Required Minimum Distributions at age 73+. Smaller RMDs = less forced taxable income, saving ~$${scenario.taxSavingsFromSmallerRMD.toLocaleString()}/year in taxes for life.</p>
+                            <p style="font-size: 0.85rem; color: #065F46; margin: 0.75rem 0 0 0; line-height: 1.4;"><strong>Bottom line:</strong> Convert at 10-12% rates now, save ~$${scenario.taxSavingsFromSmallerRMD.toLocaleString()}/year in taxes later (at 22% bracket).</p>
                         </div>
                     ` : `
-                        <p style="font-size: 0.85rem; color: var(--color-text-light); margin-top: 0.5rem; font-style: italic;">Roth conversions not optimal in this scenario - either claiming age too late for conversion window, or income keeps you in higher tax brackets.</p>
+                        <p style="font-size: 0.85rem; color: #6B7280; margin-top: 0.75rem; padding: 0.75rem; background: #F9FAFB; border-radius: 4px;">Conversions not optimal - claiming too late or tax bracket too high.</p>
                     `}
                 </div>
             `;
