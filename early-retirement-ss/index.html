@@ -516,7 +516,7 @@
             <div class="info-box" style="margin-bottom: 1.5rem;">
                 <h4>💡 Critical Insight Most People Miss</h4>
                 <p><strong>Your SS statement shows different benefits at ages 62, 67, and 70 - but each assumes you work until that claiming age.</strong></p>
-                <p style="margin-top: 0.5rem;">Example: If you're 55 and your statement shows higher benefits at age 70, that assumes you continue working (with raises) from age 55 to 70 and then claim. <span class="info-icon" onclick="toggleTooltip(event, 'tooltip-intro')">i<span class="info-tooltip" id="tooltip-intro"><div class="info-tooltip-title">Gen X Example (Currently Age 55)</div><p><strong>You right now:</strong> 55 years old, worked 33 years, earn $65,000/year</p><p style="margin-top: 0.5rem;"><strong>Your statement shows if you keep working:</strong></p><ul><li>Age 62: $1,750/month (assumes 7 MORE years of work)</li><li>Age 67: $2,500/month (assumes 12 MORE years of work)</li><li>Age 70: $3,100/month (assumes 15 MORE years of work)</li></ul><p style="margin-top: 0.5rem;"><strong>The trap:</strong> If you retire TODAY but wait to claim at 70, you won't get $3,100. You'll get less because those 15 future years become zeros.</p></span></span> If you actually retire at 55 and wait to claim at 70, your benefit will be lower because Social Security is based on your 35 highest earning years - and those years from 55-70 become zeros instead of high-earning years.</p>
+                <p style="margin-top: 0.5rem;">Example: If you're 55 and your statement shows higher benefits at age 70, that assumes you continue working (with raises) from age 55 to 70 and then claim. <span class="info-icon" onclick="toggleTooltip(event, 'tooltip-intro')">i<span class="info-tooltip" id="tooltip-intro"><div class="info-tooltip-title">Gen X Example (Currently Age 55.5)</div><p><strong>You right now:</strong> 55.5 years old, worked 33 years, earn $65,000/year</p><p style="margin-top: 0.5rem;"><strong>Your statement shows if you keep working:</strong></p><ul><li>Age 62: $1,750/month (assumes 6.5 MORE years of work)</li><li>Age 67: $2,500/month (assumes 11.5 MORE years of work)</li><li>Age 70: $3,100/month (assumes 14.5 MORE years of work)</li></ul><p style="margin-top: 0.5rem;"><strong>The trap:</strong> If you retire TODAY but wait to claim at 70, you won't get $3,100. You'll get less because those 14.5 future years become zeros.</p></span></span> If you actually retire at 55 and wait to claim at 70, your benefit will be lower because Social Security is based on your 35 highest earning years - and those years from 55-70 become zeros instead of high-earning years.</p>
                 <p style="margin-top: 0.5rem;"><strong>This calculator separates "when you stop working" from "when you claim benefits"</strong> so you can see the true impact of early retirement.</p>
             </div>
 
@@ -583,13 +583,14 @@
                     
                     <div class="form-group">
                         <label for="current-age">Your Current Age</label>
-                        <input type="number" id="current-age" min="35" max="70" required>
+                        <input type="number" id="current-age" min="35" max="70" step="0.5" required>
+                        <p class="form-help">Enter your age to the nearest half-year. Example: If you're 55 and a half, enter 55.5</p>
                     </div>
 
                     <div class="form-group">
                         <label for="years-to-retirement">Years Until You Plan to Stop Working</label>
                         <input type="number" id="years-to-retirement" min="0" max="35" step="0.5" required>
-                        <p class="form-help"><strong>Retiring now?</strong> Enter 0. <strong>Working a bit longer?</strong> Enter years from TODAY (e.g., 1.5, 2, 3.5, 5). Use decimals for half-years: if you're 55.5 now and retiring at 57, that's 1.5 years.</p>
+                        <p class="form-help"><strong>Retiring now?</strong> Enter 0. <strong>Working a bit longer?</strong> Enter years from TODAY (e.g., 1.5, 2, 3.5, 5). Use half-years for precision: if you're 55.5 now and retiring at 57, enter 1.5 years.</p>
                     </div>
 
                     <div class="form-group">
@@ -611,7 +612,7 @@
                     <div class="info-box warning" style="margin-bottom: 1.5rem;">
                         <h4>🚨 Critical: Understand What These Numbers Mean</h4>
                         <p><strong>Your SS statement assumes you work until the age you CLAIM benefits, not just until you retire.</strong></p>
-                <p style="margin-top: 0.5rem;">For example, if you're currently 55, your statement shows benefits at different ages - but each assumes you keep working until that age. <span class="info-icon" onclick="toggleTooltip(event, 'tooltip-form')">i<span class="info-tooltip" id="tooltip-form"><div class="info-tooltip-title">Gen X Example (Currently Age 55)</div><p><strong>You today:</strong> 55 years old, worked 33 years so far, make $65,000/year</p><p style="margin-top: 0.5rem;"><strong>Your SS statement shows:</strong></p><ul><li>$1,750 at age 62 → assumes you work 7 MORE years</li><li>$2,500 at age 67 → assumes you work 12 MORE years</li><li>$3,100 at age 70 → assumes you work 15 MORE years</li></ul><p style="margin-top: 0.5rem;"><strong>If you retire TODAY (0 years):</strong> Those future years won't happen, so your actual benefits will be lower than shown.</p><p style="margin-top: 0.5rem;"><strong>If you work 2 more years (retire at 57):</strong> You'd still miss 13 years of earnings before age 70, reducing benefits.</p></span></span></p>
+                <p style="margin-top: 0.5rem;">For example, if you're currently 55, your statement shows benefits at different ages - but each assumes you keep working until that age. <span class="info-icon" onclick="toggleTooltip(event, 'tooltip-form')">i<span class="info-tooltip" id="tooltip-form"><div class="info-tooltip-title">Gen X Example (Currently Age 55.5)</div><p><strong>You today:</strong> 55.5 years old, worked 33 years so far, make $65,000/year</p><p style="margin-top: 0.5rem;"><strong>Your SS statement shows:</strong></p><ul><li>$1,750 at age 62 → assumes you work 6.5 MORE years</li><li>$2,500 at age 67 → assumes you work 11.5 MORE years</li><li>$3,100 at age 70 → assumes you work 14.5 MORE years</li></ul><p style="margin-top: 0.5rem;"><strong>If you retire TODAY (0 years):</strong> Those future years won't happen, so your actual benefits will be lower than shown.</p><p style="margin-top: 0.5rem;"><strong>If you work 1.5 more years (retire at 57):</strong> You'd still miss 13 years of earnings before age 70, reducing benefits.</p></span></span></p>
                         <p style="margin-top: 0.5rem;"><strong>If you retire early but wait to claim later, the benefit estimate on your statement is WRONG</strong> because it assumes years of earnings that won't happen. This calculator shows what you'll actually get.</p>
                     </div>
                     
@@ -833,7 +834,7 @@ The key insight: My PIA is based on when I STOP WORKING (which determines my AIM
         document.getElementById('option1-form').addEventListener('submit', function(e) {
             e.preventDefault();
             
-            const currentAge = parseInt(document.getElementById('current-age').value);
+            const currentAge = parseFloat(document.getElementById('current-age').value);
             const yearsToRetirement = parseFloat(document.getElementById('years-to-retirement').value);
             const yearsWorked = parseInt(document.getElementById('years-worked').value);
             const currentIncome = parseInt(document.getElementById('current-income').value);
