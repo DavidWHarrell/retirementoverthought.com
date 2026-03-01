@@ -1,5 +1,14 @@
 <!DOCTYPE html>
 <html lang="en">
+<!--
+    Early Retirement Social Security Calculator
+    Copyright © 2025 RetirementOverthought.com - All Rights Reserved
+    
+    NOTICE: This tool is proprietary software owned by RetirementOverthought.com.
+    Unauthorized copying, distribution, or use on other domains is strictly prohibited.
+    
+    For licensing inquiries, contact: https://retirementoverthought.com
+-->
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -783,10 +792,27 @@ The key insight: My PIA is based on when I STOP WORKING (which determines my AIM
             <button class="btn" onclick="goToOptimizer()">Use These Numbers in SS Optimizer →</button>
 
             <button class="btn-secondary" onclick="startOver()">← Calculate Different Scenario</button>
+            
+            <div style="margin-top: 2rem; padding-top: 1.5rem; border-top: 2px solid #E5E7EB; text-align: center; color: #6B7280; font-size: 0.9rem;">
+                <p style="margin: 0;">📊 Calculated by <strong style="color: #1F2937;">RetirementOverthought.com</strong></p>
+                <p style="margin: 0.5rem 0 0 0; font-size: 0.85rem;">© 2025 RetirementOverthought.com. All Rights Reserved. | <a href="/terms" style="color: #2563EB; text-decoration: none;">Terms of Use</a></p>
+            </div>
         </div>
     </div>
 
     <script>
+        // DOMAIN LOCK - Prevents unauthorized use on other websites
+        (function() {
+            const allowedDomains = ['retirementoverthought.com', 'localhost', '127.0.0.1'];
+            const currentDomain = window.location.hostname;
+            const isAllowed = allowedDomains.some(domain => currentDomain.includes(domain));
+            
+            if (!isAllowed) {
+                document.body.innerHTML = '<div style="font-family: system-ui; max-width: 600px; margin: 100px auto; padding: 2rem; text-align: center; border: 3px solid #DC2626; border-radius: 8px;"><h1 style="color: #DC2626;">⚠️ Unauthorized Use</h1><p style="font-size: 1.1rem; line-height: 1.6;">This calculator is licensed exclusively for use on <strong>RetirementOverthought.com</strong>.</p><p style="margin-top: 1.5rem;">For licensing inquiries, visit:<br><a href="https://retirementoverthought.com" style="color: #2563EB; font-weight: 600;">RetirementOverthought.com</a></p><p style="margin-top: 1.5rem; font-size: 0.9rem; color: #6B7280;">Copyright © 2025 RetirementOverthought.com. All Rights Reserved.</p></div>';
+                throw new Error('Domain lock: Unauthorized domain');
+            }
+        })();
+
         // Global state
         let currentOption = null;
         let calculatedResults = null;
