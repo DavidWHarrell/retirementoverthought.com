@@ -1,1090 +1,582 @@
 <!DOCTYPE html>
 <html lang="en">
-<!--
-    Early Retirement Social Security Calculator
-    Copyright © 2025 RetirementOverthought.com - All Rights Reserved
-    
-    NOTICE: This tool is proprietary software owned by RetirementOverthought.com.
-    Unauthorized copying, distribution, or use on other domains is strictly prohibited.
-    
-    For licensing inquiries, contact: https://retirementoverthought.com
--->
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Early Retirement Social Security Calculator | Retirement Overthought</title>
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Crimson+Text:wght@400;600;700&family=Work+Sans:wght@400;500;600&display=swap" rel="stylesheet">
-    <!-- Cloudflare Web Analytics --><script defer src='https://static.cloudflareinsights.com/beacon.min.js' data-cf-beacon='{"token": "573cb90827d441118ff702b086d336af"}'></script><!-- End Cloudflare Web Analytics -->
-    <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
-
-        :root {
-            --color-primary: #0A5F7F;
-            --color-primary-dark: #084A61;
-            --color-primary-light: #E6F3F7;
-            --color-accent: #FFD700;
-            --color-accent-dark: #E6C200;
-            --color-success: #10B981;
-            --color-warning: #F59E0B;
-            --color-danger: #EF4444;
-            --color-text: #1a1a1a;
-            --color-text-light: #4a4a4a;
-            --color-white: #FFFFFF;
-            --color-bg: #f8fafb;
-            --color-border: #d4e3e8;
-            --font-serif: 'Crimson Text', Georgia, serif;
-            --font-sans: 'Work Sans', -apple-system, sans-serif;
-        }
-
-        body {
-            font-family: var(--font-sans);
-            background: var(--color-bg);
-            color: var(--color-text);
-            line-height: 1.6;
-            min-height: 100vh;
-        }
-
-        .container {
-            max-width: 1000px;
-            margin: 0 auto;
-            padding: 2rem;
-        }
-
-        /* Header */
-        header {
-            text-align: center;
-            padding: 3rem 0 2rem;
-            background: linear-gradient(135deg, var(--color-primary) 0%, var(--color-primary-dark) 100%);
-            margin: -2rem -2rem 2rem -2rem;
-            border-radius: 0 0 12px 12px;
-            position: relative;
-        }
-
-        .back-to-home {
-            position: absolute;
-            top: 1.5rem;
-            left: 2rem;
-            color: var(--color-white);
-            text-decoration: none;
-            font-size: 0.9rem;
-            opacity: 0.9;
-            transition: opacity 0.2s ease;
-        }
-
-        .back-to-home:hover {
-            opacity: 1;
-        }
-
-        h1 {
-            font-family: var(--font-serif);
-            font-size: 2.5rem;
-            font-weight: 700;
-            color: var(--color-white);
-            margin-bottom: 0.5rem;
-        }
-
-        .subtitle {
-            font-size: 1.1rem;
-            color: var(--color-accent);
-            font-weight: 500;
-        }
-
-        /* Intro */
-        .intro {
-            background: var(--color-white);
-            padding: 2rem;
-            border-radius: 8px;
-            margin-bottom: 2rem;
-            border: 2px solid var(--color-border);
-        }
-
-        .intro h2 {
-            font-family: var(--font-serif);
-            font-size: 1.75rem;
-            color: var(--color-primary);
-            margin-bottom: 1rem;
-        }
-
-        /* Option Cards */
-        .option-selection {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
-            gap: 2rem;
-            margin-bottom: 2rem;
-        }
-
-        .option-card {
-            background: var(--color-white);
-            border: 3px solid var(--color-border);
-            border-radius: 8px;
-            padding: 2rem;
-            cursor: pointer;
-            transition: all 0.3s ease;
-        }
-
-        .option-card:hover {
-            border-color: var(--color-primary);
-            box-shadow: 0 4px 12px rgba(10, 95, 127, 0.15);
-            transform: translateY(-2px);
-        }
-
-        .option-card.active {
-            border-color: var(--color-primary);
-            background: var(--color-primary-light);
-        }
-
-        .option-header {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            margin-bottom: 1.5rem;
-            padding-bottom: 1rem;
-            border-bottom: 2px solid var(--color-border);
-        }
-
-        .option-number {
-            font-family: var(--font-serif);
-            font-size: 2.5rem;
-            font-weight: 700;
-            color: var(--color-primary);
-        }
-
-        .option-time {
-            background: var(--color-primary);
-            color: var(--color-white);
-            padding: 0.5rem 1rem;
-            border-radius: 12px;
-            font-size: 0.9rem;
-            font-weight: 600;
-        }
-
-        .option-title {
-            font-family: var(--font-serif);
-            font-size: 1.75rem;
-            color: var(--color-primary);
-            margin-bottom: 0.75rem;
-        }
-
-        .option-description {
-            color: var(--color-text-light);
-            font-size: 1rem;
-            margin-bottom: 1.5rem;
-            line-height: 1.6;
-        }
-
-        .option-features {
-            list-style: none;
-            margin-bottom: 1.5rem;
-        }
-
-        .option-features li {
-            padding: 0.5rem 0;
-            padding-left: 1.75rem;
-            position: relative;
-            line-height: 1.5;
-        }
-
-        .option-features li:before {
-            content: "✓";
-            position: absolute;
-            left: 0;
-            color: var(--color-success);
-            font-weight: 700;
-            font-size: 1.2rem;
-        }
-
-        .option-privacy {
-            font-size: 0.9rem;
-            padding: 1rem;
-            background: var(--color-primary-light);
-            border-radius: 6px;
-            border-left: 4px solid var(--color-primary);
-        }
-
-        .option-privacy.warning {
-            background: #FEF3C7;
-            border-left-color: var(--color-warning);
-        }
-
-        /* Calculator Forms */
-        .calculator-section {
-            background: var(--color-white);
-            padding: 2rem;
-            border-radius: 8px;
-            border: 2px solid var(--color-border);
-            margin-bottom: 2rem;
-            display: none;
-        }
-
-        .calculator-section.active {
-            display: block;
-        }
-
-        .form-section {
-            margin-bottom: 2rem;
-        }
-
-        .form-section h3 {
-            font-family: var(--font-serif);
-            font-size: 1.5rem;
-            color: var(--color-primary);
-            margin-bottom: 1rem;
-        }
-
-        .form-group {
-            margin-bottom: 1.5rem;
-        }
-
-        .form-group label {
-            display: block;
-            font-weight: 600;
-            margin-bottom: 0.5rem;
-            color: var(--color-text);
-        }
-
-        .form-group input,
-        .form-group select {
-            width: 100%;
-            padding: 0.75rem;
-            border: 2px solid var(--color-border);
-            border-radius: 6px;
-            font-size: 1rem;
-            font-family: var(--font-sans);
-            transition: border-color 0.2s ease;
-        }
-
-        .form-group input:focus,
-        .form-group select:focus {
-            outline: none;
-            border-color: var(--color-primary);
-        }
-
-        .form-help {
-            font-size: 0.9rem;
-            color: var(--color-text-light);
-            margin-top: 0.5rem;
-        }
-
-        .btn {
-            background: var(--color-primary);
-            color: var(--color-white);
-            padding: 1rem 2rem;
-            border: none;
-            border-radius: 6px;
-            font-size: 1.1rem;
-            font-weight: 600;
-            cursor: pointer;
-            transition: all 0.2s ease;
-            width: 100%;
-        }
-
-        .btn:hover {
-            background: var(--color-primary-dark);
-            transform: translateY(-2px);
-            box-shadow: 0 4px 12px rgba(10, 95, 127, 0.3);
-        }
-
-        .btn:disabled {
-            background: var(--color-border);
-            cursor: not-allowed;
-            transform: none;
-        }
-
-        .btn-secondary {
-            background: var(--color-white);
-            color: var(--color-primary);
-            border: 2px solid var(--color-primary);
-            margin-top: 1rem;
-        }
-
-        .btn-secondary:hover {
-            background: var(--color-primary-light);
-        }
-
-        /* Results */
-        .results-section {
-            background: var(--color-white);
-            padding: 2rem;
-            border-radius: 8px;
-            border: 2px solid var(--color-success);
-            margin-bottom: 2rem;
-            display: none;
-        }
-
-        .results-section.active {
-            display: block;
-        }
-
-        .results-header {
-            text-align: center;
-            margin-bottom: 2rem;
-        }
-
-        .results-header h2 {
-            font-family: var(--font-serif);
-            font-size: 2rem;
-            color: var(--color-primary);
-            margin-bottom: 0.5rem;
-        }
-
-        .results-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-            gap: 1.5rem;
-            margin-bottom: 2rem;
-        }
-
-        .result-card {
-            background: var(--color-primary-light);
-            padding: 1.5rem;
-            border-radius: 8px;
-            text-align: center;
-            border: 2px solid var(--color-border);
-        }
-
-        .result-label {
-            font-size: 0.9rem;
-            color: var(--color-text-light);
-            margin-bottom: 0.5rem;
-        }
-
-        .result-value {
-            font-family: var(--font-serif);
-            font-size: 2rem;
-            font-weight: 700;
-            color: var(--color-primary);
-        }
-
-        .result-change {
-            font-size: 0.85rem;
-            margin-top: 0.5rem;
-            font-weight: 600;
-        }
-
-        .result-change.negative {
-            color: var(--color-danger);
-        }
-
-        .info-box {
-            background: var(--color-primary-light);
-            border-left: 4px solid var(--color-primary);
-            padding: 1rem;
-            border-radius: 4px;
-            margin: 1rem 0;
-        }
-
-        .info-box h4 {
-            color: var(--color-primary-dark);
-            margin-bottom: 0.5rem;
-        }
-
-        .info-box.warning {
-            background: #FEF3C7;
-            border-left-color: var(--color-warning);
-        }
-
-        .info-box.warning h4 {
-            color: #92400E;
-        }
-
-        /* Info Tooltip */
-        .info-icon {
-            display: inline-block;
-            width: 20px;
-            height: 20px;
-            line-height: 20px;
-            text-align: center;
-            background: var(--color-primary);
-            color: var(--color-white);
-            border-radius: 50%;
-            font-size: 0.75rem;
-            font-weight: 700;
-            cursor: help;
-            margin-left: 0.5rem;
-            position: relative;
-            user-select: none;
-        }
-
-        .info-icon:hover {
-            background: var(--color-primary-dark);
-        }
-
-        .info-tooltip {
-            display: none;
-            position: absolute;
-            bottom: calc(100% + 10px);
-            left: 50%;
-            transform: translateX(-50%);
-            background: var(--color-white);
-            border: 2px solid var(--color-primary);
-            border-radius: 8px;
-            padding: 1rem;
-            box-shadow: 0 4px 12px rgba(0,0,0,0.15);
-            z-index: 1000;
-            width: 320px;
-            font-size: 0.9rem;
-            font-weight: normal;
-            line-height: 1.5;
-        }
-
-        .info-tooltip.active {
-            display: block;
-        }
-
-        .info-tooltip::after {
-            content: '';
-            position: absolute;
-            top: 100%;
-            left: 50%;
-            transform: translateX(-50%);
-            border: 8px solid transparent;
-            border-top-color: var(--color-primary);
-        }
-
-        .info-tooltip-title {
-            font-weight: 700;
-            color: var(--color-primary);
-            margin-bottom: 0.5rem;
-        }
-
-        .info-tooltip ul {
-            margin: 0.5rem 0 0 1.25rem;
-            padding: 0;
-        }
-
-        .info-tooltip li {
-            margin: 0.25rem 0;
-        }
-
-        /* Prompt Box */
-        .prompt-box {
-            background: var(--color-bg);
-            border: 2px solid var(--color-border);
-            border-radius: 8px;
-            padding: 1.5rem;
-            font-family: monospace;
-            font-size: 0.9rem;
-            white-space: pre-wrap;
-            margin: 1rem 0;
-            max-height: 400px;
-            overflow-y: auto;
-        }
-
-        .copy-button {
-            background: var(--color-success);
-            color: var(--color-white);
-            padding: 0.75rem 1.5rem;
-            border: none;
-            border-radius: 6px;
-            font-weight: 600;
-            cursor: pointer;
-            margin-top: 0.5rem;
-            font-size: 1rem;
-        }
-
-        .copy-button:hover {
-            background: #059669;
-        }
-
-        @media (max-width: 768px) {
-            h1 {
-                font-size: 2rem;
-            }
-
-            .option-selection {
-                grid-template-columns: 1fr;
-            }
-
-            .results-grid {
-                grid-template-columns: 1fr;
-            }
-        }
-    </style>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Early Retirement SS Calculator | Retirement Overthought</title>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700&family=Source+Sans+3:wght@300;400;500;600&family=Source+Code+Pro:wght@400;500&display=swap" rel="stylesheet"/>
+  <style>
+    :root {
+      --navy:       #0f1f38;
+      --navy-mid:   #162844;
+      --navy-light: #1e3a5f;
+      --gold:       #c9a84c;
+      --gold-light: #e2c47a;
+      --cream:      #f5f0e8;
+      --cream-dark: #ede5d4;
+      --text:       #1a1a2e;
+      --text-muted: #5a6a7a;
+      --white:      #ffffff;
+      --green:      #2e7d52;
+      --red:        #9b2335;
+      --border:     rgba(201,168,76,0.25);
+    }
+
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      font-family: 'Source Sans 3', sans-serif;
+      background: var(--cream);
+      color: var(--text);
+      line-height: 1.7;
+      min-height: 100vh;
+    }
+
+    /* ── HEADER ── */
+    header {
+      background: var(--navy);
+      padding: 0;
+      position: relative;
+      overflow: hidden;
+    }
+    header::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: 
+        radial-gradient(ellipse at 80% 50%, rgba(201,168,76,0.08) 0%, transparent 60%),
+        radial-gradient(ellipse at 20% 80%, rgba(30,58,95,0.6) 0%, transparent 50%);
+    }
+    .header-inner {
+      position: relative;
+      max-width: 960px;
+      margin: 0 auto;
+      padding: 48px 32px 40px;
+    }
+    .site-label {
+      font-family: 'Source Sans 3', sans-serif;
+      font-size: 11px;
+      font-weight: 600;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--gold);
+      margin-bottom: 16px;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+    .site-label::after {
+      content: '';
+      flex: 1;
+      height: 1px;
+      background: var(--border);
+      max-width: 120px;
+    }
+    h1 {
+      font-family: 'Playfair Display', serif;
+      font-size: clamp(28px, 4vw, 42px);
+      font-weight: 700;
+      color: var(--white);
+      line-height: 1.2;
+      margin-bottom: 16px;
+    }
+    h1 span {
+      color: var(--gold);
+    }
+    .header-sub {
+      font-size: 16px;
+      color: rgba(255,255,255,0.65);
+      font-weight: 300;
+      max-width: 600px;
+      line-height: 1.6;
+    }
+
+    /* ── LAYOUT ── */
+    main {
+      max-width: 960px;
+      margin: 0 auto;
+      padding: 48px 32px 80px;
+    }
+
+    /* ── ALERT BOX ── */
+    .alert {
+      background: var(--navy);
+      border-left: 4px solid var(--gold);
+      border-radius: 6px;
+      padding: 20px 24px;
+      margin-bottom: 40px;
+      color: var(--white);
+    }
+    .alert-title {
+      font-family: 'Playfair Display', serif;
+      font-size: 15px;
+      font-weight: 600;
+      color: var(--gold);
+      margin-bottom: 6px;
+      letter-spacing: 0.02em;
+    }
+    .alert p {
+      font-size: 14px;
+      color: rgba(255,255,255,0.75);
+      line-height: 1.6;
+    }
+
+    /* ── SECTION HEADERS ── */
+    .section-label {
+      font-size: 10px;
+      font-weight: 700;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--gold);
+      margin-bottom: 8px;
+    }
+    h2 {
+      font-family: 'Playfair Display', serif;
+      font-size: 22px;
+      font-weight: 600;
+      color: var(--navy);
+      margin-bottom: 24px;
+      padding-bottom: 12px;
+      border-bottom: 1px solid var(--cream-dark);
+    }
+
+    /* ── INSTRUCTIONS CARD ── */
+    .instructions-card {
+      background: var(--white);
+      border: 1px solid var(--cream-dark);
+      border-radius: 8px;
+      margin-bottom: 32px;
+      overflow: hidden;
+      box-shadow: 0 2px 12px rgba(15,31,56,0.06);
+    }
+    .instructions-card-header {
+      background: var(--navy-light);
+      padding: 14px 20px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+    .instructions-card-header span {
+      font-size: 12px;
+      font-weight: 600;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: rgba(255,255,255,0.6);
+    }
+    .step-badge {
+      background: var(--gold);
+      color: var(--navy);
+      font-size: 11px;
+      font-weight: 700;
+      padding: 3px 10px;
+      border-radius: 20px;
+      letter-spacing: 0.05em;
+    }
+
+    /* ── PROMPT BOX ── */
+    .prompt-wrapper {
+      position: relative;
+      margin-bottom: 32px;
+    }
+    .prompt-box {
+      background: var(--navy);
+      border: 1px solid rgba(201,168,76,0.2);
+      border-radius: 8px;
+      padding: 0;
+      overflow: hidden;
+      box-shadow: 0 4px 24px rgba(15,31,56,0.15);
+    }
+    .prompt-toolbar {
+      background: var(--navy-mid);
+      border-bottom: 1px solid rgba(255,255,255,0.08);
+      padding: 12px 20px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+    .prompt-toolbar-left {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+    .dot {
+      width: 10px; height: 10px;
+      border-radius: 50%;
+    }
+    .dot-red   { background: #ff5f57; }
+    .dot-amber { background: #ffbd2e; }
+    .dot-green { background: #28c840; }
+    .prompt-filename {
+      font-size: 12px;
+      color: rgba(255,255,255,0.4);
+      font-family: 'Source Code Pro', monospace;
+      margin-left: 8px;
+    }
+    .copy-btn {
+      background: var(--gold);
+      color: var(--navy);
+      border: none;
+      border-radius: 4px;
+      padding: 7px 16px;
+      font-family: 'Source Sans 3', sans-serif;
+      font-size: 12px;
+      font-weight: 700;
+      letter-spacing: 0.05em;
+      text-transform: uppercase;
+      cursor: pointer;
+      transition: all 0.2s ease;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+    .copy-btn:hover { background: var(--gold-light); transform: translateY(-1px); }
+    .copy-btn:active { transform: translateY(0); }
+    .copy-btn.copied { background: var(--green); color: white; }
+
+    .prompt-content {
+      padding: 24px 28px;
+      font-family: 'Source Code Pro', monospace;
+      font-size: 12.5px;
+      line-height: 1.8;
+      color: rgba(255,255,255,0.82);
+      white-space: pre-wrap;
+      word-break: break-word;
+      max-height: 600px;
+      overflow-y: auto;
+      scrollbar-width: thin;
+      scrollbar-color: rgba(201,168,76,0.3) transparent;
+    }
+    .prompt-content::-webkit-scrollbar { width: 4px; }
+    .prompt-content::-webkit-scrollbar-track { background: transparent; }
+    .prompt-content::-webkit-scrollbar-thumb { background: rgba(201,168,76,0.3); border-radius: 2px; }
+
+    /* syntax highlights inside prompt */
+    .prompt-content .ph-warning  { color: #ff9f7e; font-weight: 600; }
+    .prompt-content .ph-key      { color: var(--gold-light); font-weight: 600; }
+    .prompt-content .ph-number   { color: #7ec8e3; }
+    .prompt-content .ph-comment  { color: rgba(255,255,255,0.35); font-style: italic; }
+    .prompt-content .ph-section  { color: #a8d8a8; font-weight: 600; }
+
+    /* ── HOW TO USE STEPS ── */
+    .steps-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 16px;
+      margin-bottom: 40px;
+    }
+    .step-card {
+      background: var(--white);
+      border: 1px solid var(--cream-dark);
+      border-radius: 8px;
+      padding: 20px;
+      box-shadow: 0 1px 6px rgba(15,31,56,0.05);
+    }
+    .step-num {
+      font-family: 'Playfair Display', serif;
+      font-size: 36px;
+      font-weight: 700;
+      color: var(--cream-dark);
+      line-height: 1;
+      margin-bottom: 8px;
+    }
+    .step-title {
+      font-size: 13px;
+      font-weight: 700;
+      color: var(--navy);
+      margin-bottom: 6px;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+    }
+    .step-desc {
+      font-size: 13px;
+      color: var(--text-muted);
+      line-height: 1.5;
+    }
+
+    /* ── WHAT TO EXPECT ── */
+    .expect-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 16px;
+      margin-bottom: 40px;
+    }
+    @media (max-width: 600px) { .expect-grid { grid-template-columns: 1fr; } }
+    .expect-card {
+      background: var(--white);
+      border: 1px solid var(--cream-dark);
+      border-radius: 8px;
+      padding: 20px 22px;
+    }
+    .expect-card-label {
+      font-size: 10px;
+      font-weight: 700;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      margin-bottom: 10px;
+    }
+    .expect-card.good .expect-card-label { color: var(--green); }
+    .expect-card.warn .expect-card-label { color: var(--red); }
+    .expect-card ul { padding-left: 0; list-style: none; }
+    .expect-card ul li {
+      font-size: 13px;
+      color: var(--text-muted);
+      padding: 4px 0;
+      padding-left: 18px;
+      position: relative;
+      line-height: 1.5;
+    }
+    .expect-card.good ul li::before { content: '✓'; position: absolute; left: 0; color: var(--green); font-weight: 700; }
+    .expect-card.warn ul li::before { content: '✗'; position: absolute; left: 0; color: var(--red); font-weight: 700; }
+
+    /* ── DISCLAIMER ── */
+    .disclaimer {
+      background: var(--cream-dark);
+      border-radius: 8px;
+      padding: 20px 24px;
+      font-size: 13px;
+      color: var(--text-muted);
+      line-height: 1.6;
+    }
+    .disclaimer strong { color: var(--text); }
+
+    /* ── FOOTER ── */
+    footer {
+      background: var(--navy);
+      padding: 24px 32px;
+      text-align: center;
+      font-size: 12px;
+      color: rgba(255,255,255,0.35);
+      letter-spacing: 0.05em;
+    }
+    footer a { color: var(--gold); text-decoration: none; }
+
+    @media (max-width: 640px) {
+      main { padding: 32px 20px 60px; }
+      .header-inner { padding: 36px 20px 32px; }
+    }
+  </style>
 </head>
 <body>
-    <div class="container">
-        <header>
-            <a href="/" class="back-to-home">← Back to Home</a>
-            <h1>Early Retirement SS Calculator</h1>
-            <p class="subtitle">Separate "when you stop working" from "when you claim benefits"</p>
-        </header>
 
-        <!-- Intro -->
-        <div class="intro">
-            <h2>The Problem</h2>
-            <p style="margin-bottom: 1rem;">Your Social Security statement assumes you'll keep working at your current income until you claim benefits. But what if you retire at 55 instead of 65? Your benefit will be lower because those missing work years get replaced with zeros in the calculation.</p>
-            
-            <p style="margin-bottom: 1.5rem;"><strong>This tool shows you exactly how much your SS benefit changes if you stop working early.</strong></p>
+<header>
+  <div class="header-inner">
+    <div class="site-label">Retirement Overthought Tools</div>
+    <h1>Early Retirement<br><span>Social Security Calculator</span></h1>
+    <p class="header-sub">Your SSA statement assumes you keep working until you claim. This tool shows you what your benefits actually look like if you stop working early — and delay claiming.</p>
+  </div>
+</header>
 
-            <div class="info-box" style="margin-bottom: 1.5rem;">
-                <h4>💡 Critical Insight Most People Miss</h4>
-                <p><strong>Your SS statement shows different benefits at ages 62, 67, and 70 - but each assumes you work until that claiming age.</strong></p>
-                <p style="margin-top: 0.5rem;">Example: If you're 55 and your statement shows higher benefits at age 70, that assumes you continue working (with raises) from age 55 to 70 and then claim. <span class="info-icon" onclick="toggleTooltip(event, 'tooltip-intro')">i<span class="info-tooltip" id="tooltip-intro"><div class="info-tooltip-title">Gen X Example (Currently Age 55.5)</div><p><strong>You right now:</strong> 55.5 years old, worked 33 years, earn $65,000/year</p><p style="margin-top: 0.5rem;"><strong>Your statement shows if you keep working:</strong></p><ul><li>Age 62: $1,750/month (assumes 6.5 MORE years of work)</li><li>Age 67: $2,500/month (assumes 11.5 MORE years of work)</li><li>Age 70: $3,100/month (assumes 14.5 MORE years of work)</li></ul><p style="margin-top: 0.5rem;"><strong>The trap:</strong> If you retire TODAY but wait to claim at 70, you won't get $3,100. You'll get less because those 14.5 future years become zeros.</p></span></span> If you actually retire at 55 and wait to claim at 70, your benefit will be lower because Social Security is based on your 35 highest earning years - and those years from 55-70 become zeros instead of high-earning years.</p>
-                <p style="margin-top: 0.5rem;"><strong>This calculator separates "when you stop working" from "when you claim benefits"</strong> so you can see the true impact of early retirement.</p>
-            </div>
+<main>
 
-            <div class="info-box warning" style="margin-top: 1.5rem;">
-                <h4>⚠️ Important Disclaimer</h4>
-                <p><strong>This is NOT financial advice.</strong> These calculators are educational tools to help you understand how early retirement affects Social Security benefits. The estimates are approximations meant to give you better talking points when discussing retirement planning with your financial advisor.</p>
-                <p style="margin-top: 0.5rem;">Always consult with a qualified financial advisor before making retirement decisions. Your actual benefits may differ based on your complete earnings history, future Social Security policy changes, and individual circumstances.</p>
-            </div>
+  <div class="alert">
+    <div class="alert-title">⚠ What Your SSA Statement Doesn't Show You</div>
+    <p>Every benefit estimate on your Social Security statement assumes you continue earning your current salary right up until the day you claim. If you retire at 55 and wait until 70 to claim, that $3,949 number is wrong — it assumes 15 years of earnings that will never happen. This prompt calculates what you'll actually get.</p>
+  </div>
+
+  <!-- HOW TO USE -->
+  <div class="section-label">How It Works</div>
+  <h2>Three steps to get your real numbers</h2>
+
+  <div class="steps-grid">
+    <div class="step-card">
+      <div class="step-num">01</div>
+      <div class="step-title">Copy the Prompt</div>
+      <div class="step-desc">Click the copy button below to copy the complete calculation instructions to your clipboard.</div>
+    </div>
+    <div class="step-card">
+      <div class="step-num">02</div>
+      <div class="step-title">Open Your AI</div>
+      <div class="step-desc">Go to ChatGPT, Claude, or any AI assistant that accepts file uploads.</div>
+    </div>
+    <div class="step-card">
+      <div class="step-num">03</div>
+      <div class="step-title">Paste &amp; Upload</div>
+      <div class="step-desc">Paste the prompt, upload your SSA statement PDF, and send. Your results will include all stop-work scenarios.</div>
+    </div>
+    <div class="step-card">
+      <div class="step-num">04</div>
+      <div class="step-title">Use the Optimizer</div>
+      <div class="step-desc">Take your adjusted benefit numbers into the SS Optimizer to find your best claiming strategy.</div>
+    </div>
+  </div>
+
+  <!-- PROMPT BOX -->
+  <div class="section-label">The Prompt</div>
+  <h2>Copy this — then paste it into your AI with your SSA statement</h2>
+
+  <div class="prompt-wrapper">
+    <div class="prompt-box">
+      <div class="prompt-toolbar">
+        <div class="prompt-toolbar-left">
+          <div class="dot dot-red"></div>
+          <div class="dot dot-amber"></div>
+          <div class="dot dot-green"></div>
+          <span class="prompt-filename">early-retirement-ss-calculator.txt</span>
         </div>
+        <button class="copy-btn" id="copyBtn" onclick="copyPrompt()">
+          <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg>
+          Copy Prompt
+        </button>
+      </div>
+      <div class="prompt-content" id="promptText">I need help calculating what my Social Security benefits would be if I stop working early, rather than continuing to work as SSA assumes.
 
-        <!-- Option Selection -->
-        <div class="option-selection">
-            <!-- Option 1: Manual Entry -->
-            <div class="option-card" onclick="selectOption(1)">
-                <div class="option-header">
-                    <span class="option-number">Option 1</span>
-                    <span class="option-time">~5 minutes</span>
-                </div>
-                <h3 class="option-title">Manual Entry</h3>
-                <p class="option-description">Quick estimate to see if early retirement significantly impacts your Social Security or not. Good enough for informed conversations with your financial advisor.</p>
-                <ul class="option-features">
-                    <li>Just 7 quick questions from your SS statement</li>
-                    <li>Know if stopping early wrecks your benefit or barely dents it</li>
-                    <li>Better talking points for your financial advisor</li>
-                </ul>
-                <div class="option-privacy">
-                    <strong>🔒 Privacy:</strong> 100% secure. All calculations happen in your browser. Your data never leaves your computer.
-                </div>
-            </div>
-
-            <!-- Option 2: Upload to Claude -->
-            <div class="option-card" onclick="selectOption(2)">
-                <div class="option-header">
-                    <span class="option-number">Option 2</span>
-                    <span class="option-time">~10 minutes</span>
-                </div>
-                <h3 class="option-title">Upload to Claude</h3>
-                <p class="option-description">Upload your SS statement PDF to Claude for the most accurate estimate. Best for precise numbers when planning with your financial advisor.</p>
-                <ul class="option-features">
-                    <li>Most accurate estimate possible</li>
-                    <li>Uses your complete earnings history</li>
-                    <li>Pre-written prompt - just copy & paste</li>
-                </ul>
-                <div class="option-privacy warning">
-                    <strong>⚠️ Privacy:</strong> You upload your PDF directly to Claude (Anthropic), not this site. <a href="https://www.anthropic.com/legal/privacy" target="_blank">Read their privacy policy</a>
-                </div>
-            </div>
-        </div>
-
-        <!-- Option 1 Calculator -->
-        <div id="option1-calc" class="calculator-section">
-            <h2 style="font-family: var(--font-serif); font-size: 2rem; color: var(--color-primary); margin-bottom: 1.5rem;">Manual Entry</h2>
-
-            <div class="info-box">
-                <h4>What You Need</h4>
-                <p>Your Social Security statement shows your estimated benefits at ages 62, 67, and 70 <strong>assuming you keep working</strong> at your current income. We'll use those numbers to estimate what they'd be if you stopped working early.</p>
-                <p style="margin-top: 0.5rem;">Find your statement at: <a href="https://www.ssa.gov/myaccount/" target="_blank">ssa.gov/myaccount</a></p>
-                <p style="margin-top: 0.5rem;"><em>This tool gives you directional guidance - enough to know if early retirement significantly impacts your SS. For precise planning, work with your financial advisor or use Option 2 for more accurate estimates.</em></p>
-            </div>
-
-            <form id="option1-form">
-                <div class="form-section">
-                    <h3>About You</h3>
-                    
-                    <div class="form-group">
-                        <label for="current-age">Your Current Age</label>
-                        <input type="number" id="current-age" min="35" max="70" step="0.5" required>
-                        <p class="form-help">Enter your age to the nearest half-year. Example: If you're 55 and a half, enter 55.5</p>
-                    </div>
-
-                    <div class="form-group">
-                        <label for="years-to-retirement">Years Until You Plan to Stop Working</label>
-                        <input type="number" id="years-to-retirement" min="0" max="35" step="0.5" required>
-                        <p class="form-help"><strong>Retiring now?</strong> Enter 0. <strong>Working a bit longer?</strong> Enter years from TODAY (e.g., 1.5, 2, 3.5, 5). Use half-years for precision: if you're 55.5 now and retiring at 57, enter 1.5 years.</p>
-                    </div>
-
-                    <div class="form-group">
-                        <label for="years-worked">Years of SS Contributions (As of Today)</label>
-                        <input type="number" id="years-worked" min="0" max="50" required>
-                        <p class="form-help"><strong>Enter years worked RIGHT NOW, not in the future.</strong> Example: If you're 55 and have worked 33 years so far, enter 33. If you plan to retire at 58, this tool will automatically calculate that you'll have 36 years by then.</p>
-                    </div>
-
-                    <div class="form-group">
-                        <label for="current-income">Your Most Recent Year's Income (Subject to SS Tax)</label>
-                        <input type="number" id="current-income" min="0" step="1" required>
-                        <p class="form-help">Your most recent year's earnings that were taxed for Social Security (2024 or 2025). Maximum taxable: $168,600 in 2024, $176,100 in 2025.</p>
-                    </div>
-                </div>
-
-                <div class="form-section">
-                    <h3>Your SS Statement Estimates (Assuming Continued Work)</h3>
-                    
-                    <div class="info-box warning" style="margin-bottom: 1.5rem;">
-                        <h4>🚨 Critical: Understand What These Numbers Mean</h4>
-                        <p><strong>Your SS statement assumes you work until the age you CLAIM benefits, not just until you retire.</strong></p>
-                <p style="margin-top: 0.5rem;">For example, if you're currently 55, your statement shows benefits at different ages - but each assumes you keep working until that age. <span class="info-icon" onclick="toggleTooltip(event, 'tooltip-form')">i<span class="info-tooltip" id="tooltip-form"><div class="info-tooltip-title">Gen X Example (Currently Age 55.5)</div><p><strong>You today:</strong> 55.5 years old, worked 33 years so far, make $65,000/year</p><p style="margin-top: 0.5rem;"><strong>Your SS statement shows:</strong></p><ul><li>$1,750 at age 62 → assumes you work 6.5 MORE years</li><li>$2,500 at age 67 → assumes you work 11.5 MORE years</li><li>$3,100 at age 70 → assumes you work 14.5 MORE years</li></ul><p style="margin-top: 0.5rem;"><strong>If you retire TODAY (0 years):</strong> Those future years won't happen, so your actual benefits will be lower than shown.</p><p style="margin-top: 0.5rem;"><strong>If you work 1.5 more years (retire at 57):</strong> You'd still miss 13 years of earnings before age 70, reducing benefits.</p></span></span></p>
-                        <p style="margin-top: 0.5rem;"><strong>If you retire early but wait to claim later, the benefit estimate on your statement is WRONG</strong> because it assumes years of earnings that won't happen. This calculator shows what you'll actually get.</p>
-                    </div>
-                    
-                    <div class="form-group">
-                        <label for="ss-62">Monthly Benefit at Age 62</label>
-                        <input type="number" id="ss-62" min="0" step="1" required>
-                        <p class="form-help">What SSA says you'd get if you claimed at 62 (assuming you work until 62)</p>
-                    </div>
-
-                    <div class="form-group">
-                        <label for="ss-67">Monthly Benefit at Age 67 (Full Retirement Age)</label>
-                        <input type="number" id="ss-67" min="0" step="1" required>
-                        <p class="form-help">Your Full Retirement Age benefit (assuming you work until 67)</p>
-                    </div>
-
-                    <div class="form-group">
-                        <label for="ss-70">Monthly Benefit at Age 70</label>
-                        <input type="number" id="ss-70" min="0" step="1" required>
-                        <p class="form-help">Maximum benefit if you delay until 70 (assuming you work until 70)</p>
-                    </div>
-                </div>
-
-                <button type="submit" class="btn">Calculate My Early Retirement Impact</button>
-            </form>
-        </div>
-
-        <!-- Option 2: Upload Instructions -->
-        <div id="option2-calc" class="calculator-section">
-            <h2 style="font-family: var(--font-serif); font-size: 2rem; color: var(--color-primary); margin-bottom: 1.5rem;">Upload to Claude for Maximum Accuracy</h2>
-
-            <div class="info-box warning">
-                <h4>⚠️ Important Privacy Notice</h4>
-                <p><strong>This option works differently.</strong> You'll upload your Social Security statement PDF directly to Claude (made by Anthropic), not to this website. Your data goes to Anthropic's servers to be processed.</p>
-                <p style="margin-top: 0.5rem;">Before proceeding, read <a href="https://www.anthropic.com/legal/privacy" target="_blank">Anthropic's Privacy Policy</a> to understand how they handle your data.</p>
-            </div>
-
-            <h3 style="margin-top: 2rem; margin-bottom: 1rem; color: var(--color-primary);">Step 1: Get Your SS Statement PDF</h3>
-            <p style="margin-bottom: 1.5rem;">Download your statement from: <a href="https://www.ssa.gov/myaccount/" target="_blank">ssa.gov/myaccount</a></p>
-
-            <h3 style="margin-top: 2rem; margin-bottom: 1rem; color: var(--color-primary);">Step 2: Open Claude</h3>
-            <p style="margin-bottom: 1.5rem;">Go to <a href="https://claude.ai" target="_blank">claude.ai</a> and start a new chat</p>
-
-            <h3 style="margin-top: 2rem; margin-bottom: 1rem; color: var(--color-primary);">Step 3: Copy This Prompt</h3>
-            <div class="prompt-box" id="option2-prompt">I need help calculating what my Social Security benefits would be if I stop working early, rather than continuing to work as SSA assumes.
-
-🚨 CRITICAL CONTEXT: My Social Security statement shows benefits at ages 62, 67, and 70 - but these numbers assume I continue working until the age I CLAIM benefits, not just until I retire. For example, if my statement shows $4,841 at age 70, that assumes I work continuously until age 70 and then claim. If I actually retire at 55 and wait to claim until 70, that $4,841 is completely wrong because it assumes 15 years of earnings that won't happen.
+🚨 CRITICAL CONTEXT: My Social Security statement shows benefits at ages 62, 67, and 70 — but these numbers assume I continue working until the age I CLAIM benefits, not just until I retire. For example, if my statement shows $3,949 at age 70, that assumes I work continuously until age 70 and then claim. If I actually retire at 55 and wait to claim until 70, that $3,949 is completely wrong because it assumes 15 years of earnings that will never happen.
 
 I'm uploading my Social Security statement PDF. Please:
 
 1. Extract my complete earnings history from the statement
-2. Identify my 35 highest indexed earning years
-3. Calculate my current AIME (Average Indexed Monthly Earnings) and PIA (Primary Insurance Amount)
-4. Show me what happens to my benefits if I STOP WORKING at different ages but WAIT TO CLAIM later. Calculate scenarios for:
-   - Stop working NOW (my current age), then show what I'd get if I claim at 62, 67, or 70
-   - Stop working at age 55, then show what I'd get if I claim at 62, 67, or 70
-   - Stop working at age 56, then show what I'd get if I claim at 62, 67, or 70
-   - Stop working at age 57, then show what I'd get if I claim at 62, 67, or 70
-   - Stop working at age 58, then show what I'd get if I claim at 62, 67, or 70
-   - Stop working at age 60, then show what I'd get if I claim at 62, 67, or 70
-   - Stop working at age 62, then show what I'd get if I claim at 62, 67, or 70
+2. Identify my 35 highest INDEXED earning years (see indexing instructions below)
+3. Calculate my current AIME and PIA
+4. Show me what happens to my benefits if I STOP WORKING at different ages but WAIT TO CLAIM later
 
-This is VERY DIFFERENT from what my SSA statement shows. My statement assumes I work continuously until I claim. I want to know what happens if I retire early but delay claiming.
+Calculate scenarios for:
+   - Stop working NOW (my current age)
+   - Stop working at age 55
+   - Stop working at age 56
+   - Stop working at age 57
+   - Stop working at age 58
+   - Stop working at age 60
+   - Stop working at age 62
 
 For each stop-work age, show me:
-- Monthly SS benefit if I claim at age 62 (after retiring early)
-- Monthly SS benefit if I claim at age 67 (after retiring early)
-- Monthly SS benefit if I claim at age 70 (after retiring early)
-- The percentage reduction from SSA's projections (which wrongly assume I work until claiming age)
+   - Monthly SS benefit if I claim at age 62
+   - Monthly SS benefit if I claim at FRA (age 66 or 67 depending on birth year)
+   - Monthly SS benefit if I claim at age 70
+   - The percentage reduction from SSA's projections
 
-Please present the results in a clear table format so I can compare scenarios. Make it clear that "Stop at 55, Claim at 70" is VERY different from SSA's assumption of "Work until 70, Claim at 70."
+Present results in a clear table. Make it explicit that "Stop at 55, Claim at 70" is VERY different from SSA's assumption of "Work until 70, Claim at 70."
 
-Use 2024 bend points for calculations:
-- 90% of first $1,174 of AIME
-- 32% of AIME between $1,174 and $7,078
-- 15% of AIME above $7,078
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 
-Account for early/delayed claiming adjustments:
-- Age 62: 70% of PIA
-- Age 67: 100% of PIA (Full Retirement Age)
-- Age 70: 124% of PIA
+🚨 CRITICAL CALCULATION STEP — WAGE INDEXING (DO NOT SKIP)
 
-The key insight: My PIA is based on when I STOP WORKING (which determines my AIME), but my actual benefit is PIA × claiming age adjustment. Most people don't realize their SSA statement conflates these two things.</div>
+Before calculating AIME, every year's earnings MUST be indexed to the year the person turns 60. Raw nominal earnings CANNOT be used directly — this is the most common calculation error AI models make with Social Security.
 
-            <button class="copy-button" onclick="copyPrompt()">📋 Copy Prompt to Clipboard</button>
+The indexing formula is:
+Indexed Earnings = Nominal Earnings × (AWI in age-60 year ÷ AWI in earnings year)
 
-            <h3 style="margin-top: 2rem; margin-bottom: 1rem; color: var(--color-primary);">Step 4: Upload Your PDF & Paste the Prompt</h3>
-            <p style="margin-bottom: 1.5rem;">In Claude, upload your SS statement PDF and paste the prompt you just copied. Claude will analyze your complete earnings history and give you precise estimates for each early retirement scenario.</p>
+Use the following Average Wage Index (AWI) values:
 
-            <div class="info-box" style="margin-top: 2rem;">
-                <h4>💡 What You'll Get</h4>
-                <p>Claude will provide a detailed breakdown showing exactly how your benefits change at each retirement age, using your actual full earnings history. This is the most accurate estimate possible without being the SSA itself.</p>
-                <p style="margin-top: 0.5rem;"><strong>Remember:</strong> These are still estimates for educational purposes. Use them to have informed discussions with your financial advisor, who can help you make decisions based on your complete financial picture.</p>
-            </div>
+  1985: $16,823    1986: $17,321    1987: $18,426    1988: $19,334
+  1989: $20,099    1990: $21,028    1991: $21,812    1992: $22,935
+  1993: $23,133    1994: $23,754    1995: $24,706    1996: $25,914
+  1997: $27,426    1998: $28,861    1999: $30,470    2000: $32,155
+  2001: $32,922    2002: $33,252    2003: $34,064    2004: $35,648
+  2005: $36,952    2006: $38,651    2007: $40,405    2008: $41,335
+  2009: $40,712    2010: $41,674    2011: $42,979    2012: $44,322
+  2013: $44,888    2014: $46,481    2015: $48,099    2016: $48,642
+  2017: $50,321    2018: $52,146    2019: $54,099    2020: $55,628
+  2021: $60,575    2022: $63,795    2023: $66,621    2024: $68,869 (est.)
 
-            <button class="btn-secondary" onclick="window.open('https://claude.ai', '_blank')">Open Claude.ai →</button>
-        </div>
+For years after the known AWI values, project forward at 3% annual growth.
 
-        <!-- Results Section -->
-        <div id="results" class="results-section">
-            <div class="results-header">
-                <h2>Your Early Retirement Impact</h2>
-                <p style="color: var(--color-text-light); font-size: 1.1rem;">Manual Entry Estimate</p>
-            </div>
+For earnings AT or AFTER the person's age-60 year, use nominal value (index factor = 1.0).
 
-            <div class="info-box warning">
-                <h4>⚠️ About These Estimates</h4>
-                <p id="accuracy-note">These are estimates designed to show you the general impact of early retirement on your Social Security benefits. They're meant to help you have informed conversations with your financial advisor, not to replace professional financial planning.</p>
-                <p style="margin-top: 0.5rem;">For maximum precision, use Option 2 (Upload to Claude) or consult with your financial advisor using these estimates as talking points.</p>
-            </div>
+✅ VERIFICATION CHECK — run this before proceeding:
+A person who earned $3,500 in 1986 and turns 60 in 2030 should have an
+indexed value of approximately $16,500–$17,000 for that year — NOT $3,500.
 
-            <h3 style="font-family: var(--font-serif); font-size: 1.5rem; color: var(--color-primary); margin: 2rem 0 1rem;" id="results-scenario-title">If You Stop Working at Age XX</h3>
-            
-            <div class="results-grid">
-                <div class="result-card">
-                    <div class="result-label">Benefit at Age 62</div>
-                    <div class="result-value" id="result-62"></div>
-                    <div class="result-change negative" id="change-62"></div>
-                </div>
-                <div class="result-card">
-                    <div class="result-label">Benefit at Age 67 (FRA)</div>
-                    <div class="result-value" id="result-67"></div>
-                    <div class="result-change negative" id="change-67"></div>
-                </div>
-                <div class="result-card">
-                    <div class="result-label">Benefit at Age 70</div>
-                    <div class="result-value" id="result-70"></div>
-                    <div class="result-change negative" id="change-70"></div>
-                </div>
-            </div>
+If your AIME calculation produces a number close to simply dividing total
+NOMINAL earnings by 420, you have skipped indexing and your results are wrong.
+Stop and redo the calculation with proper indexing before continuing.
 
-            <div class="info-box">
-                <h4>What This Means</h4>
-                <p id="interpretation"></p>
-            </div>
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 
-            <h3 style="font-family: var(--font-serif); font-size: 1.5rem; color: var(--color-primary); margin: 2rem 0 1rem;">The Bigger Picture</h3>
-            
-            <div class="info-box">
-                <h4>💡 Social Security Is Just One Piece of the Puzzle</h4>
-                <p><strong>Important context:</strong> Social Security math is complex, and this calculator shows only one dimension - the impact of when you stop working vs. when you claim. There are many other factors that could offset (or amplify) these differences:</p>
-                
-                <p style="margin-top: 1rem;"><strong>Tax Optimization Opportunities:</strong></p>
-                <ul style="margin-left: 1.5rem;">
-                    <li><strong>Roth Conversions:</strong> Early retirement years with low income create opportunities to convert traditional IRA/401(k) to Roth at low tax rates - potentially worth tens of thousands in tax savings</li>
-                    <li><strong>Capital Gains Harvesting:</strong> Lower income years mean you might pay 0% on long-term capital gains</li>
-                    <li><strong>ACA Premium Tax Credits:</strong> Lower income could qualify you for substantial health insurance subsidies</li>
-                </ul>
+BEND POINTS — use 2024 values:
+  • 90% of first $1,174 of AIME
+  • 32% of AIME between $1,174 and $7,078
+  • 15% of AIME above $7,078
 
-                <p style="margin-top: 1rem;"><strong>Lifestyle Cost Reductions:</strong></p>
-                <ul style="margin-left: 1.5rem;">
-                    <li><strong>Geographic Arbitrage:</strong> Moving to a lower cost-of-living area (or country) could save far more than the SS reduction</li>
-                    <li><strong>Lifestyle Changes:</strong> Slow travel, house sitting, RV living, or other alternative lifestyles can dramatically reduce expenses</li>
-                    <li><strong>No Commute/Work Expenses:</strong> Eliminating work wardrobes, commuting costs, and convenience expenses adds up</li>
-                </ul>
+CLAIMING AGE ADJUSTMENTS:
+  • Age 62: 70% of PIA
+  • FRA (67 for born 1960+): 100% of PIA
+  • Age 70: 124% of PIA
 
-                <p style="margin-top: 1rem;"><strong>The Bottom Line:</strong> Don't make retirement decisions based solely on Social Security. A $400/month SS reduction might be completely offset by Roth conversion tax savings, geographic arbitrage, or other strategies. Use these numbers as <em>talking points with your financial advisor</em> to understand your complete picture.</p>
-            </div>
+IMPORTANT — HOW PIA AND CLAIMING AGE INTERACT:
+  • PIA is determined by when you STOP WORKING (which sets your AIME)
+  • Your actual benefit = PIA × claiming age adjustment
+  • These are two separate steps — SSA statements conflate them
+  • "Stop work at 55, claim at 70" = (PIA based on 55 stop-work) × 1.24
+  • This is VERY different from SSA's "work to 70, claim at 70" figure
 
-            <h3 style="font-family: var(--font-serif); font-size: 1.5rem; color: var(--color-primary); margin: 2rem 0 1rem;">Next Steps</h3>
-            
-            <div class="info-box" style="margin-bottom: 1.5rem;">
-                <h4>💼 Discuss With Your Financial Advisor</h4>
-                <p>Use these estimates as talking points with your financial advisor. They can help you understand how this SS impact fits into your complete retirement picture, including your other income sources, tax strategy, and long-term financial goals.</p>
-            </div>
+Show your work: display the AIME and PIA for each stop-work scenario before
+applying the claiming age adjustments, so I can verify the calculations.
 
-            <p style="margin-bottom: 1rem;"><strong>Want to optimize when to claim Social Security?</strong> Our SS Claiming Age Optimizer helps you determine whether claiming at 62, 67, or 70 makes the most financial sense based on your portfolio size and retirement income needs.</p>
-
-            <button class="btn" onclick="goToOptimizer()">Use These Numbers in SS Optimizer →</button>
-
-            <button class="btn-secondary" onclick="startOver()">← Calculate Different Scenario</button>
-            
-            <div style="margin-top: 2rem; padding-top: 1.5rem; border-top: 2px solid #E5E7EB; text-align: center; color: #6B7280; font-size: 0.9rem;">
-                <p style="margin: 0;">📊 Calculated by <strong style="color: #1F2937;">RetirementOverthought.com</strong></p>
-                <p style="margin: 0.5rem 0 0 0; font-size: 0.85rem;">© 2025 RetirementOverthought.com. All Rights Reserved. | <a href="/terms" style="color: #2563EB; text-decoration: none;">Terms of Use</a></p>
-            </div>
-        </div>
+Note at the end: AWI projections beyond 2024 are estimated and actual SSA
+calculations will use official published AWI values. Treat all results as
+planning estimates, not guaranteed benefit amounts.</div>
     </div>
+  </div>
 
-    <script>
-        // DOMAIN LOCK - Prevents unauthorized use on other websites
-        (function() {
-            const allowedDomains = ['retirementoverthought.com', 'localhost', '127.0.0.1'];
-            const currentDomain = window.location.hostname;
-            const isAllowed = allowedDomains.some(domain => currentDomain.includes(domain));
-            
-            if (!isAllowed) {
-                document.body.innerHTML = '<div style="font-family: system-ui; max-width: 600px; margin: 100px auto; padding: 2rem; text-align: center; border: 3px solid #DC2626; border-radius: 8px;"><h1 style="color: #DC2626;">⚠️ Unauthorized Use</h1><p style="font-size: 1.1rem; line-height: 1.6;">This calculator is licensed exclusively for use on <strong>RetirementOverthought.com</strong>.</p><p style="margin-top: 1.5rem;">For licensing inquiries, visit:<br><a href="https://retirementoverthought.com" style="color: #2563EB; font-weight: 600;">RetirementOverthought.com</a></p><p style="margin-top: 1.5rem; font-size: 0.9rem; color: #6B7280;">Copyright © 2025 RetirementOverthought.com. All Rights Reserved.</p></div>';
-                throw new Error('Domain lock: Unauthorized domain');
-            }
-        })();
+  <!-- WHAT TO EXPECT -->
+  <div class="section-label">Results Guide</div>
+  <h2>What good results look like</h2>
 
-        // Global state
-        let currentOption = null;
-        let calculatedResults = null;
+  <div class="expect-grid">
+    <div class="expect-card good">
+      <div class="expect-card-label">✓ Signs the AI calculated correctly</div>
+      <ul>
+        <li>Shows indexed earnings — early years significantly higher than nominal</li>
+        <li>Displays AIME and PIA separately for each scenario</li>
+        <li>AIME is roughly 5x–7x higher than simple nominal average for most workers</li>
+        <li>Reductions vs SSA statement are in the 8%–25% range for typical stop-work ages</li>
+        <li>Shows verification step explicitly</li>
+      </ul>
+    </div>
+    <div class="expect-card warn">
+      <div class="expect-card-label">✗ Signs the AI skipped indexing</div>
+      <ul>
+        <li>Early earnings (1980s–1990s) look the same as nominal amounts</li>
+        <li>AIME appears close to total nominal earnings ÷ 420</li>
+        <li>Reductions vs SSA statement are 40%–55% — far too large</li>
+        <li>FRA benefit for stop-at-55 scenario is under $2,000 for average earners</li>
+        <li>No mention of indexing or AWI in the calculation steps</li>
+      </ul>
+    </div>
+  </div>
 
-        // 2024 Bend Points for PIA calculation
-        const BEND_POINTS = {
-            first: 1174,
-            second: 7078,
-            rates: [0.90, 0.32, 0.15]
-        };
+  <!-- DISCLAIMER -->
+  <div class="disclaimer">
+    <strong>Important:</strong> These calculations are estimates for planning purposes only. Actual Social Security benefits are determined by the SSA using official Average Wage Index values published annually. Results should be used to understand the general impact of early retirement on benefits — not as a guarantee of future payments. Always verify important decisions with the SSA directly at <strong>ssa.gov/myaccount</strong> or with a qualified financial advisor.
+  </div>
 
-        // Option Selection
-        function selectOption(option) {
-            console.log('selectOption called with:', option);
-            currentOption = option;
-            
-            // Hide all calculators
-            document.querySelectorAll('.calculator-section').forEach(el => el.classList.remove('active'));
-            
-            // Show selected calculator
-            const calc = document.getElementById(`option${option}-calc`);
-            console.log('Calculator element:', calc);
-            if (calc) {
-                calc.classList.add('active');
-            } else {
-                console.error(`Calculator option${option}-calc not found!`);
-            }
-            
-            // Update option cards
-            document.querySelectorAll('.option-card').forEach((card, index) => {
-                if (index + 1 === option) {
-                    card.classList.add('active');
-                } else {
-                    card.classList.remove('active');
-                }
-            });
+</main>
 
-            // Scroll to calculator
-            if (calc) {
-                calc.scrollIntoView({ behavior: 'smooth', block: 'start' });
-            }
-        }
+<footer>
+  &copy; 2025 RetirementOverthought.com &nbsp;·&nbsp; <a href="/">Back to Tools</a> &nbsp;·&nbsp; Free to use. No signup required.
+</footer>
 
-        // Option 1 Form Submission
-        document.getElementById('option1-form').addEventListener('submit', function(e) {
-            e.preventDefault();
-            
-            const currentAge = parseFloat(document.getElementById('current-age').value);
-            const yearsToRetirement = parseFloat(document.getElementById('years-to-retirement').value);
-            const yearsWorked = parseInt(document.getElementById('years-worked').value);
-            const currentIncome = parseInt(document.getElementById('current-income').value);
-            const ss62 = parseInt(document.getElementById('ss-62').value);
-            const ss67 = parseInt(document.getElementById('ss-67').value);
-            const ss70 = parseInt(document.getElementById('ss-70').value);
+<script>
+  function copyPrompt() {
+    const text = document.getElementById('promptText').innerText;
+    navigator.clipboard.writeText(text).then(() => {
+      const btn = document.getElementById('copyBtn');
+      btn.classList.add('copied');
+      btn.innerHTML = `
+        <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>
+        Copied!
+      `;
+      setTimeout(() => {
+        btn.classList.remove('copied');
+        btn.innerHTML = `
+          <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg>
+          Copy Prompt
+        `;
+      }, 2500);
+    }).catch(() => {
+      // fallback for older browsers
+      const ta = document.createElement('textarea');
+      ta.value = text;
+      ta.style.position = 'fixed';
+      ta.style.opacity = '0';
+      document.body.appendChild(ta);
+      ta.select();
+      document.execCommand('copy');
+      document.body.removeChild(ta);
+    });
+  }
+</script>
 
-            // Calculate retirement age
-            const retirementAge = currentAge + yearsToRetirement;
-
-            // Validation
-            if (currentAge === undefined || yearsToRetirement === undefined || !yearsWorked || !currentIncome || !ss62 || !ss67 || !ss70) {
-                alert('Please fill in all fields');
-                return;
-            }
-
-            if (retirementAge > 70) {
-                alert('Retirement age cannot be greater than 70. If you plan to work past 70, this calculator may not be right for you.');
-                return;
-            }
-
-            if (ss62 < 500 || ss62 > 5000) {
-                alert('Age 62 benefit seems unusual. Please enter your MONTHLY benefit amount (typically $1,000-$4,000)');
-                return;
-            }
-
-            if (ss67 < 500 || ss67 > 6000) {
-                alert('Age 67 benefit seems unusual. Please enter your MONTHLY benefit amount (typically $1,500-$5,000)');
-                return;
-            }
-
-            // Reverse engineer AIME from FRA benefit
-            const estimatedAIME = reverseEngineerAIME(ss67);
-            
-            // Calculate years until retirement and years to FRA
-            const yearsToFRA = Math.max(0, 67 - retirementAge);
-            
-            // Calculate total years worked at retirement
-            const yearsWorkedAtRetirement = yearsWorked + yearsToRetirement;
-            
-            // Estimate reduction from stopping work at retirement age
-            const reductionFactor = calculateReductionFactor(yearsWorkedAtRetirement, yearsToFRA, currentIncome, estimatedAIME);
-            
-            // Calculate new benefits
-            const newAIME = estimatedAIME * reductionFactor;
-            const newPIA = calculatePIA(newAIME);
-            
-            const results = {
-                currentAge: currentAge,
-                yearsToRetirement: yearsToRetirement,
-                retirementAge: retirementAge,
-                benefit62: Math.round(newPIA * 0.70),
-                benefit67: Math.round(newPIA),
-                benefit70: Math.round(newPIA * 1.24),
-                original62: ss62,
-                original67: ss67,
-                original70: ss70,
-                // Calculate actual percentage reduction at age 67
-                reductionPercent: Math.round(((ss67 - newPIA) / ss67) * 100)
-            };
-
-            displayResults(results);
-        });
-
-        // Reverse engineer AIME from PIA
-        function reverseEngineerAIME(pia) {
-            if (pia <= BEND_POINTS.first * BEND_POINTS.rates[0]) {
-                return pia / BEND_POINTS.rates[0];
-            }
-            
-            const firstBend = BEND_POINTS.first * BEND_POINTS.rates[0];
-            const secondBendMax = (BEND_POINTS.second - BEND_POINTS.first) * BEND_POINTS.rates[1];
-            
-            if (pia <= firstBend + secondBendMax) {
-                return BEND_POINTS.first + ((pia - firstBend) / BEND_POINTS.rates[1]);
-            }
-            
-            return BEND_POINTS.second + ((pia - firstBend - secondBendMax) / BEND_POINTS.rates[2]);
-        }
-
-        // Calculate PIA from AIME using bend points
-        function calculatePIA(aime) {
-            let pia = 0;
-            
-            pia += Math.min(aime, BEND_POINTS.first) * BEND_POINTS.rates[0];
-            
-            if (aime > BEND_POINTS.first) {
-                const secondBend = Math.min(aime - BEND_POINTS.first, BEND_POINTS.second - BEND_POINTS.first);
-                pia += secondBend * BEND_POINTS.rates[1];
-            }
-            
-            if (aime > BEND_POINTS.second) {
-                pia += (aime - BEND_POINTS.second) * BEND_POINTS.rates[2];
-            }
-            
-            return pia;
-        }
-
-        // Calculate reduction factor for stopping work early
-        function calculateReductionFactor(yearsWorked, yearsToFRA, currentIncome, estimatedAIME) {
-            if (yearsWorked >= 35) {
-                // Already have 35 years - zeros replace lowest years
-                const impactPerYear = 0.015; // 1.5% per year
-                return Math.max(0.70, 1 - (yearsToFRA * impactPerYear));
-            } else {
-                // Don't have 35 years yet - zeros count heavily
-                const yearsShort = 35 - yearsWorked;
-                const totalYearsNeeded = yearsShort + yearsToFRA;
-                const impactPerYear = 0.028; // 2.8% per missing year
-                return Math.max(0.50, 1 - (totalYearsNeeded * impactPerYear));
-            }
-        }
-
-        // Display results
-        function displayResults(results) {
-            calculatedResults = results;
-            
-            // Set scenario title
-            const retirementAgeDisplay = Number.isInteger(results.retirementAge) 
-                ? results.retirementAge 
-                : results.retirementAge.toFixed(1);
-            
-            const retirementText = results.yearsToRetirement === 0
-                ? 'If You Stop Working NOW' 
-                : `If You Stop Working at Age ${retirementAgeDisplay}`;
-            document.getElementById('results-scenario-title').textContent = retirementText;
-            
-            // Display benefit amounts
-            document.getElementById('result-62').textContent = '$' + results.benefit62.toLocaleString();
-            document.getElementById('result-67').textContent = '$' + results.benefit67.toLocaleString();
-            document.getElementById('result-70').textContent = '$' + results.benefit70.toLocaleString();
-            
-            // Display changes with proper formatting
-            const change62 = results.benefit62 - results.original62;
-            const change67 = results.benefit67 - results.original67;
-            const change70 = results.benefit70 - results.original70;
-            
-            const formatChange = (change) => {
-                if (change >= 0) {
-                    return `+$${change.toLocaleString()}`;
-                } else {
-                    return `-$${Math.abs(change).toLocaleString()}`;
-                }
-            };
-            
-            document.getElementById('change-62').textContent = `${formatChange(change62)} vs. working until 62 to claim at 62`;
-            document.getElementById('change-67').textContent = `${formatChange(change67)} vs. working until 67 to claim at 67`;
-            document.getElementById('change-70').textContent = `${formatChange(change70)} vs. working until 70 to claim at 70`;
-            
-            // Interpretation
-            let interpretation = '';
-            const retirementAgeText = results.yearsToRetirement === 0 ? 'now' : `at age ${retirementAgeDisplay}`;
-            const yearsToWork70 = Math.max(0, 70 - results.retirementAge);
-            
-            if (results.reductionPercent < 5) {
-                interpretation = `Stopping work ${retirementAgeText} reduces your Social Security by only ${results.reductionPercent}%. If you already have 35+ years of work history, those missing years are replacing your lowest-earning early career years, which is why the impact is minimal. `;
-                interpretation += `<strong>Key insight:</strong> You can retire at ${retirementAgeDisplay} and still delay claiming until 70 - your benefit would be $${results.benefit70.toLocaleString()}/month. To get the $${results.original70.toLocaleString()}/month your statement shows, you'd have to work ${yearsToWork70.toFixed(1)} more years for just a $${(results.original70 - results.benefit70).toLocaleString()}/month increase.`;
-            } else if (results.reductionPercent < 15) {
-                interpretation = `Stopping work ${retirementAgeText} reduces your Social Security by ${results.reductionPercent}%. This is a moderate impact - working longer would improve your benefit. `;
-                interpretation += `<strong>The tradeoff:</strong> To get the full $${results.original70.toLocaleString()}/month at age 70, you'd need to work ${yearsToWork70.toFixed(1)} more years for a $${(results.original70 - results.benefit70).toLocaleString()}/month increase. Whether that's worth it depends on your other retirement income and life priorities.`;
-            } else {
-                interpretation = `Stopping work ${retirementAgeText} reduces your Social Security by ${results.reductionPercent}%. This is significant - you either don't have 35 years yet, or your recent years are much higher than your early career. `;
-                interpretation += `<strong>Important:</strong> If you retire at ${retirementAgeDisplay} and wait to claim at 70, you'd get $${results.benefit70.toLocaleString()}/month - NOT the $${results.original70.toLocaleString()}/month your statement shows. To get that extra $${(results.original70 - results.benefit70).toLocaleString()}/month, you'd need to work ${yearsToWork70.toFixed(1)} more years.`;
-            }
-            document.getElementById('interpretation').innerHTML = interpretation;
-            
-            // Show results
-            document.getElementById('results').classList.add('active');
-            document.getElementById('results').scrollIntoView({ behavior: 'smooth', block: 'start' });
-        }
-
-        // Copy Option 2 prompt
-        function copyPrompt() {
-            const prompt = document.getElementById('option2-prompt').textContent;
-            navigator.clipboard.writeText(prompt).then(() => {
-                alert('Prompt copied! Now paste it in Claude after uploading your PDF.');
-            });
-        }
-
-        // Go to SS Optimizer
-        function goToOptimizer() {
-            if (calculatedResults) {
-                const dataToStore = {
-                    benefit67: calculatedResults.benefit67,
-                    fromEarlyRetirement: true
-                };
-                console.log('Storing in sessionStorage:', dataToStore);
-                sessionStorage.setItem('earlyRetirementSS', JSON.stringify(dataToStore));
-                console.log('Stored data:', sessionStorage.getItem('earlyRetirementSS'));
-                window.location.href = '/social-security/';
-            } else {
-                console.error('No calculated results to pass!');
-                alert('Please calculate your benefits first before using the SS Optimizer.');
-            }
-        }
-
-        // Start over
-        function startOver() {
-            calculatedResults = null;
-            document.getElementById('results').classList.remove('active');
-            window.scrollTo({ top: 0, behavior: 'smooth' });
-        }
-
-        // Toggle info tooltip
-        function toggleTooltip(event, tooltipId) {
-            event.stopPropagation();
-            const tooltip = document.getElementById(tooltipId);
-            const wasActive = tooltip.classList.contains('active');
-            
-            // Close all tooltips
-            document.querySelectorAll('.info-tooltip').forEach(t => t.classList.remove('active'));
-            
-            // Toggle this tooltip
-            if (!wasActive) {
-                tooltip.classList.add('active');
-            }
-        }
-
-        // Close tooltips when clicking outside
-        document.addEventListener('click', function(event) {
-            if (!event.target.closest('.info-icon')) {
-                document.querySelectorAll('.info-tooltip').forEach(t => t.classList.remove('active'));
-            }
-        });
-    </script>
+<!-- Cloudflare Web Analytics --><script defer src='https://static.cloudflareinsights.com/beacon.min.js' data-cf-beacon='{"token": "573cb90827d441118ff702b086d336af"}'></script><!-- End Cloudflare Web Analytics -->
 </body>
 </html>
