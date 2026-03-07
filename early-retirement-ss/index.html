@@ -525,7 +525,7 @@
             <div class="info-box" style="margin-bottom: 1.5rem;">
                 <h4>💡 Critical Insight Most People Miss</h4>
                 <p><strong>Your SS statement shows different benefits at ages 62, 67, and 70 - but each assumes you work until that claiming age.</strong></p>
-                <p style="margin-top: 0.5rem;">Example: If you're 55 and your statement shows higher benefits at age 70, that assumes you continue working (with raises) from age 55 to 70 and then claim. <span class="info-icon" onclick="toggleTooltip(event, 'tooltip-intro')">i<span class="info-tooltip" id="tooltip-intro"><div class="info-tooltip-title">Gen X Example (Currently Age 55.5)</div><p><strong>You right now:</strong> 55.5 years old, worked 33 years, earn $65,000/year</p><p style="margin-top: 0.5rem;"><strong>Your statement shows if you keep working:</strong></p><ul><li>Age 62: $1,750/month (assumes 6.5 MORE years of work)</li><li>Age 67: $2,500/month (assumes 11.5 MORE years of work)</li><li>Age 70: $3,100/month (assumes 14.5 MORE years of work)</li></ul><p style="margin-top: 0.5rem;"><strong>The trap:</strong> If you retire TODAY but wait to claim at 70, you won't get $3,100. You'll get less because those 14.5 future years become zeros.</p></span></span> If you actually retire at 55 and wait to claim at 70, your benefit will be lower because Social Security is based on your 35 highest earning years - and those years from 55-70 become zeros instead of high-earning years.</p>
+                <p style="margin-top: 0.5rem;">Example: If you're 55 and your statement shows higher benefits at age 70, that assumes you continue working (with raises) from age 55 to 70 and then claim. <span class="info-icon" onclick="toggleTooltip(event, 'tooltip-intro')">i<span class="info-tooltip" id="tooltip-intro"><div class="info-tooltip-title">Gen X Example (Currently Age 55.5)</div><p><strong>You right now:</strong> 55.5 years old, worked 33 years, earn $65,000/year</p><p style="margin-top: 0.5rem;"><strong>Your statement shows if you keep working:</strong></p><ul><li>Age 62: $1,750/month (assumes 6.5 MORE years of work)</li><li>Age 67: $2,500/month (assumes 11.5 MORE years of work)</li><li>Age 70: $3,100/month (assumes 14.5 MORE years of work)</li></ul><p style="margin-top: 0.5rem;"><strong>The trap:</strong> If you retire TODAY but wait to claim at 70, you won't get $3,100. You'll get less because those 14.5 future years become zeros instead of high-earning years.</p></span></span> If you actually retire at 55 and wait to claim at 70, your benefit will be lower because Social Security is based on your 35 highest earning years - and those years from 55-70 become zeros instead of high-earning years.</p>
                 <p style="margin-top: 0.5rem;"><strong>This calculator separates "when you stop working" from "when you claim benefits"</strong> so you can see the true impact of early retirement.</p>
             </div>
 
@@ -667,43 +667,90 @@
             <h3 style="margin-top: 2rem; margin-bottom: 1rem; color: var(--color-primary);">Step 3: Copy This Prompt</h3>
             <div class="prompt-box" id="option2-prompt">I need help calculating what my Social Security benefits would be if I stop working early, rather than continuing to work as SSA assumes.
 
-🚨 CRITICAL CONTEXT: My Social Security statement shows benefits at ages 62, 67, and 70 - but these numbers assume I continue working until the age I CLAIM benefits, not just until I retire. For example, if my statement shows $4,841 at age 70, that assumes I work continuously until age 70 and then claim. If I actually retire at 55 and wait to claim until 70, that $4,841 is completely wrong because it assumes 15 years of earnings that won't happen.
+🚨 CRITICAL CONTEXT: My Social Security statement shows benefits at ages 62, 67, and 70 — but these numbers assume I continue working until the age I CLAIM benefits, not just until I retire. For example, if my statement shows $3,949 at age 70, that assumes I work continuously until age 70 and then claim. If I actually retire at 55 and wait to claim until 70, that $3,949 is completely wrong because it assumes 15 years of earnings that will never happen.
 
 I'm uploading my Social Security statement PDF. Please:
 
 1. Extract my complete earnings history from the statement
-2. Identify my 35 highest indexed earning years
-3. Calculate my current AIME (Average Indexed Monthly Earnings) and PIA (Primary Insurance Amount)
-4. Show me what happens to my benefits if I STOP WORKING at different ages but WAIT TO CLAIM later. Calculate scenarios for:
-   - Stop working NOW (my current age), then show what I'd get if I claim at 62, 67, or 70
-   - Stop working at age 55, then show what I'd get if I claim at 62, 67, or 70
-   - Stop working at age 56, then show what I'd get if I claim at 62, 67, or 70
-   - Stop working at age 57, then show what I'd get if I claim at 62, 67, or 70
-   - Stop working at age 58, then show what I'd get if I claim at 62, 67, or 70
-   - Stop working at age 60, then show what I'd get if I claim at 62, 67, or 70
-   - Stop working at age 62, then show what I'd get if I claim at 62, 67, or 70
+2. Identify my 35 highest INDEXED earning years (see indexing instructions below)
+3. Calculate my current AIME and PIA
+4. Show me what happens to my benefits if I STOP WORKING at different ages but WAIT TO CLAIM later
 
-This is VERY DIFFERENT from what my SSA statement shows. My statement assumes I work continuously until I claim. I want to know what happens if I retire early but delay claiming.
+Calculate scenarios for:
+   - Stop working NOW (my current age)
+   - Stop working at age 55
+   - Stop working at age 56
+   - Stop working at age 57
+   - Stop working at age 58
+   - Stop working at age 60
+   - Stop working at age 62
 
 For each stop-work age, show me:
-- Monthly SS benefit if I claim at age 62 (after retiring early)
-- Monthly SS benefit if I claim at age 67 (after retiring early)
-- Monthly SS benefit if I claim at age 70 (after retiring early)
-- The percentage reduction from SSA's projections (which wrongly assume I work until claiming age)
+   - Monthly SS benefit if I claim at age 62
+   - Monthly SS benefit if I claim at FRA (age 66 or 67 depending on birth year)
+   - Monthly SS benefit if I claim at age 70
+   - The percentage reduction from SSA's projections
 
-Please present the results in a clear table format so I can compare scenarios. Make it clear that "Stop at 55, Claim at 70" is VERY different from SSA's assumption of "Work until 70, Claim at 70."
+Present results in a clear table. Make it explicit that "Stop at 55, Claim at 70" is VERY different from SSA's assumption of "Work until 70, Claim at 70."
 
-Use 2024 bend points for calculations:
-- 90% of first $1,174 of AIME
-- 32% of AIME between $1,174 and $7,078
-- 15% of AIME above $7,078
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 
-Account for early/delayed claiming adjustments:
-- Age 62: 70% of PIA
-- Age 67: 100% of PIA (Full Retirement Age)
-- Age 70: 124% of PIA
+🚨 CRITICAL CALCULATION STEP — WAGE INDEXING (DO NOT SKIP)
 
-The key insight: My PIA is based on when I STOP WORKING (which determines my AIME), but my actual benefit is PIA × claiming age adjustment. Most people don't realize their SSA statement conflates these two things.</div>
+Before calculating AIME, every year's earnings MUST be indexed to the year the person turns 60. Raw nominal earnings CANNOT be used directly — this is the most common calculation error AI models make with Social Security.
+
+The indexing formula is:
+Indexed Earnings = Nominal Earnings × (AWI in age-60 year ÷ AWI in earnings year)
+
+Use the following Average Wage Index (AWI) values:
+
+  1985: $16,823    1986: $17,321    1987: $18,426    1988: $19,334
+  1989: $20,099    1990: $21,028    1991: $21,812    1992: $22,935
+  1993: $23,133    1994: $23,754    1995: $24,706    1996: $25,914
+  1997: $27,426    1998: $28,861    1999: $30,470    2000: $32,155
+  2001: $32,922    2002: $33,252    2003: $34,064    2004: $35,648
+  2005: $36,952    2006: $38,651    2007: $40,405    2008: $41,335
+  2009: $40,712    2010: $41,674    2011: $42,979    2012: $44,322
+  2013: $44,888    2014: $46,481    2015: $48,099    2016: $48,642
+  2017: $50,321    2018: $52,146    2019: $54,099    2020: $55,628
+  2021: $60,575    2022: $63,795    2023: $66,621    2024: $68,869 (est.)
+
+For years after the known AWI values, project forward at 3% annual growth.
+For earnings AT or AFTER the person's age-60 year, use nominal value (index factor = 1.0).
+
+✅ VERIFICATION CHECK — run this before proceeding:
+A person who earned $3,500 in 1986 and turns 60 in 2030 should have an
+indexed value of approximately $16,500–$17,000 for that year — NOT $3,500.
+
+If your AIME calculation produces a number close to simply dividing total
+NOMINAL earnings by 420, you have skipped indexing and your results are wrong.
+Stop and redo the calculation with proper indexing before continuing.
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+BEND POINTS — use 2024 values:
+  • 90% of first $1,174 of AIME
+  • 32% of AIME between $1,174 and $7,078
+  • 15% of AIME above $7,078
+
+CLAIMING AGE ADJUSTMENTS:
+  • Age 62: 70% of PIA
+  • FRA (67 for born 1960+): 100% of PIA
+  • Age 70: 124% of PIA
+
+IMPORTANT — HOW PIA AND CLAIMING AGE INTERACT:
+  • PIA is determined by when you STOP WORKING (which sets your AIME)
+  • Your actual benefit = PIA × claiming age adjustment
+  • These are two separate steps — SSA statements conflate them
+  • "Stop work at 55, claim at 70" = (PIA based on 55 stop-work) × 1.24
+  • This is VERY different from SSA's "work to 70, claim at 70" figure
+
+Show your work: display the AIME and PIA for each stop-work scenario before
+applying the claiming age adjustments, so I can verify the calculations.
+
+Note at the end: AWI projections beyond 2024 are estimated and actual SSA
+calculations will use official published AWI values. Treat all results as
+planning estimates, not guaranteed benefit amounts.</div>
 
             <button class="copy-button" onclick="copyPrompt()">📋 Copy Prompt to Clipboard</button>
 
