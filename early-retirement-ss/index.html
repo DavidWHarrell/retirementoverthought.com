@@ -609,6 +609,12 @@
                     </div>
 
                     <div class="form-group">
+                        <label for="first-work-year">Year You First Started Working</label>
+                        <input type="number" id="first-work-year" min="1965" max="2015" required>
+                        <p class="form-help">The first year you had earnings subject to Social Security tax. Find this on your SS statement — it's the earliest year with an earnings amount listed. Example: 1986</p>
+                    </div>
+
+                    <div class="form-group">
                         <label for="current-income">Your Most Recent Year's Income (Subject to SS Tax)</label>
                         <input type="number" id="current-income" min="0" step="1" required>
                         <p class="form-help">Your most recent year's earnings that were taxed for Social Security (2024 or 2025). Maximum taxable: $168,600 in 2024, $176,100 in 2025.</p>
@@ -923,20 +929,29 @@ planning estimates, not guaranteed benefit amounts.</div>
             const currentAge = parseFloat(document.getElementById('current-age').value);
             const yearsToRetirement = parseFloat(document.getElementById('years-to-retirement').value);
             const yearsWorked = parseInt(document.getElementById('years-worked').value);
+            const firstWorkYear = parseInt(document.getElementById('first-work-year').value);
             const currentIncome = parseInt(document.getElementById('current-income').value);
             const ss62 = parseInt(document.getElementById('ss-62').value);
             const ss67 = parseInt(document.getElementById('ss-67').value);
             const ss70 = parseInt(document.getElementById('ss-70').value);
 
             const retirementAge = currentAge + yearsToRetirement;
+            const currentYear = 2025;
+            // Estimate the age at which they started working
+            const startAge = currentAge - (currentYear - firstWorkYear);
 
-            if (currentAge === undefined || yearsToRetirement === undefined || !yearsWorked || !currentIncome || !ss62 || !ss67 || !ss70) {
+            if (currentAge === undefined || yearsToRetirement === undefined || !yearsWorked || !firstWorkYear || !currentIncome || !ss62 || !ss67 || !ss70) {
                 alert('Please fill in all fields');
                 return;
             }
 
             if (retirementAge > 70) {
                 alert('Retirement age cannot be greater than 70. If you plan to work past 70, this calculator may not be right for you.');
+                return;
+            }
+
+            if (firstWorkYear < 1965 || firstWorkYear > 2015) {
+                alert('Please enter a valid first work year between 1965 and 2015.');
                 return;
             }
 
@@ -953,7 +968,7 @@ planning estimates, not guaranteed benefit amounts.</div>
             const estimatedAIME = reverseEngineerAIME(ss67);
             const yearsToFRA = Math.max(0, 67 - retirementAge);
             const yearsWorkedAtRetirement = yearsWorked + yearsToRetirement;
-            const reductionFactor = calculateReductionFactor(yearsWorkedAtRetirement, yearsToFRA, currentIncome, estimatedAIME);
+            const reductionFactor = calculateReductionFactor(yearsWorkedAtRetirement, yearsToFRA, startAge, currentAge);
             
             const newAIME = estimatedAIME * reductionFactor;
             const newPIA = calculatePIA(newAIME);
@@ -1006,16 +1021,51 @@ planning estimates, not guaranteed benefit amounts.</div>
             return pia;
         }
 
-        function calculateReductionFactor(yearsWorked, yearsToFRA, currentIncome, estimatedAIME) {
-            if (yearsWorked >= 35) {
-                const impactPerYear = 0.015;
-                return Math.max(0.70, 1 - (yearsToFRA * impactPerYear));
-            } else {
-                const yearsShort = 35 - yearsWorked;
-                const totalYearsNeeded = yearsShort + yearsToFRA;
-                const impactPerYear = 0.028;
-                return Math.max(0.50, 1 - (totalYearsNeeded * impactPerYear));
-            }
+        function calculateReductionFactor(yearsWorked, yearsToFRA, startAge, currentAge) {
+            // If already at or past FRA, no reduction
+            if (yearsToFRA <= 0) return 1.0;
+
+            // Early career years (before age 27) already in earnings history.
+            // These are "weak" years — much lower than current income when indexed.
+            // Future years replace these weak years first, so the net AIME gain
+            // per future year is lower than if those slots held decent mid-career earnings.
+            const earlyCareerYears = Math.max(0, Math.min(yearsWorked, 27 - startAge));
+
+            // Zero-earning years in the top 35 at retirement
+            // (e.g. career gaps, early years with no SS coverage)
+            const zerosInTop35 = Math.max(0, 35 - yearsWorked);
+
+            // Future years fill slots in this order: zeros first, then early career, then decent
+            // Efficiency = what fraction of that year's indexed value is NET gain to AIME
+            const zeroEfficiency   = 1.00;  // replacing $0 — full gain
+            const earlyEfficiency  = 0.65;  // replacing ~35% of current income — 65% net gain
+            const decentEfficiency = 0.30;  // replacing ~70% of current income — 30% net gain
+
+            let totalEfficiency = 0;
+            let filled = 0;
+
+            // Phase 1: replace zeros
+            const zeroFill = Math.min(yearsToFRA, zerosInTop35);
+            totalEfficiency += zeroFill * zeroEfficiency;
+            filled += zeroFill;
+
+            // Phase 2: replace early career years
+            const earlyFill = Math.min(yearsToFRA - filled, earlyCareerYears);
+            totalEfficiency += earlyFill * earlyEfficiency;
+            filled += earlyFill;
+
+            // Phase 3: replace decent mid-career years
+            const decentFill = Math.max(0, yearsToFRA - filled);
+            totalEfficiency += decentFill * decentEfficiency;
+
+            // Average efficiency across all future years
+            const avgEfficiency = totalEfficiency / yearsToFRA;
+
+            // AIME reduction: each future year represents 1/35 of the 35-year average.
+            // Net reduction = fraction of total years × average replacement efficiency.
+            const aimeReduction = (yearsToFRA / 35) * avgEfficiency;
+
+            return Math.max(0.55, 1 - aimeReduction);
         }
 
         function displayResults(results) {
