@@ -556,21 +556,21 @@
                 </div>
             </div>
 
-            <!-- Option 2: Upload to Claude -->
+            <!-- Option 2: Upload to AI -->
             <div class="option-card" onclick="selectOption(2)">
                 <div class="option-header">
                     <span class="option-number">Option 2</span>
                     <span class="option-time">~10 minutes</span>
                 </div>
-                <h3 class="option-title">Upload to Claude</h3>
-                <p class="option-description">Upload your SS statement PDF to Claude for the most accurate estimate. Best for precise numbers when planning with your financial advisor.</p>
+                <h3 class="option-title">Upload to Your Favorite AI</h3>
+                <p class="option-description">Upload your SS statement PDF to an AI assistant for the most accurate estimate. We provide a pre-written prompt that works with Claude, ChatGPT, Grok, Gemini, or any AI that accepts file uploads.</p>
                 <ul class="option-features">
                     <li>Most accurate estimate possible</li>
                     <li>Uses your complete earnings history</li>
                     <li>Pre-written prompt - just copy & paste</li>
                 </ul>
                 <div class="option-privacy warning">
-                    <strong>⚠️ Privacy:</strong> You upload your PDF directly to Claude (Anthropic), not this site. <a href="https://www.anthropic.com/legal/privacy" target="_blank">Read their privacy policy</a>
+                    <strong>⚠️ Privacy:</strong> You upload your PDF directly to your chosen AI provider, not this site. Review your AI provider's privacy policy before proceeding.
                 </div>
             </div>
         </div>
@@ -648,21 +648,22 @@
             </form>
         </div>
 
-        <!-- Option 2: Upload Instructions -->
+        <!-- Option 2: Upload to AI Instructions -->
         <div id="option2-calc" class="calculator-section">
-            <h2 style="font-family: var(--font-serif); font-size: 2rem; color: var(--color-primary); margin-bottom: 1.5rem;">Upload to Claude for Maximum Accuracy</h2>
+            <h2 style="font-family: var(--font-serif); font-size: 2rem; color: var(--color-primary); margin-bottom: 1.5rem;">Upload to Your Favorite AI for Maximum Accuracy</h2>
 
             <div class="info-box warning">
                 <h4>⚠️ Important Privacy Notice</h4>
-                <p><strong>This option works differently.</strong> You'll upload your Social Security statement PDF directly to Claude (made by Anthropic), not to this website. Your data goes to Anthropic's servers to be processed.</p>
-                <p style="margin-top: 0.5rem;">Before proceeding, read <a href="https://www.anthropic.com/legal/privacy" target="_blank">Anthropic's Privacy Policy</a> to understand how they handle your data.</p>
+                <p><strong>This option works differently.</strong> You'll upload your Social Security statement PDF directly to your chosen AI assistant — not to this website. Your data goes to that AI provider's servers to be processed.</p>
+                <p style="margin-top: 0.5rem;">Before proceeding, review your AI provider's privacy policy. Popular options include <a href="https://claude.ai" target="_blank">Claude (claude.ai)</a>, <a href="https://chat.openai.com" target="_blank">ChatGPT (chat.openai.com)</a>, <a href="https://gemini.google.com" target="_blank">Gemini (gemini.google.com)</a>, and <a href="https://grok.x.ai" target="_blank">Grok (grok.x.ai)</a>.</p>
             </div>
 
             <h3 style="margin-top: 2rem; margin-bottom: 1rem; color: var(--color-primary);">Step 1: Get Your SS Statement PDF</h3>
             <p style="margin-bottom: 1.5rem;">Download your statement from: <a href="https://www.ssa.gov/myaccount/" target="_blank">ssa.gov/myaccount</a></p>
 
-            <h3 style="margin-top: 2rem; margin-bottom: 1rem; color: var(--color-primary);">Step 2: Open Claude</h3>
-            <p style="margin-bottom: 1.5rem;">Go to <a href="https://claude.ai" target="_blank">claude.ai</a> and start a new chat</p>
+            <h3 style="margin-top: 2rem; margin-bottom: 1rem; color: var(--color-primary);">Step 2: Open Your Favorite AI Assistant</h3>
+            <p style="margin-bottom: 0.5rem;">Go to whichever AI assistant you prefer and start a new chat. Make sure it supports PDF file uploads.</p>
+            <p style="margin-bottom: 1.5rem; font-size: 0.95rem; color: var(--color-text-light);">We have tested this prompt with Claude, ChatGPT, Grok, and Gemini. All are capable of producing accurate results when the prompt instructions are followed correctly.</p>
 
             <h3 style="margin-top: 2rem; margin-bottom: 1rem; color: var(--color-primary);">Step 3: Copy This Prompt</h3>
             <div class="prompt-box" id="option2-prompt">I need help calculating what my Social Security benefits would be if I stop working early, rather than continuing to work as SSA assumes.
@@ -695,7 +696,16 @@ Present results in a clear table. Make it explicit that "Stop at 55, Claim at 70
 
 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 
-🚨 CRITICAL CALCULATION STEP — WAGE INDEXING (DO NOT SKIP)
+🚨 CRITICAL STEP 1 — EARNINGS HISTORY EXTRACTION (DO NOT SUBSTITUTE)
+
+Extract the earnings history EXACTLY as it appears in the uploaded PDF.
+Do NOT use example data, estimated data, or data from any other source.
+Do NOT fill in gaps with assumed earnings — if the statement shows $0 or no entry for a year, that year is $0.
+Before proceeding, list every year and earnings amount you extracted from the PDF so I can verify accuracy.
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+🚨 CRITICAL STEP 2 — WAGE INDEXING (DO NOT SKIP)
 
 Before calculating AIME, every year's earnings MUST be indexed to the year the person turns 60. Raw nominal earnings CANNOT be used directly — this is the most common calculation error AI models make with Social Security.
 
@@ -728,7 +738,11 @@ Stop and redo the calculation with proper indexing before continuing.
 
 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 
-BEND POINTS — use 2024 values:
+🚨 CRITICAL STEP 3 — BEND POINTS (USE EXACTLY AS SPECIFIED)
+
+Use the 2024 bend points listed below. Do NOT adjust, project, or scale
+bend points for future years. Use these exact dollar values:
+
   • 90% of first $1,174 of AIME
   • 32% of AIME between $1,174 and $7,078
   • 15% of AIME above $7,078
@@ -738,6 +752,8 @@ CLAIMING AGE ADJUSTMENTS:
   • FRA (67 for born 1960+): 100% of PIA
   • Age 70: 124% of PIA
 
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
 IMPORTANT — HOW PIA AND CLAIMING AGE INTERACT:
   • PIA is determined by when you STOP WORKING (which sets your AIME)
   • Your actual benefit = PIA × claiming age adjustment
@@ -745,8 +761,9 @@ IMPORTANT — HOW PIA AND CLAIMING AGE INTERACT:
   • "Stop work at 55, claim at 70" = (PIA based on 55 stop-work) × 1.24
   • This is VERY different from SSA's "work to 70, claim at 70" figure
 
-Show your work: display the AIME and PIA for each stop-work scenario before
-applying the claiming age adjustments, so I can verify the calculations.
+Show your work: display the extracted earnings, the indexed earnings, the
+AIME and PIA for each stop-work scenario before applying the claiming age
+adjustments, so I can verify the calculations at each step.
 
 Note at the end: AWI projections beyond 2024 are estimated and actual SSA
 calculations will use official published AWI values. Treat all results as
@@ -755,15 +772,13 @@ planning estimates, not guaranteed benefit amounts.</div>
             <button class="copy-button" onclick="copyPrompt()">📋 Copy Prompt to Clipboard</button>
 
             <h3 style="margin-top: 2rem; margin-bottom: 1rem; color: var(--color-primary);">Step 4: Upload Your PDF & Paste the Prompt</h3>
-            <p style="margin-bottom: 1.5rem;">In Claude, upload your SS statement PDF and paste the prompt you just copied. Claude will analyze your complete earnings history and give you precise estimates for each early retirement scenario.</p>
+            <p style="margin-bottom: 1.5rem;">In your chosen AI, upload your SS statement PDF and paste the prompt you just copied. The AI will analyze your complete earnings history and give you estimates for each early retirement scenario.</p>
 
             <div class="info-box" style="margin-top: 2rem;">
                 <h4>💡 What You'll Get</h4>
-                <p>Claude will provide a detailed breakdown showing exactly how your benefits change at each retirement age, using your actual full earnings history. This is the most accurate estimate possible without being the SSA itself.</p>
+                <p>The AI will provide a detailed breakdown showing exactly how your benefits change at each retirement age, using your actual full earnings history. This is the most accurate estimate possible without going directly to the SSA.</p>
                 <p style="margin-top: 0.5rem;"><strong>Remember:</strong> These are still estimates for educational purposes. Use them to have informed discussions with your financial advisor, who can help you make decisions based on your complete financial picture.</p>
             </div>
-
-            <button class="btn-secondary" onclick="window.open('https://claude.ai', '_blank')">Open Claude.ai →</button>
         </div>
 
         <!-- Results Section -->
@@ -776,7 +791,7 @@ planning estimates, not guaranteed benefit amounts.</div>
             <div class="info-box warning">
                 <h4>⚠️ About These Estimates</h4>
                 <p id="accuracy-note">These are estimates designed to show you the general impact of early retirement on your Social Security benefits. They're meant to help you have informed conversations with your financial advisor, not to replace professional financial planning.</p>
-                <p style="margin-top: 0.5rem;">For maximum precision, use Option 2 (Upload to Claude) or consult with your financial advisor using these estimates as talking points.</p>
+                <p style="margin-top: 0.5rem;">For maximum precision, use Option 2 (Upload to Your Favorite AI) or consult with your financial advisor using these estimates as talking points.</p>
             </div>
 
             <h3 style="font-family: var(--font-serif); font-size: 1.5rem; color: var(--color-primary); margin: 2rem 0 1rem;" id="results-scenario-title">If You Stop Working at Age XX</h3>
@@ -873,22 +888,15 @@ planning estimates, not guaranteed benefit amounts.</div>
 
         // Option Selection
         function selectOption(option) {
-            console.log('selectOption called with:', option);
             currentOption = option;
             
-            // Hide all calculators
             document.querySelectorAll('.calculator-section').forEach(el => el.classList.remove('active'));
             
-            // Show selected calculator
             const calc = document.getElementById(`option${option}-calc`);
-            console.log('Calculator element:', calc);
             if (calc) {
                 calc.classList.add('active');
-            } else {
-                console.error(`Calculator option${option}-calc not found!`);
             }
             
-            // Update option cards
             document.querySelectorAll('.option-card').forEach((card, index) => {
                 if (index + 1 === option) {
                     card.classList.add('active');
@@ -897,7 +905,6 @@ planning estimates, not guaranteed benefit amounts.</div>
                 }
             });
 
-            // Scroll to calculator
             if (calc) {
                 calc.scrollIntoView({ behavior: 'smooth', block: 'start' });
             }
@@ -915,10 +922,8 @@ planning estimates, not guaranteed benefit amounts.</div>
             const ss67 = parseInt(document.getElementById('ss-67').value);
             const ss70 = parseInt(document.getElementById('ss-70').value);
 
-            // Calculate retirement age
             const retirementAge = currentAge + yearsToRetirement;
 
-            // Validation
             if (currentAge === undefined || yearsToRetirement === undefined || !yearsWorked || !currentIncome || !ss62 || !ss67 || !ss70) {
                 alert('Please fill in all fields');
                 return;
@@ -939,19 +944,11 @@ planning estimates, not guaranteed benefit amounts.</div>
                 return;
             }
 
-            // Reverse engineer AIME from FRA benefit
             const estimatedAIME = reverseEngineerAIME(ss67);
-            
-            // Calculate years until retirement and years to FRA
             const yearsToFRA = Math.max(0, 67 - retirementAge);
-            
-            // Calculate total years worked at retirement
             const yearsWorkedAtRetirement = yearsWorked + yearsToRetirement;
-            
-            // Estimate reduction from stopping work at retirement age
             const reductionFactor = calculateReductionFactor(yearsWorkedAtRetirement, yearsToFRA, currentIncome, estimatedAIME);
             
-            // Calculate new benefits
             const newAIME = estimatedAIME * reductionFactor;
             const newPIA = calculatePIA(newAIME);
             
@@ -965,14 +962,12 @@ planning estimates, not guaranteed benefit amounts.</div>
                 original62: ss62,
                 original67: ss67,
                 original70: ss70,
-                // Calculate actual percentage reduction at age 67
                 reductionPercent: Math.round(((ss67 - newPIA) / ss67) * 100)
             };
 
             displayResults(results);
         });
 
-        // Reverse engineer AIME from PIA
         function reverseEngineerAIME(pia) {
             if (pia <= BEND_POINTS.first * BEND_POINTS.rates[0]) {
                 return pia / BEND_POINTS.rates[0];
@@ -988,7 +983,6 @@ planning estimates, not guaranteed benefit amounts.</div>
             return BEND_POINTS.second + ((pia - firstBend - secondBendMax) / BEND_POINTS.rates[2]);
         }
 
-        // Calculate PIA from AIME using bend points
         function calculatePIA(aime) {
             let pia = 0;
             
@@ -1006,26 +1000,21 @@ planning estimates, not guaranteed benefit amounts.</div>
             return pia;
         }
 
-        // Calculate reduction factor for stopping work early
         function calculateReductionFactor(yearsWorked, yearsToFRA, currentIncome, estimatedAIME) {
             if (yearsWorked >= 35) {
-                // Already have 35 years - zeros replace lowest years
-                const impactPerYear = 0.015; // 1.5% per year
+                const impactPerYear = 0.015;
                 return Math.max(0.70, 1 - (yearsToFRA * impactPerYear));
             } else {
-                // Don't have 35 years yet - zeros count heavily
                 const yearsShort = 35 - yearsWorked;
                 const totalYearsNeeded = yearsShort + yearsToFRA;
-                const impactPerYear = 0.028; // 2.8% per missing year
+                const impactPerYear = 0.028;
                 return Math.max(0.50, 1 - (totalYearsNeeded * impactPerYear));
             }
         }
 
-        // Display results
         function displayResults(results) {
             calculatedResults = results;
             
-            // Set scenario title
             const retirementAgeDisplay = Number.isInteger(results.retirementAge) 
                 ? results.retirementAge 
                 : results.retirementAge.toFixed(1);
@@ -1035,12 +1024,10 @@ planning estimates, not guaranteed benefit amounts.</div>
                 : `If You Stop Working at Age ${retirementAgeDisplay}`;
             document.getElementById('results-scenario-title').textContent = retirementText;
             
-            // Display benefit amounts
             document.getElementById('result-62').textContent = '$' + results.benefit62.toLocaleString();
             document.getElementById('result-67').textContent = '$' + results.benefit67.toLocaleString();
             document.getElementById('result-70').textContent = '$' + results.benefit70.toLocaleString();
             
-            // Display changes with proper formatting
             const change62 = results.benefit62 - results.original62;
             const change67 = results.benefit67 - results.original67;
             const change70 = results.benefit70 - results.original70;
@@ -1057,7 +1044,6 @@ planning estimates, not guaranteed benefit amounts.</div>
             document.getElementById('change-67').textContent = `${formatChange(change67)} vs. working until 67 to claim at 67`;
             document.getElementById('change-70').textContent = `${formatChange(change70)} vs. working until 70 to claim at 70`;
             
-            // Interpretation
             let interpretation = '';
             const retirementAgeText = results.yearsToRetirement === 0 ? 'now' : `at age ${retirementAgeDisplay}`;
             const yearsToWork70 = Math.max(0, 70 - results.retirementAge);
@@ -1074,59 +1060,48 @@ planning estimates, not guaranteed benefit amounts.</div>
             }
             document.getElementById('interpretation').innerHTML = interpretation;
             
-            // Show results
             document.getElementById('results').classList.add('active');
             document.getElementById('results').scrollIntoView({ behavior: 'smooth', block: 'start' });
         }
 
-        // Copy Option 2 prompt
         function copyPrompt() {
             const prompt = document.getElementById('option2-prompt').textContent;
             navigator.clipboard.writeText(prompt).then(() => {
-                alert('Prompt copied! Now paste it in Claude after uploading your PDF.');
+                alert('Prompt copied! Now paste it in your AI after uploading your PDF.');
             });
         }
 
-        // Go to SS Optimizer
         function goToOptimizer() {
             if (calculatedResults) {
                 const dataToStore = {
                     benefit67: calculatedResults.benefit67,
                     fromEarlyRetirement: true
                 };
-                console.log('Storing in sessionStorage:', dataToStore);
                 sessionStorage.setItem('earlyRetirementSS', JSON.stringify(dataToStore));
-                console.log('Stored data:', sessionStorage.getItem('earlyRetirementSS'));
                 window.location.href = '/social-security/';
             } else {
-                console.error('No calculated results to pass!');
                 alert('Please calculate your benefits first before using the SS Optimizer.');
             }
         }
 
-        // Start over
         function startOver() {
             calculatedResults = null;
             document.getElementById('results').classList.remove('active');
             window.scrollTo({ top: 0, behavior: 'smooth' });
         }
 
-        // Toggle info tooltip
         function toggleTooltip(event, tooltipId) {
             event.stopPropagation();
             const tooltip = document.getElementById(tooltipId);
             const wasActive = tooltip.classList.contains('active');
             
-            // Close all tooltips
             document.querySelectorAll('.info-tooltip').forEach(t => t.classList.remove('active'));
             
-            // Toggle this tooltip
             if (!wasActive) {
                 tooltip.classList.add('active');
             }
         }
 
-        // Close tooltips when clicking outside
         document.addEventListener('click', function(event) {
             if (!event.target.closest('.info-icon')) {
                 document.querySelectorAll('.info-tooltip').forEach(t => t.classList.remove('active'));
