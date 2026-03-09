@@ -221,6 +221,15 @@
             border-radius: 4px;
         }
 
+        .rank.ref-rank {
+            background: #FFF3CD;
+            color: #856404;
+            padding: 0.25rem 0.4rem;
+            border-radius: 4px;
+            font-size: 0.75rem;
+            letter-spacing: 0.03em;
+        }
+
         /* Score Colors */
         .score {
             font-weight: 600;
@@ -236,6 +245,28 @@
 
         .score-low {
             color: #c24141;
+        }
+
+        /* Reference / anchor rows */
+        tbody tr.anchor-row {
+            background: #FFFBEB;
+        }
+
+        tbody tr.anchor-row:hover {
+            background: #FEF3C7;
+        }
+
+        .home-badge {
+            display: inline-block;
+            margin-left: 0.4rem;
+            background: #F0A500;
+            color: #fff;
+            font-size: 0.65rem;
+            padding: 0.1rem 0.35rem;
+            border-radius: 3px;
+            font-weight: 600;
+            letter-spacing: 0.04em;
+            vertical-align: middle;
         }
 
         /* Sources */
@@ -318,6 +349,7 @@
             <p>Click any column header to sort by that metric. Click again to reverse the sort order.</p>
             <p>Use the search box to filter countries by name or region.</p>
             <p>All scores are normalized to 0-100 scale, with 100 being the best. Rankings are compiled from multiple independent sources (see Sources section below).</p>
+            <p>The <strong style="color: #856404;">highlighted reference countries</strong> at the bottom of the list (US, UK, Canada, Australia, and New Zealand) are always shown so you can compare popular retirement destinations against where you likely live now. They are not ranked as top retirement destinations — their lower overall scores primarily reflect higher cost of living, not deficiencies in healthcare, safety, or quality of life.</p>
         </div>
 
         <div class="legend">
@@ -422,6 +454,8 @@
                 Scores are normalized and weighted to create comparable metrics across sources. Individual experiences may vary. 
                 This tool is intended for informational purposes only and should not be considered professional advice. 
                 Always conduct your own research and consult with qualified professionals before making relocation decisions.</p>
+
+                <p style="margin-top: 0.75rem;"><strong>About the Reference Countries:</strong> The United States, United Kingdom, Canada, Australia, and New Zealand are pinned to the list as home-country reference points. Their lower overall scores reflect the higher cost of living in those countries relative to most popular expat destinations — not lower healthcare, safety, or quality of life.</p>
                 
                 <p style="margin-top: 0.75rem;"><strong>Last Updated:</strong> February 2026. Data sources are updated periodically. 
                 Check individual source websites for the most current information.</p>
@@ -1041,6 +1075,78 @@ const countryData = [
         expatCommunity: 58
     }
 ];
+
+// HOME / REFERENCE COUNTRIES
+// Always shown at bottom for home-country comparison. Not ranked as top retirement destinations.
+// Lower overall scores primarily reflect higher cost of living, not lower healthcare/safety/quality of life.
+const anchorCountries = [
+    {
+        rank: "REF",
+        country: "United States",
+        region: "North America",
+        overall: 62,
+        healthcare: 72,
+        cost: 28,
+        safety: 65,
+        quality: 70,
+        easeOfEntry: 99,
+        expatCommunity: 45,
+        isAnchor: true
+    },
+    {
+        rank: "REF",
+        country: "United Kingdom",
+        region: "Northern Europe",
+        overall: 65,
+        healthcare: 80,
+        cost: 30,
+        safety: 72,
+        quality: 74,
+        easeOfEntry: 95,
+        expatCommunity: 55,
+        isAnchor: true
+    },
+    {
+        rank: "REF",
+        country: "Canada",
+        region: "North America",
+        overall: 64,
+        healthcare: 78,
+        cost: 26,
+        safety: 78,
+        quality: 78,
+        easeOfEntry: 95,
+        expatCommunity: 50,
+        isAnchor: true
+    },
+    {
+        rank: "REF",
+        country: "Australia",
+        region: "Oceania",
+        overall: 63,
+        healthcare: 82,
+        cost: 22,
+        safety: 80,
+        quality: 80,
+        easeOfEntry: 88,
+        expatCommunity: 52,
+        isAnchor: true
+    },
+    {
+        rank: "REF",
+        country: "New Zealand",
+        region: "Oceania",
+        overall: 66,
+        healthcare: 80,
+        cost: 24,
+        safety: 85,
+        quality: 82,
+        easeOfEntry: 88,
+        expatCommunity: 48,
+        isAnchor: true
+    }
+];
+
         let currentSort = { column: 0, ascending: true };
 
         function initTable() {
@@ -1052,28 +1158,48 @@ const countryData = [
             const tbody = document.getElementById('table-body');
             tbody.innerHTML = '';
 
+            // Render ranked countries
             data.forEach(country => {
                 const row = tbody.insertRow();
-                
-                // Rank
-                const rankCell = row.insertCell();
-                rankCell.innerHTML = `<span class="rank ${country.rank <= 10 ? 'top-10' : ''}">${country.rank}</span>`;
-                
-                // Country
-                row.insertCell().textContent = country.country;
-                
-                // Region
-                row.insertCell().textContent = country.region;
-                
-                // Scores
-                row.insertCell().innerHTML = formatScore(country.overall);
-                row.insertCell().innerHTML = formatScore(country.healthcare);
-                row.insertCell().innerHTML = formatScore(country.cost);
-                row.insertCell().innerHTML = formatScore(country.safety);
-                row.insertCell().innerHTML = formatScore(country.quality);
-                row.insertCell().innerHTML = formatScore(country.easeOfEntry);
-                row.insertCell().innerHTML = formatScore(country.expatCommunity);
+                renderRow(row, country);
             });
+
+            // Always append anchor/reference countries at the bottom
+            anchorCountries.forEach(country => {
+                const row = tbody.insertRow();
+                row.classList.add('anchor-row');
+                renderRow(row, country);
+            });
+        }
+
+        function renderRow(row, country) {
+            // Rank
+            const rankCell = row.insertCell();
+            if (country.isAnchor) {
+                rankCell.innerHTML = `<span class="rank ref-rank">REF</span>`;
+            } else {
+                rankCell.innerHTML = `<span class="rank ${country.rank <= 10 ? 'top-10' : ''}">${country.rank}</span>`;
+            }
+
+            // Country
+            const nameCell = row.insertCell();
+            if (country.isAnchor) {
+                nameCell.innerHTML = `${country.country}<span class="home-badge">HOME</span>`;
+            } else {
+                nameCell.textContent = country.country;
+            }
+
+            // Region
+            row.insertCell().textContent = country.region;
+
+            // Scores
+            row.insertCell().innerHTML = formatScore(country.overall);
+            row.insertCell().innerHTML = formatScore(country.healthcare);
+            row.insertCell().innerHTML = formatScore(country.cost);
+            row.insertCell().innerHTML = formatScore(country.safety);
+            row.insertCell().innerHTML = formatScore(country.quality);
+            row.insertCell().innerHTML = formatScore(country.easeOfEntry);
+            row.insertCell().innerHTML = formatScore(country.expatCommunity);
         }
 
         function formatScore(score) {
@@ -1105,7 +1231,7 @@ const countryData = [
             // Add sort indicator to current column
             headers[columnIndex].classList.add(currentSort.ascending ? 'sorted-asc' : 'sorted-desc');
             
-            // Sort the data
+            // Sort ranked countries only — anchor rows always stay at bottom
             const sortedData = [...countryData].sort((a, b) => {
                 let aVal, bVal;
                 
