@@ -150,6 +150,7 @@
             <button class="tab-btn" onclick="switchTab('afford')">🔍 Find What I Can Afford</button>
         </div>
 
+        <!-- ═══════════════════════════════════════════════ CALCULATE TAB -->
         <div id="calculate-tab" class="tab-content active">
             <div class="calculator-card">
                 <h2 class="section-title">What Will My Lifestyle Cost?</h2>
@@ -244,13 +245,16 @@
                     <div class="form-group">
                         <label for="lifestyle">Retirement Lifestyle</label>
                         <select id="lifestyle" name="lifestyle">
-                            <option value="rv">RV/Van Life</option>
-                            <option value="slow-travel">Slow Travel (Multiple Countries)</option>
+                            <option value="stay-home">Stay at Home / Local Exploration / Expat</option>
                             <option value="snowbird">Snowbird</option>
-                            <option value="stay-home">Stay at Home / Expat</option>
+                            <option value="slow-travel">Slow Travel (Multiple Countries)</option>
+                            <option value="rv">RV/Van Life</option>
+                            <option value="cruise-full">Cruise Ship Living (Full-Time)</option>
+                            <option value="cruise-semi">Cruise Ship Living (Semi-Permanent)</option>
                         </select>
                     </div>
 
+                    <!-- ── Stay at Home / Local Exploration / Expat ── -->
                     <div id="stay-home-fields" class="conditional-field active">
                         <div class="form-group">
                             <label>Housing Situation</label>
@@ -271,16 +275,27 @@
                         </div>
 
                         <div class="form-group">
-                            <label>Location</label>
+                            <label>Location / Lifestyle Variant</label>
                             <div class="radio-group">
                                 <div class="radio-option">
                                     <input type="radio" id="stay-current" name="stayLocation" value="current" checked>
-                                    <label for="stay-current">Current Location</label>
+                                    <label for="stay-current">Current Location<br><small>Stay where you are</small></label>
+                                </div>
+                                <div class="radio-option">
+                                    <input type="radio" id="stay-local" name="stayLocation" value="local">
+                                    <label for="stay-local">Local Exploration<br><small>Day trips &amp; local experiences</small></label>
                                 </div>
                                 <div class="radio-option">
                                     <input type="radio" id="stay-expat" name="stayLocation" value="expat">
-                                    <label for="stay-expat">Expat (Single Country)</label>
+                                    <label for="stay-expat">Expat<br><small>Single foreign country</small></label>
                                 </div>
+                            </div>
+                        </div>
+
+                        <div id="local-explore-note" style="display:none; margin-top: 0.75rem;">
+                            <div class="info-box" style="margin-bottom: 0;">
+                                <h4>Local Exploration Costs Explained:</h4>
+                                <p>Same base as staying home, but with an added activity budget for regular day trips, local dining experiences, regional weekend getaways, museum memberships, event tickets, and exploring your surrounding area. A great option if you want retirement adventure without relocating.</p>
                             </div>
                         </div>
 
@@ -345,6 +360,7 @@
                         </div>
                     </div>
 
+                    <!-- ── Slow Travel ── -->
                     <div id="slow-travel-fields" class="conditional-field">
                         <div class="info-box" style="margin-bottom: 1rem;">
                             <h4>Slow Travel Costs Explained:</h4>
@@ -410,6 +426,7 @@
                         </div>
                     </div>
 
+                    <!-- ── Snowbird ── -->
                     <div id="snowbird-fields" class="conditional-field">
                         <div class="info-box" style="margin-bottom: 1rem;">
                             <h4>Snowbird Costs Explained:</h4>
@@ -460,6 +477,7 @@
                         </div>
                     </div>
 
+                    <!-- ── RV / Van Life ── -->
                     <div id="rv-fields" class="conditional-field">
                         <div class="info-box" style="margin-bottom: 1rem;">
                             <h4>RV Costs Explained:</h4>
@@ -503,6 +521,130 @@
                         </div>
                     </div>
 
+                    <!-- ── Cruise Ship Full-Time ── -->
+                    <div id="cruise-full-fields" class="conditional-field">
+                        <div class="info-box" style="margin-bottom: 1rem;">
+                            <h4>Full-Time Cruising Costs Explained:</h4>
+                            <p>Living aboard cruise ships 12 months/year, back-to-back sailings. Includes cruise fare, port fees, gratuities, specialty dining, drinks, shore excursions, travel insurance, internet, and flights to embarkation ports. Most meals are included in fare.</p>
+                        </div>
+
+                        <div class="form-group">
+                            <label>Cabin Type</label>
+                            <div class="radio-group">
+                                <div class="radio-option">
+                                    <input type="radio" id="cabin-interior" name="cabinType" value="interior" checked>
+                                    <label for="cabin-interior">Interior<br><small>No window</small></label>
+                                </div>
+                                <div class="radio-option">
+                                    <input type="radio" id="cabin-balcony" name="cabinType" value="balcony">
+                                    <label for="cabin-balcony">Balcony<br><small>Private veranda</small></label>
+                                </div>
+                                <div class="radio-option">
+                                    <input type="radio" id="cabin-suite" name="cabinType" value="suite">
+                                    <label for="cabin-suite">Suite<br><small>Full amenities</small></label>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label>Cruise Line Tier</label>
+                            <div class="radio-group">
+                                <div class="radio-option">
+                                    <input type="radio" id="line-budget" name="cruiseLine" value="budget" checked>
+                                    <label for="line-budget">Budget<br><small>Carnival, MSC</small></label>
+                                </div>
+                                <div class="radio-option">
+                                    <input type="radio" id="line-mid" name="cruiseLine" value="mid">
+                                    <label for="line-mid">Mid-Range<br><small>Princess, Celebrity</small></label>
+                                </div>
+                                <div class="radio-option">
+                                    <input type="radio" id="line-premium" name="cruiseLine" value="premium">
+                                    <label for="line-premium">Premium<br><small>Viking, Oceania</small></label>
+                                </div>
+                                <div class="radio-option">
+                                    <input type="radio" id="line-luxury" name="cruiseLine" value="luxury">
+                                    <label for="line-luxury">Luxury<br><small>Silversea, Regent</small></label>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- ── Cruise Ship Semi-Permanent ── -->
+                    <div id="cruise-semi-fields" class="conditional-field">
+                        <div class="info-box" style="margin-bottom: 1rem;">
+                            <h4>Semi-Permanent Cruising Costs Explained:</h4>
+                            <p>Spending 6-9 months/year on cruise ships, maintaining a home base for the remaining months. Total cost is your at-home months averaged with your cruising months.</p>
+                        </div>
+
+                        <div class="form-group">
+                            <label>Cabin Type</label>
+                            <div class="radio-group">
+                                <div class="radio-option">
+                                    <input type="radio" id="semi-cabin-interior" name="semiCabinType" value="interior" checked>
+                                    <label for="semi-cabin-interior">Interior<br><small>No window</small></label>
+                                </div>
+                                <div class="radio-option">
+                                    <input type="radio" id="semi-cabin-balcony" name="semiCabinType" value="balcony">
+                                    <label for="semi-cabin-balcony">Balcony<br><small>Private veranda</small></label>
+                                </div>
+                                <div class="radio-option">
+                                    <input type="radio" id="semi-cabin-suite" name="semiCabinType" value="suite">
+                                    <label for="semi-cabin-suite">Suite<br><small>Full amenities</small></label>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label>Cruise Line Tier</label>
+                            <div class="radio-group">
+                                <div class="radio-option">
+                                    <input type="radio" id="semi-line-budget" name="semiCruiseLine" value="budget" checked>
+                                    <label for="semi-line-budget">Budget<br><small>Carnival, MSC</small></label>
+                                </div>
+                                <div class="radio-option">
+                                    <input type="radio" id="semi-line-mid" name="semiCruiseLine" value="mid">
+                                    <label for="semi-line-mid">Mid-Range<br><small>Princess, Celebrity</small></label>
+                                </div>
+                                <div class="radio-option">
+                                    <input type="radio" id="semi-line-premium" name="semiCruiseLine" value="premium">
+                                    <label for="semi-line-premium">Premium<br><small>Viking, Oceania</small></label>
+                                </div>
+                                <div class="radio-option">
+                                    <input type="radio" id="semi-line-luxury" name="semiCruiseLine" value="luxury">
+                                    <label for="semi-line-luxury">Luxury<br><small>Silversea, Regent</small></label>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="cruise-months">Months Per Year Cruising</label>
+                            <select id="cruise-months" name="cruiseMonths">
+                                <option value="6">6 months</option>
+                                <option value="7">7 months</option>
+                                <option value="8" selected>8 months</option>
+                                <option value="9">9 months</option>
+                            </select>
+                        </div>
+
+                        <div class="form-group">
+                            <label>Home Base Housing (when not cruising)</label>
+                            <div class="radio-group">
+                                <div class="radio-option">
+                                    <input type="radio" id="semi-home-paid" name="semiHomeHousing" value="own-paid" checked>
+                                    <label for="semi-home-paid">Own (Paid Off)<br><small>Utilities/taxes only</small></label>
+                                </div>
+                                <div class="radio-option">
+                                    <input type="radio" id="semi-home-mortgage" name="semiHomeHousing" value="own-mortgage">
+                                    <label for="semi-home-mortgage">Own (Mortgage)</label>
+                                </div>
+                                <div class="radio-option">
+                                    <input type="radio" id="semi-home-rent" name="semiHomeHousing" value="rent">
+                                    <label for="semi-home-rent">Rent</label>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
                     <button type="submit" class="calculate-btn">Calculate My Costs</button>
                 </form>
             </div>
@@ -521,6 +663,7 @@
             </div>
         </div>
 
+        <!-- ═══════════════════════════════════════════════ AFFORD TAB -->
         <div id="afford-tab" class="tab-content">
             <div class="calculator-card">
                 <h2 class="section-title">What Can I Afford?</h2>
@@ -597,6 +740,10 @@
                                 <label for="pref-international">Include international options</label>
                             </div>
                             <div class="checkbox-option">
+                                <input type="checkbox" id="pref-cruise" name="prefCruise" checked>
+                                <label for="pref-cruise">Include cruise ship options</label>
+                            </div>
+                            <div class="checkbox-option">
                                 <input type="checkbox" id="pref-warm" name="prefWarm">
                                 <label for="pref-warm">Prefer warm weather year-round</label>
                             </div>
@@ -620,33 +767,20 @@
                     <div style="margin-bottom: 1.5rem;">
                         <label style="font-weight: 600; color: var(--color-primary-dark); margin-bottom: 0.5rem; display: block;">Budget Level:</label>
                         <div class="filter-buttons">
-                            <button class="filter-btn active" data-filter="budget" data-value="all">
-                                All <span class="filter-count" id="count-all">0</span>
-                            </button>
-                            <button class="filter-btn" data-filter="budget" data-value="frugal">
-                                Frugal <span class="filter-count" id="count-frugal">0</span>
-                            </button>
-                            <button class="filter-btn" data-filter="budget" data-value="moderate">
-                                Moderate <span class="filter-count" id="count-moderate">0</span>
-                            </button>
-                            <button class="filter-btn" data-filter="budget" data-value="comfortable">
-                                Comfortable <span class="filter-count" id="count-comfortable">0</span>
-                            </button>
+                            <button class="filter-btn active" data-filter="budget" data-value="all">All <span class="filter-count" id="count-all">0</span></button>
+                            <button class="filter-btn" data-filter="budget" data-value="frugal">Frugal <span class="filter-count" id="count-frugal">0</span></button>
+                            <button class="filter-btn" data-filter="budget" data-value="moderate">Moderate <span class="filter-count" id="count-moderate">0</span></button>
+                            <button class="filter-btn" data-filter="budget" data-value="comfortable">Comfortable <span class="filter-count" id="count-comfortable">0</span></button>
                         </div>
                     </div>
 
                     <div>
                         <label style="font-weight: 600; color: var(--color-primary-dark); margin-bottom: 0.5rem; display: block;">Location:</label>
                         <div class="filter-buttons">
-                            <button class="filter-btn active" data-filter="location" data-value="all">
-                                All <span class="filter-count" id="count-loc-all">0</span>
-                            </button>
-                            <button class="filter-btn" data-filter="location" data-value="north-america">
-                                North America <span class="filter-count" id="count-north-america">0</span>
-                            </button>
-                            <button class="filter-btn" data-filter="location" data-value="international">
-                                International <span class="filter-count" id="count-international">0</span>
-                            </button>
+                            <button class="filter-btn active" data-filter="location" data-value="all">All <span class="filter-count" id="count-loc-all">0</span></button>
+                            <button class="filter-btn" data-filter="location" data-value="north-america">North America <span class="filter-count" id="count-north-america">0</span></button>
+                            <button class="filter-btn" data-filter="location" data-value="international">International <span class="filter-count" id="count-international">0</span></button>
+                            <button class="filter-btn" data-filter="location" data-value="cruise">Cruise Ship <span class="filter-count" id="count-cruise">0</span></button>
                         </div>
                     </div>
                 </div>
@@ -667,6 +801,10 @@
             uae: 1.2, 'south-africa': 0.55, morocco: 0.5
         };
 
+        // Cruise multipliers
+        const cabinMultipliers    = { interior: 1.0, balcony: 1.4, suite: 2.2 };
+        const cruiseLineMultipliers = { budget: 0.7, mid: 1.0, premium: 1.6, luxury: 2.8 };
+
         let currentBudgetFilter = 'all';
         let currentLocationFilter = 'all';
         let allOptions = [];
@@ -675,7 +813,6 @@
         function switchTab(tab) {
             document.querySelectorAll('.tab-btn').forEach(btn => btn.classList.remove('active'));
             document.querySelectorAll('.tab-content').forEach(content => content.classList.remove('active'));
-            
             if (tab === 'calculate') {
                 document.querySelector('.tab-btn:first-child').classList.add('active');
                 document.getElementById('calculate-tab').classList.add('active');
@@ -685,114 +822,96 @@
             }
         }
 
+        // ── Lifestyle select: show/hide conditional fields ──────────────
         document.getElementById('lifestyle').addEventListener('change', function() {
-            document.querySelectorAll('.conditional-field').forEach(field => field.classList.remove('active'));
-            const lifestyle = this.value;
-            if (lifestyle === 'stay-home') document.getElementById('stay-home-fields').classList.add('active');
-            else if (lifestyle === 'slow-travel') document.getElementById('slow-travel-fields').classList.add('active');
-            else if (lifestyle === 'snowbird') document.getElementById('snowbird-fields').classList.add('active');
-            else if (lifestyle === 'rv') document.getElementById('rv-fields').classList.add('active');
+            document.querySelectorAll('.conditional-field').forEach(f => f.classList.remove('active'));
+            const map = {
+                'stay-home':    'stay-home-fields',
+                'slow-travel':  'slow-travel-fields',
+                'snowbird':     'snowbird-fields',
+                'rv':           'rv-fields',
+                'cruise-full':  'cruise-full-fields',
+                'cruise-semi':  'cruise-semi-fields'
+            };
+            const target = map[this.value];
+            if (target) document.getElementById(target).classList.add('active');
         });
 
+        // ── Stay-at-home location variant ────────────────────────────────
         document.querySelectorAll('input[name="stayLocation"]').forEach(radio => {
             radio.addEventListener('change', function() {
-                if (this.value === 'expat') {
-                    document.getElementById('expat-country-field').style.display = 'block';
-                } else {
-                    document.getElementById('expat-country-field').style.display = 'none';
-                }
+                document.getElementById('expat-country-field').style.display  = this.value === 'expat'  ? 'block' : 'none';
+                document.getElementById('local-explore-note').style.display   = this.value === 'local'  ? 'block' : 'none';
             });
         });
 
+        // ── Form submissions ──────────────────────────────────────────────
         document.getElementById('calculator-form').addEventListener('submit', function(e) {
             e.preventDefault();
             calculateCosts();
         });
-
         document.getElementById('afford-form').addEventListener('submit', function(e) {
             e.preventDefault();
             findAffordable();
         });
 
+        // ── Filter buttons ────────────────────────────────────────────────
         document.querySelectorAll('.filter-btn').forEach(btn => {
             btn.addEventListener('click', function() {
                 const filterType = this.getAttribute('data-filter');
                 const filterValue = this.getAttribute('data-value');
-                
                 document.querySelectorAll(`[data-filter="${filterType}"]`).forEach(b => b.classList.remove('active'));
                 this.classList.add('active');
-                
-                if (filterType === 'budget') {
-                    currentBudgetFilter = filterValue;
-                } else {
-                    currentLocationFilter = filterValue;
-                }
-                
+                if (filterType === 'budget') currentBudgetFilter = filterValue;
+                else currentLocationFilter = filterValue;
                 applyFilters();
             });
         });
 
         function applyFilters() {
-            const cards = document.querySelectorAll('.lifestyle-card');
-            
-            cards.forEach(card => {
-                const budgetLevel = card.getAttribute('data-budget');
-                const location = card.getAttribute('data-location');
-                
-                const budgetMatch = currentBudgetFilter === 'all' || budgetLevel === currentBudgetFilter;
-                const locationMatch = currentLocationFilter === 'all' || location === currentLocationFilter;
-                
-                if (budgetMatch && locationMatch) {
-                    card.classList.remove('hidden');
-                } else {
-                    card.classList.add('hidden');
-                }
+            document.querySelectorAll('.lifestyle-card').forEach(card => {
+                const budgetMatch   = currentBudgetFilter   === 'all' || card.getAttribute('data-budget')   === currentBudgetFilter;
+                const locationMatch = currentLocationFilter === 'all' || card.getAttribute('data-location') === currentLocationFilter;
+                card.classList.toggle('hidden', !(budgetMatch && locationMatch));
             });
         }
 
         function updateCounts() {
-            const counts = {
-                all: 0,
-                frugal: 0,
-                moderate: 0,
-                comfortable: 0,
-                'loc-all': 0,
-                'north-america': 0,
-                'international': 0
-            };
-
+            const counts = { all: 0, frugal: 0, moderate: 0, comfortable: 0, 'loc-all': 0, 'north-america': 0, international: 0, cruise: 0 };
             allOptions.forEach(opt => {
                 counts.all++;
                 counts[opt.budgetLevel]++;
                 counts['loc-all']++;
-                counts[opt.isNorthAmerica ? 'north-america' : 'international']++;
+                counts[opt.locationType]++;
             });
-
-            document.getElementById('count-all').textContent = counts.all;
-            document.getElementById('count-frugal').textContent = counts.frugal;
-            document.getElementById('count-moderate').textContent = counts.moderate;
+            document.getElementById('count-all').textContent         = counts.all;
+            document.getElementById('count-frugal').textContent      = counts.frugal;
+            document.getElementById('count-moderate').textContent    = counts.moderate;
             document.getElementById('count-comfortable').textContent = counts.comfortable;
-            document.getElementById('count-loc-all').textContent = counts['loc-all'];
+            document.getElementById('count-loc-all').textContent     = counts['loc-all'];
             document.getElementById('count-north-america').textContent = counts['north-america'];
-            document.getElementById('count-international').textContent = counts['international'];
+            document.getElementById('count-international').textContent = counts.international;
+            document.getElementById('count-cruise').textContent      = counts.cruise;
         }
 
+        // ════════════════════════════════════════════════════════════════
+        //  CALCULATE TAB LOGIC
+        // ════════════════════════════════════════════════════════════════
         function calculateCosts() {
-            const currency = document.getElementById('currency').value;
-            const costArea = document.querySelector('input[name="costArea"]:checked').value;
-            const people = parseInt(document.querySelector('input[name="people"]:checked').value);
-            const budget = document.querySelector('input[name="budget"]:checked').value;
+            const currency  = document.getElementById('currency').value;
+            const costArea  = document.querySelector('input[name="costArea"]:checked').value;
+            const people    = parseInt(document.querySelector('input[name="people"]:checked').value);
+            const budget    = document.querySelector('input[name="budget"]:checked').value;
             const lifestyle = document.getElementById('lifestyle').value;
 
             let costs = {};
-            
             if (lifestyle === 'stay-home') {
-                const housing = document.querySelector('input[name="housing"]:checked').value;
+                const housing      = document.querySelector('input[name="housing"]:checked').value;
                 const stayLocation = document.querySelector('input[name="stayLocation"]:checked').value;
-                
                 if (stayLocation === 'expat') {
-                    const expatCountry = document.getElementById('expat-country').value;
-                    costs = calculateExpat(costArea, budget, people, housing, expatCountry);
+                    costs = calculateExpat(costArea, budget, people, housing, document.getElementById('expat-country').value);
+                } else if (stayLocation === 'local') {
+                    costs = calculateLocalExplore(costArea, budget, people, housing);
                 } else {
                     costs = calculateStayHome(costArea, budget, people, housing);
                 }
@@ -802,155 +921,198 @@
                 costs = calculateSnowbird(costArea, budget, people);
             } else if (lifestyle === 'rv') {
                 costs = calculateRV(costArea, budget, people);
+            } else if (lifestyle === 'cruise-full') {
+                costs = calculateCruiseFull(budget, people);
+            } else if (lifestyle === 'cruise-semi') {
+                costs = calculateCruiseSemi(costArea, budget, people);
             }
 
             const rate = exchangeRates[currency];
             for (let key in costs) costs[key] = costs[key] * rate;
-
             displayResults(costs, currency);
         }
 
         function calculateStayHome(costArea, budget, people, housing) {
-            const areaMultipliers = { high: 1.4, medium: 1.0, low: 0.7 };
+            const areaMultipliers   = { high: 1.4, medium: 1.0, low: 0.7 };
             const budgetMultipliers = { frugal: 0.75, moderate: 1.225, comfortable: 1.7 };
-            const areaMult = areaMultipliers[costArea];
+            const areaMult   = areaMultipliers[costArea];
             const budgetMult = budgetMultipliers[budget];
             const peopleMult = people === 2 ? 1.6 : 1.0;
-
-            const base = {
-                housing: housing === 'own-paid' ? 300 : (housing === 'own-mortgage' ? 1200 : 1500),
-                food: 400,
-                healthcare: 500,
-                transportation: 300,
-                utilities: 200,
-                entertainment: 250,
-                misc: 150
-            };
-
+            const base = { housing: housing === 'own-paid' ? 300 : (housing === 'own-mortgage' ? 1200 : 1500), food: 400, healthcare: 500, transportation: 300, utilities: 200, entertainment: 250, misc: 150 };
             const costs = {};
             for (let key in base) {
-                if (key === 'housing') {
-                    costs[key] = base[key] * areaMult * budgetMult * (people === 2 ? 1.2 : 1.0);
-                } else {
-                    costs[key] = base[key] * areaMult * budgetMult * peopleMult;
-                }
+                costs[key] = key === 'housing'
+                    ? base[key] * areaMult * budgetMult * (people === 2 ? 1.2 : 1.0)
+                    : base[key] * areaMult * budgetMult * peopleMult;
             }
             return costs;
         }
 
+        function calculateLocalExplore(costArea, budget, people, housing) {
+            // Same as stay-home but with a meaningful local activities & day-trips budget added
+            const base = calculateStayHome(costArea, budget, people, housing);
+            const budgetActivityBonus = { frugal: 150, moderate: 400, comfortable: 700 };
+            const peopleMult = people === 2 ? 1.5 : 1.0;
+            base['localActivities'] = budgetActivityBonus[budget] * peopleMult;
+            return base;
+        }
+
         function calculateExpat(costArea, budget, people, housing, country) {
             const budgetMultipliers = { frugal: 0.7, moderate: 1.225, comfortable: 1.7 };
-            const budgetMult = budgetMultipliers[budget];
-            const peopleMult = people === 2 ? 1.5 : 1.0;
+            const budgetMult  = budgetMultipliers[budget];
+            const peopleMult  = people === 2 ? 1.5 : 1.0;
             const countryMult = countryCosts[country] || 0.7;
-
             const housingBase = housing === 'own-paid' ? 300 : (housing === 'own-mortgage' ? 1200 : 1500);
-
             return {
-                housing: housingBase * countryMult * budgetMult,
-                food: 400 * countryMult * budgetMult * peopleMult,
-                healthcare: 200 * budgetMult,
-                transportation: 200 * countryMult * budgetMult,
-                utilities: 150 * countryMult,
-                entertainment: 250 * countryMult * budgetMult * peopleMult,
-                misc: 150 * countryMult
+                housing:        housingBase * countryMult * budgetMult,
+                food:           400  * countryMult * budgetMult * peopleMult,
+                healthcare:     200  * budgetMult,
+                transportation: 200  * countryMult * budgetMult,
+                utilities:      150  * countryMult,
+                entertainment:  250  * countryMult * budgetMult * peopleMult,
+                misc:           150  * countryMult
             };
         }
 
         function calculateSlowTravel(costArea, budget, people) {
-            const travelCountry = document.getElementById('travel-country').value;
+            const travelCountry     = document.getElementById('travel-country').value;
             const budgetMultipliers = { frugal: 0.7, moderate: 1.225, comfortable: 1.7 };
-            const peopleMult = people === 2 ? 1.5 : 1.0;
+            const peopleMult  = people === 2 ? 1.5 : 1.0;
             const countryMult = countryCosts[travelCountry] || 0.7;
-            const budgetMult = budgetMultipliers[budget];
-
+            const budgetMult  = budgetMultipliers[budget];
             return {
-                housing: 1000 * countryMult * budgetMult * peopleMult,
-                food: 400 * countryMult * budgetMult * peopleMult,
-                healthcare: 200 * budgetMult,
-                transportation: 200 * countryMult * budgetMult,
-                activities: 300 * countryMult * budgetMult * peopleMult,
-                flights: 400 * countryMult * budgetMult * peopleMult,
-                misc: 150 * countryMult
+                housing:        1000 * countryMult * budgetMult * peopleMult,
+                food:           400  * countryMult * budgetMult * peopleMult,
+                healthcare:     200  * budgetMult,
+                transportation: 200  * countryMult * budgetMult,
+                activities:     300  * countryMult * budgetMult * peopleMult,
+                flights:        400  * countryMult * budgetMult * peopleMult,
+                misc:           150  * countryMult
             };
         }
 
         function calculateSnowbird(costArea, budget, people) {
-            const snowHousing = document.querySelector('input[name="snowHousing"]:checked').value;
-            const winterDest = document.getElementById('winter-destination').value;
-            const winterMonths = parseInt(document.getElementById('winter-months').value);
-            const areaMultipliers = { high: 1.4, medium: 1.0, low: 0.7 };
+            const snowHousing    = document.querySelector('input[name="snowHousing"]:checked').value;
+            const winterDest     = document.getElementById('winter-destination').value;
+            const winterMonths   = parseInt(document.getElementById('winter-months').value);
+            const areaMultipliers   = { high: 1.4, medium: 1.0, low: 0.7 };
             const budgetMultipliers = { frugal: 0.75, moderate: 1.225, comfortable: 1.7 };
-            const areaMult = areaMultipliers[costArea];
+            const areaMult   = areaMultipliers[costArea];
             const budgetMult = budgetMultipliers[budget];
             const peopleMult = people === 2 ? 1.5 : 1.0;
-
             const homeMonths = 12 - winterMonths;
             const homeHousing = snowHousing === 'own-paid' ? 300 : (snowHousing === 'own-mortgage' ? 1200 : 1500);
-            const winterCosts = {
-                florida: 1800, arizona: 1600, california: 2200, texas: 1500,
-                mexico: 1000, 'costa-rica': 1200, portugal: 1300, spain: 1400
-            };
-
+            const winterCosts = { florida: 1800, arizona: 1600, california: 2200, texas: 1500, mexico: 1000, 'costa-rica': 1200, portugal: 1300, spain: 1400 };
             return {
-                housing: ((homeHousing * homeMonths) + (winterCosts[winterDest] * winterMonths)) / 12,
-                food: 450 * areaMult * budgetMult * peopleMult,
-                healthcare: 550 * budgetMult,
-                transportation: 350 * budgetMult * peopleMult,
-                utilities: 200 * areaMult,
-                travel: (800 / 12) * 2,
-                entertainment: 300 * budgetMult * peopleMult,
-                misc: 150
+                housing:        ((homeHousing * homeMonths) + (winterCosts[winterDest] * winterMonths)) / 12,
+                food:           450  * areaMult * budgetMult * peopleMult,
+                healthcare:     550  * budgetMult,
+                transportation: 350  * budgetMult * peopleMult,
+                utilities:      200  * areaMult,
+                travel:         (800 / 12) * 2,
+                entertainment:  300  * budgetMult * peopleMult,
+                misc:           150
             };
         }
 
         function calculateRV(costArea, budget, people) {
-            const rvOwn = document.querySelector('input[name="rvOwn"]:checked').value;
-            const rvTravel = document.querySelector('input[name="rvTravel"]:checked').value;
+            const rvOwn             = document.querySelector('input[name="rvOwn"]:checked').value;
+            const rvTravel          = document.querySelector('input[name="rvTravel"]:checked').value;
             const budgetMultipliers = { frugal: 0.75, moderate: 1.225, comfortable: 1.7 };
-            const budgetMult = budgetMultipliers[budget];
-            const peopleMult = people === 2 ? 1.3 : 1.0;
-            const rvPayment = rvOwn === 'own' ? 0 : (rvOwn === 'financing' ? 500 : 1200);
-            const travelCosts = {
-                stationary: { fuel: 100, camping: 400 },
-                moderate: { fuel: 300, camping: 600 },
-                frequent: { fuel: 600, camping: 800 }
-            };
-            const travel = travelCosts[rvTravel];
-
+            const budgetMult  = budgetMultipliers[budget];
+            const peopleMult  = people === 2 ? 1.3 : 1.0;
+            const rvPayment   = rvOwn === 'own' ? 0 : (rvOwn === 'financing' ? 500 : 1200);
+            const travelCosts = { stationary: { fuel: 100, camping: 400 }, moderate: { fuel: 300, camping: 600 }, frequent: { fuel: 600, camping: 800 } };
+            const travel      = travelCosts[rvTravel];
             return {
-                rvPayment: rvPayment,
-                fuel: travel.fuel * budgetMult,
-                camping: travel.camping * budgetMult,
-                food: 350 * budgetMult * peopleMult,
-                healthcare: 550 * budgetMult,
-                insurance: 200,
-                maintenance: 150,
-                utilities: 150,
-                entertainment: 200 * budgetMult * peopleMult,
-                misc: 100
+                rvPayment:      rvPayment,
+                fuel:           travel.fuel    * budgetMult,
+                camping:        travel.camping * budgetMult,
+                food:           350  * budgetMult * peopleMult,
+                healthcare:     550  * budgetMult,
+                insurance:      200,
+                maintenance:    150,
+                utilities:      150,
+                entertainment:  200  * budgetMult * peopleMult,
+                misc:           100
             };
         }
 
+        // ── Cruise calculations ───────────────────────────────────────────
+        // Base full-time cost per person, mid-range interior: $3,200/month
+        // Covers: cruise fare, port fees, gratuities (~$25/day), drinks, shore excursions,
+        //         travel insurance, internet, embarkation flights
+        function cruiseMonthlyCost(cabinType, cruiseLine, budget, people) {
+            const budgetMultipliers = { frugal: 0.8, moderate: 1.0, comfortable: 1.3 };
+            const basePP    = 3200; // per person, mid interior
+            const cabinMult = cabinMultipliers[cabinType]     || 1.0;
+            const lineMult  = cruiseLineMultipliers[cruiseLine] || 1.0;
+            const budgetMult = budgetMultipliers[budget];
+            const peopleMult = people === 2 ? 1.8 : 1.0; // share cabin, not 2x
+            return basePP * cabinMult * lineMult * budgetMult * peopleMult;
+        }
+
+        function calculateCruiseFull(budget, people) {
+            const cabinType  = document.querySelector('input[name="cabinType"]:checked').value;
+            const cruiseLine = document.querySelector('input[name="cruiseLine"]:checked').value;
+            const budgetMultipliers = { frugal: 0.8, moderate: 1.0, comfortable: 1.3 };
+            const budgetMult = budgetMultipliers[budget];
+            const peopleMult = people === 2 ? 1.8 : 1.0;
+            const cabinMult  = cabinMultipliers[cabinType];
+            const lineMult   = cruiseLineMultipliers[cruiseLine];
+            const basePP     = 3200;
+            return {
+                'Cruise fare (cabin + meals)': basePP * 0.6  * cabinMult * lineMult * budgetMult * peopleMult,
+                'Port fees & taxes':           basePP * 0.08 * lineMult  * budgetMult,
+                'Gratuities':                  basePP * 0.08 * budgetMult * peopleMult,
+                'Drinks & specialty dining':   basePP * 0.1  * lineMult  * budgetMult * peopleMult,
+                'Shore excursions':            basePP * 0.1  * budgetMult * peopleMult,
+                'Travel insurance':            basePP * 0.05 * peopleMult,
+                'Internet & misc':             basePP * 0.04 * budgetMult * peopleMult,
+                'Embarkation flights':         basePP * 0.04 * peopleMult
+            };
+        }
+
+        function calculateCruiseSemi(costArea, budget, people) {
+            const semiCabinType    = document.querySelector('input[name="semiCabinType"]:checked').value;
+            const semiCruiseLine   = document.querySelector('input[name="semiCruiseLine"]:checked').value;
+            const cruiseMonths     = parseInt(document.getElementById('cruise-months').value);
+            const semiHomeHousing  = document.querySelector('input[name="semiHomeHousing"]:checked').value;
+            const homeMonths       = 12 - cruiseMonths;
+
+            const cruiseMonthly    = cruiseMonthlyCost(semiCabinType, semiCruiseLine, budget, people);
+
+            const areaMultipliers   = { high: 1.4, medium: 1.0, low: 0.7 };
+            const budgetMultipliers = { frugal: 0.75, moderate: 1.225, comfortable: 1.7 };
+            const areaMult   = areaMultipliers[costArea];
+            const budgetMult = budgetMultipliers[budget];
+            const peopleMult = people === 2 ? 1.6 : 1.0;
+            const homeHousingBase = semiHomeHousing === 'own-paid' ? 300 : (semiHomeHousing === 'own-mortgage' ? 1200 : 1500);
+            const homeMonthly = (homeHousingBase * areaMult * budgetMult * (people === 2 ? 1.2 : 1.0))
+                              + ((400 + 500 + 300 + 200 + 250 + 150) * areaMult * budgetMult * peopleMult);
+
+            const blendedMonthly = ((cruiseMonthly * cruiseMonths) + (homeMonthly * homeMonths)) / 12;
+
+            return {
+                [`Cruise months (${cruiseMonths} mo averaged)`]: (cruiseMonthly * cruiseMonths) / 12,
+                [`Home base (${homeMonths} mo averaged)`]:        (homeMonthly   * homeMonths)  / 12
+            };
+        }
+
+        // ── Display results ───────────────────────────────────────────────
         function displayResults(costs, currency) {
             let total = 0;
             for (let key in costs) total += costs[key];
             const annual = total * 12;
-
             const symbols = { USD: '$', CAD: 'CA$', GBP: '£', AUD: 'A$', EUR: '€' };
             const symbol = symbols[currency];
 
             document.getElementById('monthly-total').textContent = symbol + Math.round(total).toLocaleString();
-            document.getElementById('annual-total').textContent = symbol + Math.round(annual).toLocaleString();
+            document.getElementById('annual-total').textContent  = symbol + Math.round(annual).toLocaleString();
 
             const breakdownHTML = Object.keys(costs).map(key => {
-                const label = key.replace(/([A-Z])/g, ' $1').replace(/^./, str => str.toUpperCase());
-                return `
-                    <div class="breakdown-item">
-                        <span class="breakdown-label">${label}</span>
-                        <span class="breakdown-amount">${symbol}${Math.round(costs[key]).toLocaleString()}</span>
-                    </div>
-                `;
+                const label = key.replace(/([A-Z])/g, ' $1').replace(/^./, s => s.toUpperCase());
+                return `<div class="breakdown-item"><span class="breakdown-label">${label}</span><span class="breakdown-amount">${symbol}${Math.round(costs[key]).toLocaleString()}</span></div>`;
             }).join('');
 
             document.getElementById('breakdown-items').innerHTML = breakdownHTML + `
@@ -961,40 +1123,38 @@
             `;
 
             const existingReminder = document.querySelector('#breakdown-reminder');
-            if (existingReminder) {
-                existingReminder.remove();
-            }
+            if (existingReminder) existingReminder.remove();
 
-            const reminderNote = `
-                <div id="breakdown-reminder" style="background: #FEF3C7; border: 2px solid #F59E0B; border-radius: 8px; padding: 1rem; margin-top: 1.5rem; text-align: center;">
-                    <strong style="color: #92400E;">💡 Remember:</strong> 
-                    <span style="color: #92400E;">Add 25% cushion for real-world costs (setup, visas, emergencies, splurges). 
+            document.getElementById('breakdown-items').insertAdjacentHTML('afterend', `
+                <div id="breakdown-reminder" style="background:#FEF3C7;border:2px solid #F59E0B;border-radius:8px;padding:1rem;margin-top:1.5rem;text-align:center;">
+                    <strong style="color:#92400E;">💡 Remember:</strong>
+                    <span style="color:#92400E;"> Add 25% cushion for real-world costs (setup, visas, emergencies, splurges).
                     Suggested budget: ${symbol}${Math.round(total * 1.25).toLocaleString()}/month</span>
                 </div>
-            `;
-            document.getElementById('breakdown-items').insertAdjacentHTML('afterend', reminderNote);
+            `);
 
             document.getElementById('results-calculate').classList.add('active');
             document.getElementById('results-calculate').scrollIntoView({ behavior: 'smooth', block: 'start' });
         }
 
+        // ════════════════════════════════════════════════════════════════
+        //  AFFORD TAB LOGIC
+        // ════════════════════════════════════════════════════════════════
         function findAffordable() {
-            const budget = parseFloat(document.getElementById('monthly-budget').value);
-            const currency = document.getElementById('currency-afford').value;
-            const costArea = document.querySelector('input[name="affordCostArea"]:checked').value;
-            const people = parseInt(document.querySelector('input[name="affordPeople"]:checked').value);
-            const prefNorthAmerica = document.getElementById('pref-north-america').checked;
-            const prefInternational = document.getElementById('pref-international').checked;
+            const budget        = parseFloat(document.getElementById('monthly-budget').value);
+            const currency      = document.getElementById('currency-afford').value;
+            const costArea      = document.querySelector('input[name="affordCostArea"]:checked').value;
+            const people        = parseInt(document.querySelector('input[name="affordPeople"]:checked').value);
+            const prefNA        = document.getElementById('pref-north-america').checked;
+            const prefIntl      = document.getElementById('pref-international').checked;
+            const prefCruise    = document.getElementById('pref-cruise').checked;
 
-            if (!budget || budget < 500) {
-                alert('Please enter a valid monthly budget (minimum $500)');
-                return;
-            }
+            if (!budget || budget < 500) { alert('Please enter a valid monthly budget (minimum $500)'); return; }
 
             const symbols = { USD: '$', CAD: 'CA$', GBP: '£', AUD: 'A$', EUR: '€' };
             currentSymbol = symbols[currency];
 
-            allOptions = generateAllOptions(budget, currency, costArea, people, prefNorthAmerica, prefInternational);
+            allOptions = generateAllOptions(budget, currency, costArea, people, prefNA, prefIntl, prefCruise);
             updateCounts();
 
             currentBudgetFilter = 'all';
@@ -1007,124 +1167,73 @@
             displayAffordableResults(budget, currentSymbol, allOptions);
         }
 
-        function generateAllOptions(budget, currency, costArea, people, prefNA, prefIntl) {
+        function generateAllOptions(budget, currency, costArea, people, prefNA, prefIntl, prefCruise) {
             const options = [];
             const rate = exchangeRates[currency];
 
             if (prefNA) {
                 ['frugal', 'moderate', 'comfortable'].forEach(budgetLevel => {
                     const costs = calculateStayHomeVariation(costArea, budgetLevel, people, 'own-paid');
-                    const total = Object.values(costs).reduce((a, b) => a + b, 0) * rate;
-                    
-                    options.push({
-                        lifestyle: `Stay at Home (${budgetLevel.charAt(0).toUpperCase() + budgetLevel.slice(1)})`,
-                        icon: '🏠',
-                        variant: 'Home paid off - add $900-1200/mo if mortgage/rent',
-                        cost: total,
-                        cushion: budget - total,
-                        budgetLevel: budgetLevel,
-                        isNorthAmerica: true,
-                        included: ['Housing (utilities/taxes only)', 'Food & groceries', 'Healthcare', 'Transportation', 'Entertainment', 'Misc expenses'],
-                        considerations: ['Stay near family and friends', 'Maintain existing social connections', 'No travel disruption', 'Add $900-1200/month if paying mortgage or rent']
-                    });
+                    const total = Object.values(costs).reduce((a,b) => a+b, 0) * rate;
+                    options.push({ lifestyle: `Stay at Home (${cap(budgetLevel)})`, icon: '🏠', variant: 'Home paid off — add $900-1200/mo if mortgage/rent', cost: total, cushion: budget - total, budgetLevel, locationType: 'north-america', included: ['Housing (utilities/taxes only)', 'Food & groceries', 'Healthcare', 'Transportation', 'Entertainment', 'Misc expenses'], considerations: ['Stay near family and friends', 'Maintain existing social connections', 'No travel disruption', 'Add $900-1200/month if paying mortgage or rent'] });
+                });
+
+                ['frugal', 'moderate', 'comfortable'].forEach(budgetLevel => {
+                    const costs = calculateStayHomeVariation(costArea, budgetLevel, people, 'own-paid');
+                    const budgetActivityBonus = { frugal: 150, moderate: 400, comfortable: 700 };
+                    const total = (Object.values(costs).reduce((a,b) => a+b, 0) + budgetActivityBonus[budgetLevel] * (people === 2 ? 1.5 : 1.0)) * rate;
+                    options.push({ lifestyle: `Local Exploration (${cap(budgetLevel)})`, icon: '🗺️', variant: 'Home base + day trips & regional adventures', cost: total, cushion: budget - total, budgetLevel, locationType: 'north-america', included: ['All stay-at-home expenses', 'Day trips & regional excursions', 'Local dining experiences', 'Event tickets & memberships', 'Weekend getaways'], considerations: ['Discover what\'s in your backyard', 'No visa or language barriers', 'Easy to adjust spending up or down', 'Community connections stay intact'] });
                 });
 
                 ['frugal', 'moderate', 'comfortable'].forEach(budgetLevel => {
                     const costs = calculateRVVariation(costArea, budgetLevel, people, 'own', 'moderate');
-                    const total = Object.values(costs).reduce((a, b) => a + b, 0) * rate;
-                    
-                    options.push({
-                        lifestyle: `RV Life (${budgetLevel.charAt(0).toUpperCase() + budgetLevel.slice(1)})`,
-                        icon: '🚐',
-                        variant: 'Own RV, moderate travel',
-                        cost: total,
-                        cushion: budget - total,
-                        budgetLevel: budgetLevel,
-                        isNorthAmerica: true,
-                        included: ['Campground fees', 'Fuel', 'Food', 'Healthcare', 'Insurance', 'Maintenance', 'Entertainment'],
-                        considerations: ['Freedom to move anywhere', 'Smaller living space (200-400 sq ft)', 'Add $500-1200/mo if financing or renting RV', 'Fuel costs vary with travel frequency']
-                    });
+                    const total = Object.values(costs).reduce((a,b) => a+b, 0) * rate;
+                    options.push({ lifestyle: `RV Life (${cap(budgetLevel)})`, icon: '🚐', variant: 'Own RV, moderate travel', cost: total, cushion: budget - total, budgetLevel, locationType: 'north-america', included: ['Campground fees', 'Fuel', 'Food', 'Healthcare', 'Insurance', 'Maintenance', 'Entertainment'], considerations: ['Freedom to move anywhere', 'Smaller living space (200-400 sq ft)', 'Add $500-1200/mo if financing or renting RV', 'Fuel costs vary with travel frequency'] });
                 });
 
-                const snowbirdDests = [
-                    { dest: 'arizona', name: 'Arizona', icon: '🌵' },
-                    { dest: 'florida', name: 'Florida', icon: '🌴' }
-                ];
-
-                snowbirdDests.forEach(({ dest, name, icon }) => {
+                [{ dest: 'arizona', name: 'Arizona', icon: '🌵' }, { dest: 'florida', name: 'Florida', icon: '🌴' }].forEach(({ dest, name, icon }) => {
                     ['frugal', 'moderate', 'comfortable'].forEach(budgetLevel => {
                         const costs = calculateSnowbirdVariation(costArea, budgetLevel, people, 'own-paid', dest, 5);
-                        const total = Object.values(costs).reduce((a, b) => a + b, 0) * rate;
-                        
-                        options.push({
-                            lifestyle: `Snowbird - ${name} (${budgetLevel.charAt(0).toUpperCase() + budgetLevel.slice(1)})`,
-                            icon: icon,
-                            variant: 'Home paid off, 5 months away',
-                            cost: total,
-                            cushion: budget - total,
-                            budgetLevel: budgetLevel,
-                            isNorthAmerica: true,
-                            included: ['Year-round home costs', 'Winter rental (5 months)', 'Food & healthcare', 'Transportation', 'Seasonal travel', 'Entertainment'],
-                            considerations: ['Maintain home base', 'Escape harsh winters', 'Two sets of living expenses', 'Add $900-1200/mo if paying mortgage or rent']
-                        });
+                        const total = Object.values(costs).reduce((a,b) => a+b, 0) * rate;
+                        options.push({ lifestyle: `Snowbird — ${name} (${cap(budgetLevel)})`, icon, variant: 'Home paid off, 5 months away', cost: total, cushion: budget - total, budgetLevel, locationType: 'north-america', included: ['Year-round home costs', 'Winter rental (5 months)', 'Food & healthcare', 'Transportation', 'Seasonal travel', 'Entertainment'], considerations: ['Maintain home base', 'Escape harsh winters', 'Two sets of living expenses', 'Add $900-1200/mo if paying mortgage or rent'] });
                     });
                 });
             }
 
             if (prefIntl) {
-                const popularExpat = [
-                    { country: 'thailand', name: 'Thailand', icon: '🇹🇭' },
-                    { country: 'mexico', name: 'Mexico', icon: '🇲🇽' },
-                    { country: 'portugal', name: 'Portugal', icon: '🇵🇹' },
-                    { country: 'costa-rica', name: 'Costa Rica', icon: '🇨🇷' },
-                    { country: 'spain', name: 'Spain', icon: '🇪🇸' },
-                    { country: 'ecuador', name: 'Ecuador', icon: '🇪🇨' },
-                    { country: 'colombia', name: 'Colombia', icon: '🇨🇴' },
-                    { country: 'vietnam', name: 'Vietnam', icon: '🇻🇳' }
-                ];
-
-                popularExpat.forEach(({ country, name, icon }) => {
+                [{ country: 'thailand', name: 'Thailand', icon: '🇹🇭' }, { country: 'mexico', name: 'Mexico', icon: '🇲🇽' }, { country: 'portugal', name: 'Portugal', icon: '🇵🇹' }, { country: 'costa-rica', name: 'Costa Rica', icon: '🇨🇷' }, { country: 'spain', name: 'Spain', icon: '🇪🇸' }, { country: 'ecuador', name: 'Ecuador', icon: '🇪🇨' }, { country: 'colombia', name: 'Colombia', icon: '🇨🇴' }, { country: 'vietnam', name: 'Vietnam', icon: '🇻🇳' }].forEach(({ country, name, icon }) => {
                     ['frugal', 'moderate', 'comfortable'].forEach(budgetLevel => {
                         const costs = calculateExpatVariation(costArea, budgetLevel, people, 'rent', country);
-                        const total = Object.values(costs).reduce((a, b) => a + b, 0) * rate;
-                        
-                        options.push({
-                            lifestyle: `Expat - ${name} (${budgetLevel.charAt(0).toUpperCase() + budgetLevel.slice(1)})`,
-                            icon: icon,
-                            variant: 'Renting long-term',
-                            cost: total,
-                            cushion: budget - total,
-                            budgetLevel: budgetLevel,
-                            isNorthAmerica: false,
-                            included: ['Rent', 'Food', 'Healthcare', 'Transportation', 'Utilities', 'Entertainment', 'Misc'],
-                            considerations: ['Learn local language/culture', 'Visa requirements vary', 'International health insurance needed', 'Lower cost than US/Canada']
-                        });
+                        const total = Object.values(costs).reduce((a,b) => a+b, 0) * rate;
+                        options.push({ lifestyle: `Expat — ${name} (${cap(budgetLevel)})`, icon, variant: 'Renting long-term', cost: total, cushion: budget - total, budgetLevel, locationType: 'international', included: ['Rent', 'Food', 'Healthcare', 'Transportation', 'Utilities', 'Entertainment', 'Misc'], considerations: ['Learn local language/culture', 'Visa requirements vary', 'International health insurance needed', 'Lower cost than US/Canada'] });
                     });
                 });
 
-                const travelRegions = [
-                    { country: 'thailand', name: 'Southeast Asia', icon: '🌏' },
-                    { country: 'portugal', name: 'Southern Europe', icon: '🇪🇺' },
-                    { country: 'mexico', name: 'Latin America', icon: '🌎' },
-                    { country: 'poland', name: 'Eastern Europe', icon: '🏰' }
-                ];
-
-                travelRegions.forEach(({ country, name, icon }) => {
+                [{ country: 'thailand', name: 'Southeast Asia', icon: '🌏' }, { country: 'portugal', name: 'Southern Europe', icon: '🇪🇺' }, { country: 'mexico', name: 'Latin America', icon: '🌎' }, { country: 'poland', name: 'Eastern Europe', icon: '🏰' }].forEach(({ country, name, icon }) => {
                     ['frugal', 'moderate', 'comfortable'].forEach(budgetLevel => {
                         const costs = calculateSlowTravelVariation(costArea, budgetLevel, people, country);
-                        const total = Object.values(costs).reduce((a, b) => a + b, 0) * rate;
-                        
-                        options.push({
-                            lifestyle: `Slow Travel - ${name} (${budgetLevel.charAt(0).toUpperCase() + budgetLevel.slice(1)})`,
-                            icon: icon,
-                            variant: '4-6 countries per year',
-                            cost: total,
-                            cushion: budget - total,
-                            budgetLevel: budgetLevel,
-                            isNorthAmerica: false,
-                            included: ['Short-term rentals', 'Food', 'Healthcare/travel insurance', 'Local transport', 'Activities', 'Flights between countries', 'Misc'],
-                            considerations: ['Constant movement and change', 'Pack light (carry-on only)', 'Visa requirements vary by country', 'Cultural immersion opportunities']
-                        });
+                        const total = Object.values(costs).reduce((a,b) => a+b, 0) * rate;
+                        options.push({ lifestyle: `Slow Travel — ${name} (${cap(budgetLevel)})`, icon, variant: '4-6 countries per year', cost: total, cushion: budget - total, budgetLevel, locationType: 'international', included: ['Short-term rentals', 'Food', 'Healthcare/travel insurance', 'Local transport', 'Activities', 'Flights between countries', 'Misc'], considerations: ['Constant movement and change', 'Pack light (carry-on only)', 'Visa requirements vary by country', 'Cultural immersion opportunities'] });
+                    });
+                });
+            }
+
+            if (prefCruise) {
+                // Full-time cruise options
+                [{ cabin: 'interior', line: 'budget', label: 'Budget Interior', icon: '🚢' }, { cabin: 'interior', line: 'mid', label: 'Mid-Range Interior', icon: '🚢' }, { cabin: 'balcony', line: 'mid', label: 'Mid-Range Balcony', icon: '🛳️' }, { cabin: 'balcony', line: 'premium', label: 'Premium Balcony', icon: '🛳️' }, { cabin: 'suite', line: 'premium', label: 'Premium Suite', icon: '⚓' }, { cabin: 'suite', line: 'luxury', label: 'Luxury Suite', icon: '⚓' }].forEach(({ cabin, line, label, icon }) => {
+                    ['frugal', 'moderate', 'comfortable'].forEach(budgetLevel => {
+                        const monthly = cruiseMonthlyCost(cabin, line, budgetLevel, people) * rate;
+                        options.push({ lifestyle: `Full-Time Cruise — ${label} (${cap(budgetLevel)})`, icon, variant: 'Living aboard 12 months/year', cost: monthly, cushion: budget - monthly, budgetLevel, locationType: 'cruise', included: ['Cruise fare', 'Most meals included', 'Port fees & gratuities', 'Travel insurance', 'Shore excursions', 'Internet & misc', 'Embarkation flights'], considerations: ['No lease or mortgage', 'Constantly changing destinations', 'Limited personal storage (~200 sq ft)', 'Must manage medications across borders', 'Social community aboard ship', 'Healthcare access varies by port'] });
+                    });
+                });
+
+                // Semi-permanent (8 months cruising, 4 months home base paid off, medium cost area)
+                [{ cabin: 'interior', line: 'budget', label: 'Budget Interior' }, { cabin: 'interior', line: 'mid', label: 'Mid-Range Interior' }, { cabin: 'balcony', line: 'mid', label: 'Mid-Range Balcony' }].forEach(({ cabin, line, label }) => {
+                    ['frugal', 'moderate', 'comfortable'].forEach(budgetLevel => {
+                        const cruiseM = cruiseMonthlyCost(cabin, line, budgetLevel, people);
+                        const homeM   = (() => { const c = calculateStayHomeVariation(costArea, budgetLevel, people, 'own-paid'); return Object.values(c).reduce((a,b)=>a+b,0); })();
+                        const blended = ((cruiseM * 8) + (homeM * 4)) / 12 * rate;
+                        options.push({ lifestyle: `Semi-Cruise — ${label} (${cap(budgetLevel)})`, icon: '🚢', variant: '8 months cruising, 4 months home base', cost: blended, cushion: budget - blended, budgetLevel, locationType: 'cruise', included: ['Cruise fare (8 months averaged)', 'Home base costs (4 months averaged)', 'Travel insurance', 'Shore excursions', 'Embarkation flights'], considerations: ['Best of both worlds', 'Maintain home base for family visits', 'Flexibility to adjust cruise months', 'Add $900-1200/mo home costs if mortgage/rent'] });
                     });
                 });
             }
@@ -1132,135 +1241,110 @@
             return options.sort((a, b) => b.cushion - a.cushion);
         }
 
+        function cap(s) { return s.charAt(0).toUpperCase() + s.slice(1); }
+
+        // ── Variation helpers for Afford tab ─────────────────────────────
         function calculateStayHomeVariation(costArea, budget, people, housing) {
-            const areaMultipliers = { high: 1.4, medium: 1.0, low: 0.7 };
+            const areaMultipliers   = { high: 1.4, medium: 1.0, low: 0.7 };
             const budgetMultipliers = { frugal: 0.75, moderate: 1.225, comfortable: 1.7 };
-            const areaMult = areaMultipliers[costArea];
+            const areaMult   = areaMultipliers[costArea];
             const budgetMult = budgetMultipliers[budget];
             const peopleMult = people === 2 ? 1.6 : 1.0;
-
             return {
                 housing: (housing === 'own-paid' ? 300 : (housing === 'own-mortgage' ? 1200 : 1500)) * areaMult * budgetMult,
-                other: (400 + 500 + 300 + 200 + 250 + 150) * areaMult * budgetMult * peopleMult
+                other:   (400 + 500 + 300 + 200 + 250 + 150) * areaMult * budgetMult * peopleMult
             };
         }
 
         function calculateExpatVariation(costArea, budget, people, housing, country) {
             const budgetMultipliers = { frugal: 0.7, moderate: 1.225, comfortable: 1.7 };
-            const budgetMult = budgetMultipliers[budget];
-            const peopleMult = people === 2 ? 1.5 : 1.0;
+            const budgetMult  = budgetMultipliers[budget];
+            const peopleMult  = people === 2 ? 1.5 : 1.0;
             const countryMult = countryCosts[country] || 0.7;
             const housingBase = housing === 'own-paid' ? 300 : (housing === 'own-mortgage' ? 1200 : 1500);
-
             return {
-                housing: housingBase * countryMult * budgetMult,
-                food: 400 * countryMult * budgetMult * peopleMult,
-                healthcare: 200 * budgetMult,
-                transportation: 200 * countryMult * budgetMult,
-                utilities: 150 * countryMult,
-                entertainment: 250 * countryMult * budgetMult * peopleMult,
-                misc: 150 * countryMult
+                housing:        housingBase * countryMult * budgetMult,
+                food:           400  * countryMult * budgetMult * peopleMult,
+                healthcare:     200  * budgetMult,
+                transportation: 200  * countryMult * budgetMult,
+                utilities:      150  * countryMult,
+                entertainment:  250  * countryMult * budgetMult * peopleMult,
+                misc:           150  * countryMult
             };
         }
 
         function calculateSlowTravelVariation(costArea, budget, people, travelCountry) {
             const budgetMultipliers = { frugal: 0.7, moderate: 1.225, comfortable: 1.7 };
-            const peopleMult = people === 2 ? 1.5 : 1.0;
+            const peopleMult  = people === 2 ? 1.5 : 1.0;
             const countryMult = countryCosts[travelCountry] || 0.7;
-            const budgetMult = budgetMultipliers[budget];
-
+            const budgetMult  = budgetMultipliers[budget];
             return {
-                housing: 1000 * countryMult * budgetMult * peopleMult,
-                food: 400 * countryMult * budgetMult * peopleMult,
-                healthcare: 200 * budgetMult,
-                transportation: 200 * countryMult * budgetMult,
-                activities: 300 * countryMult * budgetMult * peopleMult,
-                flights: 400 * countryMult * budgetMult * peopleMult,
-                misc: 150 * countryMult
+                housing:        1000 * countryMult * budgetMult * peopleMult,
+                food:           400  * countryMult * budgetMult * peopleMult,
+                healthcare:     200  * budgetMult,
+                transportation: 200  * countryMult * budgetMult,
+                activities:     300  * countryMult * budgetMult * peopleMult,
+                flights:        400  * countryMult * budgetMult * peopleMult,
+                misc:           150  * countryMult
             };
         }
 
         function calculateSnowbirdVariation(costArea, budget, people, housing, winterDest, winterMonths) {
-            const areaMultipliers = { high: 1.4, medium: 1.0, low: 0.7 };
+            const areaMultipliers   = { high: 1.4, medium: 1.0, low: 0.7 };
             const budgetMultipliers = { frugal: 0.75, moderate: 1.225, comfortable: 1.7 };
-            const areaMult = areaMultipliers[costArea];
-            const budgetMult = budgetMultipliers[budget];
-            const peopleMult = people === 2 ? 1.5 : 1.0;
-
-            const homeMonths = 12 - winterMonths;
+            const areaMult    = areaMultipliers[costArea];
+            const budgetMult  = budgetMultipliers[budget];
+            const peopleMult  = people === 2 ? 1.5 : 1.0;
+            const homeMonths  = 12 - winterMonths;
             const homeHousing = housing === 'own-paid' ? 300 : (housing === 'own-mortgage' ? 1200 : 1500);
-            const winterCosts = {
-                florida: 1800, arizona: 1600, california: 2200, texas: 1500,
-                mexico: 1000, 'costa-rica': 1200, portugal: 1300, spain: 1400
-            };
-
+            const winterCosts = { florida: 1800, arizona: 1600, california: 2200, texas: 1500, mexico: 1000, 'costa-rica': 1200, portugal: 1300, spain: 1400 };
             return {
-                housing: ((homeHousing * homeMonths) + (winterCosts[winterDest] * winterMonths)) / 12,
-                food: 450 * areaMult * budgetMult * peopleMult,
-                healthcare: 550 * budgetMult,
-                transportation: 350 * budgetMult * peopleMult,
-                utilities: 200 * areaMult,
-                travel: (800 / 12) * 2,
-                entertainment: 300 * budgetMult * peopleMult,
-                misc: 150
+                housing:        ((homeHousing * homeMonths) + (winterCosts[winterDest] * winterMonths)) / 12,
+                food:           450  * areaMult * budgetMult * peopleMult,
+                healthcare:     550  * budgetMult,
+                transportation: 350  * budgetMult * peopleMult,
+                utilities:      200  * areaMult,
+                travel:         (800 / 12) * 2,
+                entertainment:  300  * budgetMult * peopleMult,
+                misc:           150
             };
         }
 
         function calculateRVVariation(costArea, budget, people, rvOwn, rvTravel) {
             const budgetMultipliers = { frugal: 0.75, moderate: 1.225, comfortable: 1.7 };
-            const budgetMult = budgetMultipliers[budget];
-            const peopleMult = people === 2 ? 1.3 : 1.0;
-            const rvPayment = rvOwn === 'own' ? 0 : (rvOwn === 'financing' ? 500 : 1200);
-            const travelCosts = {
-                stationary: { fuel: 100, camping: 400 },
-                moderate: { fuel: 300, camping: 600 },
-                frequent: { fuel: 600, camping: 800 }
-            };
-            const travel = travelCosts[rvTravel];
-
+            const budgetMult  = budgetMultipliers[budget];
+            const peopleMult  = people === 2 ? 1.3 : 1.0;
+            const rvPayment   = rvOwn === 'own' ? 0 : (rvOwn === 'financing' ? 500 : 1200);
+            const travelCosts = { stationary: { fuel: 100, camping: 400 }, moderate: { fuel: 300, camping: 600 }, frequent: { fuel: 600, camping: 800 } };
+            const travel      = travelCosts[rvTravel];
             return {
-                rvPayment: rvPayment,
-                fuel: travel.fuel * budgetMult,
-                camping: travel.camping * budgetMult,
-                food: 350 * budgetMult * peopleMult,
-                healthcare: 550 * budgetMult,
-                insurance: 200,
-                maintenance: 150,
-                utilities: 150,
-                entertainment: 200 * budgetMult * peopleMult,
-                misc: 100
+                rvPayment:      rvPayment,
+                fuel:           travel.fuel    * budgetMult,
+                camping:        travel.camping * budgetMult,
+                food:           350  * budgetMult * peopleMult,
+                healthcare:     550  * budgetMult,
+                insurance:      200,
+                maintenance:    150,
+                utilities:      150,
+                entertainment:  200  * budgetMult * peopleMult,
+                misc:           100
             };
         }
 
+        // ── Affordable results display ────────────────────────────────────
         function displayAffordableResults(budget, symbol, options) {
             document.getElementById('budget-display').textContent = symbol + Math.round(budget).toLocaleString() + '/month';
 
-            const wellWithin = options.filter(opt => opt.cushion >= 500);
+            const wellWithin  = options.filter(opt => opt.cushion >= 500);
             const comfortable = options.filter(opt => opt.cushion >= 200 && opt.cushion < 500);
-            const tight = options.filter(opt => opt.cushion >= 0 && opt.cushion < 200);
-            const stretch = options.filter(opt => opt.cushion < 0 && opt.cushion >= -300).slice(0, 5);
+            const tight       = options.filter(opt => opt.cushion >= 0   && opt.cushion < 200);
+            const stretch     = options.filter(opt => opt.cushion < 0    && opt.cushion >= -300).slice(0, 5);
 
             let html = '';
-
-            if (wellWithin.length > 0) {
-                html += `<h3 class="category-header">Well Within Budget (${symbol}500+ cushion)</h3>`;
-                html += wellWithin.map(opt => createLifestyleCard(opt, symbol, 'well-within', 'green')).join('');
-            }
-
-            if (comfortable.length > 0) {
-                html += `<h3 class="category-header">Comfortable Fit (${symbol}200-500 cushion)</h3>`;
-                html += comfortable.map(opt => createLifestyleCard(opt, symbol, 'comfortable', 'blue')).join('');
-            }
-
-            if (tight.length > 0) {
-                html += `<h3 class="category-header">Tight Budget (${symbol}0-200 cushion)</h3>`;
-                html += tight.map(opt => createLifestyleCard(opt, symbol, 'tight', 'yellow')).join('');
-            }
-
-            if (stretch.length > 0) {
-                html += `<h3 class="category-header">Stretch Options (slightly over budget)</h3>`;
-                html += stretch.map(opt => createLifestyleCard(opt, symbol, 'stretch', 'red')).join('');
-            }
+            if (wellWithin.length)  { html += `<h3 class="category-header">Well Within Budget (${symbol}500+ cushion)</h3>`;            html += wellWithin.map(o => createLifestyleCard(o, symbol, 'well-within', 'green')).join(''); }
+            if (comfortable.length) { html += `<h3 class="category-header">Comfortable Fit (${symbol}200–500 cushion)</h3>`;            html += comfortable.map(o => createLifestyleCard(o, symbol, 'comfortable', 'blue')).join(''); }
+            if (tight.length)       { html += `<h3 class="category-header">Tight Budget (${symbol}0–200 cushion)</h3>`;                 html += tight.map(o => createLifestyleCard(o, symbol, 'tight', 'yellow')).join(''); }
+            if (stretch.length)     { html += `<h3 class="category-header">Stretch Options (slightly over budget)</h3>`;               html += stretch.map(o => createLifestyleCard(o, symbol, 'stretch', 'red')).join(''); }
 
             document.getElementById('lifestyle-cards-container').innerHTML = html;
             document.getElementById('results-afford').classList.add('active');
@@ -1269,10 +1353,8 @@
 
         function createLifestyleCard(option, symbol, category, badgeColor) {
             const cardId = 'card-' + Math.random().toString(36).substr(2, 9);
-            const location = option.isNorthAmerica ? 'north-america' : 'international';
-            
             return `
-                <div class="lifestyle-card ${category}" data-budget="${option.budgetLevel}" data-location="${location}">
+                <div class="lifestyle-card ${category}" data-budget="${option.budgetLevel}" data-location="${option.locationType}">
                     <div class="card-header">
                         <div class="card-title">
                             <span class="card-icon">${option.icon}</span>
@@ -1285,16 +1367,12 @@
                     <div class="card-details">
                         <h5>${option.variant}</h5>
                         <strong>What's Included:</strong>
-                        <ul>
-                            ${option.included.map(item => '<li>' + item + '</li>').join('')}
-                        </ul>
+                        <ul>${option.included.map(i => '<li>' + i + '</li>').join('')}</ul>
                     </div>
                     <button class="card-expand" onclick="toggleCardDetails('${cardId}')">+ Show considerations</button>
                     <div class="card-more" id="${cardId}">
                         <strong>Key Considerations:</strong>
-                        <ul>
-                            ${option.considerations.map(item => '<li>' + item + '</li>').join('')}
-                        </ul>
+                        <ul>${option.considerations.map(i => '<li>' + i + '</li>').join('')}</ul>
                     </div>
                 </div>
             `;
@@ -1302,19 +1380,13 @@
 
         function toggleCardDetails(cardId) {
             const card = document.getElementById(cardId);
-            const btn = card.previousElementSibling;
-            
-            if (card.classList.contains('active')) {
-                card.classList.remove('active');
-                btn.textContent = '+ Show considerations';
-            } else {
-                card.classList.add('active');
-                btn.textContent = '- Hide considerations';
-            }
+            const btn  = card.previousElementSibling;
+            card.classList.toggle('active');
+            btn.textContent = card.classList.contains('active') ? '- Hide considerations' : '+ Show considerations';
         }
     </script>
 
-    <!-- Methodology Section -->
+    <!-- ═══════════════════════════════════════════════ METHODOLOGY -->
     <div id="methodology" class="container" style="margin-top: 4rem; padding-top: 2rem; border-top: 3px solid var(--color-border);">
         <div class="calculator-card">
             <h2 class="section-title">📊 How These Estimates Work</h2>
@@ -1331,9 +1403,9 @@
             <div style="margin-bottom: 1.5rem;">
                 <h4 style="color: var(--color-primary-dark); margin-bottom: 0.5rem;"><strong>Budget Level Multipliers</strong></h4>
                 <ul style="margin-left: 1.5rem;">
-                    <li><strong>Frugal (0.7-0.75x):</strong> Minimalist lifestyle - cook at home, public transport, free activities, budget accommodations</li>
-                    <li><strong>Moderate (1.0-1.225x):</strong> Balanced lifestyle - mix of cooking and dining out, reliable transportation, occasional paid activities</li>
-                    <li><strong>Comfortable (1.7x):</strong> Enhanced lifestyle - regular dining out, private transportation, frequent entertainment, quality accommodations</li>
+                    <li><strong>Frugal (0.7-0.75x):</strong> Minimalist lifestyle — cook at home, public transport, free activities, budget accommodations</li>
+                    <li><strong>Moderate (1.0-1.225x):</strong> Balanced lifestyle — mix of cooking and dining out, reliable transportation, occasional paid activities</li>
+                    <li><strong>Comfortable (1.7x):</strong> Enhanced lifestyle — regular dining out, private transportation, frequent entertainment, quality accommodations</li>
                 </ul>
             </div>
             
@@ -1353,28 +1425,32 @@
             
             <div style="margin-bottom: 1.5rem;">
                 <h4 style="color: var(--color-primary-dark); margin-bottom: 0.5rem;"><strong>Couple Adjustment</strong></h4>
-                <p>Two people = 1.3-1.6x one person's costs (not 2x). Couples share housing costs, buy food in bulk, split transportation, and have economies of scale. The exact multiplier varies by expense category - housing barely increases, food increases more.</p>
+                <p>Two people = 1.3-1.8x one person's costs (not 2x). Couples share housing costs, buy food in bulk, split transportation, and have economies of scale. The exact multiplier varies by expense category — housing barely increases, food increases more. Cruise cabins are priced per cabin, so 2 people share the cabin cost but pay individual fees for gratuities, drinks, and shore excursions (1.8x multiplier).</p>
             </div>
             
             <div style="margin-bottom: 1.5rem;">
                 <h4 style="color: var(--color-primary-dark); margin-bottom: 0.5rem;"><strong>Lifestyle-Specific Costs</strong></h4>
                 <ul style="margin-left: 1.5rem;">
-                    <li><strong>RV Life:</strong> Includes campground fees ($25-75/night depending on budget level), fuel based on travel intensity (stationary/moderate/frequent), maintenance, insurance</li>
+                    <li><strong>RV Life:</strong> Campground fees ($25-75/night depending on budget), fuel based on travel intensity, maintenance, insurance</li>
                     <li><strong>Slow Travel:</strong> Short-term rental premiums (25-40% more than long-term), flights between countries, travel insurance, higher food costs from eating out more</li>
-                    <li><strong>Snowbird:</strong> Combines year-round home maintenance costs (even when away) plus winter destination rental for 3-6 months</li>
-                    <li><strong>Expat:</strong> Assumes long-term rental rates, local healthcare or international insurance, visa fees amortized monthly</li>
+                    <li><strong>Snowbird:</strong> Combines year-round home maintenance (even when away) plus winter destination rental for 3-6 months</li>
+                    <li><strong>Expat:</strong> Long-term rental rates, local healthcare or international insurance, visa fees amortized monthly</li>
+                    <li><strong>Local Exploration:</strong> All stay-at-home costs plus an activity budget ($150-700/month depending on budget level) for day trips, regional getaways, event tickets, and dining experiences</li>
+                    <li><strong>Cruise Ship (Full-Time):</strong> Base rate of ~$3,200/person/month at mid-range interior, covering cruise fare (most meals included), port fees, gratuities (~$25/day), drinks, shore excursions, travel insurance, internet, and embarkation flights. Cabin type multipliers: interior 1.0x, balcony 1.4x, suite 2.2x. Line tier multipliers: budget 0.7x, mid-range 1.0x, premium 1.6x, luxury 2.8x.</li>
+                    <li><strong>Cruise Ship (Semi-Permanent):</strong> Blends cruising months at the above rates with home-base months at standard stay-at-home costs, averaged across 12 months.</li>
                 </ul>
             </div>
             
             <h3 style="font-family: var(--font-serif); font-size: 1.5rem; color: var(--color-primary); margin: 2rem 0 1rem;">Data Sources</h3>
             
             <ul style="margin-left: 1.5rem; margin-bottom: 1.5rem;">
-                <li><strong>Numbeo Cost of Living Index:</strong> Crowdsourced cost data from 9000+ cities worldwide</li>
+                <li><strong>Numbeo Cost of Living Index:</strong> Crowdsourced cost data from 9,000+ cities worldwide</li>
                 <li><strong>Expatistan:</strong> User-contributed cost comparisons between cities</li>
                 <li><strong>U.S. Bureau of Labor Statistics:</strong> Consumer Expenditure Survey for baseline U.S. spending patterns</li>
                 <li><strong>International Living:</strong> Monthly cost of living reports from expat correspondents</li>
                 <li><strong>Expat Communities:</strong> Reddit (r/ExpatFIRE, r/digitalnomad), Facebook expat groups, forum discussions</li>
                 <li><strong>RV Lifestyle Blogs:</strong> Full-time RVer budget breakdowns and expense tracking</li>
+                <li><strong>Cruise Full-Timers:</strong> Reports from full-time cruisers, Cruise Critic community forums, back-to-back cruising cost analyses</li>
                 <li><strong>Digital Nomad Resources:</strong> Nomad List, slow travel blogs, location-independent worker budgets</li>
             </ul>
             
